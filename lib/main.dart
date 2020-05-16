@@ -15,7 +15,7 @@ class _MyAppState extends State <MyApp> {
   Widget build(BuildContext context) {
     // TODO: implement build
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(),//ramadan say hi
     );
   }
 }
