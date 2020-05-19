@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:Borhan_User/api/campaign_api.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
+import 'package:Borhan_User/screens/navigation_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -27,20 +28,23 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
     CampaignNotifier campaignNotifier =
         Provider.of<CampaignNotifier>(context, listen: false);
     return Scaffold(
+      drawer:NavigationDrawer(),
         appBar: AppBar(
           title: Text("برهان"),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.list),
-                onPressed: () {
-                  print('Icon Button was Pressed');
-                }),
+            // IconButton(
+            //   
+            //     icon: Icon(Icons.list),
+            //     onPressed: () {
+            //       print('Icon Button was Pressed');
+            //     }),
           ],
         ),
 
         body: Column(
 
           children: <Widget>[
+            
             Container(
               height:150 ,
 
@@ -126,8 +130,11 @@ Expanded (child: ListView.builder(
 
 
         ),
+        
     ],
-    )
+  
+    ),
+    
     );
   }
 }
