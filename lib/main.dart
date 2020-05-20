@@ -58,6 +58,7 @@ class MyApp extends StatelessWidget {
           '/Home': (context) => OrgOverviewScreen(),
           '/Notifications': (context) => Notifications(),
           '/Login': (context) => LoginScreen(),
+          '/Signup': (context) => SignupScreen(),
           '/Profile': (context) => Profile(),
           '/Support': (context) => Support(),
         }

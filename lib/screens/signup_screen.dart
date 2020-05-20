@@ -295,8 +295,14 @@ class _SignupScreenState  extends State <SignupScreen > {
                   SizedBox(height: 30,),
                   FadeAnimation(2, Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                    child: Center(child: Text("أمتلك حساب",
-                      style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6)),),
+                    child: Center(
+                      child: FlatButton(
+                        child: Text("أمتلك حساب",
+                        style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6),
+                          ),
+                        ),
+                        onPressed: ()=>Navigator.pushNamed(context, '/Login'),
+                      ),
                     ),
                   )),
                 ],
