@@ -30,19 +30,42 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     
     return MaterialApp(
-      title: 'Borhan',
-      theme: new ThemeData(
-        primarySwatch: Colors.purple,
-      ),
-      home:LoginScreen()
-//      Consumer<CampaignNotifier>(
-//        builder: (context, notifier,child){
-//            return OrgOverviewScreen();
-//        }
-//      )
+      builder: (BuildContext context, Widget child) {
+              return new Directionality(
+                textDirection: TextDirection.rtl,
+                child: new Builder(
+                  builder: (BuildContext context) {
+                    return new MediaQuery(
+                      data: MediaQuery.of(context).copyWith(
+                            textScaleFactor: 1.0,
+                          ),
+                      child: child,
+                    );
+                  },
+                ),
+              );
+            },
+        title: 'Borhan',
+        theme: new ThemeData(
+          primarySwatch: Colors.purple,
+        ),
+        home: Consumer<CampaignNotifier>(builder: (context, notifier, child) {
+          return OrgOverviewScreen();
+        }),
+        routes:{
+          '/DonationHistory': (context) => DonationHistory(),
+          '/Favourite': (context) => Favourite(),
+          '/Home': (context) => OrgOverviewScreen(),
+          '/Notifications': (context) => Notifications(),
+          '/Login': (context) => LoginScreen(),
+          '/Profile': (context) => Profile(),
+          '/Support': (context) => Support(),
+        }
+
     );
   }
 }
+
 
 //class MyHomePage extends StatefulWidget {
 //  @override
