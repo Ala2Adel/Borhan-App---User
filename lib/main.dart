@@ -8,56 +8,38 @@ import 'package:Borhan_User/screens/support_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:Borhan_User/screens/login_screen.dart';
+import  'package:Borhan_User/screens/login_screen.dart';
+import  'package:Borhan_User/screens/signup_screen.dart';
 
 import 'models/campaign.dart';
 
-void main() => runApp(MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          builder: (context) => CampaignNotifier(),
-        )
-      ],
-      child: MyApp(),
-    ));
+void main() => runApp(
+    MultiProvider(
+  providers: [
+    ChangeNotifierProvider(builder: (context)=> CampaignNotifier(),)
+  ],
+  child: MyApp(),
+  )
+//    MyApp()
+
+);
+
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     
     return MaterialApp(
-      builder: (BuildContext context, Widget child) {
-              return new Directionality(
-                textDirection: TextDirection.rtl,
-                child: new Builder(
-                  builder: (BuildContext context) {
-                    return new MediaQuery(
-                      data: MediaQuery.of(context).copyWith(
-                            textScaleFactor: 1.0,
-                          ),
-                      child: child,
-                    );
-                  },
-                ),
-              );
-            },
-        title: 'Borhan',
-        theme: new ThemeData(
-          primarySwatch: Colors.purple,
-        ),
-        home: Consumer<CampaignNotifier>(builder: (context, notifier, child) {
-          return OrgOverviewScreen();
-        }),
-        routes:{
-          '/DonationHistory': (context) => DonationHistory(),
-          '/Favourite': (context) => Favourite(),
-          '/Home': (context) => OrgOverviewScreen(),
-          '/Notifications': (context) => Notifications(),
-          '/Login': (context) => LoginScreen(),
-          '/Profile': (context) => Profile(),
-          '/Support': (context) => Support(),
-        }
-
+      title: 'Borhan',
+      theme: new ThemeData(
+        primarySwatch: Colors.purple,
+      ),
+      home:LoginScreen()
+//      Consumer<CampaignNotifier>(
+//        builder: (context, notifier,child){
+//            return OrgOverviewScreen();
+//        }
+//      )
     );
   }
 }

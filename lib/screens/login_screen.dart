@@ -1,6 +1,9 @@
+import 'package:Borhan_User/providers/auth.dart';
 import 'package:flutter/material.dart';
 import '../Animation/FadeAnimation.dart';
 
+
+enum AuthMode { ResetPassword, Login }
 
 class LoginScreen  extends StatefulWidget {
   // This widget is the root of your application.
@@ -9,6 +12,92 @@ class LoginScreen  extends StatefulWidget {
 }
 
 class _LoginScreenState  extends State <LoginScreen > {
+
+  Map<String, String> _authData = {
+    'email': '',
+    'password': '',
+  };
+  AuthMode _authMode = AuthMode.Login;
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final _passwordController = TextEditingController();
+
+  void _showErrorDialog(String message) {
+    print("alert");
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('حدث خطأ ما'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('حسنا'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          )
+        ],
+      ),
+    );
+  }
+  Future<void> _submit() async {
+    print("Container pressed");
+    if (!_formKey.currentState.validate()) {
+      // Invalid!
+      print("formKey.currentState IS Invalid");
+      return;
+    }
+    _formKey.currentState.save();
+    if (_authMode == AuthMode.Login) {
+    try {
+      // Log user in
+//      await Provider.of<Auth>(context, listen: false).login(
+//        _authData['email'],
+//        _authData['password'],
+//      );
+      Auth auth=new Auth();
+      await auth.login(
+        _authData['email'],
+        _authData['password'],
+      );
+      const errorMessage =
+          'اهلا بك';
+      _showErrorDialog(errorMessage);
+//      Navigator.push(
+//          context, MaterialPageRoute(builder: (context) => Home()));
+
+      // Navigator.of(context).pushReplacementNamed('/home');
+    }
+
+      catch (error) {
+      print(error);
+      const errorMessage =
+          'البريد الإلكتروني أو كلمة المرور غير صحيحة ,رجاء المحاولة مرة أخري';
+      _showErrorDialog(errorMessage);
+         }
+    } else {
+      try {
+        Auth auth = new Auth();
+        await auth.resetPassword(_authData['email']);
+      }
+      catch (error) {
+        print(error);
+        const errorMessage =
+            'البريد الإلكتروني غير موجود';
+        _showErrorDialog(errorMessage);
+      }
+     }
+  }
+  void _switchAuthMode() {
+    if (_authMode == AuthMode.Login) {
+      setState(() {
+        _authMode = AuthMode.ResetPassword;
+      });
+    } else {
+      setState(() {
+        _authMode = AuthMode.Login;
+      });
+    }
+  }
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
@@ -66,8 +155,15 @@ class _LoginScreenState  extends State <LoginScreen > {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  FadeAnimation(1.5, Text("تسجيل دخول",style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1), fontWeight: FontWeight.bold, fontSize: 30),
-                  )),
+                  FadeAnimation(1.5,
+                      Text(_authMode == AuthMode.Login
+                          ? 'تسجيل الدخول'
+                          : 'نسيت كلمه المرور',
+                        style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1)
+                            , fontWeight: FontWeight.bold
+                            , fontSize: 30),
+                     ),
+                  ),
                   SizedBox(height: 20,),
                   FadeAnimation(1.7, Container(
                     decoration: BoxDecoration(
@@ -81,55 +177,81 @@ class _LoginScreenState  extends State <LoginScreen > {
                           )
                         ]
                     ),
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                              border: Border(bottom: BorderSide(
-                                  color: Colors.grey[200]
-                              ))
-                          ),
-                          child: TextField(
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              hintText: "البريد الالكترونى",
-                              prefixIcon: Icon(
-                                Icons.email,
-                                color: Colors.deepPurple,
-
-                              ),
-                              hintStyle: TextStyle(color: Colors.grey),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                                border: Border(bottom: BorderSide(
+                                    color: Colors.grey[200]
+                                ))
                             ),
-                            textAlign: TextAlign.end,
-                          ),
-
-                        ),
-                        Container(
-                          padding: EdgeInsets.all(10),
-                          child: TextField(
-                            decoration: InputDecoration(
+                            child: TextFormField(
+                              decoration: InputDecoration(
                                 border: InputBorder.none,
-                                hintText: "كلمه المرور",
+                                hintText: "البريد الالكترونى",
                                 prefixIcon: Icon(
-                                  Icons.lock,
+                                  Icons.email,
                                   color: Colors.deepPurple,
 
                                 ),
-                                hintStyle: TextStyle(color: Colors.grey)
+                                hintStyle: TextStyle(color: Colors.grey),
+                              ),
+                              textAlign: TextAlign.end,
+                              keyboardType: TextInputType.emailAddress,
+                              validator: (value) {
+                                bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+                                if (!emailValid) {
+                                  return 'Invalid email!';
+                                }
+                              },
+                              onSaved: (value) {
+                                _authData['email'] = value;
+                              },
                             ),
-                            textAlign: TextAlign.end,
+
                           ),
-                        )
-                      ],
+                          if (_authMode == AuthMode.Login)
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            child: TextFormField(
+                              decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "كلمه المرور",
+                                  prefixIcon: Icon(
+                                    Icons.lock,
+                                    color: Colors.deepPurple,
+
+                                  ),
+                                  hintStyle: TextStyle(color: Colors.grey)
+                              ),
+                              textAlign: TextAlign.end,
+                              obscureText: true,
+                              controller: _passwordController,
+                              onSaved: (value) {
+                                _authData['password'] = value;
+                              },
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   )),
                   SizedBox(height: 20,),
                   FadeAnimation(1.7, Center(child:
-                  Text("هل نسيت كلمه المرور ؟", style: TextStyle(color: Color.fromRGBO(196, 135, 198, 1)),))),
+                  FlatButton(child: Text('${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
+                    style: TextStyle(color: Color.fromRGBO(196, 135, 198, 1),
+                       ),
+                     ),
+                    onPressed: _switchAuthMode,
+                    ),
+                   ),
+                  ),
                   SizedBox(height: 20,),
                   FadeAnimation(1.9, InkWell(
-                    onTap: () => print("Container pressed"), // handle your onTap here
+                    onTap: _submit, // handle your onTap here
                     child: Container(
                       height: 50,
                       margin: EdgeInsets.symmetric(horizontal: 60),
@@ -138,15 +260,23 @@ class _LoginScreenState  extends State <LoginScreen > {
                         color: Color.fromRGBO(49, 39, 79, 1),
                       ),
                       child: Center(
-                        child: Text("تسجيل دخول", style: TextStyle(color: Colors.white),),
+                        child: Text(_authMode == AuthMode.Login
+                            ? 'تسجيل الدخول'
+                            : 'إرسال رابط تغيير كلمة المرور',
+                          style: TextStyle(color: Colors.white),
+                        ),
                       ),
                     ),
                   )),
                   SizedBox(height: 30,),
                   FadeAnimation(2, Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                    child: Center(child: Text("حساب جديد",
-                      style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6)),),
+                    child: Center(child: FlatButton(
+                      child: Text("حساب جديد",
+                        style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6))
+                        ,
+                      ),
+                    ),
                     ),
                   )),
                 ],
