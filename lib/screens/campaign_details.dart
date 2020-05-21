@@ -10,27 +10,26 @@ class CampaignDetail extends StatelessWidget {
         Provider.of<CampaignNotifier>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: Text(campaignNotifier.currentCampaign.name),
+        title: Text(campaignNotifier.currentCampaign.campaignName),
       ),
       body: Center(
         child: Column(
           children: <Widget>[
-            Image.network(campaignNotifier.currentCampaign.image),
+            Image.network(campaignNotifier.currentCampaign.imagesUrl),
             SizedBox(
-                height: 20),
+                height: 30),
             Text(
-              campaignNotifier.currentCampaign.name,
+              campaignNotifier.currentCampaign.campaignName,
               style: TextStyle(
                   fontSize: 24),
             ),
             Text(
-              campaignNotifier.currentCampaign.description,
+              campaignNotifier.currentCampaign.campaignDescription,
               style: TextStyle(
                   fontSize: 20,
                   fontStyle: FontStyle.italic),
             )
           ],
-          //  children: <Widget>[Text("تفاصيل الحملة")],
         ),
       ),
     );

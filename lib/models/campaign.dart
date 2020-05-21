@@ -1,19 +1,17 @@
 import 'package:flutter/foundation.dart';
 
-class Campaign{
-  // String id;
-   String name;
-   String description;
-   String image;
-   String period;
+class Campaign with ChangeNotifier {
+  final String id;
+  final String campaignName;
+  final String campaignDescription;
+  final String imagesUrl;
+  final String time;
 
-  Campaign.fromMap(Map<String, dynamic> data){
-    //id = data['id'];
-    name = data['Name'];
-    description = data['Description'];
-    image=data['Image'];
-    period = data['Period'];
-
-
-  }
+  Campaign({
+    this.id,
+    @required this.campaignName,
+    @required this.campaignDescription,
+    this.imagesUrl,
+    this.time,
+  });
 }
