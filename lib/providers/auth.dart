@@ -9,7 +9,7 @@ class Auth with ChangeNotifier {
   String _token;
   DateTime _expiryDate;
   String _userId;
-  final String MYKEY='AIzaSyAwQcchyAuEiH-zz8i27n0uw5GeYZ7icXE';
+  final String MYKEY='AIzaSyCLYK4YRGvB9ouLYqxGNnRetvZuG2mhA0c';
 
   Future<void> _authenticate(
       String email, String password, String urlSegment) async {

@@ -1,5 +1,6 @@
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
 
 
@@ -50,15 +51,15 @@ class _LoginScreenState  extends State <LoginScreen > {
     if (_authMode == AuthMode.Login) {
     try {
       // Log user in
-//      await Provider.of<Auth>(context, listen: false).login(
-//        _authData['email'],
-//        _authData['password'],
-//      );
-      Auth auth=new Auth();
-      await auth.login(
+      await Provider.of<Auth>(context, listen: false).login(
         _authData['email'],
         _authData['password'],
       );
+//      Auth auth=new Auth();
+//      await auth.login(
+//        _authData['email'],
+//        _authData['password'],
+//      );
       const errorMessage =
           'اهلا بك';
       _showErrorDialog(errorMessage);
@@ -153,7 +154,7 @@ class _LoginScreenState  extends State <LoginScreen > {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+//                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   FadeAnimation(1.5,
                       Text(_authMode == AuthMode.Login
@@ -199,7 +200,7 @@ class _LoginScreenState  extends State <LoginScreen > {
                                 ),
                                 hintStyle: TextStyle(color: Colors.grey),
                               ),
-                              textAlign: TextAlign.end,
+//                              textAlign: TextAlign.end,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
@@ -227,7 +228,7 @@ class _LoginScreenState  extends State <LoginScreen > {
                                   ),
                                   hintStyle: TextStyle(color: Colors.grey)
                               ),
-                              textAlign: TextAlign.end,
+//                              textAlign: TextAlign.end,
                               obscureText: true,
                               controller: _passwordController,
                               onSaved: (value) {

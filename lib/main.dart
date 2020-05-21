@@ -1,4 +1,6 @@
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
+import 'package:Borhan_User/providers/auth.dart';
+import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/Notification_screen.dart';
 import 'package:Borhan_User/screens/donation_history.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
@@ -16,6 +18,12 @@ import 'models/campaign.dart';
 void main() => runApp(
     MultiProvider(
   providers: [
+    ChangeNotifierProvider.value(
+      value: Auth(),
+    ),
+    ChangeNotifierProvider.value(
+      value: UsersPtovider(),
+    ),
     ChangeNotifierProvider(builder: (context)=> CampaignNotifier(),)
   ],
   child: MyApp(),

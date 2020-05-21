@@ -1,4 +1,5 @@
 import 'package:Borhan_User/providers/auth.dart';
+import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
@@ -13,6 +14,7 @@ class SignupScreen  extends StatefulWidget {
 class _SignupScreenState  extends State <SignupScreen > {
 
   Map<String, String> _authData = {
+    'name': '',
     'email': '',
     'password': '',
   };
@@ -54,15 +56,27 @@ class _SignupScreenState  extends State <SignupScreen > {
 
     try {
       // Log user in
-//      await Provider.of<Auth>(context, listen: false).login(
-//        _authData['email'],
-//        _authData['password'],
-//      );
-      Auth auth=new Auth();
-      await auth.signup(
+      await Provider.of<Auth>(context, listen: false).signup(
         _authData['email'],
         _authData['password'],
       );
+//      Auth auth=new Auth();
+//      await auth.signup(
+//        _authData['email'],
+//        _authData['password'],
+//      );
+      await Provider.of<UsersPtovider>(context, listen: false).addUser(
+        _authData['name'],
+        _authData['email'],
+        _authData['password'],
+      );
+
+//      UsersPtovider usersPtovider =new UsersPtovider();
+//      await  usersPtovider.addUser(
+//        _authData['name'],
+//        _authData['email'],
+//        _authData['password'],
+//      );
 //      Navigator.push(
 //          context, MaterialPageRoute(builder: (context) => Home()));
 
@@ -131,10 +145,14 @@ class _SignupScreenState  extends State <SignupScreen > {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+//                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  FadeAnimation(1.5, Text("تسجيل حساب",style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1), fontWeight: FontWeight.bold, fontSize: 30),
-                  )),
+                  FadeAnimation(1.5,
+                      Text("تسجيل حساب",
+                        style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1),
+                            fontWeight: FontWeight.bold, fontSize: 30),
+                    ),
+                  ),
                   SizedBox(height: 20,),
                   FadeAnimation(1.7, Container(
                     decoration: BoxDecoration(
@@ -166,7 +184,10 @@ class _SignupScreenState  extends State <SignupScreen > {
                                   ),
                                   hintStyle: TextStyle(color: Colors.grey)
                               ),
-                              textAlign: TextAlign.end,
+//                              textAlign: TextAlign.end,
+                              onSaved: (value) {
+                                _authData['name'] = value;
+                              },
                             ),
                           ),
                           Container(
@@ -187,7 +208,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                                 ),
                                 hintStyle: TextStyle(color: Colors.grey),
                               ),
-                              textAlign: TextAlign.end,
+//                              textAlign: TextAlign.end,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
                                 bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
@@ -214,7 +235,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                                   ),
                                   hintStyle: TextStyle(color: Colors.grey)
                               ),
-                              textAlign: TextAlign.end,
+//                              textAlign: TextAlign.end,
                               keyboardType: TextInputType.number,
                             ),
                           ),
@@ -231,7 +252,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                                   ),
                                   hintStyle: TextStyle(color: Colors.grey)
                               ),
-                              textAlign: TextAlign.end,
+//                              textAlign: TextAlign.end,
                               obscureText: true,
                               controller: _passwordController,
                               validator: (value) {
@@ -258,7 +279,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                                   ),
                                   hintStyle: TextStyle(color: Colors.grey)
                               ),
-                              textAlign: TextAlign.end,
+//                              textAlign: TextAlign.end,
                               obscureText: true,
                               controller: _passwordConfirmController,
                               validator: (value) {
