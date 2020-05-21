@@ -2,6 +2,7 @@ import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
+import 'package:Borhan_User/screens/organization_activities.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -46,7 +47,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
   Widget build(BuildContext context) {
     Color firstColor = Color(0xFFF47D15);
     Color secondColor = Color(0xFFEF772C);
-    
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
@@ -137,19 +137,12 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
       appBar: new AppBar(
         title: new Text(
           'برهان',
-          style: new TextStyle(color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
-             ),
+          style: new TextStyle(
+              color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
+        ),
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-//        actions: <Widget>[
-//          new IconButton(
-//              icon: new Icon(
-//                Icons.list,
-//                color: Colors.white,
-//              ),
-//              onPressed: () {})
-//        ],
       ),
       drawer: NavigationDrawer(),
       backgroundColor: Colors.transparent,
@@ -194,11 +187,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                   side: BorderSide(color: Colors.black),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(
-                                      context)
-                                      .push(MaterialPageRoute(builder:
-                                      (BuildContext
-                                  context) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
                                     return Donation();
                                   }));
                                 },
@@ -216,12 +206,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 itemCount: orgNotifier.orgList.length,
                                 itemBuilder: (context, index) {
                                   return ClipRRect(
-                                    borderRadius: new BorderRadius.circular(10),
-                                    child: Container(
-                                      margin:
-                                          EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                    borderRadius: new BorderRadius.circular(20),
+                                    child: Card(
+                                      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
                                       color: Colors.blueGrey.withAlpha(500),
-                                      padding: EdgeInsets.only(top: 20.0),
+                                      //padding: EdgeInsets.only(top: 20.0),
                                       child: new ListTile(
                                         contentPadding: EdgeInsets.all(8.0),
                                         title: new Column(
@@ -260,7 +249,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                         .logo !=
                                                                     ""
                                                             ? new NetworkImage(
-                                                                //orgNotifier.orgList[index].logo!= null || orgNotifier.orgList[index].logo!= ""?
                                                                 orgNotifier
                                                                     .orgList[
                                                                         index]
@@ -372,7 +360,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                 .push(MaterialPageRoute(builder:
                                                                     (BuildContext
                                                                         context) {
-                                                              return OrganizationDetails();
+                                                              return OrganizationActivity();
                                                             }));
                                                           },
                                                           child: Text(
@@ -383,7 +371,12 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                     .black),
                                                           ),
                                                         ),
-                                                        Icon(Icons.favorite, color: Colors.redAccent, size: 30.0, )
+                                                        Icon(
+                                                          Icons.favorite,
+                                                          color:
+                                                              Colors.redAccent,
+                                                          size: 30.0,
+                                                        )
                                                       ],
                                                     )
                                                   ],
@@ -405,7 +398,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
             ),
     );
 
-
     return new Container(
       decoration: new BoxDecoration(
         color: const Color(0xFF273A48),
@@ -419,10 +411,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
           body,
         ],
       ),
-
-    
-  
-    
     );
   }
 }
