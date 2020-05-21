@@ -1,6 +1,7 @@
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
+import 'package:Borhan_User/screens/navigation_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -45,6 +46,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
   Widget build(BuildContext context) {
     Color firstColor = Color(0xFFF47D15);
     Color secondColor = Color(0xFFEF772C);
+    
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
@@ -402,27 +404,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
             ),
     );
 
-//    return new Container(
-//      decoration: new BoxDecoration(
-//     //   color: const Color(0xFF273A48),
-//      ),
-//      child: new Stack(
-//        children: <Widget>[
-//          new ClipPath(
-//           // size: new Size(_width, _height),
-//            clipper: new Background(),
-//            child: Container(height: 350.0,
-//              decoration: BoxDecoration(
-//                gradient: LinearGradient(
-//                  colors: [firstColor, Colors.deepOrangeAccent],
-//                ),
-//              ),
-//            )
-//          ),
-//          body,
-//        ],
-//      ),
-//    );
 
     return new Container(
       decoration: new BoxDecoration(
@@ -437,6 +418,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
           body,
         ],
       ),
+
+    
+  
+    
     );
   }
 }
