@@ -278,7 +278,7 @@ class _LoginScreenState  extends State <LoginScreen > {
                           style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6))
                           ,
                         ),
-                        onPressed: ()=>Navigator.pushNamed(context, '/Signup'),
+                        onPressed: ()=>Navigator.pushReplacementNamed(context, '/Signup'),
                       ),
                     ),
                     ),

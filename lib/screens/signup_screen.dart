@@ -322,7 +322,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                         style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6),
                           ),
                         ),
-                        onPressed: ()=>Navigator.pushNamed(context, '/Login'),
+                        onPressed: ()=>Navigator.pushReplacementNamed(context, '/Login'),
                       ),
                     ),
                   )),
