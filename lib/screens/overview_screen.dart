@@ -142,15 +142,16 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
         centerTitle: true,
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        actions: <Widget>[
-          new IconButton(
-              icon: new Icon(
-                Icons.list,
-                color: Colors.white,
-              ),
-              onPressed: () {})
-        ],
+//        actions: <Widget>[
+//          new IconButton(
+//              icon: new Icon(
+//                Icons.list,
+//                color: Colors.white,
+//              ),
+//              onPressed: () {})
+//        ],
       ),
+      drawer: NavigationDrawer(),
       backgroundColor: Colors.transparent,
       body: _isLoading
           ? Center(
