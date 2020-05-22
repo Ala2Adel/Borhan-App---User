@@ -42,11 +42,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             leading: new Icon(Icons.arrow_right),
             onTap: ()=>Navigator.pushNamed(context, '/Login'),
           ),
-          new ListTile(
-            title: new Text("ملفي"),
-            leading: new Icon(Icons.people),
-            onTap: ()=>Navigator.pushNamed(context, '/Profile'),
-          ),
+          // new ListTile(
+          //   title: new Text("ملفي"),
+          //   leading: new Icon(Icons.people),
+          //   onTap: ()=>Navigator.pushNamed(context, '/Profile'),
+          // ),
           Divider(),
           new ListTile(
             title: new Text("الدعم و المساعدة"),
