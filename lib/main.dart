@@ -17,6 +17,7 @@ import 'package:provider/provider.dart';
 import 'package:Borhan_User/screens/login_screen.dart';
 import 'package:Borhan_User/screens/signup_screen.dart';
 
+import './screens/location_selection.dart';
 import 'notifiers/organization_notifier.dart';
 import 'models/campaign.dart';
 
@@ -62,7 +63,11 @@ class MyApp extends StatelessWidget {
             theme: new ThemeData(
               primarySwatch: Colors.blueGrey,
             ),
-            home: SplashScreen(),
+            home: 
+            // SplashScreen()
+            LocationSelection()
+            
+            ,
             routes: {
 //      OrganizationDetails.routeName: (ctx) => OrganizationDetails(),
 //      OrganizationActivity.routeName: (ctx) => OrganizationActivity(),
