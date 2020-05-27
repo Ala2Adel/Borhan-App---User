@@ -24,6 +24,7 @@ class Activity with ChangeNotifier {
   void toggleFavoriteStatus (){
     final oldStatus = isFavorite;
     isFavorite = !isFavorite;
+    
     notifyListeners();
     final url = 'https://borhanadmin.firebaseio.com/activities/$id.json';
     
