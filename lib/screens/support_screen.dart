@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-List<String> _email = [] ;
+//List<String> _email = [] ;
+
+var _email = new List<String>();
 
 class Support extends StatefulWidget {
 
@@ -29,16 +31,15 @@ class _SupportState extends State<Support> {
         title: Text("الدعم والمساعدة"),
 
       ),
+      body:
+      ListView(
+        children: <Widget>[
 
-      body: Center(child: Text("Notification History")),
-//      ListView(
-//        children: <Widget>[
-//
-//          Text(''+ _email.toString(), style: new TextStyle(
-//          color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
-//          )],
-//
-//      )
+          Text(''+ _email.toString(), style: new TextStyle(
+          color: Colors.black, fontSize: 30, fontWeight: FontWeight.bold),
+          )],
+
+      )
     );
   }
 }

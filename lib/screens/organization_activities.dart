@@ -58,6 +58,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.list), onPressed: _pushSaved,
+
           ),
         ],
       ),
@@ -177,12 +178,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                     new Text(
                                                       activityNotifier
                                                           .activityList[index]
-                                                          .description !=
-                                                          null
-                                                          ? activityNotifier
-                                                          .activityList[index]
-                                                          .name
-                                                          : 'no value',
+                                                          .description,
                                                       style: new TextStyle(
                                                           fontSize: 18.0,
                                                           color: Colors.white,
@@ -278,13 +274,13 @@ class _ActivityScreenState extends State<OrganizationActivity> {
       ),
       onTap: () {
         setState(() {
-         // print(_saved);
+          print(_saved);
           if (alreadySaved) {
             _saved.remove(pair);
-           // _decrementCounter();
+            //_decrementCounter();
           } else {
             _saved.add(pair);
-           // _incrementCounter();
+            //_incrementCounter();
           }
         });
       },
@@ -299,13 +295,12 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         builder: (BuildContext context) {
           final Iterable<ListTile> tiles = _saved.map(
             (String pair) {
-
               return ListTile(
                 title: Text(
                   pair.toString(),
                   style: new TextStyle(
                     fontSize: 21.0,
-                    color: Colors.black,
+                    color: Colors.blueGrey,
                     fontFamily: 'Arvo',
                     fontWeight: FontWeight.bold,
                   ),
@@ -319,7 +314,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
           ).toList();
 
           return Scaffold(
-            backgroundColor: Colors.white.withAlpha(230),
+            backgroundColor: Colors.black12,
             appBar: new AppBar(
               elevation: 0.3,
               centerTitle: true,
@@ -327,9 +322,11 @@ class _ActivityScreenState extends State<OrganizationActivity> {
               title: new Text('Saved Suggestions'),
             ),
             body: ListView(children: divided),
+
             //   new Favourite(ListView(children: divided));
           );
         },
+        //    Favourite( ListView (children: divided));
       ),
     );
   }

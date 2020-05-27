@@ -47,5 +47,29 @@ class ActivityNotifier with ChangeNotifier {
     }
   }
 
+//  Future <void> toggleFavoriteStatus () async{
+//    final oldStatus = isFavorite;
+//    isFavorite = !isFavorite;
+//    notifyListeners();
+//    final url = 'https://borhanadmin.firebaseio.com/activities/$id';
+//    try{
+//      final response = await http.patch(
+//          url,
+//          body:
+//          json.encode({
+//            'isFavorite' : isFavorite,
+//          }));
+//      if(response.statusCode >= 400){
+//        isFavorite = oldStatus;
+//        notifyListeners();
+//      }
+//
+//    } catch (error){
+//      isFavorite = oldStatus;
+//      notifyListeners();
+//    }
+//
+//  }
+
 
 }
