@@ -20,6 +20,10 @@ class ActivityNotifier with ChangeNotifier {
     return [..._activityList];
   }
 
+    Activity findById(String id) {
+    return _activityList.firstWhere((organization) => organization.id == id);
+  }
+
   Future<void> fetchAndSetActivities() async {
     const url = 'https://borhanadmin.firebaseio.com/activities.json';
     try {
@@ -33,6 +37,7 @@ class ActivityNotifier with ChangeNotifier {
           name: prodData['name'],
           image: prodData['image'],
           description: prodData['description'],
+          isFavorite: prodData ['isFavorite'],
         ));
       });
       _activityList = loadedActivity;

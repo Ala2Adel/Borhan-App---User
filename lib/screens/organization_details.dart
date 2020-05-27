@@ -21,11 +21,11 @@ class OrganizationDetails extends StatelessWidget {
         body: Center(
           child: Column(
             children: <Widget>[
-              Image.network(orgNotifier.currentOrg.logo),
+              Expanded(child: Image.network(orgNotifier.currentOrg.logo)),
               SizedBox(
-                  height: 30),
+                  height: 50),
               Text(
-                "الوصف"+orgNotifier.currentOrg.description,
+                "الوصف: "+orgNotifier.currentOrg.description,
                 style: TextStyle(
                     fontSize: 24),
               ),

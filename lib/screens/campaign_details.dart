@@ -15,7 +15,7 @@ class CampaignDetail extends StatelessWidget {
       body: Center(
         child: Column(
           children: <Widget>[
-            Image.network(campaignNotifier.currentCampaign.imagesUrl),
+            Expanded(child: Image.network(campaignNotifier.currentCampaign.imagesUrl)),
             SizedBox(
                 height: 30),
             Text(

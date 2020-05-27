@@ -24,6 +24,10 @@ import 'package:Borhan_User/screens/signup_screen.dart';
 
 import './screens/location_selection.dart';
 import 'notifiers/organization_notifier.dart';
+
+import 'package:Borhan_User/screens/fast_donation.dart';
+
+
 import 'models/campaign.dart';
 
 void main() => runApp(MyApp());
@@ -56,6 +60,7 @@ class MyApp extends StatelessWidget {
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
             builder: (BuildContext context, Widget child) {
               return new Directionality(
                 textDirection: TextDirection.rtl,
@@ -77,7 +82,7 @@ class MyApp extends StatelessWidget {
             ),
             home: 
             SplashScreen()
-            // LocationSelection()
+            //LocationSelection()
             
             ,
             routes: {
