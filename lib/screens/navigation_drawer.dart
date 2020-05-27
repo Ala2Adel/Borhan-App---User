@@ -1,3 +1,5 @@
+import 'package:Borhan_User/screens/chat_screen.dart';
+import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
 
@@ -7,6 +9,7 @@ class NavigationDrawer extends StatefulWidget {
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
+
   @override
   Widget build(BuildContext context) {
     return Drawer(
@@ -51,7 +54,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: new Text("الدعم و المساعدة"),
             leading: new Icon(Icons.help),
-            onTap: ()=>Navigator.pushNamed(context, '/Support'),
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => HelpScreen()));
+            },
           )
         ],
       ),

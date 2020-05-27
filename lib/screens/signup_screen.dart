@@ -213,7 +213,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                               validator: (value) {
                                 bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
                                 if (!emailValid) {
-                                  return 'Invalid email!';
+                                  return 'البريد الالكترونى غير صالح ';
                                 }
                               },
                               onSaved: (value) {
@@ -257,7 +257,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                               controller: _passwordController,
                               validator: (value) {
                                 if (value.isEmpty || value.length < 5) {
-                                  return 'Password is too short!';
+                                  return 'كلمة المرور قصيرة جدا';
                                 }
                               },
                               onSaved: (value) {
@@ -284,7 +284,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                               controller: _passwordConfirmController,
                               validator: (value) {
                                 if(value != _passwordController.text){
-                                  return 'Not Match';
+                                  return 'غير مطابقة';
                                 }
 
                               },
@@ -309,7 +309,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                         color: Color.fromRGBO(49, 39, 79, 1),
                       ),
                       child: Center(
-                        child: Text("تسجيل دخول", style: TextStyle(color: Colors.white),),
+                        child: Text("تسجيل حساب", style: TextStyle(color: Colors.white),),
                       ),
                     ),
                   )),

@@ -2,6 +2,7 @@ import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/Donation_mainScreen.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
+import 'package:Borhan_User/screens/fast_donation.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
 import 'package:flutter/material.dart';
@@ -188,9 +189,12 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                   side: BorderSide(color: Colors.black),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                    return DonationMainScreen();
+                                  Navigator.of(
+                                      context)
+                                      .push(MaterialPageRoute(builder:
+                                      (BuildContext
+                                  context) {
+                                    return FastDenotationScreen();
                                   }));
                                 },
                                 child: Text(
