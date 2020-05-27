@@ -39,10 +39,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: Auth(),
           ),
-          ChangeNotifierProvider.value(value: ActivityNotifier(),
+          ChangeNotifierProvider.value(
+            value: ActivityNotifier(),
           ),
         ],
         child: MaterialApp(
+          debugShowCheckedModeBanner: false,
             builder: (BuildContext context, Widget child) {
               return new Directionality(
                 textDirection: TextDirection.rtl,
