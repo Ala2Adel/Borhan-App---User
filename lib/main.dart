@@ -19,6 +19,10 @@ import 'package:Borhan_User/screens/signup_screen.dart';
 
 import './screens/location_selection.dart';
 import 'notifiers/organization_notifier.dart';
+
+import 'package:Borhan_User/screens/fast_donation.dart';
+
+
 import 'models/campaign.dart';
 
 void main() => runApp(MyApp());

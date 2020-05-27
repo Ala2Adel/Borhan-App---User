@@ -205,7 +205,7 @@ class _LoginScreenState  extends State <LoginScreen > {
                               validator: (value) {
                                 bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
                                 if (!emailValid) {
-                                  return 'Invalid email!';
+                                  return 'البريد الالكترونى غير صالحج ';
                                 }
                               },
                               onSaved: (value) {
@@ -282,7 +282,8 @@ class _LoginScreenState  extends State <LoginScreen > {
                       ),
                     ),
                     ),
-                  )),
+                  ),
+                  ),
                 ],
               ),
             )
