@@ -1,6 +1,11 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
+import 'package:Borhan_User/providers/chat_provider.dart';
+import 'package:Borhan_User/providers/email_provider.dart';
 import 'package:Borhan_User/screens/Donation.dart';
+import 'package:Borhan_User/screens/chat_screen.dart';
+import 'package:Borhan_User/screens/email_screen.dart';
+import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
 import 'package:Borhan_User/screens/organization_details.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
@@ -40,7 +45,14 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: Auth(),
           ),
-          ChangeNotifierProvider.value(value: ActivityNotifier(),
+          ChangeNotifierProvider.value(
+            value: ActivityNotifier(),
+          ),
+          ChangeNotifierProvider.value(
+            value: EmailProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: ChatProvider(),
           ),
         ],
         child: MaterialApp(
@@ -64,8 +76,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blueGrey,
             ),
             home: 
-            // SplashScreen()
-            LocationSelection()
+            SplashScreen()
+            // LocationSelection()
             
             ,
             routes: {
@@ -81,6 +93,9 @@ class MyApp extends StatelessWidget {
               '/Signup': (context) => SignupScreen(),
               '/Profile': (context) => Profile(),
               '/Support': (context) => Support(),
+              HelpScreen.routeName: (ctx) => HelpScreen(),
+              EmailScreen.routeName: (ctx) => EmailScreen(),
+              ChatScreen.routeName: (ctx) => ChatScreen(),
             }));
   }
 }

@@ -1,7 +1,9 @@
+
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
+import 'overview_screen.dart';
 
 
 enum AuthMode { ResetPassword, Login }
@@ -63,6 +65,9 @@ class _LoginScreenState  extends State <LoginScreen > {
       const errorMessage =
           'اهلا بك';
       _showErrorDialog(errorMessage);
+      Navigator.push(
+          context, MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
+
 //      Navigator.push(
 //          context, MaterialPageRoute(builder: (context) => Home()));
 

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:Borhan_User/screens/login_screen.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -12,10 +13,14 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+//    Timer(
+//        Duration(seconds: 4),
+//            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+//            builder: (BuildContext context) => OrgOverviewScreen())));
     Timer(
         Duration(seconds: 4),
             () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => OrgOverviewScreen())));
+            builder: (BuildContext context) => LoginScreen())));
   }
 
   @override
