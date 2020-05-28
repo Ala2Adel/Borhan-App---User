@@ -80,7 +80,12 @@ class MyApp extends StatelessWidget {
             theme: new ThemeData(
               primarySwatch: Colors.blueGrey,
             ),
-            home: SplashScreen()
+//            home:
+//            OrganizationActivity()
+            // SplashScreen()
+           // LocationSelection()
+            home:
+            SplashScreen()
             //LocationSelection()
 
             ,
