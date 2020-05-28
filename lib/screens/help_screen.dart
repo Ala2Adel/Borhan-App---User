@@ -1,4 +1,6 @@
 import 'package:Borhan_User/providers/auth.dart';
+import 'package:Borhan_User/screens/Help_organizations.dart';
+import 'package:Borhan_User/screens/email_organization.dart';
 import 'package:provider/provider.dart';
 
 import '../screens/chat_screen.dart';
@@ -31,7 +33,7 @@ class _HelpScreenState extends State<HelpScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => EmailScreen()));
+                          builder: (context) => EmailOrganization()));
                 },
                 child: Text(
                   'بواسطة البريد الإلكتروني',
@@ -43,8 +45,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                padding:
-                EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                 color: Theme.of(context).primaryColor,
                 textColor: Theme.of(context).primaryTextTheme.button.color,
               ),
@@ -57,7 +58,9 @@ class _HelpScreenState extends State<HelpScreen> {
               child: RaisedButton(
                 onPressed: () {
                   Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => ChatScreen(id:data.userData.id)));
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => HelpOrganization()));
                 },
                 child: Text(
                   'بواسطة محادثة',
@@ -69,8 +72,7 @@ class _HelpScreenState extends State<HelpScreen> {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30),
                 ),
-                padding:
-                EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                 color: Theme.of(context).primaryColor,
                 textColor: Theme.of(context).primaryTextTheme.button.color,
               ),

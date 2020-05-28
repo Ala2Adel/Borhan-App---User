@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:Borhan_User/models/activity.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,12 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class ActivityNotifier with ChangeNotifier {
-  List <Activity> _activityList =[];
+  List<Activity> _activityList = [];
   Activity _currentActivity;
 
   Activity get currentActivity => _currentActivity;
 
-  set currentActivity (Activity activity) {
+  set currentActivity(Activity activity) {
     _currentActivity = activity;
     notifyListeners();
   }
@@ -20,12 +19,12 @@ class ActivityNotifier with ChangeNotifier {
     return [..._activityList];
   }
 
-    Activity findById(String id) {
+  Activity findById(String id) {
     return _activityList.firstWhere((organization) => organization.id == id);
   }
 
-  Future<void> fetchAndSetActivities() async {
-    const url = 'https://borhanadmin.firebaseio.com/activities.json';
+  Future<void> fetchAndSetActivities(String orgId) async {
+    final url = 'https://borhanadmin.firebaseio.com/activities/$orgId.json';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -37,10 +36,11 @@ class ActivityNotifier with ChangeNotifier {
           name: prodData['name'],
           image: prodData['image'],
           description: prodData['description'],
-          isFavorite: prodData ['isFavorite'],
+          isFavorite: prodData['isFavorite'],
         ));
       });
       _activityList = loadedActivity;
+      print("Notifier" + loadedActivity[0].id);
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -70,6 +70,5 @@ class ActivityNotifier with ChangeNotifier {
 //    }
 //
 //  }
-
 
 }

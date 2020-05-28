@@ -8,8 +8,8 @@ import '../models/chat.dart';
 
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chat';
-  final id;
-  ChatScreen({this.id});
+  final orgId;
+  ChatScreen({this.orgId});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -27,8 +27,9 @@ class _ChatScreenState extends State<ChatScreen> {
 
   void _sendMessage() {
     FocusScope.of(context).unfocus();
+    final data = Provider.of<Auth>(context);
     Provider.of<ChatProvider>(context, listen: false)
-        .addMessage(chat, widget.id)
+        .addMessage(chat, data.userData.id, widget.orgId)
         .then((value) => {
               _controller.clear(),
               _enteredMessage = '',
@@ -39,12 +40,13 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
+    final data = Provider.of<Auth>(context);
     if (_isInit) {
-      print(widget.id);
-      Provider.of<ChatProvider>(context).fetchAndSetChat(widget.id);
+      print(widget.orgId);
+      Provider.of<ChatProvider>(context)
+          .fetchAndSetChat(data.userData.id, widget.orgId);
     }
     _isInit = false;
-    final data = Provider.of<Auth>(context);
     chat = Chat(
         time: '',
         text: '',
@@ -59,6 +61,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   Widget build(BuildContext context) {
     final chatDocs = Provider.of<ChatProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: Text('المحادثة'),
@@ -105,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: TextField(
                       controller: _controller,
                       decoration: InputDecoration(labelText: 'كتابة رسالة ...'),
-                      onTap: (){
+                      onTap: () {
                         _isInit = true;
                       },
                       onChanged: (value) {

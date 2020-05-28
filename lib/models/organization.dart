@@ -11,16 +11,18 @@ class Organization with ChangeNotifier {
   final String mobileNo;
   final String bankAccounts;
   final String webPage;
+  final String email;
 
   Organization(
       {this.id,
-      @required  this.orgName,
-        this.logo,
-        this.address,
-      @required  this.description,
-        this.licenseNo,
-        this.landLineNo,
-        this.mobileNo,
-        this.bankAccounts,
-        this.webPage});
+      @required this.orgName,
+      this.logo,
+      this.address,
+      @required this.description,
+      this.licenseNo,
+      this.email,
+      this.landLineNo,
+      this.mobileNo,
+      this.bankAccounts,
+      this.webPage});
 }

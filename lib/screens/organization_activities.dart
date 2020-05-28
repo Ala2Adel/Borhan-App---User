@@ -12,23 +12,26 @@ import 'package:provider/provider.dart';
 import 'Donation.dart';
 
 class OrganizationActivity extends StatefulWidget {
+  var id;
+  OrganizationActivity(this.id);
   @override
   _ActivityScreenState createState() => _ActivityScreenState();
-
 }
 
 class _ActivityScreenState extends State<OrganizationActivity> {
   var _isLoading = false;
   var _isInit = true;
 
-
   @override
   void didChangeDependencies() {
+    print("Org Screen" + widget.id);
     if (_isInit) {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<ActivityNotifier>(context).fetchAndSetActivities().then((_) {
+      Provider.of<ActivityNotifier>(context)
+          .fetchAndSetActivities(widget.id)
+          .then((_) {
         setState(() {
           _isLoading = false;
           print('in screen activity view');
@@ -38,6 +41,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     _isInit = false;
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -57,8 +61,8 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.list), onPressed: _pushSaved,
-
+            icon: Icon(Icons.list),
+            onPressed: _pushSaved,
           ),
         ],
       ),
@@ -284,9 +288,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
           }
         });
       },
-
     );
-
   }
 
   void _pushSaved() {

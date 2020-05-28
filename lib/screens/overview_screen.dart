@@ -189,11 +189,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                   side: BorderSide(color: Colors.black),
                                 ),
                                 onPressed: () {
-                                  Navigator.of(
-                                      context)
-                                      .push(MaterialPageRoute(builder:
-                                      (BuildContext
-                                  context) {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
                                     return FastDenotationScreen();
                                   }));
                                 },
@@ -213,7 +210,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                   return ClipRRect(
                                     borderRadius: new BorderRadius.circular(20),
                                     child: Card(
-                                      margin: EdgeInsets.fromLTRB(20, 10, 20, 10),
+                                      margin:
+                                          EdgeInsets.fromLTRB(20, 10, 20, 10),
                                       color: Colors.blueGrey.withAlpha(500),
                                       //padding: EdgeInsets.only(top: 20.0),
                                       child: new ListTile(
@@ -365,7 +363,16 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                 .push(MaterialPageRoute(builder:
                                                                     (BuildContext
                                                                         context) {
-                                                              return OrganizationActivity();
+                                                              print("Over view Screen " +
+                                                                  orgNotifier
+                                                                      .orgList[
+                                                                          index]
+                                                                      .id);
+                                                              return OrganizationActivity(
+                                                                  orgNotifier
+                                                                      .orgList[
+                                                                          index]
+                                                                      .id);
                                                             }));
                                                           },
                                                           child: Text(
