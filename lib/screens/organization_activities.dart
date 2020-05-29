@@ -1,4 +1,9 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
+import 'package:Borhan_User/notifiers/organization_notifier.dart';
+import 'package:Borhan_User/screens/Donation_mainScreen.dart';
+import 'package:Borhan_User/screens/favourite_screen.dart';
+import 'package:Borhan_User/screens/navigation_drawer.dart';
+import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -128,7 +133,8 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                             : NetworkImage(
                                                                 'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
                                                         fit: BoxFit.cover,
-                                                      )),
+                                                      ),
+                                                  ),
                                                 ),
                                                 new SizedBox(
                                                   width: 10.0,
@@ -212,7 +218,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                                   .push(MaterialPageRoute(builder:
                                                                       (BuildContext
                                                                           context) {
-                                                                return Donation();
+                                                                return NormalDenotationScreen();
                                                               }));
                                                             },
                                                             child: Text(
@@ -234,7 +240,9 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                       ),
                                     ),
                                   );
-                                }))
+                                 },
+                                ),
+                                )
                       ],
                     ),
                   ),

@@ -78,6 +78,27 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     'items': '',
     'amount': '',
   };
+  void _nextSubmit(){
+
+    if (!_formKey.currentState.validate()) {
+      // Invalid!
+      return;
+    }
+        if (current < 3) {
+          if (current == 2 &&(selectedType == null || selectedOraginzaton == null ||
+              selectedActivity == null)) {
+            _showErrorDialog( "من فضلك اختار نوع التبرع والجمعية والنشاط الذى تود التبرع له");
+             } 
+              else {                 
+               current++;
+                  }
+          }
+                                // print("the current is $current");
+          setState(() {
+              checkCurrent();
+          });
+
+  }
   Future<void> _submit(BuildContext context) async {
     print("Container pressed");
     // Scaffold.of(ctx).showSnackBar(SnackBar(content: Text('Profile Save'),),);
@@ -86,8 +107,12 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       return;
     }
     _formKey.currentState.save();
-    _downloadUrl = await uploadImage(_image);
-    print("value from upload" + _downloadUrl);
+      if (selectedType != 'نقدى')
+    {
+      _downloadUrl = await uploadImage(_image);
+      print("value from upload" + _downloadUrl);
+    }
+
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
     //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
@@ -95,11 +120,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
-          .makeDonationRequest(
+          .makeDonationRequest2(
+              orgId: _orgList[selectedOraginzaton].id,
               availableOn: _authData['time'],
               donationAmount: _authData['amount'],
               donationDate: formattedDate,
               donationType: selectedType,
+              activityName:selectedActivity.activityName,
               donatorAddress: _authData['address'],
               donatorItems: _authData['items'],
               image: _downloadUrl,
@@ -143,11 +170,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       _isLoadImg = true;
     });
 
-//        uploadImage(_image)
-//        .then((val) {
-//      _downloadUrl = val;
-//       print("value from upload" + _downloadUrl);
-//      });
   }
 
   Future<String> uploadImage(File image) async {
@@ -196,7 +218,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       final List<Activity> loadedOrganizations = [];
       extractedData.forEach((prodId, prodData) {
 //        if(selectedOraginzaton.id==prodData['org_id'])
-//        if(==prodData['org_id'])
+//        if(  _orgList[selectedOraginzaton].id==prodData['org_id'])
 //        {
         loadedOrganizations.add(Activity(
             id: prodId,
@@ -386,18 +408,18 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
-//                                    validator: (value) {
-//                                      if (value.length<3 || value==null) {
-//                                        bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-//                                        if(spaceRex || value.length==0){
-//                                          return 'اادخل الاسم من فضلك';
-//                                        }else{
-//                                          return'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
-//                                        }
-//
-//                                      }
-//                                      return null;
-//                                    },
+                                   validator: (value) {
+                                     if (value.length<3 || value==null) {
+                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0){
+                                         return 'اادخل الاسم من فضلك';
+                                       }else{
+                                         return'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
+                                       }
+
+                                     }
+                                     return null;
+                                   },
 //                                    onSaved: (value) {
 //                                      _authData['name'] = value;
 //                                    },
@@ -427,13 +449,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 //                              textAlign: TextAlign.end,
                                         keyboardType:
                                             TextInputType.emailAddress,
-//                                    validator: (value) {
-//                                      bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
-//                                      if (!emailValid) {
-//                                        return 'ايميل غيرصالح';
-//                                      }
-//                                  //    return null;
-//                                    },
+                                   validator: (value) {
+                                     bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+                                     if (!emailValid) {
+                                       return 'ايميل غيرصالح';
+                                     }
+                                 //    return null;
+                                   },
 //                                    onSaved: (value) {
 //                                      _authData['email'] = value;
 //                                    },
@@ -765,7 +787,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                       child: TextFormField(
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: " المبلغ  ",
+                                            hintText: " المبلغ بالجنيه المصرى ",
                                             prefixIcon: Icon(
                                               FontAwesomeIcons.moneyBill,
                                               color: Colors.deepPurple,
@@ -774,8 +796,11 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                                 TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
                                         keyboardType: TextInputType.number,
-                                        onSaved: (value) {
-                                          _authData['money'] = value;
+//                                        onSaved: (value) {
+//                                          _authData['amount'] = value;
+//                                        },
+                                        onChanged: (value) {
+                                          _authData['amount'] = value;
                                         },
                                         controller: moneyController,
 //                                        validator: (value) {
@@ -839,7 +864,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         padding:
                                             EdgeInsets.fromLTRB(10, 5, 10, 0),
                                         child: Text(
-                                          'اكتب مواصفات ونوع الاشياء التي تود التبرع بها ',
+                                          'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
                                           style: TextStyle(
                                               fontSize: 17,
                                               height: 1,
@@ -850,7 +875,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         padding:
                                             EdgeInsets.fromLTRB(10, 5, 10, 0),
                                         child: Text(
-                                          ' مثال:ملابس  بطاطين....',
+                                          ' مثال:3 اطقم ملابس و 2بطاطين....',
                                           style: TextStyle(
                                               fontSize: 14,
                                               height: 1,
@@ -890,52 +915,52 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 //                                    },
                                       ),
                                     ),
-                                    Container(
-                                        padding:
-                                            EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                        child: Text(
-                                          'اكتب كمية او عدد الاشياء التي تود التبرع بها ',
-                                          style: TextStyle(
-                                              fontSize: 17,
-                                              height: 1,
-                                              fontWeight: FontWeight.bold),
-                                        )),
-                                    // if (selectedType != 'نقدى')
-
-                                    // if (selectedType != 'نقدى')
-                                    Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 5, 10, 10),
-                                      child: TextFormField(
-                                        decoration: InputDecoration(
-                                            border: OutlineInputBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(2.0)),
-                                            labelText: "الكمية",
-                                            // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
-                                            labelStyle: TextStyle(
-                                                color: Colors.grey,
-                                                fontSize: 24)),
-//                              textAlign: TextAlign.end,
-                                        keyboardType: TextInputType.multiline,
-                                        maxLines: null,
-                                        minLines: 3,
-//                                  onSaved: (value) {
-//                                    _authData['amount'] = value;
-//                                  },
-                                        onChanged: (value) {
-                                          _authData['amount'] = value;
-                                        },
-                                        controller: amountController,
-//                                  validator: (value) {
-//                                    bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-//                                    if(spaceRex || value.length==0  || value==null){
-//                                      return 'اادخل اكمية من فضلك';
-//                                    }
-//                                    return null;
-//                                  },
-                                      ),
-                                    ),
+//                                    Container(
+//                                        padding:
+//                                            EdgeInsets.fromLTRB(10, 5, 10, 0),
+//                                        child: Text(
+//                                          'اكتب كمية او عدد الاشياء التي تود التبرع بها ',
+//                                          style: TextStyle(
+//                                              fontSize: 17,
+//                                              height: 1,
+//                                              fontWeight: FontWeight.bold),
+//                                        )),
+//                                    // if (selectedType != 'نقدى')
+//
+//                                    // if (selectedType != 'نقدى')
+//                                    Container(
+//                                      padding:
+//                                          EdgeInsets.fromLTRB(10, 5, 10, 10),
+//                                      child: TextFormField(
+//                                        decoration: InputDecoration(
+//                                            border: OutlineInputBorder(
+//                                                borderRadius:
+//                                                    BorderRadius.circular(2.0)),
+//                                            labelText: "الكمية",
+//                                            // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
+//                                            labelStyle: TextStyle(
+//                                                color: Colors.grey,
+//                                                fontSize: 24)),
+////                              textAlign: TextAlign.end,
+//                                        keyboardType: TextInputType.multiline,
+//                                        maxLines: null,
+//                                        minLines: 3,
+////                                  onSaved: (value) {
+////                                    _authData['amount'] = value;
+////                                  },
+//                                        onChanged: (value) {
+//                                          _authData['amount'] = value;
+//                                        },
+//                                        controller: amountController,
+////                                  validator: (value) {
+////                                    bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+////                                    if(spaceRex || value.length==0  || value==null){
+////                                      return 'اادخل اكمية من فضلك';
+////                                    }
+////                                    return null;
+////                                  },
+//                                      ),
+//                                    ),
                                   ],
                                 ),
                               )
@@ -951,27 +976,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                       ? FadeAnimation(
                           1.9,
                           InkWell(
-                            onTap: () {
-                              setState(() {
-//                        if(current>=3){
-//                          current=0;
-//                        }
-                                if (current < 3) {
-                                  if (current == 2 &&
-                                      (selectedType == null ||
-                                          selectedOraginzaton == null ||
-                                          selectedActivity == null)) {
-                                    _showErrorDialog(
-                                        "من فضلك اختار نوع التبرع والجمعية والنشاط الذى تود التبرع له");
-                                  } else {
-                                    current++;
-                                  }
-                                }
-
-                                // print("the current is $current");
-                                checkCurrent();
-                              });
-                            }, // handle your onTap here
+                            onTap:()=> _nextSubmit(),
                             child: Container(
                               height: 50,
                               margin: EdgeInsets.symmetric(horizontal: 60),
@@ -1046,8 +1051,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
             )
           ],
         ),
-      ), //ramadan say hi
-      //hello again
+      ), 
     );
   }
 }
