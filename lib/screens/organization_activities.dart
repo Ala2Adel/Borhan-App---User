@@ -1,13 +1,6 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
-import 'package:Borhan_User/notifiers/organization_notifier.dart';
-import 'package:Borhan_User/screens/Donation_mainScreen.dart';
-import 'package:Borhan_User/screens/donation_history.dart';
-import 'package:Borhan_User/screens/favourite_screen.dart';
-import 'package:Borhan_User/screens/navigation_drawer.dart';
-import 'package:Borhan_User/screens/support_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'Donation.dart';
 
