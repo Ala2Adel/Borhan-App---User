@@ -1,20 +1,19 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/Donation_mainScreen.dart';
-import 'package:Borhan_User/screens/donation_history.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
-import 'package:Borhan_User/screens/support_screen.dart';
+import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'Donation.dart';
 
 class OrganizationActivity extends StatefulWidget {
+  var id;
+  OrganizationActivity(this.id);
   @override
   _ActivityScreenState createState() => _ActivityScreenState();
-
 }
 
 class _ActivityScreenState extends State<OrganizationActivity> {
@@ -22,14 +21,16 @@ class _ActivityScreenState extends State<OrganizationActivity> {
   var _isInit = true;
   Color _favIconColor = Colors.grey;
 
-
   @override
   void didChangeDependencies() {
+    print("Org Screen" + widget.id);
     if (_isInit) {
       setState(() {
         _isLoading = true;
       });
-      Provider.of<ActivityNotifier>(context).fetchAndSetActivities().then((_) {
+      Provider.of<ActivityNotifier>(context)
+          .fetchAndSetActivities(widget.id)
+          .then((_) {
         setState(() {
           _isLoading = false;
           print('in screen activity view');
@@ -39,6 +40,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     _isInit = false;
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -58,8 +60,8 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         backgroundColor: Colors.transparent,
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.list), onPressed: _pushSaved,
-
+            icon: Icon(Icons.list),
+            onPressed: _pushSaved,
           ),
         ],
       ),
@@ -132,7 +134,8 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                             : NetworkImage(
                                                                 'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
                                                         fit: BoxFit.cover,
-                                                      )),
+                                                      ),
+                                                  ),
                                                 ),
                                                 new SizedBox(
                                                   width: 10.0,
@@ -232,7 +235,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                                   .push(MaterialPageRoute(builder:
                                                                       (BuildContext
                                                                           context) {
-                                                                return Donation();
+                                                                return NormalDenotationScreen();
                                                               }));
                                                             },
                                                             child: Text(
@@ -254,7 +257,9 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                       ),
                                     ),
                                   );
-                                }))
+                                 },
+                                ),
+                                )
                       ],
                     ),
                   ),
@@ -301,9 +306,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
           }
         });
       },
-
     );
-
   }
 
   void _pushSaved() {

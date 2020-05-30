@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 import 'package:Borhan_User/models/organization.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 class OrganizationNotifier with ChangeNotifier {
-  List <Organization> _orgList =[];
+  List<Organization> _orgList = [];
 
   Organization _currentOrg;
 
   Organization get currentOrg => _currentOrg;
 
-  set currentOrganization (Organization organization) {
+  set currentOrganization(Organization organization) {
     _currentOrg = organization;
     notifyListeners();
   }
@@ -26,7 +25,8 @@ class OrganizationNotifier with ChangeNotifier {
 //  }
 
   Future<void> getOrganizations() async {
-    const url = 'https://borhanadmin.firebaseio.com/CharitableOrganizations.json';
+    final url =
+        'https://borhanadmin.firebaseio.com/CharitableOrganizations.json';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -34,18 +34,17 @@ class OrganizationNotifier with ChangeNotifier {
       final List<Organization> loadedOrganizations = [];
       extractedData.forEach((prodId, prodData) {
         loadedOrganizations.add(Organization(
-
           id: prodId,
           orgName: prodData['orgName'],
-          address: prodData ['address'],
+          address: prodData['address'],
           logo: prodData['logo'],
+          email: prodData['email'],
           description: prodData['description'],
           landLineNo: prodData['landLineNo'],
           licenseNo: prodData['licenceNo'],
           mobileNo: prodData['mobileNo'],
           bankAccounts: prodData['bankAccounts'],
           webPage: prodData['webPage'],
-
         ));
       });
 
@@ -55,5 +54,4 @@ class OrganizationNotifier with ChangeNotifier {
       throw (error);
     }
   }
-
 }

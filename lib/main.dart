@@ -2,21 +2,19 @@ import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/providers/chat_provider.dart';
 import 'package:Borhan_User/providers/email_provider.dart';
-import 'package:Borhan_User/screens/Donation.dart';
+import 'package:Borhan_User/providers/mydonation_provider.dart';
+import 'package:Borhan_User/screens/Help_organizations.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
-import 'package:Borhan_User/screens/email_screen.dart';
+import 'package:Borhan_User/screens/email_organization.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
-import 'package:Borhan_User/screens/organization_activities.dart';
-import 'package:Borhan_User/screens/organization_details.dart';
+import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
 import 'package:Borhan_User/screens/splashScreen.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/Notification_screen.dart';
-import 'package:Borhan_User/screens/donation_history.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/profile_screen.dart';
-import 'package:Borhan_User/screens/support_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:Borhan_User/screens/login_screen.dart';
@@ -26,7 +24,6 @@ import './screens/location_selection.dart';
 import 'notifiers/organization_notifier.dart';
 
 import 'package:Borhan_User/screens/fast_donation.dart';
-
 
 import 'models/campaign.dart';
 
@@ -58,9 +55,12 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: ChatProvider(),
           ),
+          ChangeNotifierProvider.value(
+            value: MyDonationsProvider(),
+          ),
         ],
         child: MaterialApp(
-          debugShowCheckedModeBanner: false,
+            debugShowCheckedModeBanner: false,
             builder: (BuildContext context, Widget child) {
               return new Directionality(
                 textDirection: TextDirection.rtl,
@@ -90,17 +90,17 @@ class MyApp extends StatelessWidget {
 //      OrganizationActivity.routeName: (ctx) => OrganizationActivity(),
 //      Donation.routeName: (ctx) => Donation(),
 
-              '/DonationHistory': (context) => DonationHistory(),
               '/Favourite': (context) => Favourite(),
               '/Home': (context) => OrgOverviewScreen(),
               '/Notifications': (context) => Notifications(),
               '/Login': (context) => LoginScreen(),
               '/Signup': (context) => SignupScreen(),
               '/Profile': (context) => Profile(),
-              '/Support': (context) => Support(),
               HelpScreen.routeName: (ctx) => HelpScreen(),
-              EmailScreen.routeName: (ctx) => EmailScreen(),
+              EmailOrganization.routeName: (ctx) => EmailOrganization(),
               ChatScreen.routeName: (ctx) => ChatScreen(),
+              HelpOrganization.routeName: (ctx) => HelpOrganization(),
+              MyDonationsScreen.routeName: (ctx) => MyDonationsScreen(),
             }));
   }
 }

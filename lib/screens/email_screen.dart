@@ -9,37 +9,41 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../models/emailm.dart';
 
-void main() => runApp(EmailScreen());
-
 class EmailScreen extends StatefulWidget {
-  static const routeName = '/email';
+//  static const routeName = '/email';
+  var orgEmail;
+  EmailScreen(this.orgEmail);
 
   @override
   _EmailScreenState createState() => _EmailScreenState();
 }
 
 class _EmailScreenState extends State<EmailScreen> {
+//  final requestId = ModalRoute.of(context).settings.arguments as String;
   var emailM = EmailM(
-      recipientController: 'borhan@borhan.com',
-      subjectController: '',
-      bodyController: '');
+      recipientController: '', subjectController: '', bodyController: '');
   List<String> attachments = [];
 
   final _recipientController = TextEditingController(
-    text: 'borhan@borhan.com',
-  );
+//    text: widget.orgEmail,
+      );
 
   final _subjectController = TextEditingController();
 
   final _bodyController = TextEditingController();
 
   void send() {
+    emailM = EmailM(
+        recipientController: widget.orgEmail,
+        subjectController: emailM.subjectController,
+        bodyController: emailM.bodyController);
     Provider.of<EmailProvider>(context, listen: false)
         .send(emailM, attachments);
   }
 
   @override
   Widget build(BuildContext context) {
+    _recipientController.text = widget.orgEmail;
     return MaterialApp(
       theme: ThemeData(primaryColor: Colors.teal),
       home: Scaffold(

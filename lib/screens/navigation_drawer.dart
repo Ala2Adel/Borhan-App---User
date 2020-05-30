@@ -36,9 +36,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
              onTap: ()=>Navigator.pushNamed(context, '/Notifications'),
           ),
           new ListTile(
-            title: new Text("التبرعات السابقة"),
+            title: new Text("تبرعاتي"),
             leading: new Icon(Icons.drag_handle),
-            onTap: ()=>Navigator.pushNamed(context, '/DonationHistory'),
+            onTap: ()=>Navigator.pushNamed(context, '/myDonations'),
           ),
           new ListTile(
             title: new Text("تسجيل الدخول"),
