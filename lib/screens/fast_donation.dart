@@ -81,26 +81,28 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     'amount': '',
   };
 
-  void _nextSubmit(){
+  void _nextSubmit() {
     if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
     }
-        if (current < 3) {
-          if (current == 2 &&(selectedType == null || selectedOraginzaton == null ||
+    if (current < 3) {
+      if (current == 2 &&
+          (selectedType == null ||
+              selectedOraginzaton == null ||
               selectedActivity == null)) {
-            _showErrorDialog( "من فضلك اختار نوع التبرع والجمعية والنشاط الذى تود التبرع له");
-             } 
-              else {                 
-               current++;
-                  }
-          }
-                                // print("the current is $current");
-          setState(() {
-              checkCurrent();
-          });
-
+        _showErrorDialog(
+            "من فضلك اختار نوع التبرع والجمعية والنشاط الذى تود التبرع له");
+      } else {
+        current++;
+      }
+    }
+    // print("the current is $current");
+    setState(() {
+      checkCurrent();
+    });
   }
+
   Future<void> _submit(BuildContext context) async {
     print("Container pressed");
 
@@ -120,8 +122,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       } 
 
     _formKey.currentState.save();
-       if (selectedType != 'نقدى' )
-    {
+    if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
       if(selectedType == 'عينى'){
@@ -133,22 +134,24 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
        items="";
       _downloadUrl= 'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
+    var arabicFormat = DateFormat.yMd('ar');
+    String formattedDate = arabicFormat.format(DateTime.now());
 
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
+//    DateTime now = DateTime.now();
+//    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
     //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
     print(formattedDate);
     final data = Provider.of<Auth>(context);
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
-          userId: data.userData.id,
+              userId: data.userData.id,
               orgId: _orgList[selectedOraginzaton].id,
               availableOn: _authData['time'],
               donationAmount: amount,
               donationDate: formattedDate,
               donationType: selectedType,
-              activityName:selectedActivity.activityName,
+              activityName: selectedActivity.activityName,
               donatorAddress: _authData['address'],
               donatorItems: items,
               image: _downloadUrl,
@@ -217,7 +220,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       }
 
     });
-
   }
 
   Future<String> uploadImage(File image) async {
@@ -456,15 +458,20 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
-                                     validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل الاسم من فضلك';
-                                       }else if(value.length<3){
-                                         return'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
-                                       }
-                                     return null;
-                                   },
+                                        validator: (value) {
+                                          if (value.length < 3 ||
+                                              value == null) {
+                                            bool spaceRex =
+                                                new RegExp(r"^\\s+$")
+                                                    .hasMatch(value);
+                                            if (spaceRex || value.length == 0) {
+                                              return 'اادخل الاسم من فضلك';
+                                            } else {
+                                              return 'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
+                                            }
+                                          }
+                                          return null;
+                                        },
 //                                    onSaved: (value) {
 //                                      _authData['name'] = value;
 //                                    },
@@ -1027,7 +1034,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                       ? FadeAnimation(
                           1.9,
                           InkWell(
-                            onTap:()=> _nextSubmit(),
+                            onTap: () => _nextSubmit(),
                             child: Container(
                               height: 50,
                               margin: EdgeInsets.symmetric(horizontal: 60),
@@ -1102,7 +1109,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
             )
           ],
         ),
-      ), 
+      ),
     );
   }
 }
