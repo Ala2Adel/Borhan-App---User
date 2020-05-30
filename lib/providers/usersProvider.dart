@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:Borhan_User/models/mydonation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -6,8 +9,7 @@ import '../models/http_exception.dart';
 
 class UsersPtovider with ChangeNotifier{
 
-  Future<void> addUser( String userName,
-      String email, String password) async {
+  Future<void> addUser( String userName, String email, String password) async {
     final url =
         'https://borhanuser-f92a3.firebaseio.com/Users.json';
     try {
@@ -28,6 +30,8 @@ class UsersPtovider with ChangeNotifier{
       throw error;
     }
   }
+
+
   Future<void> makeDonationRequest( {String userName, String donationAmount,String donationDate
       , String availableOn , String mobile ,String donationType,
       String donatorAddress , String donatorItems ,String image ,String activityName}
@@ -59,9 +63,11 @@ class UsersPtovider with ChangeNotifier{
       throw error;
     }
   }
+
+
   Future<void> makeDonationRequest2( {String userName, String orgId,String donationAmount,String donationDate
     , String availableOn , String mobile ,String donationType,
-    String donatorAddress , String donatorItems ,String image ,String activityName}
+    String donatorAddress , String donatorItems ,String image ,String activityName, String userId}
       ) async {
     final url =
         'https://borhanadmin.firebaseio.com/DonationRequests/$orgId.json';
@@ -79,6 +85,8 @@ class UsersPtovider with ChangeNotifier{
             "donationItems":donatorItems,
             'donatorName': userName,
             'donationImage': image,
+          'status': 'wating',
+          'userId': userId,
           },
         ),
       );
@@ -86,8 +94,33 @@ class UsersPtovider with ChangeNotifier{
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
+
+      var reqId =  json.decode(response.body)['name'];
+      final reqUrl = 'https://borhanadmin.firebaseio.com/MyDonations/$userId/$reqId.json';
+          await http.patch(
+            reqUrl,
+            body: json.encode(
+              { "availableOn":availableOn,
+                'donationAmount': donationAmount,
+                'donationDate': donationDate,
+                "donatorMobile":mobile,
+                'donationType': donationType,
+                "activityName":activityName,
+                'donatorAddress': donatorAddress,
+                "donationItems":donatorItems,
+                'donatorName': userName,
+                'donationImage': image,
+                'status': 'wating',
+                'userId': userId,
+              },
+            ),
+          );
+
     } catch (error) {
       throw error;
     }
   }
+
+
+
 }

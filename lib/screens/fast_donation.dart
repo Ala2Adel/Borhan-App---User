@@ -78,8 +78,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     'items': '',
     'amount': '',
   };
-  void _nextSubmit(){
 
+  void _nextSubmit(){
     if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
@@ -117,10 +117,11 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
     //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
     print(formattedDate);
-
+    final data = Provider.of<Auth>(context);
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
+          userId: data.userData.id,
               orgId: _orgList[selectedOraginzaton].id,
               availableOn: _authData['time'],
               donationAmount: _authData['amount'],

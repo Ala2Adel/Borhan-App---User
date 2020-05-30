@@ -1,5 +1,6 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
+import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -92,10 +93,11 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
     //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
     print(formattedDate);
-
+    final data = Provider.of<Auth>(context);
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
+        userId: data.userData.id,
               orgId:  orgNotifier.currentOrg.id,
               availableOn: _authData['time'],
               donationAmount: _authData['amount'],
