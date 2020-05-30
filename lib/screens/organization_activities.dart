@@ -20,6 +20,7 @@ class OrganizationActivity extends StatefulWidget {
 class _ActivityScreenState extends State<OrganizationActivity> {
   var _isLoading = false;
   var _isInit = true;
+  Color _favIconColor = Colors.grey;
 
 
   @override
@@ -168,11 +169,27 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                                       .bold),
                                                         ),
                                                         Expanded(
-                                                            child: _buildRow(
-                                                                activityNotifier
-                                                                    .activityList[
-                                                                        index]
-                                                                    .name)),
+                                                            child:
+//                                                            _buildRow(
+//                                                                activityNotifier
+//                                                                    .activityList[
+//                                                                        index]
+//                                                                    .name)
+                                                          IconButton(
+                                                            icon: Icon(Icons.favorite),
+                                                            color: _favIconColor,
+                                                            tooltip: 'Add to favorite',
+                                                            onPressed: () {
+                                                              setState(() {
+                                                                if(_favIconColor == Colors.grey){
+                                                                  _favIconColor = Colors.red;
+                                                                }else{
+                                                                  _favIconColor = Colors.grey;
+                                                                }
+                                                              });
+                                                            },
+                                                          ),
+                                                        ),
                                                       ],
                                                     ),
                                                     new Text(
@@ -321,9 +338,10 @@ class _ActivityScreenState extends State<OrganizationActivity> {
               backgroundColor: Colors.blueGrey,
               title: new Text('Saved Suggestions'),
             ),
-            body: ListView(children: divided),
+            body:
+            ListView(children: divided),
 
-            //   new Favourite(ListView(children: divided));
+            //  new Favourite(ListView(children: divided));
           );
         },
         //    Favourite( ListView (children: divided));

@@ -13,14 +13,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-//    Timer(
-//        Duration(seconds: 4),
-//            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-//            builder: (BuildContext context) => OrgOverviewScreen())));
+
     Timer(
         Duration(seconds: 4),
             () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => LoginScreen())));
+            builder: (BuildContext context) => OrgOverviewScreen())));
   }
 
   @override

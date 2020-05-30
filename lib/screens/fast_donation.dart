@@ -1,4 +1,5 @@
-import 'package:Borhan_User/models/activites.dart';
+
+import 'package:Borhan_User/models/activities.dart';
 import 'package:Borhan_User/models/organization.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';

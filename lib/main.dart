@@ -81,14 +81,10 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blueGrey,
             ),
             home:
-            OrganizationActivity()
-            // SplashScreen()
+            OrganizationActivity(),
+            // SplashScreen(),
            // LocationSelection()
-            home: 
-            SplashScreen()
-            //LocationSelection()
-            
-            ,
+
             routes: {
 //      OrganizationDetails.routeName: (ctx) => OrganizationDetails(),
 //      OrganizationActivity.routeName: (ctx) => OrganizationActivity(),
