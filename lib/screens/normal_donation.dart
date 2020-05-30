@@ -58,6 +58,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
   };
   Future<void> _submit(BuildContext context) async {
     print("Container pressed");
+
+    String amount= _authData['amount'];
+    String items= _authData['items'];
     // Scaffold.of(ctx).showSnackBar(SnackBar(content: Text('Profile Save'),),);
      if (!_formKey.currentState.validate()) {
       // Invalid!
@@ -81,11 +84,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
       if(selectedType == 'عينى'){
-          _authData['amount']="";
+         amount="";
       }
     }
     else{
-      _authData['items']="";
+
+       items="";
       _downloadUrl= 'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
 
@@ -100,12 +104,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
         userId: data.userData.id,
               orgId:  orgNotifier.currentOrg.id,
               availableOn: _authData['time'],
-              donationAmount: _authData['amount'],
+              donationAmount: amount,
               donationDate: formattedDate,
               donationType: selectedType,
               activityName:activityNotifier.currentActivity.name,
               donatorAddress: _authData['address'],
-              donatorItems: _authData['items'],
+              donatorItems: items,
               image: _downloadUrl,
               mobile: _authData['mobile'],
               userName: _authData['name']);
@@ -133,8 +137,19 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
 
     img = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
-      _image = img;
-      _isLoadImg = true;
+     
+      if(img!=null){
+         _image = img;
+         _isLoadImg = true;
+      }else{
+          // _image = img;
+          if(_image!=null){
+               _isLoadImg = true;
+          }else{
+           _isLoadImg = false;
+          }
+      }
+     
      }
     );
   }
@@ -254,15 +269,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                           TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
                                    validator: (value) {
-                                     if (value.length<3 || value==null) {
                                        bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0){
-                                         return 'اادخل الاسم من فضلك';
-                                       }else{
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل الاسم من فضلك';
+                                       }else if(value.length<3){
                                          return'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
                                        }
-
-                                     }
                                      return null;
                                    },
 //                                    onSaved: (value) {
@@ -297,13 +309,19 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                    validator: (value) {
                                      bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
                                      if (!emailValid) {
-                                       return 'ايميل غيرصالح';
+                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل البريد الألكترونى من فضلك';
+                                       }else{
+                                         return 'البريد الألكترونى غيرصالح';
+                                       }
+
                                      }
-                                 //    return null;
+                                     return null;
                                    },
-                                   onSaved: (value) {
-                                     _authData['email'] = value;
-                                   },
+                                  //  onSaved: (value) {
+                                  //    _authData['email'] = value;
+                                  //  },
                                   onChanged: (value) {
                                     _authData['email'] = value;
                                   },
@@ -337,9 +355,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   },
                                   controller: mobileController,
                                    validator: (value) {
-                                     if (value.length<11 || value==null) {
-                                         return'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
-                                     }
+                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل رقم الهاتف من فضلك';
+                                       }else if(value.length<11 ){
+                                        return'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
+                                       }
                                      return null;
                                    },
                                 ),
@@ -368,15 +389,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     _authData['address'] = val;
                                   },
                                    validator: (value) {
-                                     if (value.length<5 || value==null) {
                                        bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0){
-                                         return 'اادخل العنوان من فضلك';
-                                       }else{
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل العنوان من فضلك';
+                                        }else if (value.length<5 ){
                                          return'العنوان لايمكن ان يكون اقل من 5 احرف';
-                                       }
-
-                                     }
+                                        }
                                      return null;
                                    },
                                   controller: addressController,
@@ -426,7 +444,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                    validator: (value) {
                                        bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
                                        if(spaceRex || value.length==0  || value==null){
-                                         return 'اادخل الوقت من فضلك';
+                                         return 'ادخل الوقت من فضلك';
                                      }
                                      return null;
                                    },
@@ -514,8 +532,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                        validator: (value) {
                                          bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
                                          if(spaceRex || value.length==0  || value==null){
-                                           return 'اادخل المبلغ من فضلك';
+                                           return 'ادخل المبلغ من فضلك';
                                          }
+                                        
                                          return null;
                                        },
                                   ),
@@ -611,7 +630,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                    validator: (value) {
                                      bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
                                      if(spaceRex || value.length==0  || value==null){
-                                       return 'اادخل الوصف من فضلك';
+                                       return 'ادخل الوصف من فضلك';
                                      }
                                      return null;
                                    },

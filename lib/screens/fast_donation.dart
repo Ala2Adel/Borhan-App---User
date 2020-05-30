@@ -106,11 +106,25 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       // Invalid!
       return;
     }
+
+    if  (_image == null && selectedType != 'نقدى' ) 
+      {
+       _showErrorDialog("من فضلك اضاف صورة التبرع ");
+        return;
+      } 
+
     _formKey.currentState.save();
-      if (selectedType != 'نقدى')
+     if (selectedType != 'نقدى' )
     {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
+      if(selectedType == 'عينى'){
+          _authData['amount']="";
+      }
+    }
+    else{
+      _authData['items']="";
+      _downloadUrl= 'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
 
     DateTime now = DateTime.now();
@@ -167,8 +181,19 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     File img;
     img = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
-      _image = img;
-      _isLoadImg = true;
+
+    if(img!=null){
+         _image = img;
+         _isLoadImg = true;
+      }else{
+        // _image = img;
+          if(_image!=null){
+               _isLoadImg = true;
+          }else{
+           _isLoadImg = false;
+          }
+      }
+
     });
 
   }
@@ -409,16 +434,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
-                                   validator: (value) {
-                                     if (value.length<3 || value==null) {
+                                     validator: (value) {
                                        bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0){
-                                         return 'اادخل الاسم من فضلك';
-                                       }else{
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل الاسم من فضلك';
+                                       }else if(value.length<3){
                                          return'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
                                        }
-
-                                     }
                                      return null;
                                    },
 //                                    onSaved: (value) {
@@ -450,12 +472,18 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 //                              textAlign: TextAlign.end,
                                         keyboardType:
                                             TextInputType.emailAddress,
-                                   validator: (value) {
+                                  validator: (value) {
                                      bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
                                      if (!emailValid) {
-                                       return 'ايميل غيرصالح';
+                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل البريد الألكترونى من فضلك';
+                                       }else{
+                                         return 'البريد الألكترونى غيرصالح';
+                                       }
+
                                      }
-                                 //    return null;
+                                     return null;
                                    },
 //                                    onSaved: (value) {
 //                                      _authData['email'] = value;
@@ -492,14 +520,17 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['mobile'] = val;
                                         },
                                         controller: mobileController,
-//                                    validator: (value) {
-//                                      if (value.length<11 || value==null) {
-//                                          return'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
-//                                      }
-//                                      return null;
-//                                    },
-                                      ),
-                                    ),
+                                    validator: (value) {
+                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل رقم الهاتف من فضلك';
+                                       }else if(value.length<11 ){
+                                        return'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
+                                       }
+                                     return null;
+                                      },
+                                   ),
+                                 ),
                                     Container(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 20),
@@ -523,18 +554,15 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         onChanged: (val) {
                                           _authData['address'] = val;
                                         },
-//                                    validator: (value) {
-//                                      if (value.length<5 || value==null) {
-//                                        bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-//                                        if(spaceRex || value.length==0){
-//                                          return 'اادخل العنوان من فضلك';
-//                                        }else{
-//                                          return'العنوان لايمكن ان يكون اقل من 5 احرف';
-//                                        }
-//
-//                                      }
-//                                      return null;
-//                                    },
+                                   validator: (value) {
+                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل العنوان من فضلك';
+                                        }else if (value.length<5 ){
+                                         return'العنوان لايمكن ان يكون اقل من 5 احرف';
+                                        }
+                                     return null;
+                                   },
                                         controller: addressController,
                                       ),
                                     ),
@@ -579,13 +607,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['time'] = val;
                                         },
                                         controller: timeController,
-//                                    validator: (value) {
-//                                        bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-//                                        if(spaceRex || value.length==0  || value==null){
-//                                          return 'اادخل الوقت من فضلك';
-//                                      }
-//                                      return null;
-//                                    },
+                                   validator: (value) {
+                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0  || value==null){
+                                         return 'ادخل الوقت من فضلك';
+                                     }
+                                     return null;
+                                   },
                                       ),
                                     ),
                                   ],
@@ -804,13 +832,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['amount'] = value;
                                         },
                                         controller: moneyController,
-//                                        validator: (value) {
-//                                          bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-//                                          if(spaceRex || value.length==0  || value==null){
-//                                            return 'اادخل المبلغ من فضلك';
-//                                          }
-//                                          return null;
-//                                        },
+                                       validator: (value) {
+                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                         if(spaceRex || value.length==0  || value==null){
+                                           return 'ادخل المبلغ من فضلك';
+                                         }
+                                         return null;
+                                       },
                                       ),
                                     ),
                                 ]),
@@ -907,13 +935,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['items'] = value;
                                         },
                                         controller: itemsController,
-//                                    validator: (value) {
-//                                      bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-//                                      if(spaceRex || value.length==0  || value==null){
-//                                        return 'اادخل الوصف من فضلك';
-//                                      }
-//                                      return null;
-//                                    },
+                                   validator: (value) {
+                                     bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                     if(spaceRex || value.length==0  || value==null){
+                                       return 'ادخل الوصف من فضلك';
+                                     }
+                                     return null;
+                                   },
                                       ),
                                     ),
 //                                    Container(
@@ -956,7 +984,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 ////                                  validator: (value) {
 ////                                    bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
 ////                                    if(spaceRex || value.length==0  || value==null){
-////                                      return 'اادخل اكمية من فضلك';
+////                                      return 'ادخل اكمية من فضلك';
 ////                                    }
 ////                                    return null;
 ////                                  },
