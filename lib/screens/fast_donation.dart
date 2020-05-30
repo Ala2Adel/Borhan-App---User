@@ -101,6 +101,10 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
   }
   Future<void> _submit(BuildContext context) async {
     print("Container pressed");
+
+     String amount= _authData['amount'];
+     String items= _authData['items'];
+
     // Scaffold.of(ctx).showSnackBar(SnackBar(content: Text('Profile Save'),),);
     if (!_formKey.currentState.validate()) {
       // Invalid!
@@ -114,16 +118,17 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       } 
 
     _formKey.currentState.save();
-     if (selectedType != 'نقدى' )
+       if (selectedType != 'نقدى' )
     {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
       if(selectedType == 'عينى'){
-          _authData['amount']="";
+         amount="";
       }
     }
     else{
-      _authData['items']="";
+
+       items="";
       _downloadUrl= 'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
 
@@ -138,12 +143,12 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
           userId: data.userData.id,
               orgId: _orgList[selectedOraginzaton].id,
               availableOn: _authData['time'],
-              donationAmount: _authData['amount'],
+              donationAmount: amount,
               donationDate: formattedDate,
               donationType: selectedType,
               activityName:selectedActivity.activityName,
               donatorAddress: _authData['address'],
-              donatorItems: _authData['items'],
+              donatorItems: items,
               image: _downloadUrl,
               mobile: _authData['mobile'],
               userName: _authData['name']);
