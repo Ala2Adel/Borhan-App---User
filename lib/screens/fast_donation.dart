@@ -2,6 +2,7 @@ import 'package:Borhan_User/models/activites.dart';
 import 'package:Borhan_User/models/organization.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -152,12 +153,27 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
               image: _downloadUrl,
               mobile: _authData['mobile'],
               userName: _authData['name']);
-      final snackBar = SnackBar(
-          content: Text(
-        'تم ارسال طلب تبرعك بنجاح',
-        style: TextStyle(color: Color(0xff11b719)),
-      ));
-      Scaffold.of(context).showSnackBar(snackBar);
+////////////////////////////////////////////////////////////////////
+      //  final snackBar = SnackBar(
+      //     content: Text(
+      //   'تم ارسال طلب تبرعك بنجاح',
+      //   style: TextStyle(color: Color(0xff11b719)),
+      //  ));
+      //    Scaffold.of(context).showSnackBar(snackBar);
+      //   Navigator.of(context).pop();
+/////////////////////////////////////////////////////////////////
+      Flushbar(
+      message:'تم ارسال طلب تبرعك بنجاح',
+      icon: Icon(
+      Icons.thumb_up,
+     size: 28.0,
+     color: Colors.blue[300],
+      ),
+      duration: Duration(seconds: 3),
+      //leftBarIndicatorColor: Colors.blue[300],
+      margin: EdgeInsets.all(8),
+      borderRadius: 8,
+      )..show(context).then((value) => Navigator.of(context).pop());
     } catch (error) {
       print(error);
       const errorMessage = ' حدث خطا ما';

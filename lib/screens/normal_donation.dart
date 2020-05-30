@@ -11,6 +11,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+import 'package:flushbar/flushbar.dart';
 
 
 class NormalDenotationScreen extends StatefulWidget {
@@ -61,7 +62,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
 
     String amount= _authData['amount'];
     String items= _authData['items'];
-    // Scaffold.of(ctx).showSnackBar(SnackBar(content: Text('Profile Save'),),);
+  
      if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
@@ -99,6 +100,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     print(formattedDate);
     final data = Provider.of<Auth>(context);
     try {
+
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
         userId: data.userData.id,
@@ -113,12 +115,29 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
               image: _downloadUrl,
               mobile: _authData['mobile'],
               userName: _authData['name']);
-      final snackBar = SnackBar(
-          content: Text(
-        'تم ارسال طلب تبرعك بنجاح',
-        style: TextStyle(color: Color(0xff11b719)),
-      ));
-      Scaffold.of(context).showSnackBar(snackBar);
+
+      // //////////////////////////////////////////////
+      // final snackBar = SnackBar(
+      //     content: Text(
+      //   'تم ارسال طلب تبرعك بنجاح',
+      //   style: TextStyle(color: Color(0xff11b719)),
+      // ));
+      // Scaffold.of(context).showSnackBar(snackBar);
+      //    Navigator.of(context).pop();
+      // ///////////////////////////////////////////////
+      Flushbar(
+      message:'تم ارسال طلب تبرعك بنجاح',
+      icon: Icon(
+      Icons.thumb_up,
+     size: 28.0,
+     color: Colors.blue[300],
+      ),
+      duration: Duration(seconds: 3),
+      //leftBarIndicatorColor: Colors.blue[300],
+      margin: EdgeInsets.all(8),
+      borderRadius: 8,
+      )..show(context).then((value) => Navigator.of(context).pop());
+      //////////////////////////////////////////////
     } catch (error) {
       print(error);
       const errorMessage = ' حدث خطا ما';
