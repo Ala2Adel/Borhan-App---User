@@ -35,7 +35,7 @@ class OnboardScreen extends StatelessWidget {
       ),
       title: Text('Food'),
       mainImage: Image.asset(
-        'assets/images/donation5.png',
+        'assets/images/donation2.png',
         height: 285.0,
         width: 285.0,
         alignment: Alignment.center,
