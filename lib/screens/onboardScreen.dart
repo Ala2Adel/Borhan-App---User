@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
 
+import 'package:google_fonts_arabic/fonts.dart';
+
 import 'overview_screen.dart';
 
 /// App widget class
@@ -10,30 +12,53 @@ class OnboardScreen extends StatelessWidget {
   //making list of pages needed to pass in IntroViewsFlutter constructor.
   final pages = [
     PageViewModel(
-        pageColor: Colors.lightBlue[300],
+        pageColor: Colors.blue[500],
         // iconImageAssetPath: 'assets/air-hostess.png',
         bubble: Image.asset('assets/images/donation4.png'),
         body: Text(
-          'Haselfree  booking  of  flight  tickets  with  full  refund  on  cancelation',
+          'ما من أحد لا يؤدي زكاة ماله إلا مثل له يوم القيامة شجاعاً أقرع حتى يطوَّق به عنقه',
+            style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 18,
+              ),
         ),
         title: Text(
-          'Money',
+          'نقود',
+           style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 44,
+              ),
         ),
-        titleTextStyle: TextStyle(fontFamily: 'MyFont', color: Colors.white),
+        titleTextStyle: TextStyle(fontFamily:'MyFont' , color: Colors.white),
         bodyTextStyle: TextStyle(fontFamily: 'MyFont', color: Colors.white),
         mainImage: Image.asset(
-          'assets/images/donation4.png',
+          'assets/images/mdonation2.png',
           height: 285.0,
           width: 285.0,
           alignment: Alignment.center,
-        )),
+          fit: BoxFit.cover,
+          ),
+        ),
     PageViewModel(
       pageColor: const Color(0xFF8BC34A),
       iconImageAssetPath: 'assets/images/donation5.png',
       body: Text(
-        'We  work  for  the  comfort ,  enjoy  your  stay  at  our  beautiful  hotels',
+        'وَأَطْعِمُوا الطَّعَامَ، وَصِلُوا الْأَرْحَامَ، وَصَلُّوا بِاللَّيْلِ وَالنَّاسُ نِيَامٌ تَدْخُلُوا الْجَنَّةَ بِسَلَامٍ',
+         style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 18,
+              ),
       ),
-      title: Text('Food'),
+      title: Text('طعام',
+       style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 44,
+              ),
+              ),
       mainImage: Image.asset(
         'assets/images/donation2.png',
         height: 285.0,
@@ -49,7 +74,13 @@ class OnboardScreen extends StatelessWidget {
       body: Text(
         'Easy  cab  booking  at  your  doorstep  with  cashless  payment  system',
       ),
-      title: Text('Colthes'),
+      title: Text('ملابس',
+       style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 44,
+               ),
+              ),
       mainImage: Image.asset(
         'assets/images/donation9.png',
         height: 285.0,
@@ -78,6 +109,34 @@ class OnboardScreen extends StatelessWidget {
               ), //MaterialPageRoute
             );
           },
+          doneText:Text('حسنا',
+           style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 21,
+               ),
+              ) ,
+          skipText:Text('تخطى',
+           style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 21,
+               ),
+              ) ,
+          nextText: Text('التالى',
+           style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 21,
+               ),
+              ),
+          backText:Text('رجوع',
+          style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 21,
+               ),
+              ),
           pageButtonTextStyles: TextStyle(
             color: Colors.white,
             fontSize: 18.0,

@@ -394,49 +394,49 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   controller: nameController,
                                 ),
                               ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "البريد الالكترونى",
-                                    prefixIcon: Icon(
-                                      Icons.email,
-                                      color: Colors.deepPurple,
-                                    ),
-                                    hintStyle:
-                                        TextStyle(color: Colors.grey),
-                                  ),
-//                              textAlign: TextAlign.end,
-                                  keyboardType:
-                                      TextInputType.emailAddress,
-                                   validator: (value) {
-                                     bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
-                                     if (!emailValid) {
-                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل البريد الألكترونى من فضلك';
-                                       }else{
-                                         return 'البريد الألكترونى غيرصالح';
-                                       }
+//                               Container(
+//                                 padding: EdgeInsets.all(10),
+//                                 decoration: BoxDecoration(
+//                                     border: Border(
+//                                         bottom: BorderSide(
+//                                             color: Colors.grey[200]))),
+//                                 child: TextFormField(
+//                                   decoration: InputDecoration(
+//                                     border: InputBorder.none,
+//                                     hintText: "البريد الالكترونى",
+//                                     prefixIcon: Icon(
+//                                       Icons.email,
+//                                       color: Colors.deepPurple,
+//                                     ),
+//                                     hintStyle:
+//                                         TextStyle(color: Colors.grey),
+//                                   ),
+// //                              textAlign: TextAlign.end,
+//                                   keyboardType:
+//                                       TextInputType.emailAddress,
+//                                    validator: (value) {
+//                                      bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+//                                      if (!emailValid) {
+//                                          bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+//                                        if(spaceRex || value.length==0 || value==null){
+//                                          return 'ادخل البريد الألكترونى من فضلك';
+//                                        }else{
+//                                          return 'البريد الألكترونى غيرصالح';
+//                                        }
 
-                                     }
-                                     return null;
-                                   },
-                                  //  onSaved: (value) {
-                                  //    _authData['email'] = value;
-                                  //  },
-                                  onChanged: (value) {
-                                    _authData['email'] = value;
-                                  },
+//                                      }
+//                                      return null;
+//                                    },
+//                                   //  onSaved: (value) {
+//                                   //    _authData['email'] = value;
+//                                   //  },
+//                                   onChanged: (value) {
+//                                     _authData['email'] = value;
+//                                   },
 
-                                  controller: emailController,
-                                ),
-                              ),
+//                                   controller: emailController,
+//                                 ),
+//                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
