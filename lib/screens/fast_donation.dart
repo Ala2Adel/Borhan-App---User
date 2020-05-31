@@ -162,6 +162,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
               donatorAddress: _authData['address'],
               donatorItems: items,
               image: _downloadUrl,
+              orgName: _orgList[selectedOraginzaton].orgName,
               mobile: _authData['mobile'],
               userName: _authData['name']);
 ////////////////////////////////////////////////////////////////////

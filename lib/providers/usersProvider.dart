@@ -67,9 +67,9 @@ class UsersPtovider with ChangeNotifier{
 
   Future<void> makeDonationRequest2( {String userName, String orgId,String donationAmount,String donationDate
     , String availableOn , String mobile ,String donationType,
-    String donatorAddress , String donatorItems ,String image ,String activityName, String userId}
+    String donatorAddress , String donatorItems ,String image ,String activityName, String userId,String orgName}
       ) async {
-        userId="ZZTqvnHmqBQuTpzlpTT9XA9oIXO2";
+//        userId="ZZTqvnHmqBQuTpzlpTT9XA9oIXO2";
     final url =
         'https://borhanadmin.firebaseio.com/DonationRequests/$orgId.json';
     try {
@@ -113,6 +113,7 @@ class UsersPtovider with ChangeNotifier{
                 'donationImage': image,
                 'status': 'wating',
                 'userId': userId,
+                'orgName': orgName,
               },
             ),
           );

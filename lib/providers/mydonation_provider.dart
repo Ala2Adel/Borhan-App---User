@@ -19,7 +19,7 @@ class MyDonationsProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetDonations(String userId) async {
-    userId = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';      /******************/   /* Note */ /**************/
+//    userId = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';      /******************/   /* Note */ /**************/
     print("from fetch userId  " + userId);
     final url = 'https://borhanadmin.firebaseio.com/MyDonations/$userId.json';
     try {
@@ -35,7 +35,7 @@ class MyDonationsProvider with ChangeNotifier {
           loadedDonations.add(MyDonation(
             id: donationId,
             orgName: donationData['orgName'],
-            actName: donationData['actName'],
+            actName: donationData['activityName'],
             donationAmount: donationData['donationAmount'],
             donationDate: donationData['donationDate'],
             donationItems: donationData['donationItems'],

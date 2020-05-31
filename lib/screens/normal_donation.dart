@@ -105,6 +105,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
           .makeDonationRequest2(
         userId: data.userData.id,
               orgId:  orgNotifier.currentOrg.id,
+              orgName: orgNotifier.currentOrg.orgName,
               availableOn: _authData['time'],
               donationAmount: amount,
               donationDate: formattedDate,
