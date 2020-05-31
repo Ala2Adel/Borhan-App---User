@@ -99,7 +99,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                 ),
               ),
               // height: 200.0,
-              width: 150.0,
+              width: 100.0,
               child: new Stack(
                 children: <Widget>[
                   new Align(
@@ -154,18 +154,19 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               child: new Stack(
                 children: <Widget>[
                   new Padding(
-                    padding: new EdgeInsets.only(top: 10.0),
+                    padding: new EdgeInsets.only(top: 2.0),
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
+//                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
                         new Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: Alignment.topRight,
                           child: new Padding(
-                              padding: new EdgeInsets.only(left: 320.0),
+                              padding: new EdgeInsets.only(right:12.0),
                               child: new Text(
                                 'الحملات',
+//                                textDirection: TextDirection.ltr,
                                 style: new TextStyle(
                                   color: Colors.white70,
                                   fontSize: 26,
@@ -174,31 +175,34 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         ),
                         new Container(
                             height: 150.0, width: _width, child: headerList),
-                        ButtonTheme(
-                          minWidth: MediaQuery.of(context).size.width,
-                          height: 50.0,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: <Widget>[
-                              RaisedButton(
-                                color: Colors.greenAccent,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: new BorderRadius.circular(24.0),
-                                  side: BorderSide(color: Colors.black),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 2/3,
+                          child: ButtonTheme(
+//                            minWidth: MediaQuery.of(context).size.width,
+                            height: 50.0,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: <Widget>[
+                                RaisedButton(
+                                  color: Colors.greenAccent,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: new BorderRadius.circular(24.0),
+                                    side: BorderSide(color: Colors.black),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.of(context).push(MaterialPageRoute(
+                                        builder: (BuildContext context) {
+                                      return FastDenotationScreen();
+                                    }));
+                                  },
+                                  child: Text(
+                                    'تبرع الآن',
+                                    style: TextStyle(
+                                        fontSize: 20.0, color: Colors.black),
+                                  ),
                                 ),
-                                onPressed: () {
-                                  Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (BuildContext context) {
-                                    return FastDenotationScreen();
-                                  }));
-                                },
-                                child: Text(
-                                  'تبرع الآن',
-                                  style: TextStyle(
-                                      fontSize: 20.0, color: Colors.black),
-                                ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         new Expanded(
@@ -292,10 +296,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                           fontWeight: FontWeight
                                                               .normal),
                                                     ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
+                                                    Wrap(
+                                                      crossAxisAlignment:
+                                                          WrapCrossAlignment.center,
                                                       children: <Widget>[
                                                         RaisedButton(
                                                           color: Colors
