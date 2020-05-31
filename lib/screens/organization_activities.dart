@@ -178,18 +178,19 @@ class _ActivityScreenState extends State<OrganizationActivity> {
 //                                                                    .activityList[
 //                                                                        index]
 //                                                                    .name)
+
                                                           IconButton(
                                                             icon: Icon(Icons.favorite),
                                                             color: _favIconColor,
-                                                            tooltip: 'Add to favorite',
+                                                            iconSize: 35.0,
+
                                                             onPressed: () {
                                                               setState(() {
                                                                 if(_favIconColor == Colors.grey){
                                                                   _favIconColor = Colors.red;
                                                                 }else{
                                                                   _favIconColor = Colors.grey;
-                                                                }
-                                                              });
+                                                              }});
                                                             },
                                                           ),
                                                         ),

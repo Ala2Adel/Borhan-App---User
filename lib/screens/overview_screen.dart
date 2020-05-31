@@ -47,8 +47,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Color firstColor = Color(0xFFF47D15);
-    Color secondColor = Color(0xFFEF772C);
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
@@ -64,9 +62,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
       itemBuilder: (context, index) {
         EdgeInsets padding = index == 0
             ? const EdgeInsets.only(
-                left: 20.0, right: 10.0, top: 4.0, bottom: 30.0)
+                left: 20.0, right: 10.0, top: 0.0, bottom: 30.0)
             : const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 4.0, bottom: 30.0);
+                left: 10.0, right: 10.0, top: 0.0, bottom: 30.0);
 
         return new Padding(
           padding: padding,
@@ -101,19 +99,19 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                 ),
               ),
               // height: 200.0,
-              width: 200.0,
+              width: 150.0,
               child: new Stack(
                 children: <Widget>[
                   new Align(
                     alignment: Alignment.bottomCenter,
                     child: new Container(
-                        margin: EdgeInsets.fromLTRB(0, 20, 0, 0),
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         decoration: new BoxDecoration(
                             color: const Color(0xFF273A48),
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
-                        height: 30.0,
+                        height: 25.0,
                         child: new Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -175,7 +173,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                               )),
                         ),
                         new Container(
-                            height: 200.0, width: _width, child: headerList),
+                            height: 150.0, width: _width, child: headerList),
                         ButtonTheme(
                           minWidth: MediaQuery.of(context).size.width,
                           height: 50.0,

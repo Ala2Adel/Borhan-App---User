@@ -8,6 +8,7 @@ import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:Borhan_User/screens/email_organization.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
+import 'package:Borhan_User/screens/organization_activities.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
 import 'package:Borhan_User/screens/splashScreen.dart';
 import 'package:Borhan_User/providers/auth.dart';
@@ -81,8 +82,8 @@ class MyApp extends StatelessWidget {
               primarySwatch: Colors.blueGrey,
             ),
             home:
-            OrganizationActivity(),
-            // SplashScreen(),
+         
+             SplashScreen(),
            // LocationSelection()
 
             routes: {
