@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:flushbar/flushbar.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 
 class NormalDenotationScreen extends StatefulWidget {
@@ -94,8 +95,20 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
       _downloadUrl= 'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
 
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
+   //    initializeDateFormatting('de_DE', null).then(formatDates);
+    var arabicTimeFormat = DateFormat.Hms('ar');
+    var arabicDateFormat = DateFormat.yMd('ar');
+
+    String formattedTime = arabicTimeFormat.format(DateTime.now());
+    String formattedDate = arabicDateFormat.format(DateTime.now());
+    String arabicFormattedDateTime = formattedTime + ' ' + formattedDate;
+//    DateTime now = DateTime.now();
+//    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
+    //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
+    print(formattedDate);
+    print(formattedTime);
+
+    print(arabicFormattedDateTime);
     //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
     print(formattedDate);
     final data = Provider.of<Auth>(context);
@@ -107,7 +120,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
               orgId:  orgNotifier.currentOrg.id,
               availableOn: _authData['time'],
               donationAmount: amount,
-              donationDate: formattedDate,
+              donationDate: arabicFormattedDateTime,
               donationType: selectedType,
               activityName:activityNotifier.currentActivity.name,
               donatorAddress: _authData['address'],
@@ -210,10 +223,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
   @override
   void initState() {
     super.initState();
+    initializeDateFormatting();
     activityNotifier =
         Provider.of<ActivityNotifier>(context, listen: false);
    orgNotifier = 
    Provider.of<OrganizationNotifier>(context, listen: false);
+     
   }
 
   @override
@@ -234,7 +249,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
         return <Widget>[
           SliverAppBar(
-            expandedHeight: 200.0,
+            expandedHeight: 180.0,
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
@@ -260,30 +275,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                 ),
                          ),
                        ),
-                         Positioned(
-                        child: Container(
-                      
-                          child: Center(
-                            child: Text(orgNotifier.currentOrg.orgName!= null
-            ? orgNotifier.currentOrg.orgName : 'تبرع الآن',
-                            style:TextStyle(
-                               fontSize: 21,
-                               fontWeight: FontWeight.bold,
-                               color: Colors.black,
-                               backgroundColor: Colors.lightBlue[600],
-                              shadows: [
-                                Shadow(
-                                  color: Colors.grey[600],
-                                  blurRadius: 2.0,
-                                  offset:Offset(4, 2)
-                                )
-                              ]
-                              ), 
-                              
-                            ),
-                          )
-                         ),
-                       ),
+                      //    Positioned(
+                      //   child: 
+                      //  ),
 
                 ]
               )
@@ -295,12 +289,53 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-        
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
 //                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
+                   SizedBox(
+                    height: 20,
+                  ),
+                  Container(
+                          child: Center(
+                            child: Container(
+                             padding:EdgeInsets.symmetric(horizontal: 15) , 
+                             //color: Colors.deepPurple.withOpacity(0.75),
+                             decoration: BoxDecoration(
+                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20) ,bottomRight: Radius.circular(0),
+                             topRight:Radius.circular(20) ,topLeft: Radius.circular(0)),
+                             color: Colors.deepPurple.withOpacity(0.75),
+                            //  boxShadow: [
+                            //  BoxShadow(
+                            //   color: Colors.purple,
+                            //   blurRadius: 5,
+                            //   offset: Offset(5, 5),
+                            //   )
+                            //  ],
+                            ),
+                              child: Text(orgNotifier.currentOrg.orgName!= null
+            ? orgNotifier.currentOrg.orgName : 'تبرع الآن',
+                              style:TextStyle(
+                                 fontSize: 21,
+                                 fontWeight: FontWeight.bold,
+                                 color: Colors.white,
+                                // backgroundColor: Colors.lightBlue[600],
+                              
+                                shadows: [
+                                  Shadow(
+                                    color: Colors.grey[600],
+                                    blurRadius: 2.0,
+                                    offset:Offset(4, 2)
+                                  )
+                                  ]
+                                ), 
+                                
+                              ),
+                            ),
+                            
+                          ),
+                         ),
                   SizedBox(
                     height: 20,
                   ),
@@ -316,7 +351,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                               blurRadius: 20,
                               offset: Offset(0, 10),
                             )
-                          ]),
+                           ],
+                          ),
                       child: Form(
                         key: _formKey,
                         child: Column(
