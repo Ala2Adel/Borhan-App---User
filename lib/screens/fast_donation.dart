@@ -38,7 +38,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
   // Organization  selectedOraginzaton;
   var selectedOraginzaton;
   Activity selectedActivity;
-  var _loading = true;
+  var _loading = false;
 
   var firstForm = true;
   var scondForm = false;

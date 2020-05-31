@@ -52,6 +52,7 @@ dependencies:
   sqflite: ^1.3.0+2
   path_provider: ^1.4.0
   flushbar: ^1.10.4
+  intro_views_flutter: ^2.8.1
 
 
 dev_dependencies:
@@ -73,6 +74,16 @@ flutter:
   assets:
     - assets/burhan.jpg
     - assets/images/
+    - assets/images/donation1.png
+    - assets/images/donation2.png
+    - assets/images/donation3.png
+    - assets/images/donation4.png
+    - assets/images/donation5.png
+    - assets/images/donation6.png
+    - assets/images/donation7.png
+    - assets/images/donation8.png
+    - assets/images/donation9.png
+    - assets/images/donation10.png
 
   # To add assets to your application, add an assets section, like this:
     
@@ -89,10 +100,10 @@ flutter:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
+  fonts:
+     - family: MyFont
+       fonts:
+         - asset: assets/Fonts/sspu.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
@@ -101,5 +112,6 @@ flutter:
   #       - asset: fonts/TrajanPro_Bold.ttf
   #         weight: 700
   #
+
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

@@ -212,32 +212,85 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     super.initState();
     activityNotifier =
         Provider.of<ActivityNotifier>(context, listen: false);
-       orgNotifier = Provider.of<OrganizationNotifier>(context, listen: false);
+   orgNotifier = 
+   Provider.of<OrganizationNotifier>(context, listen: false);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
-
-  @override
+   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height * (2 / 7);
-
-    // TODO: implement build
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Container(
-          //alignment: Alignment.center,
-          child: Text(activityNotifier.currentActivity.name!= null
+      body: nested(),
+    );
+  }
+///////////////////////////////////////////////////////////////
+  nested() {
+    return NestedScrollView(
+      headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+        return <Widget>[
+          SliverAppBar(
+            expandedHeight: 200.0,
+            floating: false,
+            pinned: true,
+            flexibleSpace: FlexibleSpaceBar(
+              centerTitle: true,
+              title: Text(activityNotifier.currentActivity.name!= null
             ? activityNotifier.currentActivity.name : 'تبرع الآن',
-              style: TextStyle(
-                color: Colors.white,
-              )),
-        ),
-      ),
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16.0,
+                ),
+              ),
+              // background: Image.asset(
+              //   "assets/burhan.jpg",
+              background:Stack(
+                     children: <Widget>[
+                      Positioned(
+                        child: Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  image:NetworkImage( "https://sydneycoupleandfamily.com/wp-content/uploads/2017/12/family-therapy-sydney.jpg"),
+                                 fit: BoxFit.fill,
+                                     ),
+                                ),
+                         ),
+                       ),
+                         Positioned(
+                        child: Container(
+                      
+                          child: Center(
+                            child: Text(orgNotifier.currentOrg.orgName!= null
+            ? orgNotifier.currentOrg.orgName : 'تبرع الآن',
+                            style:TextStyle(
+                               fontSize: 21,
+                               fontWeight: FontWeight.bold,
+                               color: Colors.black,
+                               backgroundColor: Colors.lightBlue[600],
+                              shadows: [
+                                Shadow(
+                                  color: Colors.grey[600],
+                                  blurRadius: 2.0,
+                                  offset:Offset(4, 2)
+                                )
+                              ]
+                              ), 
+                              
+                            ),
+                          )
+                         ),
+                       ),
+
+                ]
+              )
+            ),
+          )
+        ];
+      },
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -695,8 +748,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
             )
           ],
         ),
-      ), //ramadan say hi
-      //hello again
+      ),
     );
   }
+
+
+///////////////////////////////////////////////////////////////
+
 }
+
