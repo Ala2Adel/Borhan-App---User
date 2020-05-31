@@ -14,10 +14,7 @@ import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-
 class NormalDenotationScreen extends StatefulWidget {
-
-
   // This widget is the root of your application.
   @override
   _NormalDenotationScreenState createState() => _NormalDenotationScreenState();
@@ -25,8 +22,8 @@ class NormalDenotationScreen extends StatefulWidget {
 
 class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
   String selectedType;
-  ActivityNotifier activityNotifier ;
-  OrganizationNotifier orgNotifier ;
+  ActivityNotifier activityNotifier;
+  OrganizationNotifier orgNotifier;
   List<String> _denoteType = <String>[
     'نقدى',
     'عينى',
@@ -61,41 +58,37 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
   Future<void> _submit(BuildContext context) async {
     print("Container pressed");
 
-    String amount= _authData['amount'];
-    String items= _authData['items'];
-  
-     if (!_formKey.currentState.validate()) {
+    String amount = _authData['amount'];
+    String items = _authData['items'];
+
+    if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
-     }
+    }
 
-      if  (selectedType == null) 
-      {
-       _showErrorDialog("من فضلك اختار نوع التبرع ");
-        return;
-      }
-       if  (_image == null && selectedType != 'نقدى' ) 
-      {
-       _showErrorDialog("من فضلك اضاف صورة التبرع ");
-        return;
-      }
-      
+    if (selectedType == null) {
+      _showErrorDialog("من فضلك اختار نوع التبرع ");
+      return;
+    }
+    if (_image == null && selectedType != 'نقدى') {
+      _showErrorDialog("من فضلك اضاف صورة التبرع ");
+      return;
+    }
+
     _formKey.currentState.save();
-      if (selectedType != 'نقدى' )
-    {
+    if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
-      if(selectedType == 'عينى'){
-         amount="";
+      if (selectedType == 'عينى') {
+        amount = "";
       }
+    } else {
+      items = "";
+      _downloadUrl =
+          'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
-    else{
 
-       items="";
-      _downloadUrl= 'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
-    }
-
-   //    initializeDateFormatting('de_DE', null).then(formatDates);
+    //    initializeDateFormatting('de_DE', null).then(formatDates);
     var arabicTimeFormat = DateFormat.Hms('ar');
     var arabicDateFormat = DateFormat.yMd('ar');
 
@@ -113,16 +106,15 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     print(formattedDate);
     final data = Provider.of<Auth>(context);
     try {
-
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
-        userId: data.userData.id,
-              orgId:  orgNotifier.currentOrg.id,
+              userId: data.userData.id,
+              orgId: orgNotifier.currentOrg.id,
               availableOn: _authData['time'],
               donationAmount: amount,
               donationDate: arabicFormattedDateTime,
               donationType: selectedType,
-              activityName:activityNotifier.currentActivity.name,
+              activityName: activityNotifier.currentActivity.name,
               donatorAddress: _authData['address'],
               donatorItems: items,
               image: _downloadUrl,
@@ -139,16 +131,16 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
       //    Navigator.of(context).pop();
       // ///////////////////////////////////////////////
       Flushbar(
-      message:'تم ارسال طلب تبرعك بنجاح',
-      icon: Icon(
-      Icons.thumb_up,
-     size: 28.0,
-     color: Colors.blue[300],
-      ),
-      duration: Duration(seconds: 3),
-      //leftBarIndicatorColor: Colors.blue[300],
-      margin: EdgeInsets.all(8),
-      borderRadius: 8,
+        message: 'تم ارسال طلب تبرعك بنجاح',
+        icon: Icon(
+          Icons.thumb_up,
+          size: 28.0,
+          color: Colors.blue[300],
+        ),
+        duration: Duration(seconds: 3),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 8,
       )..show(context).then((value) => Navigator.of(context).pop());
       //////////////////////////////////////////////
     } catch (error) {
@@ -169,21 +161,18 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
 
     img = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
-     
-      if(img!=null){
-         _image = img;
-         _isLoadImg = true;
-      }else{
-          // _image = img;
-          if(_image!=null){
-               _isLoadImg = true;
-          }else{
-           _isLoadImg = false;
-          }
+      if (img != null) {
+        _image = img;
+        _isLoadImg = true;
+      } else {
+        // _image = img;
+        if (_image != null) {
+          _isLoadImg = true;
+        } else {
+          _isLoadImg = false;
+        }
       }
-     
-     }
-    );
+    });
   }
 
   Future<String> uploadImage(File image) async {
@@ -219,23 +208,20 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     );
   }
 
-
   @override
   void initState() {
     super.initState();
     initializeDateFormatting();
-    activityNotifier =
-        Provider.of<ActivityNotifier>(context, listen: false);
-   orgNotifier = 
-   Provider.of<OrganizationNotifier>(context, listen: false);
-     
+    activityNotifier = Provider.of<ActivityNotifier>(context, listen: false);
+    orgNotifier = Provider.of<OrganizationNotifier>(context, listen: false);
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
-   @override
+
+  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height * (2 / 7);
@@ -243,6 +229,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
       body: nested(),
     );
   }
+
 ///////////////////////////////////////////////////////////////
   nested() {
     return NestedScrollView(
@@ -253,35 +240,36 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
             floating: false,
             pinned: true,
             flexibleSpace: FlexibleSpaceBar(
-              centerTitle: true,
-              title: Text(activityNotifier.currentActivity.name!= null
-            ? activityNotifier.currentActivity.name : 'تبرع الآن',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
-                ),
-              ),
-              // background: Image.asset(
-              //   "assets/burhan.jpg",
-              background:Stack(
-                     children: <Widget>[
-                      Positioned(
-                        child: Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image:NetworkImage( "https://sydneycoupleandfamily.com/wp-content/uploads/2017/12/family-therapy-sydney.jpg"),
-                                 fit: BoxFit.fill,
-                                     ),
-                                ),
-                         ),
-                       ),
-                      //    Positioned(
-                      //   child: 
-                      //  ),
-
-                ]
-              )
-            ),
+                centerTitle: true,
+//                title: Text(
+//                  activityNotifier.currentActivity.name != null
+//                      ? activityNotifier.currentActivity.name
+//                      : 'تبرع الآن',
+//                  style: TextStyle(
+//                    color: Colors.white,
+//                    fontSize: 16.0,
+//                  ),
+//                ),
+                // background: Image.asset(
+                //   "assets/burhan.jpg",
+                background: Stack(children: <Widget>[
+                  Positioned(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+//                          image: NetworkImage(
+//                              "https://sydneycoupleandfamily.com/wp-content/uploads/2017/12/family-therapy-sydney.jpg"),
+                          image:
+                              NetworkImage("https://i.imgur.com/1cE0Xiv.png"),
+                          fit: BoxFit.fill,
+                        ),
+                      ),
+                    ),
+                  ),
+                  //    Positioned(
+                  //   child:
+                  //  ),
+                ])),
           )
         ];
       },
@@ -294,48 +282,49 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
               child: Column(
 //                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                   SizedBox(
+                  SizedBox(
                     height: 20,
                   ),
                   Container(
-                          child: Center(
-                            child: Container(
-                             padding:EdgeInsets.symmetric(horizontal: 15) , 
-                             //color: Colors.deepPurple.withOpacity(0.75),
-                             decoration: BoxDecoration(
-                             borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20) ,bottomRight: Radius.circular(0),
-                             topRight:Radius.circular(20) ,topLeft: Radius.circular(0)),
-                             color: Colors.deepPurple.withOpacity(0.75),
-                            //  boxShadow: [
-                            //  BoxShadow(
-                            //   color: Colors.purple,
-                            //   blurRadius: 5,
-                            //   offset: Offset(5, 5),
-                            //   )
-                            //  ],
-                            ),
-                              child: Text(orgNotifier.currentOrg.orgName!= null
-            ? orgNotifier.currentOrg.orgName : 'تبرع الآن',
-                              style:TextStyle(
-                                 fontSize: 21,
-                                 fontWeight: FontWeight.bold,
-                                 color: Colors.white,
-                                // backgroundColor: Colors.lightBlue[600],
-                              
-                                shadows: [
-                                  Shadow(
+                    child: Center(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        //color: Colors.deepPurple.withOpacity(0.75),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(20),
+                              bottomRight: Radius.circular(0),
+                              topRight: Radius.circular(20),
+                              topLeft: Radius.circular(0)),
+                          color: Colors.deepPurple.withOpacity(0.75),
+                          //  boxShadow: [
+                          //  BoxShadow(
+                          //   color: Colors.purple,
+                          //   blurRadius: 5,
+                          //   offset: Offset(5, 5),
+                          //   )
+                          //  ],
+                        ),
+                        child: Text(
+                          orgNotifier.currentOrg.orgName != null
+                              ? orgNotifier.currentOrg.orgName
+                              : 'تبرع الآن',
+                          style: TextStyle(
+                              fontSize: 21,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              // backgroundColor: Colors.lightBlue[600],
+
+                              shadows: [
+                                Shadow(
                                     color: Colors.grey[600],
                                     blurRadius: 2.0,
-                                    offset:Offset(4, 2)
-                                  )
-                                  ]
-                                ), 
-                                
-                              ),
-                            ),
-                            
-                          ),
-                         ),
+                                    offset: Offset(4, 2))
+                              ]),
+                        ),
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -343,56 +332,102 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                     1.7,
                     Container(
                       decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: Color.fromRGBO(196, 135, 198, .3),
-                              blurRadius: 20,
-                              offset: Offset(0, 10),
-                            )
-                           ],
-                          ),
+                        borderRadius: BorderRadius.circular(10),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Color.fromRGBO(196, 135, 198, .3),
+                            blurRadius: 20,
+                            offset: Offset(0, 10),
+                          )
+                        ],
+                      ),
                       child: Form(
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
-  /////////////////////////////////////////////////////////
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
+                            /////////////////////////////////////////////////////////
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom:
+                                          BorderSide(color: Colors.grey[200]))),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
 //                                  labelText:'اسم المتبرع',
-                                      hintText: "اسم المتبرع",
-                                      prefixIcon: Icon(
-                                        Icons.person,
-                                        color: Colors.deepPurple,
-                                      ),
-                                      hintStyle:
-                                          TextStyle(color: Colors.grey)),
+                                    hintText: "اسم المتبرع",
+                                    prefixIcon: Icon(
+                                      Icons.person,
+                                      color: Colors.deepPurple,
+                                    ),
+                                    hintStyle: TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
-                                   validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل الاسم من فضلك';
-                                       }else if(value.length<3){
-                                         return'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
-                                       }
-                                     return null;
-                                   },
+                                validator: (value) {
+                                  bool spaceRex =
+                                      new RegExp(r"^\\s+$").hasMatch(value);
+                                  if (spaceRex ||
+                                      value.length == 0 ||
+                                      value == null) {
+                                    return 'ادخل الاسم من فضلك';
+                                  } else if (value.length < 3) {
+                                    return 'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
+                                  }
+                                  return null;
+                                },
 //                                    onSaved: (value) {
 //                                      _authData['name'] = value;
 //                                    },
-                                  onChanged: (value) {
-                                    _authData['name'] = value;
-                                  },
-                                  controller: nameController,
+                                onChanged: (value) {
+                                  _authData['name'] = value;
+                                },
+                                controller: nameController,
+                              ),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom:
+                                          BorderSide(color: Colors.grey[200]))),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  hintText: "البريد الالكترونى",
+                                  prefixIcon: Icon(
+                                    Icons.email,
+                                    color: Colors.deepPurple,
+                                  ),
+                                  hintStyle: TextStyle(color: Colors.grey),
                                 ),
+//                              textAlign: TextAlign.end,
+                                keyboardType: TextInputType.emailAddress,
+                                validator: (value) {
+                                  bool emailValid = RegExp(
+                                          r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                      .hasMatch(value);
+                                  if (!emailValid) {
+                                    bool spaceRex =
+                                        new RegExp(r"^\\s+$").hasMatch(value);
+                                    if (spaceRex ||
+                                        value.length == 0 ||
+                                        value == null) {
+                                      return 'ادخل البريد الألكترونى من فضلك';
+                                    } else {
+                                      return 'البريد الألكترونى غيرصالح';
+                                    }
+                                  }
+                                  return null;
+                                },
+                                //  onSaved: (value) {
+                                //    _authData['email'] = value;
+                                //  },
+                                onChanged: (value) {
+                                  _authData['email'] = value;
+                                },
+
+                                controller: emailController,
                               ),
 //                               Container(
 //                                 padding: EdgeInsets.all(10),
@@ -453,207 +488,226 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                       ),
                                       hintStyle:
                                           TextStyle(color: Colors.grey)),
+                            ),
+                            Container(
+                              padding: EdgeInsets.all(10),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom:
+                                          BorderSide(color: Colors.grey[200]))),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    border: InputBorder.none,
+                                    hintText: "رقم التلفون المحمول",
+                                    prefixIcon: Icon(
+                                      Icons.mobile_screen_share,
+                                      color: Colors.deepPurple,
+                                    ),
+                                    hintStyle: TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
-                                  keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.number,
 //                                    onSaved: (value) {
 //                                      _authData['mobile'] = value;
 //                                    },
-                                  onChanged: (val) {
-                                    _authData['mobile'] = val;
-                                  },
-                                  controller: mobileController,
-                                   validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل رقم الهاتف من فضلك';
-                                       }else if(value.length<11 ){
-                                        return'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
-                                       }
-                                     return null;
-                                   },
-                                ),
+                                onChanged: (val) {
+                                  _authData['mobile'] = val;
+                                },
+                                controller: mobileController,
+                                validator: (value) {
+                                  bool spaceRex =
+                                      new RegExp(r"^\\s+$").hasMatch(value);
+                                  if (spaceRex ||
+                                      value.length == 0 ||
+                                      value == null) {
+                                    return 'ادخل رقم الهاتف من فضلك';
+                                  } else if (value.length < 11) {
+                                    return 'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
+                                  }
+                                  return null;
+                                },
                               ),
-                              Container(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10, vertical: 20),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(2.0)),
-                                      labelText: "العنوان",
-                                      // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
-                                      labelStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 24)),
+                            ),
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 20),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(2.0)),
+                                    labelText: "العنوان",
+                                    // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
+                                    labelStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 24)),
 //                              textAlign: TextAlign.end,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: null,
-                                  minLines: 2,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: null,
+                                minLines: 2,
 //                                    onSaved: (value) {
 //                                      _authData['address'] = value;
 //                                    },
-                                  onChanged: (val) {
-                                    _authData['address'] = val;
-                                  },
-                                   validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل العنوان من فضلك';
-                                        }else if (value.length<5 ){
-                                         return'العنوان لايمكن ان يكون اقل من 5 احرف';
-                                        }
-                                     return null;
-                                   },
-                                  controller: addressController,
-                                ),
+                                onChanged: (val) {
+                                  _authData['address'] = val;
+                                },
+                                validator: (value) {
+                                  bool spaceRex =
+                                      new RegExp(r"^\\s+$").hasMatch(value);
+                                  if (spaceRex ||
+                                      value.length == 0 ||
+                                      value == null) {
+                                    return 'ادخل العنوان من فضلك';
+                                  } else if (value.length < 5) {
+                                    return 'العنوان لايمكن ان يكون اقل من 5 احرف';
+                                  }
+                                  return null;
+                                },
+                                controller: addressController,
                               ),
+                            ),
+                            Container(
+                                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                child: Text(
+                                  'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
+                                  style: TextStyle(
+                                      fontSize: 17,
+                                      height: 1,
+                                      fontWeight: FontWeight.bold),
+                                )),
+                            Container(
+                              padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+                              decoration: BoxDecoration(
+                                  border: Border(
+                                      bottom:
+                                          BorderSide(color: Colors.grey[200]))),
+                              child: TextFormField(
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(2.0)),
+                                    prefixIcon: Icon(
+                                      Icons.access_time,
+                                      color: Colors.deepPurple,
+                                    ),
+                                    // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
+                                    labelStyle: TextStyle(
+                                        color: Colors.grey, fontSize: 24)),
+//                              textAlign: TextAlign.end,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: null,
+                                minLines: 2,
+//                                    onSaved: (value) {
+//                                      _authData['time'] = value;
+//                                    },
+                                onChanged: (val) {
+                                  _authData['time'] = val;
+                                },
+                                controller: timeController,
+                                validator: (value) {
+                                  bool spaceRex =
+                                      new RegExp(r"^\\s+$").hasMatch(value);
+                                  if (spaceRex ||
+                                      value.length == 0 ||
+                                      value == null) {
+                                    return 'ادخل الوقت من فضلك';
+                                  }
+                                  return null;
+                                },
+                              ),
+                            ),
+//////////////////////////////////////////////////////////////////////
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Icon(
+                                  FontAwesomeIcons.handsHelping,
+                                  size: 25.0,
+                                  color: Colors.deepPurple,
+                                ),
+                                SizedBox(width: 50.0),
+                                DropdownButton(
+                                  items: _denoteType
+                                      .map(
+                                        (value) => DropdownMenuItem(
+                                          child: Row(
+                                            children: <Widget>[
+                                              Icon(
+                                                _denoteIcons[
+                                                    _denoteType.indexOf(value)],
+                                                size: 25.0,
+                                                color: Color(0xff11b719),
+                                              ),
+                                              SizedBox(width: 50.0),
+                                              Text(
+                                                value,
+                                                style: TextStyle(
+                                                    color: Color(0xff11b719)),
+                                              ),
+                                            ],
+                                          ),
+                                          value: value,
+                                        ),
+                                      )
+                                      .toList(),
+                                  onChanged: (selectedAccountType) {
+                                    print('$selectedAccountType');
+                                    setState(() {
+                                      selectedType = selectedAccountType;
+                                    });
+                                  },
+                                  value: selectedType,
+                                  isExpanded: false,
+                                  hint: Text(
+                                    'اختار نوع التبرع',
+                                    style: TextStyle(color: Color(0xff11b719)),
+                                  ),
+                                )
+                              ],
+                            ),
+                            if (selectedType == 'نقدى' ||
+                                selectedType == 'نقدى وعينى')
                               Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                  child: Text(
-                                    'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
-                                    style: TextStyle(
-                                        fontSize: 17,
-                                        height: 1,
-                                        fontWeight: FontWeight.bold),
-                                  )),
-                              Container(
-                                padding:
-                                    EdgeInsets.fromLTRB(10, 5, 10, 10),
+                                padding: EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
                                             color: Colors.grey[200]))),
                                 child: TextFormField(
                                   decoration: InputDecoration(
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(2.0)),
+                                      border: InputBorder.none,
+                                      hintText: " المبلغ بالجنيه المصرى ",
                                       prefixIcon: Icon(
-                                        Icons.access_time,
+                                        FontAwesomeIcons.moneyBill,
                                         color: Colors.deepPurple,
                                       ),
-                                      // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
-                                      labelStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 24)),
+                                      hintStyle: TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
-                                  keyboardType: TextInputType.multiline,
-                                  maxLines: null,
-                                  minLines: 2,
-//                                    onSaved: (value) {
-//                                      _authData['time'] = value;
-//                                    },
-                                  onChanged: (val) {
-                                    _authData['time'] = val;
-                                  },
-                                  controller: timeController,
-                                   validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0  || value==null){
-                                         return 'ادخل الوقت من فضلك';
-                                     }
-                                     return null;
-                                   },
-                                ),
-                              ),
-//////////////////////////////////////////////////////////////////////
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Icon(
-                                    FontAwesomeIcons.handsHelping,
-                                    size: 25.0,
-                                    color: Colors.deepPurple,
-                                  ),
-                                  SizedBox(width: 50.0),
-                                  DropdownButton(
-                                    items: _denoteType
-                                        .map(
-                                          (value) => DropdownMenuItem(
-                                            child: Row(
-                                              children: <Widget>[
-                                                Icon(
-                                                  _denoteIcons[_denoteType
-                                                      .indexOf(value)],
-                                                  size: 25.0,
-                                                  color: Color(0xff11b719),
-                                                ),
-                                                SizedBox(width: 50.0),
-                                                Text(
-                                                  value,
-                                                  style: TextStyle(
-                                                      color: Color(
-                                                          0xff11b719)),
-                                                ),
-                                              ],
-                                            ),
-                                            value: value,
-                                          ),
-                                        )
-                                        .toList(),
-                                    onChanged: (selectedAccountType) {
-                                      print('$selectedAccountType');
-                                      setState(() {
-                                        selectedType = selectedAccountType;
-                                      });
-                                    },
-                                    
-                                    value: selectedType,
-                                    isExpanded: false,
-                                    hint: Text(
-                                      'اختار نوع التبرع',
-                                      style: TextStyle(
-                                          color: Color(0xff11b719)),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              if (selectedType == 'نقدى' ||
-                                  selectedType == 'نقدى وعينى')
-                                Container(
-                                  padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                      border: Border(
-                                          bottom: BorderSide(
-                                              color: Colors.grey[200]))),
-                                  child: TextFormField(
-                                    decoration: InputDecoration(
-                                        border: InputBorder.none,
-                                        hintText: " المبلغ بالجنيه المصرى ",
-                                        prefixIcon: Icon(
-                                          FontAwesomeIcons.moneyBill,
-                                          color: Colors.deepPurple,
-                                        ),
-                                        hintStyle:
-                                            TextStyle(color: Colors.grey)),
-//                              textAlign: TextAlign.end,
-                                    keyboardType: TextInputType.number,
+                                  keyboardType: TextInputType.number,
 //                                        onSaved: (value) {
 //                                          _authData['amount'] = value;
 //                                        },
-                                    onChanged: (value) {
-                                      _authData['amount'] = value;
-                                    },
-                                    controller: moneyController,
-                                       validator: (value) {
-                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                         if(spaceRex || value.length==0  || value==null){
-                                           return 'ادخل المبلغ من فضلك';
-                                         }
-                                        
-                                         return null;
-                                       },
-                                  ),
+                                  onChanged: (value) {
+                                    _authData['amount'] = value;
+                                  },
+                                  controller: moneyController,
+                                  validator: (value) {
+                                    bool spaceRex =
+                                        new RegExp(r"^\\s+$").hasMatch(value);
+                                    if (spaceRex ||
+                                        value.length == 0 ||
+                                        value == null) {
+                                      return 'ادخل المبلغ من فضلك';
+                                    }
+
+                                    return null;
+                                  },
                                 ),
+                              ),
 ///////////////////////////////////////////////////////
-                            if (selectedType != 'نقدى' && selectedType!=null)
+                            if (selectedType != 'نقدى' && selectedType != null)
                               Container(
                                 padding: EdgeInsets.all(20),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Icon(
                                       FontAwesomeIcons.camera,
@@ -665,13 +719,12 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                         child: Text("اضف صورة التبرع",
                                             style: TextStyle(
                                                 fontSize: 15,
-                                                fontWeight:
-                                                    FontWeight.bold)))
+                                                fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
 
-                             if (selectedType != 'نقدى' && selectedType!=null)
+                            if (selectedType != 'نقدى' && selectedType != null)
                               InkWell(
                                 child: Container(
                                   padding: EdgeInsets.all(10),
@@ -688,10 +741,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                 onTap: getImage,
                               ),
 
-                             if (selectedType != 'نقدى' && selectedType!=null)
+                            if (selectedType != 'نقدى' && selectedType != null)
                               Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                   child: Text(
                                     'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
                                     style: TextStyle(
@@ -699,10 +751,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                         height: 1,
                                         fontWeight: FontWeight.bold),
                                   )),
-                              if (selectedType != 'نقدى' && selectedType!=null)
+                            if (selectedType != 'نقدى' && selectedType != null)
                               Container(
-                                  padding:
-                                      EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                   child: Text(
                                     ' مثال:3 اطقم ملابس و 2بطاطين....',
                                     style: TextStyle(
@@ -710,10 +761,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                         height: 1,
                                         color: Colors.grey),
                                   )),
-                               if (selectedType != 'نقدى' && selectedType!=null)
+                            if (selectedType != 'نقدى' && selectedType != null)
                               Container(
-                                padding:
-                                    EdgeInsets.fromLTRB(10, 5, 10, 10),
+                                padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(
@@ -722,8 +772,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                       labelText: "الوصف",
                                       // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                       labelStyle: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 24)),
+                                          color: Colors.grey, fontSize: 24)),
 //                              textAlign: TextAlign.end,
                                   keyboardType: TextInputType.multiline,
                                   maxLines: null,
@@ -735,13 +784,16 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     _authData['items'] = value;
                                   },
                                   controller: itemsController,
-                                   validator: (value) {
-                                     bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                     if(spaceRex || value.length==0  || value==null){
-                                       return 'ادخل الوصف من فضلك';
-                                     }
-                                     return null;
-                                   },
+                                  validator: (value) {
+                                    bool spaceRex =
+                                        new RegExp(r"^\\s+$").hasMatch(value);
+                                    if (spaceRex ||
+                                        value.length == 0 ||
+                                        value == null) {
+                                      return 'ادخل الوصف من فضلك';
+                                    }
+                                    return null;
+                                  },
                                 ),
                               )
                           ],
@@ -752,33 +804,31 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                   SizedBox(
                     height: 40,
                   ),
-                 FadeAnimation(
-                          1.9,
-                          Builder(
-                            builder: (ctx) => InkWell(
-                              onTap: () =>
-                                  _submit(ctx), // handle your onTap here
-                              child: Container(
-                                height: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 60),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    "تبرع الأن",
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
+                  FadeAnimation(
+                    1.9,
+                    Builder(
+                      builder: (ctx) => InkWell(
+                        onTap: () => _submit(ctx), // handle your onTap here
+                        child: Container(
+                          height: 50,
+                          margin: EdgeInsets.symmetric(horizontal: 60),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Color.fromRGBO(49, 39, 79, 1),
+                          ),
+                          child: Center(
+                            child: Text(
+                              "تبرع الأن",
+                              style: TextStyle(color: Colors.white),
                             ),
                           ),
                         ),
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
-                
                 ],
               ),
             )
@@ -788,8 +838,6 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     );
   }
 
-
 ///////////////////////////////////////////////////////////////
 
 }
-
