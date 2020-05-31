@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
             },
             title: 'Borhan',
             theme: new ThemeData(
-              primarySwatch: Colors.indigo,
+              primarySwatch: Colors.purple,
             ),
             home:
          

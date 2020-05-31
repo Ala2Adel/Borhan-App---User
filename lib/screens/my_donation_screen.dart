@@ -38,7 +38,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
   Widget build(BuildContext context) {
     final historyData = Provider.of<MyDonationsProvider>(context);
     return Scaffold(
-//      backgroundColor: Colors.indigo[400],
+//      backgroundColor: Colors.purple[400],
       appBar: AppBar(
         title: Text('تبرعاتي'),
       ),
@@ -51,7 +51,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
               itemCount: historyData.items.length,
               itemBuilder: (_, i) {
                 return Container(
-//                  color: Colors.indigo[100],
+//                  color: Colors.purple[100],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
@@ -59,7 +59,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                         child: Row(
                           children: <Widget>[
                             Material(
-                              color: Colors.indigo[400],
+                              color: Colors.purple[400],
                               elevation: 14.0,
                               borderRadius: BorderRadius.circular(24.0),
 //                        shadowColor: Color(0x802196F3),
@@ -116,7 +116,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                 .status !=
                                                             ''
                                                     ? Material(
-//                                                  color: Colors.indigo[50],
+//                                                  color: Colors.purple[50],
                                                         elevation: 2.0,
                                                         borderRadius:
                                                             BorderRadius
@@ -130,7 +130,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                               'حالة التبرع : ',
                                                               style: TextStyle(
                                                                   color: Colors
-                                                                      .indigo,
+                                                                      .purple,
                                                                   fontSize:
                                                                       18.0,
                                                                   fontWeight:

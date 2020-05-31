@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       // backgroundColor: Color.fromRGBO(43, 41, 104, 0.5),
-      backgroundColor: Colors.indigo[400],
+      backgroundColor: Colors.purple[400],
       body: Center(
         child: Image.asset(
           'assets/images/borhan-alireza.jpg',
