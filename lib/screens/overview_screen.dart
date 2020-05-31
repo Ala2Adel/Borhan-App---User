@@ -47,7 +47,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
@@ -107,7 +106,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                     child: new Container(
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         decoration: new BoxDecoration(
-                            color: const Color(0xFF273A48),
+                            // color: const Color(0xFF273A48),
+                            color: Colors.purple[400],
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
@@ -163,12 +163,12 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         new Align(
                           alignment: Alignment.topRight,
                           child: new Padding(
-                              padding: new EdgeInsets.only(right:12.0),
+                              padding: new EdgeInsets.only(right: 12.0),
                               child: new Text(
                                 'الحملات',
 //                                textDirection: TextDirection.ltr,
                                 style: new TextStyle(
-                                  color: Colors.white70,
+                                  color: Colors.white,
                                   fontSize: 26,
                                 ),
                               )),
@@ -176,7 +176,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         new Container(
                             height: 150.0, width: _width, child: headerList),
                         Container(
-                          width: MediaQuery.of(context).size.width * 2/3,
+                          width: MediaQuery.of(context).size.width * 2 / 3,
                           child: ButtonTheme(
 //                            minWidth: MediaQuery.of(context).size.width,
                             height: 50.0,
@@ -186,12 +186,14 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 RaisedButton(
                                   color: Colors.greenAccent,
                                   shape: RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(24.0),
+                                    borderRadius:
+                                        new BorderRadius.circular(24.0),
                                     side: BorderSide(color: Colors.black),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (BuildContext context) {
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) {
                                       return FastDenotationScreen();
                                     }));
                                   },
@@ -214,7 +216,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                     child: Card(
                                       margin:
                                           EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                      color: Colors.blueGrey.withAlpha(500),
+                                      // color: Colors.blueGrey.withAlpha(500),
+                                      color: Colors.purple[400],
                                       //padding: EdgeInsets.only(top: 20.0),
                                       child: new ListTile(
                                         contentPadding: EdgeInsets.all(8.0),
@@ -298,7 +301,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                     ),
                                                     Wrap(
                                                       crossAxisAlignment:
-                                                          WrapCrossAlignment.center,
+                                                          WrapCrossAlignment
+                                                              .center,
                                                       children: <Widget>[
                                                         RaisedButton(
                                                           color: Colors
@@ -413,7 +417,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
     return new Container(
       decoration: new BoxDecoration(
-        color: const Color(0xFF273A48),
+        // color: const Color(0xFF273A48),
+        color: Colors.purple,
       ),
       child: new Stack(
         children: <Widget>[
