@@ -1,4 +1,3 @@
-
 import 'package:Borhan_User/models/activities.dart';
 import 'package:Borhan_User/models/organization.dart';
 import 'package:Borhan_User/providers/auth.dart';
@@ -17,6 +16,7 @@ import 'dart:convert';
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
+import 'package:intl/date_symbol_data_local.dart';
 
 //extension IndexedIterable<E> on Iterable<E> {
 //  Iterable<T> mapIndexed<T>(T f(E e, int i)) {
@@ -34,6 +34,7 @@ class FastDenotationScreen extends StatefulWidget {
 
 class _FastDenotationScreenState extends State<FastDenotationScreen> {
   String selectedType;
+  Future formatDates;
   // Organization  selectedOraginzaton;
   var selectedOraginzaton;
   Activity selectedActivity;
@@ -81,31 +82,33 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     'amount': '',
   };
 
-  void _nextSubmit(){
+  void _nextSubmit() {
     if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
     }
-        if (current < 3) {
-          if (current == 2 &&(selectedType == null || selectedOraginzaton == null ||
+    if (current < 3) {
+      if (current == 2 &&
+          (selectedType == null ||
+              selectedOraginzaton == null ||
               selectedActivity == null)) {
-            _showErrorDialog( "من فضلك اختار نوع التبرع والجمعية والنشاط الذى تود التبرع له");
-             } 
-              else {                 
-               current++;
-                  }
-          }
-                                // print("the current is $current");
-          setState(() {
-              checkCurrent();
-          });
-
+        _showErrorDialog(
+            "من فضلك اختار نوع التبرع والجمعية والنشاط الذى تود التبرع له");
+      } else {
+        current++;
+      }
+    }
+    // print("the current is $current");
+    setState(() {
+      checkCurrent();
+    });
   }
+
   Future<void> _submit(BuildContext context) async {
     print("Container pressed");
 
-     String amount= _authData['amount'];
-     String items= _authData['items'];
+    String amount = _authData['amount'];
+    String items = _authData['items'];
 
     // Scaffold.of(ctx).showSnackBar(SnackBar(content: Text('Profile Save'),),);
     if (!_formKey.currentState.validate()) {
@@ -113,42 +116,49 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       return;
     }
 
-    if  (_image == null && selectedType != 'نقدى' ) 
-      {
-       _showErrorDialog("من فضلك اضاف صورة التبرع ");
-        return;
-      } 
+    if (_image == null && selectedType != 'نقدى') {
+      _showErrorDialog("من فضلك اضاف صورة التبرع ");
+      return;
+    }
 
     _formKey.currentState.save();
-       if (selectedType != 'نقدى' )
-    {
+    if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
-      if(selectedType == 'عينى'){
-         amount="";
+      if (selectedType == 'عينى') {
+        amount = "";
       }
+    } else {
+      items = "";
+      _downloadUrl =
+          'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
-    else{
 
-       items="";
-      _downloadUrl= 'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
-    }
+//    initializeDateFormatting('de_DE', null).then(formatDates);
+    var arabicTimeFormat = DateFormat.Hms('ar');
+    var arabicDateFormat = DateFormat.yMd('ar');
 
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
+    String formattedTime = arabicTimeFormat.format(DateTime.now());
+    String formattedDate = arabicDateFormat.format(DateTime.now());
+    String arabicFormattedDateTime = formattedTime + ' ' + formattedDate;
+//    DateTime now = DateTime.now();
+//    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
     //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
     print(formattedDate);
+    print(formattedTime);
+
+    print(arabicFormattedDateTime);
     final data = Provider.of<Auth>(context);
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
-          userId: data.userData.id,
+              userId: data.userData.id,
               orgId: _orgList[selectedOraginzaton].id,
               availableOn: _authData['time'],
               donationAmount: amount,
-              donationDate: formattedDate,
+              donationDate: arabicFormattedDateTime,
               donationType: selectedType,
-              activityName:selectedActivity.activityName,
+              activityName: selectedActivity.activityName,
               donatorAddress: _authData['address'],
               donatorItems: items,
               image: _downloadUrl,
@@ -164,16 +174,16 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       //   Navigator.of(context).pop();
 /////////////////////////////////////////////////////////////////
       Flushbar(
-      message:'تم ارسال طلب تبرعك بنجاح',
-      icon: Icon(
-      Icons.thumb_up,
-     size: 28.0,
-     color: Colors.blue[300],
-      ),
-      duration: Duration(seconds: 3),
-      //leftBarIndicatorColor: Colors.blue[300],
-      margin: EdgeInsets.all(8),
-      borderRadius: 8,
+        message: 'تم ارسال طلب تبرعك بنجاح',
+        icon: Icon(
+          Icons.thumb_up,
+          size: 28.0,
+          color: Colors.blue[300],
+        ),
+        duration: Duration(seconds: 3),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 8,
       )..show(context).then((value) => Navigator.of(context).pop());
     } catch (error) {
       print(error);
@@ -203,21 +213,18 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     File img;
     img = await ImagePicker.pickImage(source: ImageSource.gallery);
     setState(() {
-
-    if(img!=null){
-         _image = img;
-         _isLoadImg = true;
-      }else{
+      if (img != null) {
+        _image = img;
+        _isLoadImg = true;
+      } else {
         // _image = img;
-          if(_image!=null){
-               _isLoadImg = true;
-          }else{
-           _isLoadImg = false;
-          }
+        if (_image != null) {
+          _isLoadImg = true;
+        } else {
+          _isLoadImg = false;
+        }
       }
-
     });
-
   }
 
   Future<String> uploadImage(File image) async {
@@ -347,12 +354,14 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
   @override
   void initState() {
     super.initState();
+    initializeDateFormatting();
+
     this.getOrganizations();
   }
 
   @override
   void didChangeDependencies() {
-    this.getOrganizations();
+//    this.getOrganizations();
     super.didChangeDependencies();
   }
 
@@ -456,15 +465,20 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
-                                     validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل الاسم من فضلك';
-                                       }else if(value.length<3){
-                                         return'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
-                                       }
-                                     return null;
-                                   },
+                                        validator: (value) {
+                                          if (value.length < 3 ||
+                                              value == null) {
+                                            bool spaceRex =
+                                                new RegExp(r"^\\s+$")
+                                                    .hasMatch(value);
+                                            if (spaceRex || value.length == 0) {
+                                              return 'اادخل الاسم من فضلك';
+                                            } else {
+                                              return 'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
+                                            }
+                                          }
+                                          return null;
+                                        },
 //                                    onSaved: (value) {
 //                                      _authData['name'] = value;
 //                                    },
@@ -494,19 +508,24 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 //                              textAlign: TextAlign.end,
                                         keyboardType:
                                             TextInputType.emailAddress,
-                                  validator: (value) {
-                                     bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
-                                     if (!emailValid) {
-                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل البريد الألكترونى من فضلك';
-                                       }else{
-                                         return 'البريد الألكترونى غيرصالح';
-                                       }
-
-                                     }
-                                     return null;
-                                   },
+                                        validator: (value) {
+                                          bool emailValid = RegExp(
+                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                              .hasMatch(value);
+                                          if (!emailValid) {
+                                            bool spaceRex =
+                                                new RegExp(r"^\\s+$")
+                                                    .hasMatch(value);
+                                            if (spaceRex ||
+                                                value.length == 0 ||
+                                                value == null) {
+                                              return 'ادخل البريد الألكترونى من فضلك';
+                                            } else {
+                                              return 'البريد الألكترونى غيرصالح';
+                                            }
+                                          }
+                                          return null;
+                                        },
 //                                    onSaved: (value) {
 //                                      _authData['email'] = value;
 //                                    },
@@ -542,17 +561,20 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['mobile'] = val;
                                         },
                                         controller: mobileController,
-                                    validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل رقم الهاتف من فضلك';
-                                       }else if(value.length<11 ){
-                                        return'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
-                                       }
-                                     return null;
-                                      },
-                                   ),
-                                 ),
+                                        validator: (value) {
+                                          bool spaceRex = new RegExp(r"^\\s+$")
+                                              .hasMatch(value);
+                                          if (spaceRex ||
+                                              value.length == 0 ||
+                                              value == null) {
+                                            return 'ادخل رقم الهاتف من فضلك';
+                                          } else if (value.length < 11) {
+                                            return 'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                    ),
                                     Container(
                                       padding: EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 20),
@@ -576,15 +598,18 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         onChanged: (val) {
                                           _authData['address'] = val;
                                         },
-                                   validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0 || value==null){
-                                         return 'ادخل العنوان من فضلك';
-                                        }else if (value.length<5 ){
-                                         return'العنوان لايمكن ان يكون اقل من 5 احرف';
-                                        }
-                                     return null;
-                                   },
+                                        validator: (value) {
+                                          bool spaceRex = new RegExp(r"^\\s+$")
+                                              .hasMatch(value);
+                                          if (spaceRex ||
+                                              value.length == 0 ||
+                                              value == null) {
+                                            return 'ادخل العنوان من فضلك';
+                                          } else if (value.length < 5) {
+                                            return 'العنوان لايمكن ان يكون اقل من 5 احرف';
+                                          }
+                                          return null;
+                                        },
                                         controller: addressController,
                                       ),
                                     ),
@@ -629,13 +654,16 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['time'] = val;
                                         },
                                         controller: timeController,
-                                   validator: (value) {
-                                       bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                       if(spaceRex || value.length==0  || value==null){
-                                         return 'ادخل الوقت من فضلك';
-                                     }
-                                     return null;
-                                   },
+                                        validator: (value) {
+                                          bool spaceRex = new RegExp(r"^\\s+$")
+                                              .hasMatch(value);
+                                          if (spaceRex ||
+                                              value.length == 0 ||
+                                              value == null) {
+                                            return 'ادخل الوقت من فضلك';
+                                          }
+                                          return null;
+                                        },
                                       ),
                                     ),
                                   ],
@@ -854,13 +882,16 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['amount'] = value;
                                         },
                                         controller: moneyController,
-                                       validator: (value) {
-                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                         if(spaceRex || value.length==0  || value==null){
-                                           return 'ادخل المبلغ من فضلك';
-                                         }
-                                         return null;
-                                       },
+                                        validator: (value) {
+                                          bool spaceRex = new RegExp(r"^\\s+$")
+                                              .hasMatch(value);
+                                          if (spaceRex ||
+                                              value.length == 0 ||
+                                              value == null) {
+                                            return 'ادخل المبلغ من فضلك';
+                                          }
+                                          return null;
+                                        },
                                       ),
                                     ),
                                 ]),
@@ -957,13 +988,16 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           _authData['items'] = value;
                                         },
                                         controller: itemsController,
-                                   validator: (value) {
-                                     bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-                                     if(spaceRex || value.length==0  || value==null){
-                                       return 'ادخل الوصف من فضلك';
-                                     }
-                                     return null;
-                                   },
+                                        validator: (value) {
+                                          bool spaceRex = new RegExp(r"^\\s+$")
+                                              .hasMatch(value);
+                                          if (spaceRex ||
+                                              value.length == 0 ||
+                                              value == null) {
+                                            return 'ادخل الوصف من فضلك';
+                                          }
+                                          return null;
+                                        },
                                       ),
                                     ),
 //                                    Container(
@@ -1027,7 +1061,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                       ? FadeAnimation(
                           1.9,
                           InkWell(
-                            onTap:()=> _nextSubmit(),
+                            onTap: () => _nextSubmit(),
                             child: Container(
                               height: 50,
                               margin: EdgeInsets.symmetric(horizontal: 60),
@@ -1102,7 +1136,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
             )
           ],
         ),
-      ), 
+      ),
     );
   }
 }
