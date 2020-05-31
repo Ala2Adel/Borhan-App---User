@@ -41,7 +41,7 @@ class OrganizationNotifier with ChangeNotifier {
           email: prodData['email'],
           description: prodData['description'],
           landLineNo: prodData['landLineNo'],
-          licenseNo: prodData['licenceNo'],
+          licenseNo: prodData['licenseNo'],
           mobileNo: prodData['mobileNo'],
           bankAccounts: prodData['bankAccounts'],
           webPage: prodData['webPage'],

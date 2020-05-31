@@ -54,6 +54,7 @@ dependencies:
   flushbar: ^1.10.4
   intro_views_flutter: ^2.8.1
   google_fonts_arabic: ^1.1.7
+  url_launcher: ^5.4.10
 
 
 dev_dependencies:

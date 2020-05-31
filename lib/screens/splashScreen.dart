@@ -18,7 +18,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(
         Duration(seconds: 4),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-            builder: (BuildContext context) => OnboardScreen())));
+            builder: (BuildContext context) => OrgOverviewScreen())));
 //    Timer(
 //        Duration(seconds: 4),
 //            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -28,10 +28,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+      // backgroundColor: Color.fromRGBO(43, 41, 104, 0.5),
+      backgroundColor: Colors.indigo[400],
       body: Center(
         child: Image.asset(
-          'assets/images/blogo1.png',
+          'assets/images/borhan-alireza.jpg',
           width: MediaQuery.of(context).size.width,
           height: MediaQuery.of(context).size.height,
           fit: BoxFit.fill,

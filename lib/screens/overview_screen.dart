@@ -107,7 +107,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                     child: new Container(
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         decoration: new BoxDecoration(
-                            color: const Color(0xFF273A48),
+                            // color: const Color(0xFF273A48),
+                            color: Colors.indigo[400],
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
@@ -168,7 +169,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 'الحملات',
 //                                textDirection: TextDirection.ltr,
                                 style: new TextStyle(
-                                  color: Colors.white70,
+                                  color: Colors.white,
                                   fontSize: 26,
                                 ),
                               )),
@@ -214,7 +215,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                     child: Card(
                                       margin:
                                           EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                      color: Colors.blueGrey.withAlpha(500),
+                                      // color: Colors.blueGrey.withAlpha(500),
+                                      color: Colors.indigo[400],
                                       //padding: EdgeInsets.only(top: 20.0),
                                       child: new ListTile(
                                         contentPadding: EdgeInsets.all(8.0),
@@ -413,7 +415,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
     return new Container(
       decoration: new BoxDecoration(
-        color: const Color(0xFF273A48),
+        // color: const Color(0xFF273A48),
+        color: Colors.indigo,
       ),
       child: new Stack(
         children: <Widget>[
