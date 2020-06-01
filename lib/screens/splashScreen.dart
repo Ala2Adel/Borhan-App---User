@@ -30,12 +30,15 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
       // backgroundColor: Color.fromRGBO(43, 41, 104, 0.5),
       backgroundColor: Colors.purple[400],
-      body: Center(
-        child: Image.asset(
-          'assets/images/borhan-alireza.jpg',
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          fit: BoxFit.fill,
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Center(
+          child: Image.asset(
+            'assets/images/borhan-alireza.jpg',
+            // width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height,
+            fit: BoxFit.fill,
+          ),
         ),
       ),
     );
