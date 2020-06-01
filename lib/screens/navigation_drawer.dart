@@ -1,7 +1,9 @@
+import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
 
 class NavigationDrawer extends StatefulWidget {
   @override
@@ -10,15 +12,27 @@ class NavigationDrawer extends StatefulWidget {
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
 
+  UsersPtovider usersPtovider;
+
+  @override
+  void initState() {
+    super.initState();
+     usersPtovider =Provider.of<UsersPtovider>(context, listen: false);
+  }
   @override
   Widget build(BuildContext context) {
+    final data = Provider.of<UsersPtovider>(context);
     return Drawer(
       child: new ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            accountName: Text("User Name "),
-            accountEmail: Text("User Email@MailServer.com "),
-            currentAccountPicture: CircleAvatar(backgroundColor: Colors.black,child: Text("M"),),
+            accountName: data.userData2.userName==null? Text("User Name ")
+            :Text( data.userData2.userName),
+            accountEmail: data.userData2.email==null? Text("User Email@MailServer.com ")
+            :Text( data.userData2.email),
+            currentAccountPicture: CircleAvatar(backgroundColor: Colors.black,
+            child: data.userData2.userName==null? Text("M"):Text(data.userData2.userName.substring(0,1)),
+            ),
           ),
           new ListTile(
             title: new Text("الرئيسية"),

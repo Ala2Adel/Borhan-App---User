@@ -80,7 +80,7 @@ class _SignupScreenState  extends State <SignupScreen > {
 //      Navigator.push(
 //          context, MaterialPageRoute(builder: (context) => Home()));
 
-      // Navigator.of(context).pushReplacementNamed('/home');
+     Navigator.of(context).pushReplacementNamed('/Login');
     }
 
     catch (error) {
@@ -222,23 +222,23 @@ class _SignupScreenState  extends State <SignupScreen > {
                             ),
 
                           ),
-                          Container(
-                            padding: EdgeInsets.all(10),
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  hintText: "رقم التلفون المحمول",
-                                  prefixIcon: Icon(
-                                    Icons.mobile_screen_share,
-                                    color: Colors.deepPurple,
+//                           Container(
+//                             padding: EdgeInsets.all(10),
+//                             child: TextFormField(
+//                               decoration: InputDecoration(
+//                                   border: InputBorder.none,
+//                                   hintText: "رقم التلفون المحمول",
+//                                   prefixIcon: Icon(
+//                                     Icons.mobile_screen_share,
+//                                     color: Colors.deepPurple,
 
-                                  ),
-                                  hintStyle: TextStyle(color: Colors.grey)
-                              ),
-//                              textAlign: TextAlign.end,
-                              keyboardType: TextInputType.number,
-                            ),
-                          ),
+//                                   ),
+//                                   hintStyle: TextStyle(color: Colors.grey)
+//                               ),
+// //                              textAlign: TextAlign.end,
+//                               keyboardType: TextInputType.number,
+//                             ),
+//                           ),
                           Container(
                             padding: EdgeInsets.all(10),
                             child: TextFormField(
