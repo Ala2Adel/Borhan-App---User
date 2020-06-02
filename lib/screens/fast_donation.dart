@@ -374,6 +374,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Color.fromRGBO(167, 76, 193, 1),
         title: Container(
           alignment: Alignment.center,
           child: Text("التبرع السريع",
@@ -412,7 +413,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage('assets/burhan.jpg'),
+                                  image: AssetImage(
+                                      'assets/images/BorhanLogo3.png'),
                                   fit: BoxFit.fill)),
                         )),
                   ),
@@ -700,13 +702,14 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 //                                            size: 25.0,
 //                                            color:Color(0xff11b719),
 //                                          ),
-                                                      //  SizedBox(width: 50.0),
+                                                        //  SizedBox(width: 50.0),
                                                         Text(
                                                           value.orgName,
                                                           style: TextStyle(
-                                                              color: Colors.grey,
-                                                              ),
-                                                              overflow: TextOverflow.ellipsis,
+                                                            color: Colors.grey,
+                                                          ),
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
                                                         ),
                                                       ],
                                                     ),

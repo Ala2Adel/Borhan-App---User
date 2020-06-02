@@ -34,7 +34,7 @@ class _SplashScreenState extends State<SplashScreen> {
         padding: const EdgeInsets.all(15),
         child: Center(
           child: Image.asset(
-            'assets/images/borhan-alireza.jpg',
+            'assets/images/BorhanLogo2.png',
             // width: MediaQuery.of(context).size.width,
             // height: MediaQuery.of(context).size.height,
             fit: BoxFit.fill,

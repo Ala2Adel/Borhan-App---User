@@ -57,7 +57,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         ),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: Colors.purple,
+        backgroundColor: Color.fromRGBO(58, 198, 198, 1),
         actions: <Widget>[
 //          IconButton(
 //            icon: Icon(Icons.list),
