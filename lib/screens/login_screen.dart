@@ -1,5 +1,6 @@
 
 import 'package:Borhan_User/providers/auth.dart';
+import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
@@ -62,9 +63,15 @@ class _LoginScreenState  extends State <LoginScreen > {
 //        _authData['email'],
 //        _authData['password'],
 //      );
-      const errorMessage =
-          'اهلا بك';
-      _showErrorDialog(errorMessage);
+      // const errorMessage =
+      //     'اهلا بك';
+      // _showErrorDialog(errorMessage);
+      /////////////////////////////////////////////
+     Provider.of<UsersPtovider>(context, listen: false).setUserData(
+      email:_authData['email'],
+      userName: _authData['name']
+      );
+     //////////////////////////////////////////////
       Navigator.push(
           context, MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
 
@@ -80,6 +87,7 @@ class _LoginScreenState  extends State <LoginScreen > {
           'البريد الإلكتروني أو كلمة المرور غير صحيحة ,رجاء المحاولة مرة أخري';
       _showErrorDialog(errorMessage);
          }
+
     } else {
       try {
         Auth auth = new Auth();
@@ -208,11 +216,18 @@ class _LoginScreenState  extends State <LoginScreen > {
 //                              textAlign: TextAlign.end,
                               keyboardType: TextInputType.emailAddress,
                               validator: (value) {
-                                bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
-                                if (!emailValid) {
-                                  return 'البريد الالكترونى غير صالحج ';
-                                }
-                              },
+                                     bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(value);
+                                     if (!emailValid) {
+                                         bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                       if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل البريد الألكترونى من فضلك';
+                                       }else{
+                                         return 'البريد الألكترونى غيرصالح';
+                                       }
+
+                                     }
+                                     return null;
+                                   },
                               onSaved: (value) {
                                 _authData['email'] = value;
                               },
@@ -239,6 +254,13 @@ class _LoginScreenState  extends State <LoginScreen > {
                               onSaved: (value) {
                                 _authData['password'] = value;
                               },
+                               validator: (value) {
+                                    bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
+                                    if(spaceRex || value.length==0 || value==null){
+                                         return 'ادخل  كلمة المرور من فضلك';
+                                    }
+                                     return null;
+                                   },
                             ),
                           )
                         ],

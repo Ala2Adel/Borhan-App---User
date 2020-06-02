@@ -21,66 +21,70 @@ class _HelpScreenState extends State<HelpScreen> {
     final data = Provider.of<Auth>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Help/Support'),
+        title: Text('المساعدة'),
       ),
       body: Center(
-        child: Column(
-          children: <Widget>[
-            SizedBox(
-              width: 250,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => EmailOrganization()));
-                },
-                child: Text(
-                  'بواسطة البريد الإلكتروني',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold),
+        child: SingleChildScrollView(
+          child: Column(
+            children: <Widget>[
+              SizedBox(
+                width: 250,
+                child: RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => EmailOrganization()));
+                  },
+                  child: Text(
+                    'بواسطة البريد الإلكتروني',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).primaryTextTheme.button.color,
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).primaryTextTheme.button.color,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-            ),
-            SizedBox(
-              width: 250,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => HelpOrganization()));
-                },
-                child: Text(
-                  'بواسطة محادثة',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold),
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
-                color: Theme.of(context).primaryColor,
-                textColor: Theme.of(context).primaryTextTheme.button.color,
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 10.0),
-            ),
-          ],
+              SizedBox(
+                width: 250,
+                child: RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => HelpOrganization()));
+                  },
+                  child: Text(
+                    'بواسطة محادثة',
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 18.0,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Theme.of(context).primaryTextTheme.button.color,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 10.0),
+              ),
+            ],
+          ),
         ),
       ),
     );
