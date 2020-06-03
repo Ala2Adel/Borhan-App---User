@@ -53,6 +53,8 @@ dependencies:
   path_provider: ^1.4.0
   flushbar: ^1.10.4
 
+  carousel_pro: ^0.0.13
+
 
 dev_dependencies:
   flutter_test:
@@ -73,6 +75,7 @@ flutter:
   assets:
     - assets/burhan.jpg
     - assets/images/
+    - assets/offers/
 
   # To add assets to your application, add an assets section, like this:
     

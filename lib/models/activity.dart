@@ -25,36 +25,4 @@ this.org_id,
 });
 
 
-
-//void _setFavValue(bool newValue ){
-//isFavorite = newValue ;
-//notifyListeners();
-//}
-
-//Future <void> toggleFavoriteStatus () async{
-//final oldStatus = isFavorite;
-//isFavorite = !isFavorite;
-//notifyListeners();
-//
-//Future<void> updateRequest () async {
-//final url = 'https://borhanadmin.firebaseio.com/activities/$id.json';
-//try {
-//final response = await http.patch(
-//url,
-//body:
-//json.encode({
-//'isFavorite': isFavorite,
-//}));
-//if (response.statusCode >= 400) {
-////        isFavorite = oldStatus;
-////        notifyListeners();
-//_setFavValue(oldStatus);
-//}
-//} catch (error) {
-////        isFavorite = oldStatus;
-////        notifyListeners();
-//_setFavValue(oldStatus);
-//}
-//}
-//}
 }

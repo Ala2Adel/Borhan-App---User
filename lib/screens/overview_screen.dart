@@ -5,6 +5,8 @@ import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/fast_donation.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -62,9 +64,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
       itemBuilder: (context, index) {
         EdgeInsets padding = index == 0
             ? const EdgeInsets.only(
-                left: 20.0, right: 10.0, top: 0.0, bottom: 30.0)
+                left: 20.0, right: 10.0, top: 5.0, bottom: 30.0)
             : const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 0.0, bottom: 30.0);
+                left: 20.0, right: 10.0, top: 5.0, bottom: 30.0);
 
         return new Padding(
           padding: padding,
@@ -160,23 +162,48 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        new Align(
-                          alignment: Alignment.centerLeft,
-                          child: new Padding(
-                              padding: new EdgeInsets.only(left: 320.0),
-                              child: new Text(
-                                'الحملات',
-                                style: new TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 26,
-                                ),
-                              )),
-                        ),
+
+//                        new Align(
+//                          alignment: Alignment.centerLeft,
+//                          child: new Padding(
+//                              padding: new EdgeInsets.all(20),
+//                              child: new Text(
+//                                'الحملات',
+//                                style: new TextStyle(
+//                                  color: Colors.white70,
+//                                  fontSize: 26,
+//                                ),
+//                              )),
+//                        ),
+
+                    new Container(
+                      height: 200.0,
+                      child: new Carousel(
+                        boxFit: BoxFit.cover,
+                        images: [
+                          AssetImage('assets/offers/Offer1.jpg'),
+                          AssetImage('assets/offers/Offer2.jpg'),
+                          AssetImage('assets/offers/Offer3.jpg'),
+                          AssetImage('assets/offers/Offer4.jpg'),
+                          AssetImage('assets/offers/Offer5.jpg'),
+                        ],
+                        autoplay: true,
+                        animationCurve: Curves.fastLinearToSlowEaseIn,
+                        animationDuration: Duration(milliseconds: 1500),
+                        dotSize: 4.0,
+                        indicatorBgPadding: 2.0,
+                      ),
+                    ),
+
+
                         new Container(
                             height: 150.0, width: _width, child: headerList),
                         ButtonTheme(
                           minWidth: MediaQuery.of(context).size.width,
+                          //width: 200,
                           height: 50.0,
+
+
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: <Widget>[
@@ -292,10 +319,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                           fontWeight: FontWeight
                                                               .normal),
                                                     ),
-                                                    Row(
-                                                      mainAxisAlignment:
-                                                          MainAxisAlignment
-                                                              .spaceEvenly,
+                                                    Wrap(
+//                                                      mainAxisAlignment:
+//                                                          MainAxisAlignment
+//                                                              .spaceEvenly,
+                                                    crossAxisAlignment: WrapCrossAlignment.center,
                                                       children: <Widget>[
                                                         RaisedButton(
                                                           color: Colors
