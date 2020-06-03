@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import '../helper/fav_helper.dart';
 
 class ActivityNotifier with ChangeNotifier {
+
   List<Activity> _activityList = [];
   Activity _currentActivity;
 

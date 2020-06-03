@@ -5,6 +5,8 @@ import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/fast_donation.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
+import 'package:carousel_pro/carousel_pro.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +49,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
@@ -61,9 +64,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
       itemBuilder: (context, index) {
         EdgeInsets padding = index == 0
             ? const EdgeInsets.only(
-                left: 20.0, right: 10.0, top: 0.0, bottom: 30.0)
+                left: 20.0, right: 10.0, top: 5.0, bottom: 30.0)
             : const EdgeInsets.only(
-                left: 10.0, right: 10.0, top: 0.0, bottom: 30.0);
+                left: 20.0, right: 10.0, top: 5.0, bottom: 30.0);
 
         return new Padding(
           padding: padding,
@@ -98,7 +101,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                 ),
               ),
               // height: 200.0,
-              width: 100.0,
+              width: 150.0,
               child: new Stack(
                 children: <Widget>[
                   new Align(
@@ -106,8 +109,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                     child: new Container(
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         decoration: new BoxDecoration(
-                            // color: const Color(0xFF273A48),
-                            color: Colors.purple[400],
+                            color: const Color(0xFF273A48),
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
@@ -154,57 +156,76 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               child: new Stack(
                 children: <Widget>[
                   new Padding(
-                    padding: new EdgeInsets.only(top: 2.0),
+                    padding: new EdgeInsets.only(top: 10.0),
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
-//                      mainAxisAlignment: MainAxisAlignment.end,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        new Align(
-                          alignment: Alignment.topRight,
-                          child: new Padding(
-                              padding: new EdgeInsets.only(right: 12.0),
-                              child: new Text(
-                                'الحملات',
-//                                textDirection: TextDirection.ltr,
-                                style: new TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 26,
-                                ),
-                              )),
-                        ),
+
+//                        new Align(
+//                          alignment: Alignment.centerLeft,
+//                          child: new Padding(
+//                              padding: new EdgeInsets.all(20),
+//                              child: new Text(
+//                                'الحملات',
+//                                style: new TextStyle(
+//                                  color: Colors.white70,
+//                                  fontSize: 26,
+//                                ),
+//                              )),
+//                        ),
+
+                    new Container(
+                      height: 200.0,
+                      child: new Carousel(
+                        boxFit: BoxFit.cover,
+                        images: [
+                          AssetImage('assets/offers/Offer1.jpg'),
+                          AssetImage('assets/offers/Offer2.jpg'),
+                          AssetImage('assets/offers/Offer3.jpg'),
+                          AssetImage('assets/offers/Offer4.jpg'),
+                          AssetImage('assets/offers/Offer5.jpg'),
+                        ],
+                        autoplay: true,
+                        animationCurve: Curves.fastLinearToSlowEaseIn,
+                        animationDuration: Duration(milliseconds: 1500),
+                        dotSize: 4.0,
+                        indicatorBgPadding: 2.0,
+                      ),
+                    ),
+
+
                         new Container(
                             height: 150.0, width: _width, child: headerList),
-                        Container(
-                          width: MediaQuery.of(context).size.width * 2 / 3,
-                          child: ButtonTheme(
-//                            minWidth: MediaQuery.of(context).size.width,
-                            height: 50.0,
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                RaisedButton(
-                                  color: Colors.greenAccent,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius:
-                                        new BorderRadius.circular(24.0),
-                                    side: BorderSide(color: Colors.black),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) {
-                                      return FastDenotationScreen();
-                                    }));
-                                  },
-                                  child: Text(
-                                    'تبرع الآن',
-                                    style: TextStyle(
-                                        fontSize: 20.0, color: Colors.black),
-                                  ),
+                        ButtonTheme(
+                          minWidth: MediaQuery.of(context).size.width,
+                          //width: 200,
+                          height: 50.0,
+
+
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: <Widget>[
+                              RaisedButton(
+                                color: Colors.greenAccent,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(24.0),
+                                  side: BorderSide(color: Colors.black),
                                 ),
-                              ],
-                            ),
+                                onPressed: () {
+                                  Navigator.of(context).push(MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                    return FastDenotationScreen();
+                                  }));
+                                },
+                                child: Text(
+                                  'تبرع الآن',
+                                  style: TextStyle(
+                                      fontSize: 20.0, color: Colors.black),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                         new Expanded(
@@ -216,8 +237,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                     child: Card(
                                       margin:
                                           EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                      // color: Colors.blueGrey.withAlpha(500),
-                                      color: Colors.purple[400],
+                                      color: Colors.blueGrey.withAlpha(500),
                                       //padding: EdgeInsets.only(top: 20.0),
                                       child: new ListTile(
                                         contentPadding: EdgeInsets.all(8.0),
@@ -300,9 +320,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                               .normal),
                                                     ),
                                                     Wrap(
-                                                      crossAxisAlignment:
-                                                          WrapCrossAlignment
-                                                              .center,
+//                                                      mainAxisAlignment:
+//                                                          MainAxisAlignment
+//                                                              .spaceEvenly,
+                                                    crossAxisAlignment: WrapCrossAlignment.center,
                                                       children: <Widget>[
                                                         RaisedButton(
                                                           color: Colors
@@ -417,8 +438,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
     return new Container(
       decoration: new BoxDecoration(
-        // color: const Color(0xFF273A48),
-        color: Colors.purple,
+        color: const Color(0xFF273A48),
       ),
       child: new Stack(
         children: <Widget>[
