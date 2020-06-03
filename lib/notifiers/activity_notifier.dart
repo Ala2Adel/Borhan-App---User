@@ -6,7 +6,6 @@ import 'package:http/http.dart' as http;
 import '../helper/fav_helper.dart';
 
 class ActivityNotifier with ChangeNotifier {
-
   List<Activity> _activityList = [];
   Activity _currentActivity;
 
@@ -56,11 +55,11 @@ class ActivityNotifier with ChangeNotifier {
   }
 
   void addFavorite(
-    String pickedTitle,
-    String pickedDescription,
-    String pickedImage,
+      String pickedTitle,
+      String pickedDescription,
+      String pickedImage,
       String id,
-  ) {
+      ) {
     print('from adding');
     final newActivity = Activity(
       id: id,
@@ -82,11 +81,11 @@ class ActivityNotifier with ChangeNotifier {
     final dataList = await DBHelper.getData('activity_fav');
     _fav = dataList
         .map((item) => Activity(
-              id: item['id'],
-              name: item['name'],
-              description: item['description'],
-              image: item['image'],
-            ))
+      id: item['id'],
+      name: item['name'],
+      description: item['description'],
+      image: item['image'],
+    ))
         .toList();
     print('from fetch');
     print(dataList);

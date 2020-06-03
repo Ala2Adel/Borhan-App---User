@@ -43,25 +43,25 @@ class _FavouriteState extends State<Favourite> {
         future: Provider.of<ActivityNotifier>(context, listen: false)
             .fetchAndSetFavorites(),
         builder: (context, snapshot) =>
-            snapshot.connectionState == ConnectionState.waiting
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : Consumer<ActivityNotifier>(
-                    child: Center(
-                      child: Text('لا يوجد أنشطة في المفضلة'),
-                    ),
-                    builder: (ctx, favourites, ch) =>
-                        favourites.favorites.length <= 0
-                            ? ch
-                            : ListView.builder(
-                                itemCount: favourites.favorites.length,
-                                itemBuilder: (ctx, i) => ListTile(
-                                  title: Text(favourites.favorites[i].name),
-                                  leading: Image.network(favourites.favorites[i].image),
-                                ),
-                              ),
-                  ),
+        snapshot.connectionState == ConnectionState.waiting
+            ? Center(
+          child: CircularProgressIndicator(),
+        )
+            : Consumer<ActivityNotifier>(
+          child: Center(
+            child: Text('لا يوجد أنشطة في المفضلة'),
+          ),
+          builder: (ctx, favourites, ch) =>
+          favourites.favorites.length <= 0
+              ? ch
+              : ListView.builder(
+            itemCount: favourites.favorites.length,
+            itemBuilder: (ctx, i) => ListTile(
+              title: Text(favourites.favorites[i].name),
+              leading: Image.network(favourites.favorites[i].image),
+            ),
+          ),
+        ),
 
 //            (ListView(
 //                    children: ListTile.divideTiles(
