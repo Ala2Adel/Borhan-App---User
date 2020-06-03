@@ -17,6 +17,7 @@ import 'package:Borhan_User/screens/Notification_screen.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/profile_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:Borhan_User/screens/login_screen.dart';
 import 'package:Borhan_User/screens/signup_screen.dart';
@@ -79,7 +80,25 @@ class MyApp extends StatelessWidget {
             },
             title: 'Borhan',
             theme: new ThemeData(
-              primarySwatch: Colors.blueGrey,
+              primarySwatch: Colors.deepPurple,
+              textTheme: TextTheme(
+                subtitle1: TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                ), 
+                button: TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                ),
+                bodyText1: TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                 ),
+               bodyText2: TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                ),   
+              ) 
             ),
             home:
          

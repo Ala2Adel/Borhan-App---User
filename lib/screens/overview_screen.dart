@@ -49,7 +49,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
@@ -101,7 +100,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                 ),
               ),
               // height: 200.0,
-              width: 150.0,
+              width: 100.0,
               child: new Stack(
                 children: <Widget>[
                   new Align(
@@ -109,7 +108,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                     child: new Container(
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         decoration: new BoxDecoration(
-                            color: const Color(0xFF273A48),
+                            // color: const Color(0xFF273A48),
+                            color: Colors.purple[400],
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
@@ -156,11 +156,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               child: new Stack(
                 children: <Widget>[
                   new Padding(
-                    padding: new EdgeInsets.only(top: 10.0),
+                    padding: new EdgeInsets.only(top: 2.0),
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
+//                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
 
 //                        new Align(
@@ -199,7 +199,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         new Container(
                             height: 150.0, width: _width, child: headerList),
                         ButtonTheme(
-                          minWidth: MediaQuery.of(context).size.width,
+                          minWidth: MediaQuery.of(context).size.width * 2 / 3,,
                           //width: 200,
                           height: 50.0,
 
@@ -224,8 +224,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                   style: TextStyle(
                                       fontSize: 20.0, color: Colors.black),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
                         ),
                         new Expanded(
@@ -237,7 +237,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                     child: Card(
                                       margin:
                                           EdgeInsets.fromLTRB(20, 10, 20, 10),
-                                      color: Colors.blueGrey.withAlpha(500),
+                                      // color: Colors.blueGrey.withAlpha(500),
+                                      color: Colors.purple[400],
                                       //padding: EdgeInsets.only(top: 20.0),
                                       child: new ListTile(
                                         contentPadding: EdgeInsets.all(8.0),
@@ -320,10 +321,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                               .normal),
                                                     ),
                                                     Wrap(
-//                                                      mainAxisAlignment:
-//                                                          MainAxisAlignment
-//                                                              .spaceEvenly,
-                                                    crossAxisAlignment: WrapCrossAlignment.center,
+                                                      crossAxisAlignment:
+                                                          WrapCrossAlignment
+                                                              .center,
                                                       children: <Widget>[
                                                         RaisedButton(
                                                           color: Colors
@@ -438,7 +438,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
     return new Container(
       decoration: new BoxDecoration(
-        color: const Color(0xFF273A48),
+        // color: const Color(0xFF273A48),
+        color: Colors.purple,
       ),
       child: new Stack(
         children: <Widget>[

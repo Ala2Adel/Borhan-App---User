@@ -38,7 +38,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
   Widget build(BuildContext context) {
     final historyData = Provider.of<MyDonationsProvider>(context);
     return Scaffold(
-      backgroundColor: Colors.teal[100],
+//      backgroundColor: Colors.purple[400],
       appBar: AppBar(
         title: Text('تبرعاتي'),
       ),
@@ -51,7 +51,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
               itemCount: historyData.items.length,
               itemBuilder: (_, i) {
                 return Container(
-                  color: Colors.teal[100],
+//                  color: Colors.purple[100],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
@@ -59,13 +59,14 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                         child: Row(
                           children: <Widget>[
                             Material(
-                              color: Colors.teal,
+                              color: Colors.purple[400],
                               elevation: 14.0,
                               borderRadius: BorderRadius.circular(24.0),
 //                        shadowColor: Color(0x802196F3),
                               child: Column(children: <Widget>[
                                 Row(
-                                  mainAxisAlignment:MainAxisAlignment.spaceAround,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -73,8 +74,12 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                         width: 80,
                                         height: 100,
                                         child: ClipRRect(
-                                          borderRadius:new BorderRadius.circular(24.0),
-                                          child: historyData.items[i].image !='' && historyData.items[i].image !=null
+                                          borderRadius:
+                                              new BorderRadius.circular(24.0),
+                                          child: historyData.items[i].image !=
+                                                      '' &&
+                                                  historyData.items[i].image !=
+                                                      null
                                               ? Image(
                                                   fit: BoxFit.fill,
                                                   alignment: Alignment.topLeft,
@@ -94,50 +99,86 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                     ),
                                     Container(
                                       child: Padding(
-                                        padding: const EdgeInsets.only(top: 10.0, right: 10.0, left: 10.0),
+                                        padding: const EdgeInsets.only(
+                                            top: 10.0, right: 10.0, left: 10.0),
                                         child: Column(
                                           children: <Widget>[
                                             Row(
                                               children: <Widget>[
                                                 Padding(
-                                                  padding: const EdgeInsets.only(top: 2.0),
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          top: 2.0),
                                                 ),
-                                                historyData.items[i].status != null && historyData.items[i].status != ''
+                                                historyData.items[i].status !=
+                                                            null &&
+                                                        historyData.items[i]
+                                                                .status !=
+                                                            ''
                                                     ? Material(
-//                                                  color: Colors.teal[50],
+//                                                  color: Colors.purple[50],
                                                         elevation: 2.0,
-                                                        borderRadius:BorderRadius.circular(10.0),
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10.0),
                                                         child: Row(
-                                                          mainAxisAlignment:MainAxisAlignment.center,
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
                                                           children: <Widget>[
                                                             Text(
                                                               'حالة التبرع : ',
-                                                              style: TextStyle(color: Colors.teal,
-                                                                  fontSize: 18.0,
-                                                                  fontWeight: FontWeight.bold),
+                                                              style: TextStyle(
+                                                                  color: Colors
+                                                                      .purple,
+                                                                  fontSize:
+                                                                      18.0,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .bold),
                                                             ),
-                                                            historyData.items[i].status != 'done' && historyData.items[i].status != 'cancel'?
-                                                                Text(
-                                                              'قيد المراجعة',
-                                                              style: TextStyle(
-                                                                  color: Colors.yellow,
-                                                                  fontSize: 18.0,
-                                                                  fontWeight: FontWeight.bold),
-                                                            ): historyData.items[i].status =='done'?
-                                                            Text(
-                                                              'تم قبول التبرع',
-                                                              style: TextStyle(
-                                                                  color: Colors.green,
-                                                                  fontSize: 18.0,
-                                                                  fontWeight: FontWeight.bold),
-                                                            ):
-                                                            Text(
-                                                              'تم رفض التبرع',
-                                                              style: TextStyle(
-                                                                  color: Colors.red,
-                                                                  fontSize: 18.0,
-                                                                  fontWeight: FontWeight.bold),
-                                                            ),
+                                                            historyData.items[i]
+                                                                            .status !=
+                                                                        'done' &&
+                                                                    historyData
+                                                                            .items[
+                                                                                i]
+                                                                            .status !=
+                                                                        'cancel'
+                                                                ? Text(
+                                                                    'قيد المراجعة',
+                                                                    style: TextStyle(
+                                                                        color: Colors
+                                                                            .yellow,
+                                                                        fontSize:
+                                                                            18.0,
+                                                                        fontWeight:
+                                                                            FontWeight.bold),
+                                                                  )
+                                                                : historyData
+                                                                            .items[i]
+                                                                            .status ==
+                                                                        'done'
+                                                                    ? Text(
+                                                                        'تم قبول التبرع',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .green,
+                                                                            fontSize:
+                                                                                18.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      )
+                                                                    : Text(
+                                                                        'تم رفض التبرع',
+                                                                        style: TextStyle(
+                                                                            color: Colors
+                                                                                .red,
+                                                                            fontSize:
+                                                                                18.0,
+                                                                            fontWeight:
+                                                                                FontWeight.bold),
+                                                                      ),
                                                           ],
                                                         ),
                                                       )
@@ -151,12 +192,18 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                             Row(
                                               children: <Widget>[
                                                 MyDonationItem(
-                                                  orgName: historyData.items[i].orgName,
-                                                  donationType: historyData.items[i].donationType,
-                                                  actName: historyData.items[i].actName,
-                                                  donationItems: historyData.items[i].donationItems,
-                                                  donationDate: historyData.items[i].donationDate,
-                                                  donationAmount: historyData.items[i].donationAmount,
+                                                  orgName: historyData
+                                                      .items[i].orgName,
+                                                  donationType: historyData
+                                                      .items[i].donationType,
+                                                  actName: historyData
+                                                      .items[i].actName,
+                                                  donationItems: historyData
+                                                      .items[i].donationItems,
+                                                  donationDate: historyData
+                                                      .items[i].donationDate,
+                                                  donationAmount: historyData
+                                                      .items[i].donationAmount,
                                                 ),
                                               ],
                                             ),
