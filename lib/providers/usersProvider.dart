@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../models/http_exception.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
 
 class UsersPtovider with ChangeNotifier{
 
@@ -19,6 +20,7 @@ class UsersPtovider with ChangeNotifier{
         userName: userName,
       );
   }
+ 
   Future<void> addUser( String userName, String email, String password) async {
     final url =
         'https://borhanuser-f92a3.firebaseio.com/Users.json';
@@ -41,7 +43,8 @@ class UsersPtovider with ChangeNotifier{
         email: email ,
         userName: userName,
       );
-      
+    SharedPref sharedPref = SharedPref();
+    sharedPref.save("user", _userData2);
     } catch (error) {
       throw error;
     }
