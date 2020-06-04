@@ -6,22 +6,73 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 import '../models/http_exception.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
 
 class UsersPtovider with ChangeNotifier{
 
+  UserNav userLoad ;
   var _userData2 = UserNav(email: null,userName: null);
   UserNav get userData2 {
     return _userData2;
   }
-  void setUserData({String userName, String email}){
-      _userData2 = UserNav(
-        email: email ,
-        userName: userName,
-      );
+
+  void setUserData({ String userId, String email}) async{
+    
+    //  await loadSharedPrefs();
+    //  if(userLoad==null){
+    //     print("user is not here");
+    //  }else{
+    //    print("user is  here");
+    //  }
+       getUserData(userId);
+
   }
-  Future<void> addUser( String userName, String email, String password) async {
+   Future<void> getUserData( String userId) async {
+       final url =
+        'https://borhanuser-f92a3.firebaseio.com/Users/$userId.json';
+          try {
+      final response = await http.get(url);
+
+      final responseData = json.decode(response.body) as Map<String, dynamic>;
+      //  print((response.body));
+      responseData.forEach((prodId, prodData) {
+
+            _userData2 = UserNav(
+                       id: userId,
+                       email: prodData['userEmail'] ,
+                       userName:prodData['userName'], 
+                  );
+
+           },
+         );
+
+        print(_userData2);
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']['message']);
+      }
+
+    SharedPref sharedPref = SharedPref();
+    sharedPref.save("user", _userData2);
+    } catch (error) {
+      throw error;
+    }
+
+   }
+
+   loadSharedPrefs() async {
+    try {
+   
+     SharedPref sharedPref = SharedPref();
+     UserNav user = UserNav.fromJson(await sharedPref.read("user"));
+      userLoad = user;
+      } catch (Excepetion) {
+    // do something
+       }
+   }    
+  Future<void> addUser( String userId, String userName, String email, String password) async {
+    print("the local id is : $userId");
     final url =
-        'https://borhanuser-f92a3.firebaseio.com/Users.json';
+        'https://borhanuser-f92a3.firebaseio.com/Users/$userId.json';
     try {
       final response = await http.post(
         url,
@@ -38,10 +89,12 @@ class UsersPtovider with ChangeNotifier{
       }
 
       _userData2 = UserNav(
+        id: userId,
         email: email ,
         userName: userName,
       );
-      
+    SharedPref sharedPref = SharedPref();
+    sharedPref.save("user", _userData2);
     } catch (error) {
       throw error;
     }

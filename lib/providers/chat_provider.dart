@@ -13,6 +13,7 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetChat(String id, String orgId) async {
+//    id = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';
     final url = 'https://borhanadmin.firebaseio.com/chat/$orgId/$id.json';
     try {
       final response = await http.get(url);
@@ -42,6 +43,8 @@ class ChatProvider with ChangeNotifier {
 
   Future<void> addMessage(Chat chat, String id, String orgId) async {
     // id is the user id not admin
+//    id = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';
+    print('chat message add message '+ chat.text);
     final url = 'https://borhanadmin.firebaseio.com/chat/$orgId/$id.json';
     try {
       final response = await http.post(
@@ -50,6 +53,7 @@ class ChatProvider with ChangeNotifier {
           {
             'name': chat.userName,
             'userId': chat.userId,
+//            'userId': 'sj34ZIYOs6PUW4jxE93lWl35b1H3',
             'text': chat.text,
             'image': chat.img,
             'time': DateTime.now().toString(),

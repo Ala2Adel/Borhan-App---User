@@ -1,17 +1,16 @@
+import 'package:Borhan_User/models/activity.dart';
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
-import 'package:Borhan_User/notifiers/organization_notifier.dart';
-import 'package:Borhan_User/screens/Donation_mainScreen.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
-import 'package:Borhan_User/screens/navigation_drawer.dart';
 import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'Donation.dart';
 
 class OrganizationActivity extends StatefulWidget {
-  var id;
+  final id;
+
   OrganizationActivity(this.id);
+
   @override
   _ActivityScreenState createState() => _ActivityScreenState();
 }
@@ -19,7 +18,11 @@ class OrganizationActivity extends StatefulWidget {
 class _ActivityScreenState extends State<OrganizationActivity> {
   var _isLoading = false;
   var _isInit = true;
+  List<Activity> _savedFav = [];
+  final Set<String> _saved = Set<String>();
+
   Color _favIconColor = Colors.grey;
+  var activityNotifier;
 
   @override
   void didChangeDependencies() {
@@ -36,17 +39,50 @@ class _ActivityScreenState extends State<OrganizationActivity> {
           print('in screen activity view');
         });
       });
+      Provider.of<ActivityNotifier>(context)
+          .fetchAndSetFavorites()
+          .then((_) => {
+                _savedFav = Provider.of<ActivityNotifier>(context).favorites,
+                print(_savedFav),
+                print('saved'),
+      if(_savedFav.length >0){
+          _savedFav.forEach((element)
+      {
+        _saved.add(element.name);
+      }),
+    }
+              });
+
+       activityNotifier = Provider.of<ActivityNotifier>(context);
+
     }
     _isInit = false;
     super.didChangeDependencies();
   }
+
+//  void _saveFavorite(){
+//    String pickedTitle = 'sss';
+//    String pickedDescription = 'fhsl';
+//    String pickedImage='hjh';
+//    Provider.of<ActivityNotifier>(context, listen:false).addFavorite(pickedTitle, pickedDescription, pickedImage);
+//    // Navigator.of(context).push(route)
+//
+//
+//    Navigator.of(context).push(
+//        MaterialPageRoute(
+//            builder:
+//                (BuildContext
+//            context) {
+//              return Favourite();
+//            }));
+//  }
 
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-    final activityNotifier = Provider.of<ActivityNotifier>(context);
+    //final activityNotifier = Provider.of<ActivityNotifier>(context);
 
     final body = new Scaffold(
       appBar: new AppBar(
@@ -57,7 +93,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         ),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: Color.fromRGBO(58, 198, 198, 1),
+       backgroundColor:  Colors.purple[700],
         actions: <Widget>[
 //          IconButton(
 //            icon: Icon(Icons.list),
@@ -165,32 +201,30 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                               FontWeight.bold),
                                                     ),
                                                     Expanded(
-                                                      child:
-//                                                            _buildRow(
-//                                                                activityNotifier
-//                                                                    .activityList[
-//                                                                        index]
-//                                                                    .name)
+                                                        child: _buildRow(
+                                                            activityNotifier
+                                                                    .activityList[
+                                                                index])
 
-                                                          IconButton(
-                                                        icon: Icon(
-                                                            Icons.favorite),
-                                                        color: _favIconColor,
-                                                        iconSize: 35.0,
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            if (_favIconColor ==
-                                                                Colors.grey) {
-                                                              _favIconColor =
-                                                                  Colors.red;
-                                                            } else {
-                                                              _favIconColor =
-                                                                  Colors.grey;
-                                                            }
-                                                          });
-                                                        },
-                                                      ),
-                                                    ),
+//                                                          IconButton(
+//                                                        icon: Icon(
+//                                                            Icons.favorite),
+//                                                        color: _favIconColor,
+//                                                        iconSize: 35.0,
+//                                                        onPressed: () {
+//                                                          setState(() {
+//                                                            if (_favIconColor ==
+//                                                                Colors.grey) {
+//                                                              _favIconColor =
+//                                                                  Colors.red;
+//                                                            } else {
+//                                                              _favIconColor =
+//                                                                  Colors.grey;
+//                                                            }
+//                                                          });
+//                                                        },
+//                                                      ),
+                                                        ),
                                                   ],
                                                 ),
                                                 new Text(
@@ -280,12 +314,26 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     );
   }
 
-  final Set<String> _saved = Set<String>();
-  Widget _buildRow(String pair) {
-    final bool alreadySaved = _saved.contains(pair);
+
+  Widget _buildRow(Activity activity) {
+    bool alreadySaved;
+
+//    if(_savedFav.length >0){
+//      _savedFav.forEach((element) {
+//        _saved.add(element.name);
+//      });
+//    }
+
+    print('*********************************************************');
+    print(_saved);
+    print('*********************************************************');
+    alreadySaved = _saved.contains(activity.name);
+    print("Already Saved is " + alreadySaved.toString());
+
+    print('pair');
+    print(activity);
     return ListTile(
       trailing: Icon(
-        // Add the lines from here...
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.pink : Colors.white,
         size: 35.0,
@@ -294,10 +342,15 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         setState(() {
           print(_saved);
           if (alreadySaved) {
-            _saved.remove(pair);
+              _saved.remove(activity.name);
+            Provider.of<ActivityNotifier>(context).deleteFavorite(activity);
             //_decrementCounter();
           } else {
-            _saved.add(pair);
+              _saved.add(activity.name);
+            Provider.of<ActivityNotifier>(context).addFavorite(activity.name,
+                activity.description, activity.image, activity.id);
+//            _saveFavorite;
+
             //_incrementCounter();
           }
         });
@@ -305,45 +358,104 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     );
   }
 
+//  Widget _buildRow(String pair) {
+//    bool alreadySaved = false;
+//
+//    if(_savedFav.length >0){
+//      _savedFav.forEach((element) {
+//        _saved.add(element.name);
+//      });
+//    }
+//
+//    alreadySaved = _saved.contains(pair);
+//
+//    print('pair');
+//    print(pair);
+//    return ListTile(
+//      trailing: Icon(
+//        alreadySaved ? Icons.favorite : Icons.favorite_border,
+//        color: alreadySaved ? Colors.pink : Colors.white,
+//        size: 35.0,
+//      ),
+//      onTap: () {
+//        setState(() {
+//          print(_saved);
+//          if (alreadySaved) {
+//            _saved.remove(pair);
+//            //_decrementCounter();
+//          } else {
+//            _saved.add(pair);
+//            Provider.of<ActivityNotifier>(context).addFavorite(pair,
+//                'pickedDescription', 'pickedImage');
+////            _saveFavorite;
+//
+//            //_incrementCounter();
+//          }
+//        });
+//      },
+//    );
+//  }
+
   void _pushSaved() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          final Iterable<ListTile> tiles = _saved.map(
-            (String pair) {
-              return ListTile(
-                title: Text(
-                  pair.toString(),
-                  style: new TextStyle(
-                    fontSize: 21.0,
-                    color: Colors.blueGrey,
-                    fontFamily: 'Arvo',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              );
-            },
-          );
-          final List<Widget> divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return Scaffold(
-            backgroundColor: Colors.black12,
-            appBar: new AppBar(
-              elevation: 0.3,
-              centerTitle: true,
-              backgroundColor: Colors.blueGrey,
-              title: new Text('Saved Suggestions'),
-            ),
-            body: ListView(children: divided),
-
-            //  new Favourite(ListView(children: divided));
-          );
-        },
-        //    Favourite( ListView (children: divided));
-      ),
-    );
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Favourite()));
   }
+
+/*
+  *
+  var _saved;
+    print('pair');
+    if(_savedFav){
+      for(int i =0;i<_savedFav.length;i++)
+        {
+          print(_savedFav[i].name);
+          print('***********************************');
+          _saved = _savedFav[i].name;
+        }
+    }
+  * */
+
+////////////////////////////////////////////////////
+//  void _pushSaved() {
+//    Navigator.of(context).push(
+//      MaterialPageRoute<void>(
+//        builder:
+//        (BuildContext context) {
+//          final Iterable<ListTile> tiles = _saved.map(
+//            (String pair) {
+//              return ListTile(
+//                title: Text(
+//                  pair.toString(),
+//                  style: new TextStyle(
+//                    fontSize: 21.0,
+//                    color: Colors.blueGrey,
+//                    fontFamily: 'Arvo',
+//                    fontWeight: FontWeight.bold,
+//                  ),
+//                ),
+//              );
+//            },
+//          );
+//          final List<Widget> divided = ListTile.divideTiles(
+//            context: context,
+//            tiles: tiles,
+//          ).toList();
+//
+//          return Scaffold(
+//            backgroundColor: Colors.black12,
+//            appBar: new AppBar(
+//              elevation: 0.3,
+//              centerTitle: true,
+//              backgroundColor: Colors.blueGrey,
+//              title: new Text('Saved Suggestions'),
+//            ),
+//            body: ListView(children: divided),
+//
+//            //  new Favourite(ListView(children: divided));
+//          );
+//        },
+//        //    Favourite( ListView (children: divided));
+//      ),
+//    );
+//  }
 }

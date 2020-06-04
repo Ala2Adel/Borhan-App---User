@@ -57,8 +57,9 @@ dependencies:
   intro_views_flutter: ^2.8.1
   google_fonts_arabic: ^1.1.7
   url_launcher: ^5.4.10
-
-  carousel_pro: ^0.0.13
+  shared_preferences: ^0.5.7+3 
+  getflutter: ^1.0.11
+  carousel_pro: ^0.0.13 
 
 
 dev_dependencies:
@@ -86,13 +87,13 @@ flutter:
     - assets/BorhanLogo2.png
     - assets/images/
     - assets/offers/
-    - assets/images/donation2.png
-    - assets/images/donation4.png
-    - assets/images/donation5.png
-    - assets/images/donation9.png
-    - assets/images/blogo.png
-    - assets/images/blogo1.png
-    - assets/images/mdonation2.png
+#    - assets/images/donation2.png
+#    - assets/images/donation4.png
+#    - assets/images/donation5.png
+#    - assets/images/donation9.png
+#    - assets/images/blogo.png
+#    - assets/images/blogo1.png
+#    - assets/images/mdonation2.png
 
 
   # To add assets to your application, add an assets section, like this: 
