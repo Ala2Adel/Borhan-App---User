@@ -22,9 +22,10 @@ dependencies:
   location: ^3.0.2
   google_maps_flutter: ^0.5.28+1
   firebase_messaging: ^6.0.16
-
+  connectivity: ^0.4.8+6
   flutter_localizations:
     sdk: flutter
+  
 
   intl_translation:
     # Add the dependency for the Firebase Core Flutter SDK

@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/Donation_mainScreen.dart';
@@ -9,7 +12,11 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+
+import 'package:connectivity/connectivity.dart';
+
 
 import '../background.dart';
 import 'Donation.dart';
@@ -18,9 +25,89 @@ import 'organization_details.dart';
 class OrgOverviewScreen extends StatefulWidget {
   @override
   _OrgOverviewScreenState createState() => _OrgOverviewScreenState();
+  
 }
 
 class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
+
+// void chechNet() async{
+//     var connectivityResult = await (Connectivity().checkConnectivity());
+// if (connectivityResult == ConnectivityResult.mobile) {
+//   print('4g');
+//   // I am connected to a mobile network.
+// } else if (connectivityResult == ConnectivityResult.wifi) {
+//   print('wifi');
+//   // I am connected to a wifi network.
+// }
+//   }
+
+StreamSubscription connectivitySubscription;
+ConnectivityResult _previousResult;
+bool dialogShown = false;
+
+ Future<bool> checkinternet() async {
+    try {
+      final result = await InternetAddress.lookup('google.com');
+      if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
+        return Future.value(true);
+      }
+    } on SocketException catch (_) {
+      return Future.value(false);
+    }
+  }
+
+
+
+
+@override
+void initState(){
+
+ connectivitySubscription =    Connectivity().onConnectivityChanged.listen((ConnectivityResult connresult) {
+    if(connresult == ConnectivityResult.none){
+      dialogShown = true;
+      showDialog(context: context,
+      barrierDismissible: false,
+      child: AlertDialog(
+        title: const Text(
+          'حدث خطأ ما '
+        ),
+        content: Text(
+          'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالالك وحاول مرة أخرى'
+        ),
+        actions: <Widget>[
+          FlatButton(onPressed: ()=>{
+            SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+
+          }, child: Text('خروج ',style: TextStyle(color: Colors.red),))
+        ],
+      )
+      );
+
+    }else if (_previousResult == ConnectivityResult.none) {
+        checkinternet().then((result) {
+          if (result == true) {
+            if (dialogShown == true) {
+              dialogShown = false;
+              Navigator.pop(context);
+            }
+          }
+        });
+
+    }
+  _previousResult = connresult;
+
+   });
+
+}
+
+
+@override
+void dispose(){
+  super.dispose();
+connectivitySubscription.cancel();
+}
+
+
   var _isLoading = false;
   var _isInit = true;
 
@@ -49,6 +136,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+  
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
@@ -148,9 +237,12 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
       ),
       drawer: NavigationDrawer(),
       backgroundColor: Colors.transparent,
-      body: _isLoading
-          ? Center(
+      body:
+       _isLoading
+          ?
+           Center(
               child: CircularProgressIndicator(),
+            
             )
           : new Container(
               child: new Stack(
@@ -194,7 +286,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         indicatorBgPadding: 2.0,
                       ),
                     ),
-
 
                         new Container(
                             height: 150.0, width: _width, child: headerList),
