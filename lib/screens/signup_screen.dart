@@ -56,7 +56,7 @@ class _SignupScreenState  extends State <SignupScreen > {
 
     try {
       // Log user in
-      await Provider.of<Auth>(context, listen: false).signup(
+     String localId= await Provider.of<Auth>(context, listen: false).signup(
         _authData['email'],
         _authData['password'],
       );
@@ -66,6 +66,7 @@ class _SignupScreenState  extends State <SignupScreen > {
 //        _authData['password'],
 //      );
       await Provider.of<UsersPtovider>(context, listen: false).addUser(
+        localId,
         _authData['name'],
         _authData['email'],
         _authData['password'],

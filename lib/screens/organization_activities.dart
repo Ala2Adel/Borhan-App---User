@@ -22,6 +22,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
   final Set<String> _saved = Set<String>();
 
   Color _favIconColor = Colors.grey;
+  var activityNotifier;
 
   @override
   void didChangeDependencies() {
@@ -51,6 +52,9 @@ class _ActivityScreenState extends State<OrganizationActivity> {
       }),
     }
               });
+
+       activityNotifier = Provider.of<ActivityNotifier>(context);
+
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -78,7 +82,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
 
-    final activityNotifier = Provider.of<ActivityNotifier>(context);
+    //final activityNotifier = Provider.of<ActivityNotifier>(context);
 
     final body = new Scaffold(
       appBar: new AppBar(
@@ -89,7 +93,13 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         ),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: Color.fromRGBO(58, 198, 198, 1),
+       backgroundColor:  Colors.purple[700],
+        actions: <Widget>[
+//          IconButton(
+//            icon: Icon(Icons.list),
+//            onPressed: _pushSaved,
+//          ),
+        ],
       ),
       backgroundColor: Colors.white,
       body: _isLoading
