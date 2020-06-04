@@ -6,6 +6,9 @@ import 'package:Borhan_User/providers/mydonation_provider.dart';
 import 'package:Borhan_User/screens/Help_organizations.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:Borhan_User/screens/email_organization.dart';
+import 'package:Borhan_User/screens/firebase_login_screen.dart';
+import 'package:Borhan_User/screens/firestore_chat_screen.dart';
+import 'package:Borhan_User/screens/google_signin.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
@@ -16,6 +19,7 @@ import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/Notification_screen.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/profile_screen.dart';
+import 'package:Borhan_User/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
@@ -80,30 +84,27 @@ class MyApp extends StatelessWidget {
             },
             title: 'Borhan',
             theme: new ThemeData(
-              primarySwatch: Colors.deepPurple,
-              textTheme: TextTheme(
-                subtitle1: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                ), 
-                button: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                ),
-                bodyText1: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                 ),
-               bodyText2: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                ),   
-              ) 
-            ),
-            home:
-         
-             SplashScreen(),
-           // LocationSelection()
+                primarySwatch: Colors.deepPurple,
+                textTheme: TextTheme(
+                  subtitle1: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                  button: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                  bodyText1: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                  bodyText2: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                )),
+            home: SplashScreen(),
+            // LocationSelection()
 
             routes: {
 //      OrganizationDetails.routeName: (ctx) => OrganizationDetails(),
@@ -114,11 +115,16 @@ class MyApp extends StatelessWidget {
               '/Home': (context) => OrgOverviewScreen(),
               '/Notifications': (context) => Notifications(),
               '/Login': (context) => LoginScreen(),
+//              '/FirebaseLogin': (context) => AuthScreen(),
+//              '/GoogleSignin': (context) => SignInDemo(),
+
               '/Signup': (context) => SignupScreen(),
               '/Profile': (context) => Profile(),
               HelpScreen.routeName: (ctx) => HelpScreen(),
               EmailOrganization.routeName: (ctx) => EmailOrganization(),
               ChatScreen.routeName: (ctx) => ChatScreen(),
+//              FirestoreChatScreen.routeName: (ctx) => FirestoreChatScreen(),
+
               HelpOrganization.routeName: (ctx) => HelpOrganization(),
               MyDonationsScreen.routeName: (ctx) => MyDonationsScreen(),
             }));

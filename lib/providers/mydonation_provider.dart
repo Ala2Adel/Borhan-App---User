@@ -13,7 +13,6 @@ class MyDonationsProvider with ChangeNotifier {
     return [..._items];
   }
 
-
   MyDonation findById(String id) {
     return _items.firstWhere((donation) => donation.id == id);
   }
@@ -29,9 +28,10 @@ class MyDonationsProvider with ChangeNotifier {
 
 //      print("Response body"+ response.body);
 
-      if(extractedData!=null) {
+      if (extractedData != null) {
         extractedData.forEach((donationId, donationData) {
-          print("Donation Id from fetch in looooop  :  "+donationId);
+          print("Donation Id from fetch in looooop  :  " + donationId);
+          print(donationData['image']);
           loadedDonations.add(MyDonation(
             id: donationId,
             orgName: donationData['orgName'],
@@ -40,14 +40,14 @@ class MyDonationsProvider with ChangeNotifier {
             donationDate: donationData['donationDate'],
             donationItems: donationData['donationItems'],
             donationType: donationData['donationType'],
-            image: donationData['image'],
+            image: donationData['donationImage'],
             status: donationData['status'],
           ));
         });
         _items = loadedDonations;
-        print('Items'+ _items[0].orgName);
+        print('Items' + _items[0].orgName);
         notifyListeners();
-      }else {
+      } else {
         print('No Data in this chat');
       }
     } catch (error) {
@@ -55,7 +55,7 @@ class MyDonationsProvider with ChangeNotifier {
     }
   }
 
-  Future<void> deleteMyDonation(String id,String userId) async {
+  Future<void> deleteMyDonation(String id, String userId) async {
     final url = 'https://borhanadmin.firebaseio.com/MyDonations/$userId.json';
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     var existingProduct = _items[existingProductIndex];
@@ -69,5 +69,4 @@ class MyDonationsProvider with ChangeNotifier {
     }
     existingProduct = null;
   }
-
 }

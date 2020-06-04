@@ -2,10 +2,14 @@ import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
+import 'package:Borhan_User/screens/google_signin.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+
+GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 
 class NavigationDrawer extends StatefulWidget {
   @override
@@ -13,6 +17,7 @@ class NavigationDrawer extends StatefulWidget {
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
+  GoogleSignInAccount _currentUser;
 
   UsersPtovider usersPtovider;
   UserNav userLoad ;
