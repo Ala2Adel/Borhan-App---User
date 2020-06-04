@@ -86,13 +86,13 @@ flutter:
     - assets/BorhanLogo2.png
     - assets/images/
     - assets/offers/
-    - assets/images/donation2.png
-    - assets/images/donation4.png
-    - assets/images/donation5.png
-    - assets/images/donation9.png
-    - assets/images/blogo.png
-    - assets/images/blogo1.png
-    - assets/images/mdonation2.png
+#    - assets/images/donation2.png
+#    - assets/images/donation4.png
+#    - assets/images/donation5.png
+#    - assets/images/donation9.png
+#    - assets/images/blogo.png
+#    - assets/images/blogo1.png
+#    - assets/images/mdonation2.png
 
 
   # To add assets to your application, add an assets section, like this: 
