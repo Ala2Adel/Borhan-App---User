@@ -79,8 +79,9 @@ void initState(){
         ),
         actions: <Widget>[
           FlatButton(onPressed: ()=>{
+           
             SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
-
+          
           }, child: Text('خروج ',style: TextStyle(color: Colors.red),))
         ],
       )
@@ -89,8 +90,12 @@ void initState(){
     }else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {
           if (result == true) {
+          
             if (dialogShown == true) {
               dialogShown = false;
+               print('-------------------------put your fix here ----------------------');
+                getOrganizationsAndCampaign();
+
               Navigator.pop(context);
             }
           }
