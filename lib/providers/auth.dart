@@ -18,8 +18,10 @@ class Auth with ChangeNotifier {
   }
   final String MYKEY = 'AIzaSyCLYK4YRGvB9ouLYqxGNnRetvZuG2mhA0c';
 
-  Future<void> _authenticate(
+  Future<String> _authenticate(
       String email, String password, String urlSegment) async {
+
+    String localId;
     final url =
         'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$MYKEY';
     try {
@@ -38,6 +40,7 @@ class Auth with ChangeNotifier {
         email: responseData['email'],
         id: responseData['localId'],
       );
+      localId= responseData['localId'];
       print("User Data is :  $responseData");
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
@@ -45,6 +48,7 @@ class Auth with ChangeNotifier {
     } catch (error) {
       throw error;
     }
+      return localId ;
   }
 
   Future<void> _sendResetPasswordEmail(String email) async {
@@ -67,11 +71,11 @@ class Auth with ChangeNotifier {
     }
   }
 
-  Future<void> signup(String email, String password) async {
+  Future<String> signup(String email, String password) async {
     return _authenticate(email, password, 'signUp');
   }
 
-  Future<void> login(String email, String password) async {
+  Future<String> login(String email, String password) async {
     return _authenticate(email, password, 'signInWithPassword');
   }
 

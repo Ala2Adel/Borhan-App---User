@@ -57,8 +57,8 @@ dependencies:
   google_fonts_arabic: ^1.1.7
   url_launcher: ^5.4.10
   shared_preferences: ^0.5.7+3 
-
-  carousel_pro: ^0.0.13
+  getflutter: ^1.0.11
+  carousel_pro: ^0.0.13 
 
 
 dev_dependencies:
