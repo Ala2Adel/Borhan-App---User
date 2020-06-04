@@ -41,6 +41,24 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     super.didChangeDependencies();
   }
 
+  void _saveFavorite(){
+    String pickedTitle = 'sss';
+    String pickedDescription = 'fhsl';
+    String pickedImage='hjh';
+    Provider.of<ActivityNotifier>(context, listen:false).addFavorite(pickedTitle, pickedDescription, pickedImage);
+   // Navigator.of(context).push(route)
+
+
+    Navigator.of(context).push(
+        MaterialPageRoute(
+            builder:
+                (BuildContext
+            context) {
+              return Favourite();
+            }));
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
@@ -59,10 +77,10 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         elevation: 0.0,
         backgroundColor: Color.fromRGBO(58, 198, 198, 1),
         actions: <Widget>[
-//          IconButton(
-//            icon: Icon(Icons.list),
-//            onPressed: _pushSaved,
-//          ),
+          IconButton(
+            icon: Icon(Icons.list),
+            onPressed: _pushSaved,
+          ),
         ],
       ),
       backgroundColor: Colors.white,
@@ -166,30 +184,30 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                     ),
                                                     Expanded(
                                                       child:
-//                                                            _buildRow(
-//                                                                activityNotifier
-//                                                                    .activityList[
-//                                                                        index]
-//                                                                    .name)
+                                                            _buildRow(
+                                                                activityNotifier
+                                                                    .activityList[
+                                                                        index]
+                                                                    .name)
 
-                                                          IconButton(
-                                                        icon: Icon(
-                                                            Icons.favorite),
-                                                        color: _favIconColor,
-                                                        iconSize: 35.0,
-                                                        onPressed: () {
-                                                          setState(() {
-                                                            if (_favIconColor ==
-                                                                Colors.grey) {
-                                                              _favIconColor =
-                                                                  Colors.red;
-                                                            } else {
-                                                              _favIconColor =
-                                                                  Colors.grey;
-                                                            }
-                                                          });
-                                                        },
-                                                      ),
+//                                                          IconButton(
+//                                                        icon: Icon(
+//                                                            Icons.favorite),
+//                                                        color: _favIconColor,
+//                                                        iconSize: 35.0,
+//                                                        onPressed: () {
+//                                                          setState(() {
+//                                                            if (_favIconColor ==
+//                                                                Colors.grey) {
+//                                                              _favIconColor =
+//                                                                  Colors.red;
+//                                                            } else {
+//                                                              _favIconColor =
+//                                                                  Colors.grey;
+//                                                            }
+//                                                          });
+//                                                        },
+//                                                      ),
                                                     ),
                                                   ],
                                                 ),
@@ -294,10 +312,14 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         setState(() {
           print(_saved);
           if (alreadySaved) {
+
             _saved.remove(pair);
+
             //_decrementCounter();
           } else {
             _saved.add(pair);
+            _saveFavorite;
+
             //_incrementCounter();
           }
         });
@@ -306,44 +328,54 @@ class _ActivityScreenState extends State<OrganizationActivity> {
   }
 
   void _pushSaved() {
-    Navigator.of(context).push(
-      MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          final Iterable<ListTile> tiles = _saved.map(
-            (String pair) {
-              return ListTile(
-                title: Text(
-                  pair.toString(),
-                  style: new TextStyle(
-                    fontSize: 21.0,
-                    color: Colors.blueGrey,
-                    fontFamily: 'Arvo',
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              );
-            },
-          );
-          final List<Widget> divided = ListTile.divideTiles(
-            context: context,
-            tiles: tiles,
-          ).toList();
-
-          return Scaffold(
-            backgroundColor: Colors.black12,
-            appBar: new AppBar(
-              elevation: 0.3,
-              centerTitle: true,
-              backgroundColor: Colors.blueGrey,
-              title: new Text('Saved Suggestions'),
-            ),
-            body: ListView(children: divided),
-
-            //  new Favourite(ListView(children: divided));
-          );
-        },
-        //    Favourite( ListView (children: divided));
-      ),
-    );
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) =>
+                Favourite(fav: _saved)));
   }
+
+//  void _pushSaved() {
+//    Navigator.of(context).push(
+//      MaterialPageRoute<void>(
+//        builder:
+//        (BuildContext context) {
+//          final Iterable<ListTile> tiles = _saved.map(
+//            (String pair) {
+//              return ListTile(
+//                title: Text(
+//                  pair.toString(),
+//                  style: new TextStyle(
+//                    fontSize: 21.0,
+//                    color: Colors.blueGrey,
+//                    fontFamily: 'Arvo',
+//                    fontWeight: FontWeight.bold,
+//                  ),
+//                ),
+//              );
+//            },
+//          );
+//          final List<Widget> divided = ListTile.divideTiles(
+//            context: context,
+//            tiles: tiles,
+//          ).toList();
+//
+//          return Scaffold(
+//            backgroundColor: Colors.black12,
+//            appBar: new AppBar(
+//              elevation: 0.3,
+//              centerTitle: true,
+//              backgroundColor: Colors.blueGrey,
+//              title: new Text('Saved Suggestions'),
+//            ),
+//            body: ListView(children: divided),
+//
+//            //  new Favourite(ListView(children: divided));
+//          );
+//        },
+//        //    Favourite( ListView (children: divided));
+//      ),
+//    );
+//  }
 }
+

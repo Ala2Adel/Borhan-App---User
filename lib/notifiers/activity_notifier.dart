@@ -57,7 +57,7 @@ class ActivityNotifier with ChangeNotifier {
     }
   }
 
-  void addPlace(
+  void addFavorite(
       String pickedTitle,
       String pickedDescription,
       String pickedImage,
@@ -77,7 +77,7 @@ class ActivityNotifier with ChangeNotifier {
   }
 
 
-  Future<void> fetchAndSetFavorites() async{
+  Future <void> fetchAndSetFavorites() async{
     final dataList = await DBHelper.getData('favorites');
     _fav = dataList.map((item) => Activity(
         id: item['id'],

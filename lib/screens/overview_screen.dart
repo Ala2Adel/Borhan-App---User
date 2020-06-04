@@ -185,7 +185,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           AssetImage('assets/offers/Offer2.jpg'),
                           AssetImage('assets/offers/Offer3.jpg'),
                           AssetImage('assets/offers/Offer4.jpg'),
-                          AssetImage('assets/offers/Offer5.jpg'),
                         ],
                         autoplay: true,
                         animationCurve: Curves.fastLinearToSlowEaseIn,
