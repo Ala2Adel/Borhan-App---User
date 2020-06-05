@@ -3,12 +3,12 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 
-class SignInDemo extends StatefulWidget {
+class GoogleSignin extends StatefulWidget {
   @override
-  _SignInDemoState createState() => _SignInDemoState();
+  _GoogleSigninState createState() => _GoogleSigninState();
 }
 
-class _SignInDemoState extends State<SignInDemo> {
+class _GoogleSigninState extends State<GoogleSignin> {
   GoogleSignInAccount _currentUser;
 
   @override
