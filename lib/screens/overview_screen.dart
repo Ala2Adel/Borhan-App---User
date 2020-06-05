@@ -10,7 +10,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:provider/provider.dart';
-
 import '../background.dart';
 import 'Donation.dart';
 import 'organization_details.dart';
