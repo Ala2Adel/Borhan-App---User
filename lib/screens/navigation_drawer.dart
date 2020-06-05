@@ -51,7 +51,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
      loadSharedPrefs();
   }
    loadSharedPrefs() async {
-  try {
+    try {
    
      SharedPref sharedPref = SharedPref();
      UserNav user = UserNav.fromJson(await sharedPref.read("user"));
@@ -88,22 +88,32 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: new Text("الرئيسية"),
             leading: new Icon(Icons.home),
-            onTap: ()=>Navigator.pushNamed(context, '/Home'),
+            onTap: ()=>Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
             title: new Text("المفضلة"),
             leading: new Icon(Icons.favorite),
-            onTap: ()=>Navigator.pushNamed(context, '/Favourite'),
+            onTap: (){
+                Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/Favourite');
+              },
           ),
           new ListTile(
             title: new Text("الإشعارات"),
             leading: new Icon(Icons.notifications),
-             onTap: ()=>Navigator.pushNamed(context, '/Notifications'),
+             onTap: (){
+                     Navigator.of(context).pop();
+                     Navigator.pushNamed(context, '/Notifications');
+                   }
+             ,
           ),
           new ListTile(
             title: new Text("تبرعاتي"),
             leading: new Icon(Icons.drag_handle),
-            onTap: ()=>Navigator.pushNamed(context, '/myDonations'),
+            onTap: (){ 
+              Navigator.of(context).pop();
+              Navigator.pushNamed(context, '/myDonations');
+             },
           ),
 
           userLoad==null?
@@ -134,6 +144,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             title: new Text("الدعم و المساعدة"),
             leading: new Icon(Icons.help),
             onTap: () {
+              Navigator.of(context).pop();
               Navigator.push(
                   context, MaterialPageRoute(builder: (context) => HelpScreen()));
             },

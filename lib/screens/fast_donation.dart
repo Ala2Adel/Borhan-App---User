@@ -374,7 +374,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(167, 76, 193, 1),
+        backgroundColor: Colors.purple[700],
         title: Container(
           alignment: Alignment.center,
           child: Text("التبرع السريع",

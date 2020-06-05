@@ -240,6 +240,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
             expandedHeight: 180.0,
             floating: false,
             pinned: true,
+            backgroundColor: Colors.purple[700],
             flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(

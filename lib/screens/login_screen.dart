@@ -54,7 +54,7 @@ class _LoginScreenState  extends State <LoginScreen > {
     if (_authMode == AuthMode.Login) {
     try {
       // Log user in
-      await Provider.of<Auth>(context, listen: false).login(
+      String localId =await Provider.of<Auth>(context, listen: false).login(
         _authData['email'],
         _authData['password'],
       );
@@ -69,7 +69,7 @@ class _LoginScreenState  extends State <LoginScreen > {
       /////////////////////////////////////////////
      Provider.of<UsersPtovider>(context, listen: false).setUserData(
       email:_authData['email'],
-      userName: _authData['name']
+      userId: localId
       );
      //////////////////////////////////////////////
       Navigator.push(

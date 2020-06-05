@@ -9,6 +9,7 @@ import '../models/chat.dart';
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chat';
   final orgId;
+
   ChatScreen({this.orgId});
 
   @override
@@ -24,13 +25,26 @@ class _ChatScreenState extends State<ChatScreen> {
       Chat(time: '', text: '', userId: '', userName: '', img: '', id: null);
 
   final _controller = new TextEditingController();
+  var data;
 
   void _sendMessage() {
+    print('from _send message text = ' + _enteredMessage);
+    print('from _send message text from add message = ' + chat.text);
     FocusScope.of(context).unfocus();
     final data = Provider.of<Auth>(context);
+    chat = Chat(
+      img: chat.img,
+      text: _enteredMessage,
+      userName: chat.userName,
+      userId: chat.userId,
+      id: chat.id,
+      time: chat.time,
+    );
     Provider.of<ChatProvider>(context, listen: false)
         .addMessage(chat, data.userData.id, widget.orgId)
         .then((value) => {
+      print('from _send message text from add message = ' + chat.text),
+    print('from _send message text from add message = ' + _enteredMessage),
               _controller.clear(),
               _enteredMessage = '',
               print('from add message'),
@@ -40,7 +54,7 @@ class _ChatScreenState extends State<ChatScreen> {
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    final data = Provider.of<Auth>(context);
+    data = Provider.of<Auth>(context);
     if (_isInit) {
       print(widget.orgId);
       Provider.of<ChatProvider>(context)
@@ -54,7 +68,8 @@ class _ChatScreenState extends State<ChatScreen> {
         userName: data.userData.email.split('@')[0],
         img: '',
         id: null);
-    print(data.userData);
+//    print('user Data');
+//    print(data.userData);
     super.didChangeDependencies();
   }
 
@@ -71,21 +86,21 @@ class _ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             Expanded(
               child: FutureBuilder(
-                future: FirebaseAuth.instance.currentUser(),
+                future: chatDocs.fetchAndSetChat(data.userData.id, widget.orgId),
                 builder: (ctx, futureSnapshot) {
-                  if (futureSnapshot.connectionState ==
-                      ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+//                  if (futureSnapshot.connectionState ==
+//                      ConnectionState.waiting) {
+//                    return Center(
+//                      child: CircularProgressIndicator(),
+//                    );
+//                  }
                   return StreamBuilder(builder: (ctx, chatSnapshot) {
-                    if (chatSnapshot.connectionState ==
-                        ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
+//                    if (chatSnapshot.connectionState ==
+//                        ConnectionState.waiting) {
+//                      return Center(
+//                        child: CircularProgressIndicator(),
+//                      );
+//                    }
                     return ListView.builder(
                       reverse: true,
                       itemCount: chatDocs.items.length,
@@ -108,23 +123,25 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: TextField(
                       controller: _controller,
                       decoration: InputDecoration(labelText: 'كتابة رسالة ...'),
-                      onTap: () {
-                        _isInit = true;
-                      },
+//                      onTap: () {
+////                        _isInit = true;
+//                      },
                       onChanged: (value) {
                         setState(() {
                           _enteredMessage = value;
                         });
-                        print('from wigdet Message is : ' + value);
-                        _isInit = true;
-                        chat = Chat(
-                          img: chat.img,
-                          text: value,
-                          userName: chat.userName,
-                          userId: chat.userId,
-                          id: chat.id,
-                          time: chat.time,
-                        );
+                        print('from wigdet value is : ' + value);
+                        print('from wigdet entered message is : ' + _enteredMessage);
+//                        _isInit = true;
+//                        chat = Chat(
+//                          img: chat.img,
+//                          text: _enteredMessage,
+//                          userName: chat.userName,
+//                          userId: chat.userId,
+//                          id: chat.id,
+//                          time: chat.time,
+//                        );
+                        print('from wigdet chat.text is : ' + chat.text);
                       },
                     ),
                   ),

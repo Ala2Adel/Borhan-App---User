@@ -22,9 +22,10 @@ dependencies:
   location: ^3.0.2
   google_maps_flutter: ^0.5.28+1
   firebase_messaging: ^6.0.16
-
+  connectivity: ^0.4.8+6
   flutter_localizations:
     sdk: flutter
+  
 
   intl_translation:
     # Add the dependency for the Firebase Core Flutter SDK
@@ -58,15 +59,17 @@ dependencies:
   url_launcher: ^5.4.10
   shared_preferences: ^0.5.7+3 
 
-  carousel_pro: ^0.0.13
+
   flare_splash_screen: ^3.0.1
 
+  getflutter: ^1.0.11
+  carousel_pro: ^0.0.13 
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  shared_preferences:
+
 
 
 # For information on the generic Dart part of this file, see the
@@ -97,6 +100,13 @@ flutter:
     - assets/images/mdonation2.png
     - assets/images/bounce_ball_loading.flr
     - assets/images/HexaRotation.flr
+#    - assets/images/donation2.png
+#    - assets/images/donation4.png
+#    - assets/images/donation5.png
+#    - assets/images/donation9.png
+#    - assets/images/blogo.png
+#    - assets/images/blogo1.png
+#    - assets/images/mdonation2.png
 
 
   # To add assets to your application, add an assets section, like this: 
