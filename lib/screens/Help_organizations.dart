@@ -112,8 +112,8 @@ class _HelpOrganizationState extends State<HelpOrganization> {
             Navigator.push(
                 context,
                 MaterialPageRoute(
-//                    builder: (context) => ChatScreen(orgId: orgId)));
-                    builder: (context) => FirestoreChatScreen()));
+                    builder: (context) => ChatScreen(orgId: orgId)));
+//                    builder: (context) => FirestoreChatScreen()));
           },
           padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
           shape:
