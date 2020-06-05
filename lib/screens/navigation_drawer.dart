@@ -123,8 +123,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             accountEmail: LoginScreen.gmail != null
                 ? (Text(LoginScreen.gmail))
                 : (userLoad != null
-                    ? Text(userLoad.userName)
-                    : Text('User Name')),
+                    ? Text(userLoad.email)
+                    : Text("User Email@MailServer.com ")),
 //            userLoad == null
 //                ? Text("User Email@MailServer.com ")
 //                : Text(userLoad.email),
