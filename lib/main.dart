@@ -10,7 +10,7 @@ import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
-import 'package:Borhan_User/screens/splashScreen.dart';
+import 'package:Borhan_User/screens/welcomeScreen.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/Notification_screen.dart';
@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
             ),
             home:
          
-             SplashScreen(),
+             WelcomeScreen(),
            // LocationSelection()
 
             routes: {

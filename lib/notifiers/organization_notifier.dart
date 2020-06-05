@@ -20,10 +20,6 @@ class OrganizationNotifier with ChangeNotifier {
     return [..._orgList];
   }
 
-//  Organization findById(String id) {
-//    return _orgList.firstWhere((organization) => organization.id == id);
-//  }
-
   Future<void> getOrganizations() async {
     final url =
         'https://borhanadmin.firebaseio.com/CharitableOrganizations.json';

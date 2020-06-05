@@ -97,10 +97,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                 image: new DecorationImage(
                   image: new NetworkImage(
                       campaignNotifier.campaignList[index].imagesUrl),
-                  fit: BoxFit.fitHeight,
+                fit: BoxFit.fitHeight,
+
                 ),
               ),
-              // height: 200.0,
+               height: 200.0,
               width: 150.0,
               child: new Stack(
                 children: <Widget>[
@@ -113,7 +114,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
-                        height: 25.0,
+                        height:30.0,
                         child: new Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
@@ -196,7 +197,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
 
                         new Container(
-                            height: 150.0, width: _width, child: headerList),
+                            height: 170.0, width: _width, child: headerList),
                         ButtonTheme(
                           minWidth: MediaQuery.of(context).size.width,
                           //width: 200,
@@ -394,10 +395,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                           index]
                                                                       .id);
                                                               return OrganizationActivity(
-                                                                  orgNotifier
-                                                                      .orgList[
-                                                                          index]
-                                                                      .id);
+                                                                  orgNotifier.orgList[index].id);
                                                             }));
                                                           },
                                                           child: Text(
@@ -408,12 +406,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                     .black),
                                                           ),
                                                         ),
-//                                                        Icon(
-//                                                          Icons.favorite,
-//                                                          color:
-//                                                              Colors.redAccent,
-//                                                          size: 30.0,
-//                                                        )
+
                                                       ],
                                                     )
                                                   ],

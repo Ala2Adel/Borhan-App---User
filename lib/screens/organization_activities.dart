@@ -195,25 +195,6 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                             activityNotifier
                                                                     .activityList[
                                                                 index])
-
-//                                                          IconButton(
-//                                                        icon: Icon(
-//                                                            Icons.favorite),
-//                                                        color: _favIconColor,
-//                                                        iconSize: 35.0,
-//                                                        onPressed: () {
-//                                                          setState(() {
-//                                                            if (_favIconColor ==
-//                                                                Colors.grey) {
-//                                                              _favIconColor =
-//                                                                  Colors.red;
-//                                                            } else {
-//                                                              _favIconColor =
-//                                                                  Colors.grey;
-//                                                            }
-//                                                          });
-//                                                        },
-//                                                      ),
                                                         ),
                                                   ],
                                                 ),
@@ -334,14 +315,13 @@ class _ActivityScreenState extends State<OrganizationActivity> {
           if (alreadySaved) {
               _saved.remove(activity.name);
             Provider.of<ActivityNotifier>(context).deleteFavorite(activity);
-            //_decrementCounter();
+
           } else {
               _saved.add(activity.name);
             Provider.of<ActivityNotifier>(context).addFavorite(activity.name,
                 activity.description, activity.image, activity.id);
 //            _saveFavorite;
 
-            //_incrementCounter();
           }
         });
       },
@@ -386,10 +366,6 @@ class _ActivityScreenState extends State<OrganizationActivity> {
 //    );
 //  }
 
-  void _pushSaved() {
-    Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Favourite()));
-  }
 
 /*
   *
