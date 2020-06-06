@@ -1,7 +1,9 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/providers/chat_provider.dart';
+import 'package:Borhan_User/providers/connectivity_provider.dart';
 import 'package:Borhan_User/providers/email_provider.dart';
+
 import 'package:Borhan_User/providers/mydonation_provider.dart';
 import 'package:Borhan_User/screens/Help_organizations.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
@@ -63,6 +65,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider.value(
             value: MyDonationsProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: ConnectivityProvider(),
           ),
         ],
         child: MaterialApp(
