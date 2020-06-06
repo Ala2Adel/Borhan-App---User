@@ -1,9 +1,9 @@
 import 'package:Borhan_User/providers/auth.dart';
+import 'package:Borhan_User/widgets/chat/message_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import '../providers/chat_provider.dart';
-import '../widgets/message_bubble_old.dart';
 import '../models/chat.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ChatScreenState extends State<ChatScreen> {
   var _enteredMessage = '';
   var _isInit = true;
   var chat =
-      Chat(time: '', text: '', userId: '', userName: '', img: '', id: null);
+  Chat(time: '', text: '', userId: '', userName: '', img: '', id: null);
 
   final _controller = new TextEditingController();
   var data;
@@ -41,14 +41,14 @@ class _ChatScreenState extends State<ChatScreen> {
       time: chat.time,
     );
     Provider.of<ChatProvider>(context, listen: false)
-        .addMessage(chat, data.userData.id, widget.orgId)
+        .addMessage(chat, data.userData.email.split('.com')[0], widget.orgId)
         .then((value) => {
-      print('from _send message text from add message = ' + chat.text),
-    print('from _send message text from add message = ' + _enteredMessage),
-              _controller.clear(),
-              _enteredMessage = '',
-              print('from add message'),
-            });
+      print('from _send message email from add message = ' + data.userData.email),
+//    print('from _send message text from add message = ' + _enteredMessage),
+      _controller.clear(),
+      _enteredMessage = '',
+      print('from add message'),
+    });
   }
 
   @override
@@ -58,7 +58,7 @@ class _ChatScreenState extends State<ChatScreen> {
     if (_isInit) {
       print(widget.orgId);
       Provider.of<ChatProvider>(context)
-          .fetchAndSetChat(data.userData.id, widget.orgId);
+          .fetchAndSetChat(data.userData.email.split('.com')[0], widget.orgId);
     }
     _isInit = false;
     chat = Chat(
@@ -86,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen> {
           children: <Widget>[
             Expanded(
               child: FutureBuilder(
-                future: chatDocs.fetchAndSetChat(data.userData.id, widget.orgId),
+                future: chatDocs.fetchAndSetChat(data.userData.email.split('.com')[0], widget.orgId),
                 builder: (ctx, futureSnapshot) {
 //                  if (futureSnapshot.connectionState ==
 //                      ConnectionState.waiting) {
@@ -151,7 +151,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       Icons.send,
                     ),
                     onPressed:
-                        _enteredMessage.trim().isEmpty ? null : _sendMessage,
+                    _enteredMessage.trim().isEmpty ? null : _sendMessage,
                   )
                 ],
               ),

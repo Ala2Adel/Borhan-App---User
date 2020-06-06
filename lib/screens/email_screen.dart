@@ -26,7 +26,7 @@ class _EmailScreenState extends State<EmailScreen> {
 
   final _recipientController = TextEditingController(
 //    text: widget.orgEmail,
-      );
+);
 
   final _subjectController = TextEditingController();
 
