@@ -1,5 +1,7 @@
 import 'package:Borhan_User/models/activity.dart';
+import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/cupertino.dart';
@@ -76,6 +78,42 @@ class _ActivityScreenState extends State<OrganizationActivity> {
 //              return Favourite();
 //            }));
 //  }
+
+ void _showErrorDialog(String message) {
+    print("alert");
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('تسجيل دخول'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('ليس الأن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('نعم'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pushNamed(context, '/Login');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+Future<UserNav> loadSharedPrefs() async {
+    UserNav user;
+    try {
+     SharedPref sharedPref = SharedPref();
+       user = UserNav.fromJson(await sharedPref.read("user"));
+      } catch (Excepetion) {
+    // do something
+       }
+       return user;
+   } 
 
   @override
   Widget build(BuildContext context) {
@@ -254,20 +292,24 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                               color:
                                                                   Colors.black),
                                                         ),
-                                                        onPressed: () {
+                                                        onPressed: () async {
                                                           activityNotifier
                                                                   .currentActivity =
                                                               activityNotifier
                                                                       .activityList[
                                                                   index];
 
-                                                          Navigator.of(context).push(
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (BuildContext
-                                                                          context) {
-                                                            return NormalDenotationScreen();
-                                                          }));
+                    UserNav userLoad = await loadSharedPrefs();
+                    if(userLoad==null){
+                      print("user is not here");
+                      _showErrorDialog("الرجاء التسجيل قبل الدخول");
+                     }else{
+                       print("user is  here");
+                       Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) {
+                      return NormalDenotationScreen();
+                    }));
+                     }
                                                         },
                                                         child: Text(
                                                           'تبرع الآن',

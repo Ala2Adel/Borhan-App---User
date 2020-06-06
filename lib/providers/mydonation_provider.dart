@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:Borhan_User/models/mydonation.dart';
+import 'package:Borhan_User/models/user_nav.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -7,6 +9,8 @@ import 'dart:convert';
 import '../models/activity.dart';
 
 class MyDonationsProvider with ChangeNotifier {
+
+  UserNav userLoad ;
   List<MyDonation> _items = [];
 
   List<MyDonation> get items {
@@ -16,9 +20,25 @@ class MyDonationsProvider with ChangeNotifier {
   MyDonation findById(String id) {
     return _items.firstWhere((donation) => donation.id == id);
   }
+  
+   loadSharedPrefs() async {
+    try {
+   
+     SharedPref sharedPref = SharedPref();
+     UserNav user = UserNav.fromJson(await sharedPref.read("user"));
+      userLoad = user;
+      } catch (Excepetion) {
+    // do something
+       }
+   }    
 
   Future<void> fetchAndSetDonations(String userId) async {
 //    userId = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';      /******************/   /* Note */ /**************/
+    
+      await loadSharedPrefs();
+          print(userLoad);
+          userId=userLoad.id;
+
     print("from fetch userId  " + userId);
     final url = 'https://borhanadmin.firebaseio.com/MyDonations/$userId.json';
     try {
@@ -55,7 +75,10 @@ class MyDonationsProvider with ChangeNotifier {
     }
   }
 
-  Future<void> deleteMyDonation(String id, String userId) async {
+  Future<void> deleteMyDonation({String id, String userId}) async {
+    await loadSharedPrefs();
+          print(userLoad);
+          userId=userLoad.id;
     final url = 'https://borhanadmin.firebaseio.com/MyDonations/$userId.json';
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);
     var existingProduct = _items[existingProductIndex];
