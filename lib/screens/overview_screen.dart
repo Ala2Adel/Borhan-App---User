@@ -214,6 +214,7 @@ connectivitySubscription.cancel();
     );
   }
 Future<UserNav> loadSharedPrefs() async {
+
     UserNav user;
     try {
      SharedPref sharedPref = SharedPref();
@@ -225,8 +226,6 @@ Future<UserNav> loadSharedPrefs() async {
    }    
   @override
   Widget build(BuildContext context) {
-
-  
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;

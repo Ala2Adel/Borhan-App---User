@@ -12,19 +12,19 @@ class UserNav with ChangeNotifier {
   });
 
   Map<String, dynamic> toJson() => {
-   'id' :id,
-  'name': userName,
-  'email': email,
-   };
+        'id': id,
+        'name': userName,
+        'email': email,
+      };
 
-   UserNav.fromJson(Map<String, dynamic> json)
-      :id = json['id'],
-       userName = json['name'],
+  UserNav.fromJson(Map<String, dynamic> json)
+      : id = json['id'],
+        userName = json['name'],
         email = json['email'];
 
-   @override
+  @override
   String toString() {
     // TODO: implement toString
     return "UserNav object data is id = $id name = $userName email = $email";
-  }     
+  }
 }

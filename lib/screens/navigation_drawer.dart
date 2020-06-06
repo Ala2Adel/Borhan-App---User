@@ -1,9 +1,11 @@
+import 'package:Borhan_User/models/mydonation.dart';
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/google_provider.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/login_screen.dart';
+import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
@@ -49,6 +51,58 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     ).then((value) => Navigator.of(context).pop());
   }
 
+  void _showErrorDialogLogin(String message) {
+    print("alert");
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('تسجيل دخول'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('ليس الأن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('نعم'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pushNamed(context, '/Login');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  // loadSharedPrefs() async {
+  //   try {
+  //     SharedPref sharedPref = SharedPref();
+  //     UserNav user = UserNav.fromJson(await sharedPref.read("user"));
+  // setState(() {
+  //   userLoad = user;
+  // });
+  //   } catch (Exception) {
+  //     // do something
+  //   }
+  // }
+
+  Future<UserNav> loadSharedPrefs() async {
+    UserNav user;
+    try {
+      SharedPref sharedPref = SharedPref();
+      user = UserNav.fromJson(await sharedPref.read("user"));
+      setState(() {
+        userLoad = user;
+      });
+    } catch (Excepetion) {
+      // do something
+    }
+    return user;
+  }
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
@@ -81,18 +135,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     }
     usersPtovider = Provider.of<UsersPtovider>(context, listen: false);
     loadSharedPrefs();
-  }
-
-  loadSharedPrefs() async {
-    try {
-      SharedPref sharedPref = SharedPref();
-      UserNav user = UserNav.fromJson(await sharedPref.read("user"));
-      setState(() {
-        userLoad = user;
-      });
-    } catch (Exception) {
-      // do something
-    }
   }
 
   @override
@@ -164,9 +206,19 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: new Text("تبرعاتي"),
             leading: new Icon(Icons.drag_handle),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.pushNamed(context, '/myDonations');
+            onTap: () async {
+              UserNav userLoad = await loadSharedPrefs();
+              Navigator.pop(context);
+              if (userLoad == null) {
+                print("user is not here");
+                _showErrorDialogLogin("الرجاء التسجيل قبل الدخول");
+              } else {
+                print("user is  here");
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (BuildContext context) {
+                  return MyDonationsScreen();
+                }));
+              }
             },
           ),
 

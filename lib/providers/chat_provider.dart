@@ -34,6 +34,8 @@ class ChatProvider with ChangeNotifier {
         _items = loadedChat;
         notifyListeners();
       } else {
+        _items = [];
+        notifyListeners();
         print('No Data in this chat');
       }
     } catch (error) {
