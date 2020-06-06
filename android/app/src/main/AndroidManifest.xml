@@ -9,8 +9,8 @@
 
     
         android:name="io.flutter.app.FlutterApplication"
-        android:label="Borhan_User"
-        android:icon="@mipmap/ic_launcher">
+        android:label="برهان"
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
                android:value="AIzaSyBO4Glwu9mcYOfJTJvJPU06y7VOgYLv5v0"/>
         <activity
