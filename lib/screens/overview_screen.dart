@@ -18,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:app_settings/app_settings.dart';
 
 
 import '../background.dart';
@@ -85,8 +86,20 @@ void initState(){
            
             SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
           
-          }, child: Text('خروج ',style: TextStyle(color: Colors.red),))
-        ],
+          }, child: Text('خروج ',style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
+          FlatButton(onPressed: ()=>{
+           
+           AppSettings.openWIFISettings(),
+          
+          }, child: Text(' اعدادت Wi-Fi ',style: TextStyle(color: Colors.blue),)),
+          FlatButton(onPressed: ()=>{
+           
+            AppSettings.openDataRoamingSettings(),
+          
+          }, child: Text(' اعدادت الباقه ',style: TextStyle(color: Colors.blue,),))
+        ]
+        
+        
       )
       );
 

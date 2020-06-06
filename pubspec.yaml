@@ -26,6 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   
+  app_settings: ^4.0.0
 
   intl_translation:
     # Add the dependency for the Firebase Core Flutter SDK
