@@ -64,7 +64,7 @@ class _FavouriteState extends State<Favourite> {
                 borderRadius: BorderRadius.circular(40),
                 child: Card(
                   margin: EdgeInsets.all(10),
-                  color: Colors.purple[400],
+                  color: Colors.grey[400],
                   child: new ListTile(
                     contentPadding: EdgeInsets.all(8.0),
                     title: new Column(

@@ -12,7 +12,6 @@ class OrganizationDetails extends StatelessWidget {
    OrganizationDetails(this.currentOrg);
 
 
-
    @override
   Widget build(BuildContext context) {
    //  orgNotifier = Provider.of<OrganizationNotifier>(context ,listen: false);
@@ -23,14 +22,18 @@ class OrganizationDetails extends StatelessWidget {
               ? currentOrg.orgName
               : 'no value',
         ),
-        backgroundColor:  Colors.purple[700],
+        backgroundColor:  Colors.purple[900],
         
       ),
       body: SingleChildScrollView(
+
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Flexible(child: Image.network(currentOrg.logo)),
+            GestureDetector(child: Hero( tag:'imageHero',child: Flexible(child: Image.network(currentOrg.logo))),
+            onTap: (){
+              Navigator.pop(context);
+            }),
 //            Text(
 //              "الوصف: " + orgNotifier.currentOrg.description,
 //              style: TextStyle(fontSize: 20),
@@ -65,7 +68,7 @@ class OrganizationDetails extends StatelessWidget {
               style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(40.0),
               child: FittedBox(
                 fit: BoxFit.scaleDown,
                 child: InkWell(

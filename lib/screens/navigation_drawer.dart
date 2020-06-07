@@ -68,7 +68,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     return Drawer(
       child: new ListView(
         children: <Widget>[
+
           UserAccountsDrawerHeader(
+
             // accountName: data.userData2.userName==null? Text("User Name ")
             // :Text( data.userData2.userName),
             // accountEmail: data.userData2.email==null? Text("User Email@MailServer.com ")
@@ -77,21 +79,22 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             // child: data.userData2.userName==null? Text("M"):Text(data.userData2.userName.substring(0,1)),
 
             ////////////////////////////////////////////////////
-            accountName: userLoad==null? Text("User Name ")
-            :Text( userLoad.userName),
-            accountEmail: userLoad==null? Text("User Email@MailServer.com ")
-            :Text( userLoad.email),
+            accountName: userLoad==null? Text("User Name",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+            :Text( userLoad.userName , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+            accountEmail: userLoad==null? Text("User Email@MailServer.com " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+            :Text( userLoad.email, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             currentAccountPicture: CircleAvatar(backgroundColor: Colors.black,
             child: userLoad==null? Text("M"):Text(userLoad.userName.substring(0,1)),
             ),
           ),
           new ListTile(
-            title: new Text("الرئيسية"),
+
+            title: new Text("الرئيسية" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.home),
             onTap: ()=>Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
-            title: new Text("المفضلة"),
+            title: new Text("المفضلة", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.favorite),
             onTap: (){
                 Navigator.of(context).pop();
@@ -99,7 +102,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               },
           ),
           new ListTile(
-            title: new Text("الإشعارات"),
+            title: new Text("الإشعارات" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.notifications),
              onTap: (){
                      Navigator.of(context).pop();
@@ -108,7 +111,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
              ,
           ),
           new ListTile(
-            title: new Text("تبرعاتي"),
+            title: new Text("تبرعاتي" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.drag_handle),
             onTap: (){ 
               Navigator.of(context).pop();
@@ -118,7 +121,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 
           userLoad==null?
           new ListTile(
-            title: new Text("تسجيل الدخول"),
+            title: new Text("تسجيل الدخول" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.arrow_right),
             onTap: (){
               Navigator.of(context).pop();
@@ -126,7 +129,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           )
           : new ListTile(
-            title: new Text("تسجيل خروج"),
+            title: new Text("تسجيل خروج" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.arrow_left),
             onTap: (){
                      _showErrorDialog("هل تريد تسجيل الخروج");
@@ -141,7 +144,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           // ),
           Divider(),
           new ListTile(
-            title: new Text("الدعم و المساعدة"),
+            title: new Text("الدعم و المساعدة" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.help),
             onTap: () {
               Navigator.of(context).pop();

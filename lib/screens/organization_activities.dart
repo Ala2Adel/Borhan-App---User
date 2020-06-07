@@ -93,7 +93,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
         ),
         centerTitle: true,
         elevation: 0.0,
-       backgroundColor:  Colors.purple[700],
+       backgroundColor:  Colors.purple[900],
         actions: <Widget>[
 //          IconButton(
 //            icon: Icon(Icons.list),
@@ -124,7 +124,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                 borderRadius: BorderRadius.circular(40),
                                 child: Card(
                                   margin: EdgeInsets.all(10),
-                                  color: Colors.purple[400],
+                                  color: Colors.deepPurple[400],
                                   child: new ListTile(
                                     contentPadding: EdgeInsets.all(8.0),
                                     title: new Column(

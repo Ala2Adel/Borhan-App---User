@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:Borhan_User/Animation/FadeAnimation.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/Donation_mainScreen.dart';
@@ -12,6 +13,7 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
@@ -223,7 +225,7 @@ Future<void> getOrganizationsAndCampaign() async {
                 image: new DecorationImage(
                   image: new NetworkImage(
                       campaignNotifier.campaignList[index].imagesUrl),
-                fit: BoxFit.fitHeight,
+                fit: BoxFit.fill,
 
                 ),
               ),
@@ -231,12 +233,13 @@ Future<void> getOrganizationsAndCampaign() async {
               width: 150.0,
               child: new Stack(
                 children: <Widget>[
+
                   new Align(
                     alignment: Alignment.bottomCenter,
                     child: new Container(
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         decoration: new BoxDecoration(
-                            color: Colors.purple[300],
+                            color: Colors.deepPurpleAccent[100],
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
@@ -244,12 +247,12 @@ Future<void> getOrganizationsAndCampaign() async {
                         child: new Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            new Text(
-                              campaignNotifier.campaignList[index].campaignName,
+
+                              FadeAnimation(1, Text (campaignNotifier.campaignList[index].campaignName,
                               style: new TextStyle(
                                   color: Colors.white, fontSize: 20,
                                   ),
-                            )
+                            )),
                           ],
                          ),
                         ),
@@ -266,14 +269,15 @@ Future<void> getOrganizationsAndCampaign() async {
 
     final body = new Scaffold(
       appBar: new AppBar(
-        title: new Text(
+        title: new
+        FadeAnimation(1.5, Text(
           'برهان',
           style: new TextStyle(
               color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
-        ),
+        )),
         centerTitle: true,
        // elevation: 0.0,
-        backgroundColor:  Colors.purple[700],
+        backgroundColor:  Colors.purple[900],
       ),
       drawer: NavigationDrawer(),
       backgroundColor: Colors.transparent,
@@ -331,8 +335,7 @@ Future<void> getOrganizationsAndCampaign() async {
                         ButtonTheme(
                           minWidth: MediaQuery.of(context).size.width-50,
                           //width: 200,
-                          height: 50.0,
-
+                          height: 45.0,
 
                           child: Container(
                           //  margin: const EdgeInsets.all(10),
@@ -341,7 +344,7 @@ Future<void> getOrganizationsAndCampaign() async {
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
                                 RaisedButton(
-                                  color: Colors.purple,
+                                  color: Colors.lime[700],
                                   shape: RoundedRectangleBorder(
                                     borderRadius: new BorderRadius.circular(24.0),
                                     side: BorderSide(color: Colors.black),
@@ -351,12 +354,37 @@ Future<void> getOrganizationsAndCampaign() async {
                                         builder: (BuildContext context) {
                                       return FastDenotationScreen();
                                     }));
+//                                    Navigator.of(context).push(
+//                                      PageRouteBuilder(
+//                                        transitionDuration: Duration(milliseconds: 1000),
+//                                        pageBuilder: (
+//                                            BuildContext context,
+//                                            Animation<double> animation,
+//                                            Animation<double> secondaryAnimation) {
+//                                          return FastDenotationScreen();
+//                                        },
+//                                        transitionsBuilder: (
+//                                            BuildContext context,
+//                                            Animation<double> animation,
+//                                            Animation<double> secondaryAnimation,
+//                                            Widget child) {
+//                                          return Align(
+//                                            child: FadeTransition(
+//                                              opacity: animation,
+//                                              child: child,
+//                                            ),
+//                                          );
+//                                        },
+//                                      ),
+//                                    );
+
                                   },
-                                  child: Text(
+                                  child:
+                                  FadeAnimation(1, Text(
                                     'تبرع الآن',
                                     style: TextStyle(
-                                        fontSize: 20.0, color: Colors.white),
-                                  ),
+                                        fontSize: 24.0, color: Colors.white),
+                                  )),
                                 ),
                               ],
                             ),
@@ -371,7 +399,7 @@ Future<void> getOrganizationsAndCampaign() async {
                                     child: Card(
                                       margin:
                                           EdgeInsets.fromLTRB(20, 5, 20, 5),
-                                      color: Colors.purple[200],
+                                      color: Colors.deepPurple[300],
                                       //padding: EdgeInsets.only(top: 20.0),
                                       child: new ListTile(
                                         contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
@@ -381,13 +409,13 @@ Future<void> getOrganizationsAndCampaign() async {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: <Widget>[
-                                                new Container(
-                                                  height: 100,
-                                                  width: 100,
+                                                FadeAnimation(1, Container(
+                                                  height: 110,
+                                                  width: 110,
                                                   decoration: new BoxDecoration(
                                                       // shape: BoxShape.circle,
                                                       borderRadius: BorderRadius.circular(5) ,
-                                                      color: Colors.lightBlueAccent,
+                                                      color: Colors.deepPurple[900],
                                                       boxShadow: [
                                                         new BoxShadow(
                                                             color: Colors.blueGrey.withAlpha(70),
@@ -417,7 +445,7 @@ Future<void> getOrganizationsAndCampaign() async {
                                                                 'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
                                                         fit: BoxFit.cover,
                                                       )),
-                                                ),
+                                                )),
                                                 new SizedBox(
                                                   width: 10.0,
                                                 ),
@@ -428,20 +456,22 @@ Future<void> getOrganizationsAndCampaign() async {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: <Widget>[
-                                                    new Text(
-                                                      orgNotifier.orgList[index]
-                                                                  .orgName !=
-                                                              null
-                                                          ? orgNotifier
-                                                              .orgList[index]
-                                                              .orgName
-                                                          : 'no value',
-                                                      style: new TextStyle(
-                                                          fontSize: 18.0,
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
+
+                                                      new Text(
+                                                        orgNotifier.orgList[index]
+                                                                    .orgName !=
+                                                                null
+                                                            ? orgNotifier
+                                                                .orgList[index]
+                                                                .orgName
+                                                            : 'no value',
+                                                        style: new TextStyle(
+                                                            fontSize: 18.0,
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight.bold),
+                                                      ),
+
                                                     new Text(
                                                       orgNotifier.orgList[index]
                                                           .description,
@@ -452,23 +482,23 @@ Future<void> getOrganizationsAndCampaign() async {
                                                               .normal),
                                                     ),
                                                     Wrap(
-//                                                      mainAxisAlignment:
-//                                                          MainAxisAlignment
-//                                                              .spaceEvenly,
-                                                    crossAxisAlignment: WrapCrossAlignment.center,
+                                                      spacing: 15.0,
+
+                                                   // crossAxisAlignment: WrapCrossAlignment.center,
+                                                     // alignment: WrapAlignment.spaceEvenly,
                                                       children: <Widget>[
-                                                        FlatButton(
-                                                          // color: Colors.deepOrangeAccent[100],
-                                                          // shape:
-                                                          //     RoundedRectangleBorder(
-                                                          //   borderRadius:
-                                                          //       new BorderRadius
-                                                          //               .circular(
-                                                          //           18.0),
-                                                          //   side: BorderSide(
-                                                          //       color: Colors
-                                                          //           .black),
-                                                          // ),
+                                                        RaisedButton(
+                                                           color: Colors.deepPurple[50],
+                                                           shape:
+                                                               RoundedRectangleBorder(
+                                                             borderRadius:
+                                                                 new BorderRadius
+                                                                         .circular(
+                                                                     10.0),
+                                                             side: BorderSide(
+                                                                 color: Colors
+                                                                     .black),
+                                                           ),
                                                           onPressed: () {
                                                             orgNotifier
                                                                     .currentOrganization =
@@ -476,14 +506,22 @@ Future<void> getOrganizationsAndCampaign() async {
                                                                         .orgList[
                                                                     index];
 
-                                                            Navigator.of(
-                                                                    context)
-                                                                .push(MaterialPageRoute(builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                              return OrganizationDetails( orgNotifier.orgList[index]);
-                                                              },
-                                                             ),
+//                                                            Navigator.of(
+//                                                                    context)
+//                                                                .push(MaterialPageRoute(builder:
+//                                                                    (BuildContext
+//                                                                        context) {
+//                                                              return OrganizationDetails( orgNotifier.orgList[index]);
+//                                                              },
+//                                                             ),
+//                                                            );
+                                                            Navigator.push(
+                                                              context,
+                                                              PageRouteBuilder(
+                                                                pageBuilder: (c, a1, a2) => OrganizationDetails( orgNotifier.orgList[index]),
+                                                                transitionsBuilder: (c, anim, a2, child) => FadeTransition(opacity: anim, child: child),
+                                                                transitionDuration: Duration(milliseconds: 500),
+                                                              ),
                                                             );
                                                           },
                                                           child: Text(
@@ -494,20 +532,17 @@ Future<void> getOrganizationsAndCampaign() async {
                                                                     .black),
                                                           ),
                                                         ),
-                                                        FlatButton(
-                                                          // splashColor: Colors.yellow[200],
-                                                          // color: Colors
-                                                          //     .amberAccent,
-                                                          // shape:
-                                                          //     RoundedRectangleBorder(
-                                                          //   borderRadius:
-                                                          //       new BorderRadius
-                                                          //               .circular(
-                                                          //           18.0),
-                                                          //   side: BorderSide(
-                                                          //       color: Colors
-                                                          //           .black),
-                                                          // ),
+                                                        RaisedButton(
+                                                          color: Colors.deepPurple[50],
+                                                          shape:
+                                                          RoundedRectangleBorder(
+                                                            borderRadius:
+                                                            new BorderRadius
+                                                                .circular(
+                                                                10.0),
+                                                            side: BorderSide(
+                                                                color: Colors
+                                                                    .black)),
                                                           onPressed: () {
                                                             orgNotifier
                                                                     .currentOrganization =
@@ -515,24 +550,44 @@ Future<void> getOrganizationsAndCampaign() async {
                                                                         .orgList[
                                                                     index];
 
-                                                            Navigator.of(
-                                                                    context)
-                                                                .push(MaterialPageRoute(builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                              print("Over view Screen " +
+//                                                            Navigator.of(
+//                                                                    context)
+//                                                                .push(MaterialPageRoute(builder:
+//                                                                    (BuildContext
+//                                                                        context) {
+//                                                              print("Over view Screen " +
+//                                                                  orgNotifier
+//                                                                      .orgList[
+//                                                                          index]
+//                                                                      .id);
+//                                                              return OrganizationActivity(
+//                                                                  orgNotifier
+//                                                                      .orgList[
+//                                                                          index]
+//                                                                      .id);
+//                                                              },
+//                                                             ),
+//                                                            );
+                                                            Navigator.push(
+                                                              context,
+                                                              PageRouteBuilder(
+                                                                pageBuilder: (context, animation1, animation2) {
+                                                                  return OrganizationActivity(
                                                                   orgNotifier
                                                                       .orgList[
                                                                           index]
                                                                       .id);
-                                                              return OrganizationActivity(
-                                                                  orgNotifier
-                                                                      .orgList[
-                                                                          index]
-                                                                      .id);
-                                                              },
-                                                             ),
+                                                                },
+                                                                transitionsBuilder: (context, animation1, animation2, child) {
+                                                                  return FadeTransition(
+                                                                    opacity: animation1,
+                                                                    child: child,
+                                                                  );
+                                                                },
+                                                                transitionDuration: Duration(milliseconds: 500),
+                                                              ),
                                                             );
+
                                                           },
                                                           child: Text(
                                                             'الانشطة',

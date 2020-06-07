@@ -75,9 +75,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         startAnimation: '0',
         endAnimation: '20',
         loopAnimation: 'untitled',
-
         backgroundColor: Colors.purple[100],
-        until: () => Future.delayed(Duration(milliseconds: 30)),
+        until: () => Future.delayed(Duration(milliseconds: 20)),
 
       );
   }
