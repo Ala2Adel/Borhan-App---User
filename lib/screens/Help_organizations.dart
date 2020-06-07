@@ -1,6 +1,7 @@
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
+import 'package:Borhan_User/screens/firestore_chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -112,6 +113,7 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => ChatScreen(orgId: orgId)));
+//                    builder: (context) => FirestoreChatScreen()));
           },
           padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
           shape:

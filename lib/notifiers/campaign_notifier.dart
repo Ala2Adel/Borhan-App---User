@@ -32,6 +32,8 @@ class CampaignNotifier with ChangeNotifier {
           id: prodId,
           campaignName: prodData['name'],
           campaignDescription: prodData['description'],
+          orgId: prodData['orgId'],
+          orgName:prodData['orgName'],
           imagesUrl: prodData['image'],
           time: prodData['time'],
         ));

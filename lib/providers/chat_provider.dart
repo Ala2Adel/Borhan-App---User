@@ -13,7 +13,7 @@ class ChatProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetChat(String id, String orgId) async {
-//    id = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';
+    //  id = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';
     final url = 'https://borhanadmin.firebaseio.com/chat/$orgId/$id.json';
     try {
       final response = await http.get(url);
@@ -34,6 +34,8 @@ class ChatProvider with ChangeNotifier {
         _items = loadedChat;
         notifyListeners();
       } else {
+        _items = [];
+        notifyListeners();
         print('No Data in this chat');
       }
     } catch (error) {

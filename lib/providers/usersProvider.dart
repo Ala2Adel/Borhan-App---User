@@ -16,8 +16,7 @@ class UsersPtovider with ChangeNotifier{
     return _userData2;
   }
 
-  void setUserData({ String userId, String email}) async{
-    
+  void setUserData({ String userId, String email}) async{ 
     //  await loadSharedPrefs();
     //  if(userLoad==null){
     //     print("user is not here");
@@ -32,36 +31,29 @@ class UsersPtovider with ChangeNotifier{
         'https://borhanuser-f92a3.firebaseio.com/Users/$userId.json';
           try {
       final response = await http.get(url);
-
       final responseData = json.decode(response.body) as Map<String, dynamic>;
       //  print((response.body));
       responseData.forEach((prodId, prodData) {
-
             _userData2 = UserNav(
                        id: userId,
                        email: prodData['userEmail'] ,
                        userName:prodData['userName'], 
                   );
-
            },
          );
-
         print(_userData2);
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
-
     SharedPref sharedPref = SharedPref();
     sharedPref.save("user", _userData2);
     } catch (error) {
       throw error;
     }
-
    }
 
    loadSharedPrefs() async {
     try {
-   
      SharedPref sharedPref = SharedPref();
      UserNav user = UserNav.fromJson(await sharedPref.read("user"));
       userLoad = user;
@@ -104,7 +96,10 @@ class UsersPtovider with ChangeNotifier{
     , String availableOn , String mobile ,String donationType,
     String donatorAddress , String donatorItems ,String image ,String activityName, String userId,String orgName}
       ) async {
-//        userId="ZZTqvnHmqBQuTpzlpTT9XA9oIXO2";
+       //userId="ZZTqvnHmqBQuTpzlpTT9XA9oIXO2";
+         await loadSharedPrefs();
+          print(userLoad);
+          userId=userLoad.id;
     final url =
         'https://borhanadmin.firebaseio.com/DonationRequests/$orgId.json';
     try {

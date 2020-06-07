@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:Borhan_User/Animation/FadeAnimation.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
+import 'package:Borhan_User/models/user_nav.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/screens/Donation_mainScreen.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/fast_donation.dart';
@@ -18,16 +20,18 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:app_settings/app_settings.dart';
 
 
 import '../background.dart';
 import 'Donation.dart';
 import 'organization_details.dart';
 
-
 import 'package:getflutter/getflutter.dart';
 
 class OrgOverviewScreen extends StatefulWidget {
+  static const routeName = '/home';
+
   @override
   _OrgOverviewScreenState createState() => _OrgOverviewScreenState();
   
@@ -84,8 +88,20 @@ void initState(){
            
             SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
           
-          }, child: Text('خروج ',style: TextStyle(color: Colors.red),))
-        ],
+          }, child: Text('خروج ',style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
+          FlatButton(onPressed: ()=>{
+           
+           AppSettings.openWIFISettings(),
+          
+          }, child: Text(' اعدادت Wi-Fi ',style: TextStyle(color: Colors.blue),)),
+          FlatButton(onPressed: ()=>{
+           
+            AppSettings.openDataRoamingSettings(),
+          
+          }, child: Text(' اعدادت الباقه ',style: TextStyle(color: Colors.blue,),))
+        ]
+        
+        
       )
       );
 
@@ -121,13 +137,12 @@ connectivitySubscription.cancel();
   var _isLoading = false;
   var _isInit = true;
 
-  var campaignNotifier ;
-  var orgNotifier ;
+  var campaignNotifier;
+  var orgNotifier;
 
   @override
-  void didChangeDependencies() { 
+  void didChangeDependencies() {
     if (_isInit) {
-
       // setState(() {
       //   _isLoading = true;
       // });
@@ -144,47 +159,81 @@ connectivitySubscription.cancel();
       //   });
       // });
 
-      campaignNotifier = Provider.of<CampaignNotifier>(context,listen: false);
-      orgNotifier = Provider.of<OrganizationNotifier>(context ,listen: false);  
-   ////////////////////////////////////////////////////
-     getOrganizationsAndCampaign();
+      campaignNotifier = Provider.of<CampaignNotifier>(context, listen: false);
+      orgNotifier = Provider.of<OrganizationNotifier>(context, listen: false);
+      ////////////////////////////////////////////////////
+      getOrganizationsAndCampaign();
       ////////////////////////////////////
     }
     _isInit = false;
     super.didChangeDependencies();
   }
-Future<void> getOrganizationsAndCampaign() async {
+
+  Future<void> getOrganizationsAndCampaign() async {
     setState(() {
-        _isLoading = true;
-      });
-  
-  await Provider.of<OrganizationNotifier>(context).getOrganizations();
+      _isLoading = true;
+    });
 
-  await Provider.of<CampaignNotifier>(context).fetchAndSetProducts();
+    await Provider.of<OrganizationNotifier>(context).getOrganizations();
 
-        setState(() {
-          _isLoading = false;
-          //print('in screen org view');
-        });
-        
-}
+    await Provider.of<CampaignNotifier>(context).fetchAndSetProducts();
+
+    setState(() {
+      _isLoading = false;
+      //print('in screen org view');
+    });
+  }
   //  @override
   // void initState() {
-  
+
   //     campaignNotifier = Provider.of<CampaignNotifier>(context);
   //     orgNotifier = Provider.of<OrganizationNotifier>(context);
   //   super.initState();
   // }
+   void _showErrorDialog(String message) {
+    print("alert");
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text('تسجيل دخول'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('ليس الأن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          FlatButton(
+            child: Text('نعم'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pushNamed(context, '/Login');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+Future<UserNav> loadSharedPrefs() async {
 
+    UserNav user;
+    try {
+     SharedPref sharedPref = SharedPref();
+       user = UserNav.fromJson(await sharedPref.read("user"));
+      } catch (Excepetion) {
+    // do something
+       }
+       return user;
+   }    
   @override
   Widget build(BuildContext context) {
 
-  
-
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
+    final curScaleFactor = MediaQuery.of(context).textScaleFactor / 2;
 
-    print('org notifier'); 
+    print('org notifier');
 
     print(orgNotifier);
 
@@ -280,24 +329,28 @@ Future<void> getOrganizationsAndCampaign() async {
         backgroundColor:  Colors.purple[900],
       ),
       drawer: NavigationDrawer(),
-      backgroundColor: Colors.transparent,
-      body:
-       _isLoading
-          ?
-           Center(
+      backgroundColor: Colors.purple[50],
+      body: _isLoading
+          ? Center(
               child: CircularProgressIndicator(),
             
             )
-          : new Container(
-              child: new Stack(
+          : SingleChildScrollView(
+              child: Container(
+                //height: _height,
+                child: new Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-                  new Padding(
-                    padding: new EdgeInsets.only(top: 0),
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
+
+                  // new Padding(
+                  //   padding: new EdgeInsets.only(top: 0),
+                  //   child: new Column(
+                  //     crossAxisAlignment: CrossAxisAlignment.center,
+                  //     mainAxisSize: MainAxisSize.max,
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: <Widget>[
 
 //                        new Align(
 //                          alignment: Alignment.centerLeft,
@@ -312,36 +365,137 @@ Future<void> getOrganizationsAndCampaign() async {
 //                              )),
 //                        ),
 
-                    new Container(
-                      height: 180.0,
-                      child: new Carousel(
-                        boxFit: BoxFit.cover,
-                        images: [
-                          AssetImage('assets/offers/Offer1.jpg'),
-                          AssetImage('assets/offers/Offer2.jpg'),
-                          AssetImage('assets/offers/Offer3.jpg'),
-                          AssetImage('assets/offers/Offer4.jpg'),
-                        ],
-                        autoplay: true,
-                        animationCurve: Curves.fastLinearToSlowEaseIn,
-                        animationDuration: Duration(milliseconds: 1500),
-                        dotSize: 4.0,
-                        indicatorBgPadding: 2.0,
-                      ),
-                    ),
+            new Container(
+                height: 180.0,
+                child: new Carousel(
+            boxFit: BoxFit.cover,
+            images: [
+            AssetImage('assets/offers/Offer1.jpg'),
+            AssetImage('assets/offers/Offer2.jpg'),
+            AssetImage('assets/offers/Offer3.jpg'),
+            AssetImage('assets/offers/Offer4.jpg'),
+            // AssetImage('assets/offers/Offer5.jpg'),
+            ],
+            autoplay: true,
+            animationCurve: Curves.fastLinearToSlowEaseIn,
+            animationDuration: Duration(milliseconds: 1500),
+            dotSize: 4.0,
+            indicatorBgPadding: 2.0,
+                ),
+            ),
 
-                        new Container(
-                            height: 170.0, width: _width, child: headerList),
-                        ButtonTheme(
-                          minWidth: MediaQuery.of(context).size.width-50,
-                          //width: 200,
-                          height: 45.0,
 
-                          child: Container(
-                          //  margin: const EdgeInsets.all(10),
-                          margin: EdgeInsets.only(bottom: 10),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+            new Container(
+                height: 150.0, width: _width, child: headerList),
+            ButtonTheme(
+            minWidth: MediaQuery.of(context).size.width-50,
+            //width: 200,
+            height: 50.0,
+
+
+            child: Container(
+            //  margin: const EdgeInsets.all(10),
+            margin: EdgeInsets.only(bottom: 10),
+                child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: <Widget>[
+                RaisedButton(
+                  color: Colors.purple,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: new BorderRadius.circular(24.0),
+                    side: BorderSide(color: Colors.black),
+                  ),
+                  onPressed: ()async {
+
+                  UserNav userLoad = await loadSharedPrefs();
+                    if(userLoad==null){
+                      print("user is not here");
+                      _showErrorDialog("الرجاء التسجيل قبل الدخول");
+                     }else{
+                       print("user is  here");
+                       Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) {
+                      return FastDenotationScreen();
+                    }));
+                     }
+                   
+                  },
+                  child: Text(
+                    'تبرع الآن',
+                    style: TextStyle(
+                        fontSize: 20.0, color: Colors.white),
+                  ),
+                ),
+            ],
+                ),
+            ),
+            ),
+            ListView.builder(
+            shrinkWrap: true, 
+            physics: NeverScrollableScrollPhysics(), 
+            itemCount: orgNotifier.orgList.length,
+            itemBuilder: (context, index) {
+              return ClipRRect(
+                borderRadius: new BorderRadius.circular(20),
+                child: Card(
+                  margin:
+                      EdgeInsets.fromLTRB(20, 5, 20, 5),
+                  color: Colors.purple[200],
+                  //padding: EdgeInsets.only(top: 20.0),
+                  child: new ListTile(
+                    contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
+                    title: new Column(
+                      children: <Widget>[
+                        new Row(
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
+                          children: <Widget>[
+                            new Container(
+                              height: 100,
+                              width: 100,
+                              decoration: new BoxDecoration(
+                                  // shape: BoxShape.circle,
+                                  borderRadius: BorderRadius.circular(5) ,
+                                  color: Colors.lightBlueAccent,
+                                  boxShadow: [
+                                    new BoxShadow(
+                                        color: Colors.blueGrey.withAlpha(70),
+                                        offset:
+                                            const Offset(
+                                                2.0, 2.0),
+                                        blurRadius: 2.0)
+                                  ],
+                                  image:
+                                      new DecorationImage(
+                                    image: orgNotifier
+                                                    .orgList[
+                                                        index]
+                                                    .logo !=
+                                                null &&
+                                            orgNotifier
+                                                    .orgList[
+                                                        index]
+                                                    .logo !=
+                                                ""
+                                        ? new NetworkImage(
+                                            orgNotifier
+                                                .orgList[
+                                                    index]
+                                                .logo)
+                                        : NetworkImage(
+                                            'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
+                                    fit: BoxFit.cover,
+                                  )),
+                            ),
+                            new SizedBox(
+                              width: 10.0,
+                            ),
+                            new Expanded(
+                                child: new Column(
+                              mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                              crossAxisAlignment:
+                                  CrossAxisAlignment.start,
                               children: <Widget>[
                                 RaisedButton(
                                   color: Colors.lime[700],
@@ -611,8 +765,8 @@ Future<void> getOrganizationsAndCampaign() async {
                                     ),
                                   );
 
-                                  ///////////////////////////////////////////////
-                                  
+              ///////////////////////////////////////////////
+              
   //                            return    
   //   GFCard(
   //   boxFit: BoxFit.fill,
@@ -679,31 +833,29 @@ Future<void> getOrganizationsAndCampaign() async {
   //     ],
   //    ),
   //  );
-                                  ///////////////////////////////////////////////
-                                  },
-                                 ),
-                                ),
-                      ],
-                    ),
-                  ),
+              ///////////////////////////////////////////////
+              },
+             ),
                 ],
-              ),
             ),
+              ),
+          ),
     );
 
-    return new Container(
-      decoration: new BoxDecoration(
-       color: Colors.white,
-      ),
-      child: new Stack(
-        children: <Widget>[
-          new CustomPaint(
-            size: new Size(_width, _height),
-            painter: new Background(),
-          ),
-          body,
-        ],
-      ),
-    );
+    // return new Container(
+    //   decoration: new BoxDecoration(
+    //    color: Colors.white,
+    //   ),
+    //   child: new Stack(
+    //     children: <Widget>[
+    //       new CustomPaint(
+    //         size: new Size(_width, _height),
+    //         painter: new Background(),
+    //       ),
+    //       body,
+    //     ],
+    //   ),
+    // );
+    return body;
   }
 }

@@ -1,11 +1,16 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/providers/chat_provider.dart';
+import 'package:Borhan_User/providers/connectivity_provider.dart';
 import 'package:Borhan_User/providers/email_provider.dart';
+
 import 'package:Borhan_User/providers/mydonation_provider.dart';
 import 'package:Borhan_User/screens/Help_organizations.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:Borhan_User/screens/email_organization.dart';
+import 'package:Borhan_User/screens/firebase_login_screen.dart';
+import 'package:Borhan_User/screens/firestore_chat_screen.dart';
+import 'package:Borhan_User/screens/google_signin.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
@@ -16,6 +21,7 @@ import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/Notification_screen.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/profile_screen.dart';
+import 'package:Borhan_User/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
@@ -59,6 +65,9 @@ class MyApp extends StatelessWidget {
           ),
           ChangeNotifierProvider.value(
             value: MyDonationsProvider(),
+          ),
+          ChangeNotifierProvider.value(
+            value: ConnectivityProvider(),
           ),
         ],
         child: MaterialApp(
@@ -114,11 +123,16 @@ class MyApp extends StatelessWidget {
               '/Home': (context) => OrgOverviewScreen(),
               '/Notifications': (context) => Notifications(),
               '/Login': (context) => LoginScreen(),
+//              '/FirebaseLogin': (context) => AuthScreen(),
+//              '/GoogleSignin': (context) => SignInDemo(),
+
               '/Signup': (context) => SignupScreen(),
               '/Profile': (context) => Profile(),
               HelpScreen.routeName: (ctx) => HelpScreen(),
               EmailOrganization.routeName: (ctx) => EmailOrganization(),
               ChatScreen.routeName: (ctx) => ChatScreen(),
+//              FirestoreChatScreen.routeName: (ctx) => FirestoreChatScreen(),
+
               HelpOrganization.routeName: (ctx) => HelpOrganization(),
               MyDonationsScreen.routeName: (ctx) => MyDonationsScreen(),
             }));

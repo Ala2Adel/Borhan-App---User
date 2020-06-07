@@ -1,10 +1,7 @@
-import 'dart:async';
 import 'dart:io';
-
 import '../providers/email_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_email_sender/flutter_email_sender.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../models/emailm.dart';
@@ -26,7 +23,7 @@ class _EmailScreenState extends State<EmailScreen> {
 
   final _recipientController = TextEditingController(
 //    text: widget.orgEmail,
-      );
+);
 
   final _subjectController = TextEditingController();
 

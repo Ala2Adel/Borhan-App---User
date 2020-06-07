@@ -26,6 +26,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   
+  app_settings: ^4.0.0
 
   intl_translation:
     # Add the dependency for the Firebase Core Flutter SDK
@@ -36,14 +37,15 @@ dependencies:
 
     # Add the dependencies for any other Firebase products you want to use in your app
     # For example, to use Firebase Authentication and Cloud Firestore
-  firebase_auth: ^0.14.0+5
 
   simple_animations: ^1.3.3
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.3
   flutter_email_sender: ^3.0.1
-
+  firebase_auth: ^0.16.1
+  google_sign_in: ^4.5.1
+  rxdart: ^0.24.1
   provider: ^3.0.0
   intl: ^0.16.0
   http: ^0.12.1
@@ -69,7 +71,14 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+  shared_preferences:
+  flutter_launcher_icons: ^0.7.5
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/BorhanLogo3.png"
+  adaptive_icon_background: "#191919"
+  adaptive_icon_foreground: "assets/images/BorhanLogo3.png"
 
 
 # For information on the generic Dart part of this file, see the
