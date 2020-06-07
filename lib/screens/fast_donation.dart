@@ -41,6 +41,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
   var selectedOraginzaton;
   Activity selectedActivity;
   var _loading = false;
+  var _submitLoading = false;
 
   var firstForm = true;
   var scondForm = false;
@@ -124,6 +125,12 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     }
 
     _formKey.currentState.save();
+
+   
+    setState(() {
+      _submitLoading=true;
+    });
+
     if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
@@ -176,6 +183,9 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       //    Scaffold.of(context).showSnackBar(snackBar);
       //   Navigator.of(context).pop();
 /////////////////////////////////////////////////////////////////
+
+     
+
       Flushbar(
         message: 'تم ارسال طلب تبرعك بنجاح',
         icon: Icon(
@@ -187,12 +197,17 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
         //leftBarIndicatorColor: Colors.blue[300],
         margin: EdgeInsets.all(8),
         borderRadius: 8,
-      )..show(context).then((value) => Navigator.of(context).pop());
+      )..show(context)  //;
+      .then((value) => Navigator.of(context).pop());
     } catch (error) {
       print(error);
       const errorMessage = ' حدث خطا ما';
       _showErrorDialog(errorMessage);
     }
+      setState(() {
+      _submitLoading=false;
+    });
+   
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -1102,8 +1117,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                           1.9,
                           Builder(
                             builder: (ctx) => InkWell(
-                              onTap: () =>
-                                  _submit(ctx), // handle your onTap here
+                              onTap: () {
+                                if(!_submitLoading){
+                                   _submit(ctx);
+                                }
+                                  
+                              }
+                                , // handle your onTap here
                               child: Container(
                                 height: 50,
                                 margin: EdgeInsets.symmetric(horizontal: 60),
@@ -1112,10 +1132,10 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                   color: Color.fromRGBO(49, 39, 79, 1),
                                 ),
                                 child: Center(
-                                  child: Text(
+                                  child:  _submitLoading==false?Text(
                                     "تبرع الأن",
                                     style: TextStyle(color: Colors.white),
-                                  ),
+                                  ):CircularProgressIndicator(),
                                 ),
                               ),
                             ),
@@ -1131,22 +1151,20 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                         child: Center(
                           child: FlatButton(
-                            child: FlatButton(
-                              child: Text(
-                                "السابق",
-                                style: TextStyle(
-                                    color: Color.fromRGBO(49, 39, 79, .6)),
-                              ),
-                              onPressed: () {
-                                setState(() {
-                                  if (current > 1) {
-                                    current--;
-                                  }
-
-                                  checkCurrent();
-                                });
-                              },
+                            child: Text(
+                              "السابق",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(49, 39, 79, .6)),
                             ),
+                            onPressed: () {
+                              setState(() {
+                                if (current > 1) {
+                                  current--;
+                                }
+
+                                checkCurrent();
+                              });
+                            },
                           ),
                         ),
                       ),

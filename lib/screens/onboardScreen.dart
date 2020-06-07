@@ -16,8 +16,7 @@ class OnboardScreen extends StatelessWidget {
         pageColor: Colors.blue[500],
         // iconImageAssetPath: 'assets/air-hostess.png',
         bubble: Image.asset('assets/images/donation4.png'),
-        body: Text(
-          'ما من أحد لا يؤدي زكاة ماله إلا مثل له يوم القيامة شجاعاً أقرع حتى يطوَّق به عنقه',
+        body: Text( 'حصّنوا أموالكم بالزكاة و داووا مرضاكم بالصدقة و إستقبلوا أمواج البلاء بالدعاء و التضرع',
             style: new TextStyle(
                 fontFamily: ArabicFonts.Amiri,
                 package: 'google_fonts_arabic',
@@ -73,7 +72,7 @@ class OnboardScreen extends StatelessWidget {
       pageColor: Colors.grey[350],
       iconImageAssetPath: 'assets/images/donation9.png',
       body: Text(
-        'Easy  cab  booking  at  your  doorstep  with  cashless  payment  system',
+        'ما نقصت صدقة من مال ، وما زاد الله عبدا بعفو إلا عزاً ، وما تواضع أحد لله إلا رفعة الله',
       ),
       title: Text('ملابس',
        style: new TextStyle(

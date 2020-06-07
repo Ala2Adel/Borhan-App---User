@@ -26,6 +26,7 @@ class CampaignDenotationScreen extends StatefulWidget {
 class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
   String selectedType;
   CampaignNotifier campaignNotifier ;
+  var _submitLoading = false;
   List<String> _denoteType = <String>[
     'نقدى',
     'عينى',
@@ -78,6 +79,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     }
 
     _formKey.currentState.save();
+     setState(() {
+      _submitLoading=true;
+    });
     if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
       print("value from upload" + _downloadUrl);
@@ -152,6 +156,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
       const errorMessage = ' حدث خطا ما';
       _showErrorDialog(errorMessage);
     }
+    setState(() {
+      _submitLoading=false;
+    });
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey();
@@ -721,28 +728,34 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                   SizedBox(
                     height: 40,
                   ),
-                  FadeAnimation(
-                    1.9,
-                    Builder(
-                      builder: (ctx) => InkWell(
-                        onTap: () => _submit(ctx), // handle your onTap here
-                        child: Container(
-                          height: 50,
-                          margin: EdgeInsets.symmetric(horizontal: 60),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(50),
-                            color: Color.fromRGBO(49, 39, 79, 1),
-                          ),
-                          child: Center(
-                            child: Text(
-                              "تبرع الأن",
-                              style: TextStyle(color: Colors.white),
+                 FadeAnimation(
+                          1.9,
+                          Builder(
+                            builder: (ctx) => InkWell(
+                              onTap: () {
+                                if(!_submitLoading){
+                                   _submit(ctx);
+                                }
+                                  
+                              }
+                                , // handle your onTap here
+                              child: Container(
+                                height: 50,
+                                margin: EdgeInsets.symmetric(horizontal: 60),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Color.fromRGBO(49, 39, 79, 1),
+                                ),
+                                child: Center(
+                                  child:  _submitLoading==false?Text(
+                                    "تبرع الأن",
+                                    style: TextStyle(color: Colors.white),
+                                  ):CircularProgressIndicator(),
+                                ),
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    ),
-                  ),
                   SizedBox(
                     height: 20,
                   ),

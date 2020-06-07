@@ -4,6 +4,7 @@ import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -26,6 +27,7 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+   var _submitLoading = false;  
   Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -102,6 +104,10 @@ class _LoginScreenState extends State<LoginScreen> {
       return;
     }
     _formKey.currentState.save();
+   
+     setState(() {
+      _submitLoading=true;
+    });
     if (_authMode == AuthMode.Login) {
       try {
         // Log user in
@@ -143,7 +149,23 @@ class _LoginScreenState extends State<LoginScreen> {
         const errorMessage = 'البريد الإلكتروني غير موجود';
         _showErrorDialog(errorMessage);
       }
+       Flushbar(
+        message: 'تم ارسال تغير رابط كلمه المرور',
+        icon: Icon(
+          Icons.thumb_up,
+          size: 28.0,
+          color: Colors.blue[300],
+        ),
+        duration: Duration(seconds: 3),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 8,
+      )..show(context);
     }
+       setState(() {
+      _submitLoading=false;
+        },
+       );
   }
 
   void _switchAuthMode() {
@@ -163,7 +185,7 @@ class _LoginScreenState extends State<LoginScreen> {
 //    print(_currentUser.displayName)
 //    LoginScreen.userName = _currentUser.displayName;
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height * (3 / 7);
+    final height = MediaQuery.of(context).size.height * (1 / 3);
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
@@ -361,38 +383,91 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(
                           height: 20,
                         ),
-                        _currentUser == null
-                            ? Container(
-                                width: 250.0,
+                       
+                        FadeAnimation(
+                          1.7,
+                          Center(
+                            child: FlatButton(
+                              child: Text(
+                                '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
+                                style: TextStyle(
+                                  color: Color.fromRGBO(196, 135, 198, 1),
+                                ),
+                              ),
+                              onPressed: _switchAuthMode,
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        FadeAnimation(
+                            1.9,
+                            InkWell(
+                              onTap: () {
+                                if(!_submitLoading){
+                                   _submit();
+                                }
+                                  
+                              }, // handle, // handle your onTap here
+                              child: Container(
+                                height: 40,
+                                margin: EdgeInsets.symmetric(horizontal: 60),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(50),
+                                  color: Color.fromRGBO(49, 39, 79, 1),
+                                ),
+                                child: Center(
+                                  child: _submitLoading==false? 
+                                  Text(
+                                    _authMode == AuthMode.Login
+                                        ? 'تسجيل الدخول'
+                                        : 'إرسال رابط تغيير كلمة المرور',
+                                    style: TextStyle(color: Colors.white),
+                                  ):CircularProgressIndicator(),
+                                ),
+                              ),
+                             ),
+                            ),
+                            /////////////////////////////////
+                           
+                            if (_authMode == AuthMode.Login)
+                             _currentUser == null
+                            ?
+                             Container(
+                                width: 280.0,
                                 child: Align(
                                   alignment: Alignment.center,
-                                  child: RaisedButton(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            new BorderRadius.circular(30.0)),
-                                    color: Color.fromRGBO(49, 39, 79, 1),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: <Widget>[
-                                        Icon(
-                                          FontAwesomeIcons.google,
-                                          color: Colors.white,
-                                        ),
-                                        SizedBox(width: 10.0),
-                                        Text(
-                                          'تسجيل الدخول بحساب جوجل',
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18.0),
-                                        ),
-                                      ],
-                                    ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10),
+                                    child: RaisedButton(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              new BorderRadius.circular(30.0)),
+                                      color: Color.fromRGBO(49, 39, 79, 1),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: <Widget>[
+                                          Icon(
+                                            FontAwesomeIcons.google,
+                                            color: Colors.white,
+                                          ),
+                                          SizedBox(width: 10.0),
+                                          Text(
+                                            'تسجيل الدخول بحساب جوجل',
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 18.0),
+                                          ),
+                                        ],
+                                      ),
 //                            RaisedButton(
 //                              onPressed: _handleSignIn,
 //                              child: Text('SIGN IN'),
 //                            )
-                                    onPressed: _handleSignIn,
+                                      onPressed: _handleSignIn,
+                                    ),
                                   ),
                                 ),
                               )
@@ -434,46 +509,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                 ),
                               ),
-                        FadeAnimation(
-                          1.7,
-                          Center(
-                            child: FlatButton(
-                              child: Text(
-                                '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(196, 135, 198, 1),
-                                ),
-                              ),
-                              onPressed: _switchAuthMode,
-                            ),
-                          ),
-                        ),
+                            ////////////////////////////////
                         SizedBox(
-                          height: 20,
-                        ),
-                        FadeAnimation(
-                            1.9,
-                            InkWell(
-                              onTap: _submit, // handle your onTap here
-                              child: Container(
-                                height: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 60),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    _authMode == AuthMode.Login
-                                        ? 'تسجيل الدخول'
-                                        : 'إرسال رابط تغيير كلمة المرور',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                ),
-                              ),
-                            )),
-                        SizedBox(
-                          height: 30,
+                          height: 0,
                         ),
                         FadeAnimation(
                           2,
@@ -481,16 +519,14 @@ class _LoginScreenState extends State<LoginScreen> {
                             padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                             child: Center(
                               child: FlatButton(
-                                child: FlatButton(
-                                  child: Text(
-                                    "حساب جديد",
-                                    style: TextStyle(
-                                        color: Color.fromRGBO(49, 39, 79, .6)),
-                                  ),
-                                  onPressed: () =>
-                                      Navigator.pushReplacementNamed(
-                                          context, '/Signup'),
+                                child: Text(
+                                  "حساب جديد",
+                                  style: TextStyle(
+                                      color: Color.fromRGBO(49, 39, 79, .6)),
                                 ),
+                                onPressed: () =>
+                                    Navigator.pushReplacementNamed(
+                                        context, '/Signup'),
                               ),
                             ),
                           ),

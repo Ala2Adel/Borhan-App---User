@@ -80,13 +80,13 @@ class UsersPtovider with ChangeNotifier{
         throw HttpException(responseData['error']['message']);
       }
 
-      _userData2 = UserNav(
-        id: userId,
-        email: email ,
-        userName: userName,
-      );
-    SharedPref sharedPref = SharedPref();
-    sharedPref.save("user", _userData2);
+    //   _userData2 = UserNav(
+    //     id: userId,
+    //     email: email ,
+    //     userName: userName,
+    //   );
+    // SharedPref sharedPref = SharedPref();
+    // sharedPref.save("user", _userData2);
     } catch (error) {
       throw error;
     }

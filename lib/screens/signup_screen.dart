@@ -1,6 +1,7 @@
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
@@ -16,6 +17,7 @@ class SignupScreen  extends StatefulWidget {
 
 class _SignupScreenState  extends State <SignupScreen > {
 
+   var _submitLoading = false;  
   Map<String, String> _authData = {
     'name': '',
     'email': '',
@@ -67,6 +69,10 @@ class _SignupScreenState  extends State <SignupScreen > {
       return;
     }
     _formKey.currentState.save();
+     
+     setState(() {
+      _submitLoading=true;
+    });
 
     try {
       // Log user in
@@ -85,6 +91,19 @@ class _SignupScreenState  extends State <SignupScreen > {
         _authData['email'],
         _authData['password'],
       );
+      
+       Flushbar(
+        message: 'تم تسيجل البريد الالكترونى بنجاح',
+        icon: Icon(
+          Icons.thumb_up,
+          size: 28.0,
+          color: Colors.blue[300],
+        ),
+        duration: Duration(seconds: 3),
+        //leftBarIndicatorColor: Colors.blue[300],
+        margin: EdgeInsets.all(8),
+        borderRadius: 8,
+      )..show(context).then((value) => Navigator.of(context).pushReplacementNamed('/Login'));
 
 //      UsersPtovider usersPtovider =new UsersPtovider();
 //      await  usersPtovider.addUser(
@@ -95,7 +114,7 @@ class _SignupScreenState  extends State <SignupScreen > {
 //      Navigator.push(
 //          context, MaterialPageRoute(builder: (context) => Home()));
 
-     Navigator.of(context).pushReplacementNamed('/Login');
+     //Navigator.of(context).pushReplacementNamed('/Login');
     }
 
     catch (error) {
@@ -104,11 +123,14 @@ class _SignupScreenState  extends State <SignupScreen > {
           'البريد الإلكتروني موجود بالفعل ';
       _showErrorDialog(errorMessage);
     }
+     setState(() {
+      _submitLoading=false;
+    });
   }
   @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height*(3/7);
+    final height = MediaQuery.of(context).size.height*(1/3);
     // TODO: implement build
     return Scaffold(
       backgroundColor: Colors.white,
@@ -158,7 +180,7 @@ class _SignupScreenState  extends State <SignupScreen > {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: EdgeInsets.symmetric(horizontal: 20 ),
               child: Column(
 //                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
@@ -168,7 +190,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                             fontWeight: FontWeight.bold, fontSize: 30),
                     ),
                   ),
-                  SizedBox(height: 20,),
+                  SizedBox(height: 10,),
                   FadeAnimation(1.7, Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
@@ -313,22 +335,31 @@ class _SignupScreenState  extends State <SignupScreen > {
                       ),
                     ),
                   )),
-                  SizedBox(height: 40,),
+                  SizedBox(height: 30,),
                   FadeAnimation(1.9, InkWell(
-                    onTap:_submit, // handle your onTap here
+                    onTap: () {
+                                if(!_submitLoading){
+                                   _submit();
+                                }
+                                  
+                              }, // handle your onTap here
                     child: Container(
-                      height: 50,
-                      margin: const  EdgeInsets.symmetric(horizontal: 60),
+                      height: 40,
+                      margin: EdgeInsets.symmetric(horizontal: .25*width),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         color: Color.fromRGBO(49, 39, 79, 1),
                       ),
                       child: Center(
-                        child: const  Text("تسجيل حساب", style: TextStyle(color: Colors.white),),
+                        child:_submitLoading==false? 
+                              Text("تسجيل حساب", style: TextStyle(color: Colors.white),
+                              ):CircularProgressIndicator(),
                       ),
                     ),
-                  )),
-                  SizedBox(height: 30,),
+                   ),
+                  ),
+                
+                  SizedBox(height: 10,),
                   FadeAnimation(2, Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                     child: Center(
