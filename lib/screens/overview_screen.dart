@@ -1,12 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:Borhan_User/Animation/FadeAnimation.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
-import 'package:Borhan_User/models/user_nav.dart';
-import 'package:Borhan_User/providers/shard_pref.dart';
-import 'package:Borhan_User/screens/Donation_mainScreen.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/fast_donation.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
@@ -15,12 +11,10 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:connectivity/connectivity.dart';
-import 'package:app_settings/app_settings.dart';
 
 
 import '../background.dart';
@@ -34,7 +28,7 @@ class OrgOverviewScreen extends StatefulWidget {
 
   @override
   _OrgOverviewScreenState createState() => _OrgOverviewScreenState();
-  
+
 }
 
 class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
@@ -50,11 +44,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 // }
 //   }
 
-StreamSubscription connectivitySubscription;
-ConnectivityResult _previousResult;
-bool dialogShown = false;
+  StreamSubscription connectivitySubscription;
+  ConnectivityResult _previousResult;
+  bool dialogShown = false;
 
- Future<bool> checkinternet() async {
+  Future<bool> checkinternet() async {
     try {
       final result = await InternetAddress.lookup('google.com');
       if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {
@@ -68,70 +62,58 @@ bool dialogShown = false;
 
 
 
-@override
-void initState(){
+  @override
+  void initState(){
 
- connectivitySubscription =    Connectivity().onConnectivityChanged.listen((ConnectivityResult connresult) {
-    if(connresult == ConnectivityResult.none){
-      dialogShown = true;
-      showDialog(context: context,
-      barrierDismissible: false,
-      child: AlertDialog(
-        title: const Text(
-          'حدث خطأ ما '
-        ),
-        content: Text(
-          'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالالك وحاول مرة أخرى'
-        ),
-        actions: <Widget>[
-          FlatButton(onPressed: ()=>{
-           
-            SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
-          
-          }, child: Text('خروج ',style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold),)),
-          FlatButton(onPressed: ()=>{
-           
-           AppSettings.openWIFISettings(),
-          
-          }, child: Text(' اعدادت Wi-Fi ',style: TextStyle(color: Colors.blue),)),
-          FlatButton(onPressed: ()=>{
-           
-            AppSettings.openDataRoamingSettings(),
-          
-          }, child: Text(' اعدادت الباقه ',style: TextStyle(color: Colors.blue,),))
-        ]
-        
-        
-      )
-      );
+    connectivitySubscription =    Connectivity().onConnectivityChanged.listen((ConnectivityResult connresult) {
+      if(connresult == ConnectivityResult.none){
+        dialogShown = true;
+        showDialog(context: context,
+            barrierDismissible: false,
+            child: AlertDialog(
+              title: const Text(
+                  'حدث خطأ ما '
+              ),
+              content: Text(
+                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالالك وحاول مرة أخرى'
+              ),
+              actions: <Widget>[
+                FlatButton(onPressed: ()=>{
 
-    }else if (_previousResult == ConnectivityResult.none) {
+                  SystemChannels.platform.invokeMethod('SystemNavigator.pop'),
+
+                }, child: Text('خروج ',style: TextStyle(color: Colors.red),))
+              ],
+            )
+        );
+
+      }else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {
           if (result == true) {
-          
+
             if (dialogShown == true) {
               dialogShown = false;
-               print('-------------------------put your fix here ----------------------');
-                getOrganizationsAndCampaign();
+              print('-------------------------put your fix here ----------------------');
+              getOrganizationsAndCampaign();
 
               Navigator.pop(context);
             }
           }
         });
 
-    }
-  _previousResult = connresult;
+      }
+      _previousResult = connresult;
 
-   });
+    });
 
-}
+  }
 
 
-@override
-void dispose(){
-  super.dispose();
-connectivitySubscription.cancel();
-}
+  @override
+  void dispose(){
+    super.dispose();
+    connectivitySubscription.cancel();
+  }
 
 
   var _isLoading = false;
@@ -190,44 +172,11 @@ connectivitySubscription.cancel();
   //     orgNotifier = Provider.of<OrganizationNotifier>(context);
   //   super.initState();
   // }
-   void _showErrorDialog(String message) {
-    print("alert");
-    showDialog(
-      context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('تسجيل دخول'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('ليس الأن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          ),
-          FlatButton(
-            child: Text('نعم'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              Navigator.pushNamed(context, '/Login');
-            },
-          ),
-        ],
-      ),
-    );
-  }
-Future<UserNav> loadSharedPrefs() async {
 
-    UserNav user;
-    try {
-     SharedPref sharedPref = SharedPref();
-       user = UserNav.fromJson(await sharedPref.read("user"));
-      } catch (Excepetion) {
-    // do something
-       }
-       return user;
-   }    
   @override
   Widget build(BuildContext context) {
+
+
 
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
@@ -241,9 +190,9 @@ Future<UserNav> loadSharedPrefs() async {
       itemBuilder: (context, index) {
         EdgeInsets padding = index == 0
             ? const EdgeInsets.only(
-                left: 20.0, right: 10.0, top: 5.0, bottom: 15.0)
+            left: 20.0, right: 10.0, top: 5.0, bottom: 15.0)
             : const EdgeInsets.only(
-                left: 20.0, right: 10.0, top: 5.0, bottom: 15.0);
+            left: 20.0, right: 10.0, top: 5.0, bottom: 15.0);
 
         return new Padding(
           padding: padding,
@@ -252,7 +201,7 @@ Future<UserNav> loadSharedPrefs() async {
               print('Card selected');
 
               campaignNotifier.currentCampaign =
-                  campaignNotifier.campaignList[index];
+              campaignNotifier.campaignList[index];
 
               Navigator.of(context)
                   .push(MaterialPageRoute(builder: (BuildContext context) {
@@ -274,37 +223,42 @@ Future<UserNav> loadSharedPrefs() async {
                 image: new DecorationImage(
                   image: new NetworkImage(
                       campaignNotifier.campaignList[index].imagesUrl),
-                fit: BoxFit.fill,
-
+                  fit: BoxFit.fill,
                 ),
               ),
-               height: 200.0,
+              // height: 200.0,
               width: 150.0,
               child: new Stack(
                 children: <Widget>[
-
                   new Align(
                     alignment: Alignment.bottomCenter,
                     child: new Container(
-                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                        decoration: new BoxDecoration(
-                            color: Colors.deepPurpleAccent[100],
-                            borderRadius: new BorderRadius.only(
-                                bottomLeft: new Radius.circular(10.0),
-                                bottomRight: new Radius.circular(10.0))),
-                        height: 35.0,
-                        child: new Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-
-                              FadeAnimation(1, Text (campaignNotifier.campaignList[index].campaignName,
-                              style: new TextStyle(
-                                  color: Colors.white, fontSize: 20,
-                                  ),
-                            )),
-                          ],
-                         ),
-                        ),
+                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                      decoration: new BoxDecoration(
+                          color: Colors.purple[300],
+                          borderRadius: new BorderRadius.only(
+                              bottomLeft: new Radius.circular(10.0),
+                              bottomRight: new Radius.circular(10.0))),
+                      height: 35.0,
+                      child: new Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Flexible(
+                            child: new Container(
+                              child: new Text(
+                                campaignNotifier
+                                    .campaignList[index].campaignName,
+                                overflow: TextOverflow.ellipsis,
+                                style: new TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),
@@ -318,40 +272,34 @@ Future<UserNav> loadSharedPrefs() async {
 
     final body = new Scaffold(
       appBar: new AppBar(
-        title: new
-        FadeAnimation(1.5, Text(
+        title: new Text(
           'برهان',
           style: new TextStyle(
               color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
-        )),
+        ),
         centerTitle: true,
-       // elevation: 0.0,
-        backgroundColor:  Colors.purple[900],
+        // elevation: 0.0,
+        backgroundColor: Colors.purple[900],
       ),
       drawer: NavigationDrawer(),
-      backgroundColor: Colors.purple[50],
-      body: _isLoading
-          ? Center(
-              child: CircularProgressIndicator(),
-            
-            )
-          : SingleChildScrollView(
-              child: Container(
-                //height: _height,
-                child: new Column(
+      backgroundColor: Colors.transparent,
+      body:
+      _isLoading
+          ?
+      Center(
+        child: CircularProgressIndicator(),
+
+      )
+          : new Container(
+        child: new Stack(
+          children: <Widget>[
+            new Padding(
+              padding: new EdgeInsets.only(top: 0),
+              child: new Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
-
-                  // new Padding(
-                  //   padding: new EdgeInsets.only(top: 0),
-                  //   child: new Column(
-                  //     crossAxisAlignment: CrossAxisAlignment.center,
-                  //     mainAxisSize: MainAxisSize.max,
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: <Widget>[
-
 //                        new Align(
 //                          alignment: Alignment.centerLeft,
 //                          child: new Padding(
@@ -365,497 +313,386 @@ Future<UserNav> loadSharedPrefs() async {
 //                              )),
 //                        ),
 
-            new Container(
-                height: 180.0,
-                child: new Carousel(
-            boxFit: BoxFit.cover,
-            images: [
-            AssetImage('assets/offers/Offer1.jpg'),
-            AssetImage('assets/offers/Offer2.jpg'),
-            AssetImage('assets/offers/Offer3.jpg'),
-            AssetImage('assets/offers/Offer4.jpg'),
-            // AssetImage('assets/offers/Offer5.jpg'),
-            ],
-            autoplay: true,
-            animationCurve: Curves.fastLinearToSlowEaseIn,
-            animationDuration: Duration(milliseconds: 1500),
-            dotSize: 4.0,
-            indicatorBgPadding: 2.0,
-                ),
-            ),
-
-
-            new Container(
-                height: 150.0, width: _width, child: headerList),
-            ButtonTheme(
-            minWidth: MediaQuery.of(context).size.width-50,
-            //width: 200,
-            height: 50.0,
-
-
-            child: Container(
-            //  margin: const EdgeInsets.all(10),
-            margin: EdgeInsets.only(bottom: 10),
-                child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: <Widget>[
-                RaisedButton(
-                  color: Colors.purple,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: new BorderRadius.circular(24.0),
-                    side: BorderSide(color: Colors.black),
+                  new Container(
+                    height: 180.0,
+                    child: new Carousel(
+                      boxFit: BoxFit.cover,
+                      images: [
+                        AssetImage('assets/offers/Offer1.jpg'),
+                        AssetImage('assets/offers/Offer2.jpg'),
+                        AssetImage('assets/offers/Offer3.jpg'),
+                        AssetImage('assets/offers/Offer4.jpg'),
+                        AssetImage('assets/offers/Offer5.jpg'),
+                      ],
+                      autoplay: true,
+                      animationCurve: Curves.fastLinearToSlowEaseIn,
+                      animationDuration: Duration(milliseconds: 1500),
+                      dotSize: 4.0,
+                      indicatorBgPadding: 2.0,
+                    ),
                   ),
-                  onPressed: ()async {
 
-                  UserNav userLoad = await loadSharedPrefs();
-                    if(userLoad==null){
-                      print("user is not here");
-                      _showErrorDialog("الرجاء التسجيل قبل الدخول");
-                     }else{
-                       print("user is  here");
-                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) {
-                      return FastDenotationScreen();
-                    }));
-                     }
-                   
-                  },
-                  child: Text(
-                    'تبرع الآن',
-                    style: TextStyle(
-                        fontSize: 20.0, color: Colors.white),
-                  ),
-                ),
-            ],
-                ),
-            ),
-            ),
-            ListView.builder(
-            shrinkWrap: true, 
-            physics: NeverScrollableScrollPhysics(), 
-            itemCount: orgNotifier.orgList.length,
-            itemBuilder: (context, index) {
-              return ClipRRect(
-                borderRadius: new BorderRadius.circular(20),
-                child: Card(
-                  margin:
-                      EdgeInsets.fromLTRB(20, 5, 20, 5),
-                  color: Colors.purple[200],
-                  //padding: EdgeInsets.only(top: 20.0),
-                  child: new ListTile(
-                    contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
-                    title: new Column(
-                      children: <Widget>[
-                        new Row(
-                          crossAxisAlignment:
-                              CrossAxisAlignment.start,
-                          children: <Widget>[
-                            new Container(
-                              height: 100,
-                              width: 100,
-                              decoration: new BoxDecoration(
-                                  // shape: BoxShape.circle,
-                                  borderRadius: BorderRadius.circular(5) ,
-                                  color: Colors.lightBlueAccent,
-                                  boxShadow: [
-                                    new BoxShadow(
-                                        color: Colors.blueGrey.withAlpha(70),
-                                        offset:
-                                            const Offset(
-                                                2.0, 2.0),
-                                        blurRadius: 2.0)
-                                  ],
-                                  image:
-                                      new DecorationImage(
-                                    image: orgNotifier
-                                                    .orgList[
-                                                        index]
-                                                    .logo !=
-                                                null &&
-                                            orgNotifier
-                                                    .orgList[
-                                                        index]
-                                                    .logo !=
-                                                ""
-                                        ? new NetworkImage(
-                                            orgNotifier
-                                                .orgList[
-                                                    index]
-                                                .logo)
-                                        : NetworkImage(
-                                            'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
-                                    fit: BoxFit.cover,
-                                  )),
-                            ),
-                            new SizedBox(
-                              width: 10.0,
-                            ),
-                            new Expanded(
-                                child: new Column(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.start,
-                              crossAxisAlignment:
-                                  CrossAxisAlignment.start,
-                              children: <Widget>[
-                                RaisedButton(
-                                  color: Colors.lime[700],
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: new BorderRadius.circular(24.0),
-                                    side: BorderSide(color: Colors.black),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).push(MaterialPageRoute(
-                                        builder: (BuildContext context) {
-                                      return FastDenotationScreen();
-                                    }));
-//                                    Navigator.of(context).push(
-//                                      PageRouteBuilder(
-//                                        transitionDuration: Duration(milliseconds: 1000),
-//                                        pageBuilder: (
-//                                            BuildContext context,
-//                                            Animation<double> animation,
-//                                            Animation<double> secondaryAnimation) {
-//                                          return FastDenotationScreen();
-//                                        },
-//                                        transitionsBuilder: (
-//                                            BuildContext context,
-//                                            Animation<double> animation,
-//                                            Animation<double> secondaryAnimation,
-//                                            Widget child) {
-//                                          return Align(
-//                                            child: FadeTransition(
-//                                              opacity: animation,
-//                                              child: child,
-//                                            ),
-//                                          );
-//                                        },
-//                                      ),
-//                                    );
+                  new Container(
+                      height: 150.0, width: _width, child: headerList),
+                  ButtonTheme(
+                    minWidth: MediaQuery.of(context).size.width - 50,
+                    //width: 200,
+                    height: 50.0,
 
-                                  },
-                                  child:
-                                  FadeAnimation(1, Text(
-                                    'تبرع الآن',
-                                    style: TextStyle(
-                                        fontSize: 24.0, color: Colors.white),
-                                  )),
-                                ),
-                              ],
+                    child: Container(
+                      //  margin: const EdgeInsets.all(10),
+                      margin: EdgeInsets.only(bottom: 10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: <Widget>[
+                          RaisedButton(
+                            color: Colors.lime[700],
+                            shape: RoundedRectangleBorder(
+                              borderRadius:
+                              new BorderRadius.circular(24.0),
+                              side: BorderSide(color: Colors.black),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return FastDenotationScreen();
+                                      }));
+                            },
+                            child: Text(
+                              'تبرع الآن',
+                              style: TextStyle(
+                                  fontSize: 20.0, color: Colors.white),
                             ),
                           ),
-                        ),
-                        new Expanded(
-                            child: ListView.builder(
-                                itemCount: orgNotifier.orgList.length,
-                                itemBuilder: (context, index) {
-                                  return ClipRRect(
-                                    borderRadius: new BorderRadius.circular(20),
-                                    child: Card(
-                                      margin:
-                                          EdgeInsets.fromLTRB(20, 5, 20, 5),
-                                      color: Colors.deepPurple[300],
-                                      //padding: EdgeInsets.only(top: 20.0),
-                                      child: new ListTile(
-                                        contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
-                                        title: new Column(
-                                          children: <Widget>[
-                                            new Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                FadeAnimation(1, Container(
-                                                  height: 110,
-                                                  width: 110,
-                                                  decoration: new BoxDecoration(
-                                                      // shape: BoxShape.circle,
-                                                      borderRadius: BorderRadius.circular(5) ,
-                                                      color: Colors.deepPurple[900],
-                                                      boxShadow: [
-                                                        new BoxShadow(
-                                                            color: Colors.blueGrey.withAlpha(70),
-                                                            offset:
-                                                                const Offset(
-                                                                    2.0, 2.0),
-                                                            blurRadius: 2.0)
-                                                      ],
-                                                      image:
-                                                          new DecorationImage(
-                                                        image: orgNotifier
-                                                                        .orgList[
-                                                                            index]
-                                                                        .logo !=
-                                                                    null &&
-                                                                orgNotifier
-                                                                        .orgList[
-                                                                            index]
-                                                                        .logo !=
-                                                                    ""
-                                                            ? new NetworkImage(
+                        ],
+                      ),
+                    ),
+                  ),
+                  new Expanded(
+                    child: ListView.builder(
+                      itemCount: orgNotifier.orgList.length,
+                      itemBuilder: (context, index) {
+                        return ClipRRect(
+                          borderRadius: new BorderRadius.circular(20),
+                          child: Card(
+                            margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                            color: Colors.purple[200],
+                            //padding: EdgeInsets.only(top: 20.0),
+                            child: new ListTile(
+                              contentPadding:
+                              EdgeInsets.fromLTRB(5, 5, 10, 0),
+                              title: new Column(
+                                children: <Widget>[
+                                  new Row(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: <Widget>[
+                                      Container(
+                                        height: 110,
+                                        width: 110,
+                                        decoration: new BoxDecoration(
+                                          // shape: BoxShape.circle,
+                                            borderRadius:
+                                            BorderRadius.circular(5),
+                                            color: Colors.lightBlueAccent,
+                                            boxShadow: [
+                                              new BoxShadow(
+                                                  color: Colors.blueGrey
+                                                      .withAlpha(70),
+                                                  offset: const Offset(
+                                                      2.0, 2.0),
+                                                  blurRadius: 2.0)
+                                            ],
+                                            image: new DecorationImage(
+                                              image: orgNotifier
+                                                  .orgList[
+                                              index]
+                                                  .logo !=
+                                                  null &&
+                                                  orgNotifier
+                                                      .orgList[
+                                                  index]
+                                                      .logo !=
+                                                      ""
+                                                  ? new NetworkImage(
+                                                  orgNotifier
+                                                      .orgList[index]
+                                                      .logo)
+                                                  : NetworkImage(
+                                                  'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
+                                              fit: BoxFit.cover,
+                                            )),
+                                      ),
+                                      new SizedBox(
+                                        width: 10.0,
+                                      ),
+                                      new Expanded(
+                                          child: new Column(
+                                            mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                            crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                              new Text(
+                                                orgNotifier.orgList[index]
+                                                    .orgName !=
+                                                    null
+                                                    ? orgNotifier
+                                                    .orgList[index]
+                                                    .orgName
+                                                    : 'no value',
+                                                style: new TextStyle(
+                                                    fontSize: 18.0,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.bold),
+                                              ),
+                                              new Text(
+                                                orgNotifier.orgList[index]
+                                                    .description,
+                                                style: new TextStyle(
+                                                    fontSize: 16.0,
+                                                    color: Colors.white,
+                                                    fontWeight:
+                                                    FontWeight.normal),
+                                              ),
+                                              Wrap(
+                                                spacing:15.0,
+//                                                      mainAxisAlignment:
+//                                                          MainAxisAlignment
+//                                                              .spaceEvenly,
+                                                crossAxisAlignment:
+                                                WrapCrossAlignment.center,
+                                                children: <Widget>[
+                                                  RaisedButton(
+                                                    color: Colors.deepPurple[50],
+                                                    shape:
+                                                    RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      new BorderRadius
+                                                          .circular(
+                                                          10.0),
+                                                      side: BorderSide(
+                                                          color: Colors
+                                                              .black),
+                                                    ),
+                                                    onPressed: () {
+                                                      orgNotifier
+                                                          .currentOrganization =
+                                                      orgNotifier
+                                                          .orgList[index];
+
+//                                                      Navigator.of(context)
+//                                                          .push(
+//                                                        MaterialPageRoute(
+//                                                          builder:
+//                                                              (BuildContext
+//                                                          context) {
+//                                                            return OrganizationDetails(
+//                                                                orgNotifier
+//                                                                    .orgList[
+//                                                                index]);
+//                                                          },
+//                                                        ),
+//                                                      );
+                                                      Navigator.push(
+                                                          context,
+                                                          PageRouteBuilder(
+                                                            pageBuilder: (c, a1, a2) => OrganizationDetails( orgNotifier.orgList[index]),
+                                                            transitionsBuilder: (c, anim, a2, child) => FadeTransition(opacity: anim, child: child),
+                                                            transitionDuration: Duration(milliseconds: 500),
+                                                          )
+                                                      );
+                                                    },
+                                                    child: Text(
+                                                      'التفاصيل',
+                                                      style: TextStyle(
+                                                          fontSize: 18.0,
+                                                          color:
+                                                          Colors.black),
+                                                    ),
+                                                  ),
+                                                  RaisedButton(
+
+                                                    color: Colors
+                                                        .deepPurple[50],
+                                                    shape:
+                                                    RoundedRectangleBorder(
+                                                      borderRadius:
+                                                      new BorderRadius
+                                                          .circular(
+                                                          10.0),
+                                                      side: BorderSide(
+                                                          color: Colors
+                                                              .black),
+                                                    ),
+
+                                                    onPressed: () {
+                                                      orgNotifier
+                                                          .currentOrganization =
+                                                      orgNotifier
+                                                          .orgList[index];
+                                                      Navigator.push(
+                                                        context,
+                                                        PageRouteBuilder(
+                                                          pageBuilder: (context, animation1, animation2) {
+                                                            return OrganizationActivity(
                                                                 orgNotifier
                                                                     .orgList[
-                                                                        index]
-                                                                    .logo)
-                                                            : NetworkImage(
-                                                                'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
-                                                        fit: BoxFit.cover,
-                                                      )),
-                                                )),
-                                                new SizedBox(
-                                                  width: 10.0,
-                                                ),
-                                                new Expanded(
-                                                    child: new Column(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: <Widget>[
+                                                                index]
+                                                                    .id);
+                                                          },
+                                                          transitionsBuilder: (context, animation1, animation2, child) {
+                                                            return FadeTransition(
+                                                              opacity: animation1,
+                                                              child: child,
+                                                            );
+                                                          },
+                                                          transitionDuration: Duration(milliseconds: 500),
+                                                        ),
+                                                      );
 
-                                                      new Text(
-                                                        orgNotifier.orgList[index]
-                                                                    .orgName !=
-                                                                null
-                                                            ? orgNotifier
-                                                                .orgList[index]
-                                                                .orgName
-                                                            : 'no value',
-                                                        style: new TextStyle(
-                                                            fontSize: 18.0,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight.bold),
-                                                      ),
-
-                                                    new Text(
-                                                      orgNotifier.orgList[index]
-                                                          .description,
-                                                      style: new TextStyle(
+//                                                      Navigator.of(context)
+//                                                          .push(
+//                                                        MaterialPageRoute(
+//                                                          builder:
+//                                                              (BuildContext
+//                                                          context) {
+//                                                            print("Over view Screen " +
+//                                                                orgNotifier
+//                                                                    .orgList[
+//                                                                index]
+//                                                                    .id);
+//                                                            return OrganizationActivity(
+//                                                                orgNotifier
+//                                                                    .orgList[
+//                                                                index]
+//                                                                    .id);
+//                                                          },
+//                                                        ),
+//                                                      );
+                                                    },
+                                                    child: Text(
+                                                      'الانشطة',
+                                                      style: TextStyle(
                                                           fontSize: 16.0,
-                                                          color: Colors.white,
-                                                          fontWeight: FontWeight
-                                                              .normal),
+                                                          color:
+                                                          Colors.black),
                                                     ),
-                                                    Wrap(
-                                                      spacing: 15.0,
+                                                  ),
+//                                                        Icon(
+//                                                          Icons.favorite,
+//                                                          color:
+//                                                              Colors.redAccent,
+//                                                          size: 30.0,
+//                                                        )
+                                                ],
+                                              )
+                                            ],
+                                          )),
+                                    ],
+                                  ),
+                                  //  new Divider( height: 20,color: Colors.green,),
+                                ],
+                              ),
+                            ),
+                          ),
+                        );
 
-                                                   // crossAxisAlignment: WrapCrossAlignment.center,
-                                                     // alignment: WrapAlignment.spaceEvenly,
-                                                      children: <Widget>[
-                                                        RaisedButton(
-                                                           color: Colors.deepPurple[50],
-                                                           shape:
-                                                               RoundedRectangleBorder(
-                                                             borderRadius:
-                                                                 new BorderRadius
-                                                                         .circular(
-                                                                     10.0),
-                                                             side: BorderSide(
-                                                                 color: Colors
-                                                                     .black),
-                                                           ),
-                                                          onPressed: () {
-                                                            orgNotifier
-                                                                    .currentOrganization =
-                                                                orgNotifier
-                                                                        .orgList[
-                                                                    index];
+                        ///////////////////////////////////////////////
 
-//                                                            Navigator.of(
-//                                                                    context)
-//                                                                .push(MaterialPageRoute(builder:
-//                                                                    (BuildContext
-//                                                                        context) {
-//                                                              return OrganizationDetails( orgNotifier.orgList[index]);
-//                                                              },
-//                                                             ),
-//                                                            );
-                                                            Navigator.push(
-                                                              context,
-                                                              PageRouteBuilder(
-                                                                pageBuilder: (c, a1, a2) => OrganizationDetails( orgNotifier.orgList[index]),
-                                                                transitionsBuilder: (c, anim, a2, child) => FadeTransition(opacity: anim, child: child),
-                                                                transitionDuration: Duration(milliseconds: 500),
-                                                              ),
-                                                            );
-                                                          },
-                                                          child: Text(
-                                                            'التفاصيل',
-                                                            style: TextStyle(
-                                                                fontSize: 18.0,
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        ),
-                                                        RaisedButton(
-                                                          color: Colors.deepPurple[50],
-                                                          shape:
-                                                          RoundedRectangleBorder(
-                                                            borderRadius:
-                                                            new BorderRadius
-                                                                .circular(
-                                                                10.0),
-                                                            side: BorderSide(
-                                                                color: Colors
-                                                                    .black)),
-                                                          onPressed: () {
-                                                            orgNotifier
-                                                                    .currentOrganization =
-                                                                orgNotifier
-                                                                        .orgList[
-                                                                    index];
+                        //                            return
+                        //   GFCard(
+                        //   boxFit: BoxFit.fill,
+                        //   margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                        //   image: Image.network(orgNotifier.orgList[index].logo ,height: 120,
+                        //   fit: BoxFit.cover,
+                        //   ),
+                        //   title: GFListTile(
+                        //    //  avatar: GFAvatar(),
+                        //      padding: EdgeInsets.all(2),
+                        //      title: Text(orgNotifier.orgList[index].orgName,
+                        //      style:TextStyle(
+                        //         fontSize: 19,
+                        //         fontWeight: FontWeight.bold
+                        //        ) ,
+                        //      ),
+                        //      subTitle: Text(orgNotifier.orgList[index].description,
+                        //         style:TextStyle(
+                        //         fontSize: 17,
+                        //         color: Colors.black
+                        //        ) ,
+                        //        maxLines: 1,
+                        //      ),
+                        //    //  color: Colors.purple[300].withOpacity(0.75),
+                        //      margin: EdgeInsets.all(0),
+                        //    ),
+                        //    padding: EdgeInsets.all(0),
+                        //   //content: Text("GFCards has three types of cards i.e, basic, with avataras and with overlay image"),
+                        //    buttonBar: GFButtonBar(
+                        //    //alignment: MainAxisAlignment.center,
 
-//                                                            Navigator.of(
-//                                                                    context)
-//                                                                .push(MaterialPageRoute(builder:
-//                                                                    (BuildContext
-//                                                                        context) {
-//                                                              print("Over view Screen " +
-//                                                                  orgNotifier
-//                                                                      .orgList[
-//                                                                          index]
-//                                                                      .id);
-//                                                              return OrganizationActivity(
-//                                                                  orgNotifier
-//                                                                      .orgList[
-//                                                                          index]
-//                                                                      .id);
-//                                                              },
-//                                                             ),
-//                                                            );
-                                                            Navigator.push(
-                                                              context,
-                                                              PageRouteBuilder(
-                                                                pageBuilder: (context, animation1, animation2) {
-                                                                  return OrganizationActivity(
-                                                                  orgNotifier
-                                                                      .orgList[
-                                                                          index]
-                                                                      .id);
-                                                                },
-                                                                transitionsBuilder: (context, animation1, animation2, child) {
-                                                                  return FadeTransition(
-                                                                    opacity: animation1,
-                                                                    child: child,
-                                                                  );
-                                                                },
-                                                                transitionDuration: Duration(milliseconds: 500),
-                                                              ),
-                                                            );
+                        //    padding: EdgeInsets.symmetric(horizontal: 5 ,vertical: 5),
 
-                                                          },
-                                                          child: Text(
-                                                            'الانشطة',
-                                                            style: TextStyle(
-                                                                fontSize: 16.0,
-                                                                color: Colors
-                                                                    .black),
-                                                          ),
-                                                        ),
-
-                                                      ],
-                                                    )
-                                                  ],
-                                                )),
-                                              ],
-                                            ),
-                                            //  new Divider( height: 20,color: Colors.green,),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                  );
-
-              ///////////////////////////////////////////////
-              
-  //                            return    
-  //   GFCard(
-  //   boxFit: BoxFit.fill,
-  //   margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-  //   image: Image.network(orgNotifier.orgList[index].logo ,height: 120,
-  //   fit: BoxFit.cover,
-  //   ),
-  //   title: GFListTile(
-  //    //  avatar: GFAvatar(),
-  //      padding: EdgeInsets.all(2),
-  //      title: Text(orgNotifier.orgList[index].orgName,
-  //      style:TextStyle(
-  //         fontSize: 19,
-  //         fontWeight: FontWeight.bold
-  //        ) ,
-  //      ),
-  //      subTitle: Text(orgNotifier.orgList[index].description,
-  //         style:TextStyle(
-  //         fontSize: 17,
-  //         color: Colors.black
-  //        ) ,
-  //        maxLines: 1,
-  //      ),
-  //    //  color: Colors.purple[300].withOpacity(0.75),
-  //      margin: EdgeInsets.all(0),
-  //    ),
-  //    padding: EdgeInsets.all(0),
-  //   //content: Text("GFCards has three types of cards i.e, basic, with avataras and with overlay image"),
-  //    buttonBar: GFButtonBar( 
-  //    //alignment: MainAxisAlignment.center,
-    
-  //    padding: EdgeInsets.symmetric(horizontal: 5 ,vertical: 5),
-
-  //    children: <Widget>[
-  //    GFButton(
-  //      onPressed: () {
-  //          orgNotifier.currentOrganization =orgNotifier.orgList[index];
-  //          Navigator.of( context)
-  //          .push(MaterialPageRoute(builder:(BuildContext context) 
-  //          {
-  //            return OrganizationDetails(orgNotifier.orgList[index]);  
-  //           },
-  //          ),
-  //        );
-  //      },
-  //      text: 'التفاصيل',
-  //      color: Colors.purple,
-  //      ),
-  //      GFButton(
-  //      onPressed: () {
-  //      orgNotifier.currentOrganization =orgNotifier.orgList[index];
-  //      Navigator.of(context)
-  //     .push(MaterialPageRoute(builder:(BuildContextcontext)
-  //     {
-  //     print("Over view Screen " + orgNotifier.orgList[index].id);
-  //     return OrganizationActivity(orgNotifier.orgList[ index].id);
-  //      },
-  //     ),
-  //                                                           );
-  //    },
-  //      text: 'الأنشطة',
-  //       color: Colors.purple,
-  //      )
-  //     ],
-  //    ),
-  //  );
-              ///////////////////////////////////////////////
-              },
-             ),
+                        //    children: <Widget>[
+                        //    GFButton(
+                        //      onPressed: () {
+                        //          orgNotifier.currentOrganization =orgNotifier.orgList[index];
+                        //          Navigator.of( context)
+                        //          .push(MaterialPageRoute(builder:(BuildContext context)
+                        //          {
+                        //            return OrganizationDetails(orgNotifier.orgList[index]);
+                        //           },
+                        //          ),
+                        //        );
+                        //      },
+                        //      text: 'التفاصيل',
+                        //      color: Colors.purple,
+                        //      ),
+                        //      GFButton(
+                        //      onPressed: () {
+                        //      orgNotifier.currentOrganization =orgNotifier.orgList[index];
+                        //      Navigator.of(context)
+                        //     .push(MaterialPageRoute(builder:(BuildContextcontext)
+                        //     {
+                        //     print("Over view Screen " + orgNotifier.orgList[index].id);
+                        //     return OrganizationActivity(orgNotifier.orgList[ index].id);
+                        //      },
+                        //     ),
+                        //                                                           );
+                        //    },
+                        //      text: 'الأنشطة',
+                        //       color: Colors.purple,
+                        //      )
+                        //     ],
+                        //    ),
+                        //  );
+                        ///////////////////////////////////////////////
+                      },
+                    ),
+                  ),
                 ],
-            ),
               ),
-          ),
+            ),
+          ],
+        ),
+      ),
     );
 
-    // return new Container(
-    //   decoration: new BoxDecoration(
-    //    color: Colors.white,
-    //   ),
-    //   child: new Stack(
-    //     children: <Widget>[
-    //       new CustomPaint(
-    //         size: new Size(_width, _height),
-    //         painter: new Background(),
-    //       ),
-    //       body,
-    //     ],
-    //   ),
-    // );
-    return body;
+    return new Container(
+      decoration: new BoxDecoration(
+        color: Colors.white,
+      ),
+      child: new Stack(
+        children: <Widget>[
+          new CustomPaint(
+            size: new Size(_width, _height),
+            painter: new Background(),
+          ),
+          body,
+        ],
+      ),
+    );
   }
 }
