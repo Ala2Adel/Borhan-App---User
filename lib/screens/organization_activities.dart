@@ -3,6 +3,7 @@ import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
+import 'package:Borhan_User/screens/activity_detail.dart';
 import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -186,11 +187,11 @@ Future<UserNav> loadSharedPrefs() async {
                                       children: <Widget>[
                                         new Row(
                                           crossAxisAlignment:
-                                              CrossAxisAlignment.start,
+                                              CrossAxisAlignment.center,
                                           children: <Widget>[
                                             new Container(
-                                              height: 120.0,
-                                              width: 120.0,
+                                              height: 110.0,
+                                              width: 110.0,
                                               decoration: new BoxDecoration(
                                                 shape: BoxShape.circle,
                                                 color: Colors.lightBlueAccent,
@@ -269,6 +270,7 @@ Future<UserNav> loadSharedPrefs() async {
                                                       .description,
                                                   style: new TextStyle(
                                                       fontSize: 18.0,
+                                                       height: 0.5,
                                                       color: Colors.white,
                                                       fontWeight:
                                                           FontWeight.normal),
@@ -279,16 +281,12 @@ Future<UserNav> loadSharedPrefs() async {
                                                   children: <Widget>[
                                                     RaisedButton(
                                                         color:
-                                                            Colors.greenAccent,
+                                                            Colors.blue,
                                                         shape:
                                                             RoundedRectangleBorder(
                                                           borderRadius:
-                                                              new BorderRadius
-                                                                      .circular(
-                                                                  18.0),
-                                                          side: BorderSide(
-                                                              color:
-                                                                  Colors.black),
+                                                              new BorderRadius.circular(8.0),
+                                                         // side: BorderSide(color: Colors.black),
                                                         ),
                                                         onPressed: () async {
                                                           activityNotifier
@@ -309,17 +307,52 @@ Future<UserNav> loadSharedPrefs() async {
                     }));
                      }
                                                         },
-                                                        child: const  Text(
-                                                          'تبرع الآن',
+                                                        child: Text(
+                                                           'تبرع',
                                                           style: TextStyle(
                                                               fontSize: 20.0,
                                                               color:
                                                                   Colors.black),
-                                                        )),
+                                                         ),
+                                                        ),
+                                                        //////////////////////////////////////
+                                                         SizedBox(width: 10,),
+                                                         RaisedButton(
+                                                        color:
+                                                            Colors.blue,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              new BorderRadius
+                                                                      .circular(
+                                                                  8.0),
+                                                          //side: BorderSide(color: Colors.black),
+                                                        ),
+                                                        onPressed: () async {
+                                                          activityNotifier
+                                                                  .currentActivity =
+                                                              activityNotifier
+                                                                      .activityList[
+                                                                  index];
+                                                                   Navigator.of(context).push(MaterialPageRoute(
+                                                            builder: (BuildContext context) {
+                                                                return ActivityDetails();
+                                                         }));
+
+                                                        },
+                                                        child: Text(
+                                                          'تفاصيل ',
+                                                          style: TextStyle(
+                                                              fontSize: 20.0,
+                                                              color:
+                                                                  Colors.black),
+                                                         ),
+                                                        ),
                                                   ],
                                                 ),
                                               ],
-                                            )),
+                                             ),
+                                            ),
                                           ],
                                         ),
                                       ],

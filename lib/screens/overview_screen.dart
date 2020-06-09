@@ -6,6 +6,8 @@ import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/fast_donation.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
+import 'package:Borhan_User/screens/org_widgets/movie_api.dart';
+import 'package:Borhan_User/screens/org_widgets/movie_details_page.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 import 'package:connectivity/connectivity.dart';
+import 'package:Borhan_User/screens/activity_detail.dart';
 
 import '../background.dart';
 import 'Donation.dart';
@@ -329,15 +332,17 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             RaisedButton(
-                              color: Colors.lime[700],
+                              // color: Colors.lime[700],
+                                color: Colors.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(24.0),
-                                side: BorderSide(color: Colors.black),
+                               // side: BorderSide(color: Colors.black),
                               ),
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (BuildContext context) {
-                                  return FastDenotationScreen();
+                                      return FastDenotationScreen();
+                                      
                                 }));
                               },
                               child: Text(
@@ -351,6 +356,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                       ),
                     ),
                     ListView.builder(
+                       shrinkWrap: true, 
+                       physics: NeverScrollableScrollPhysics(), 
                       itemCount: orgNotifier.orgList.length,
                       itemBuilder: (context, index) {
                         return ClipRRect(
@@ -366,11 +373,14 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 children: <Widget>[
                                   new Row(
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        // CrossAxisAlignment.start,
+                                         CrossAxisAlignment.center,
                                     children: <Widget>[
                                       Container(
-                                        height: 110,
-                                        width: 110,
+                                        // height: 110,
+                                        // width: 110,
+                                        height: 100,
+                                        width: 100,
                                         decoration: new BoxDecoration(
                                             // shape: BoxShape.circle,
                                             borderRadius:
@@ -434,7 +444,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                     FontWeight.normal),
                                           ),
                                           Wrap(
-                                            spacing: 15.0,
+                                            // spacing: 15.0,
+                                            spacing: 10.0,
 //                                                      mainAxisAlignment:
 //                                                          MainAxisAlignment
 //                                                              .spaceEvenly,
@@ -474,10 +485,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                       PageRouteBuilder(
                                                         pageBuilder: (c, a1,
                                                                 a2) =>
-                                                            OrganizationDetails(
-                                                                orgNotifier
-                                                                        .orgList[
-                                                                    index]),
+                                                            // OrganizationDetails(
+                                                            //     orgNotifier.orgList[index],
+                                                            //     ),
+                                                             MovieDetailsPage( orgNotifier.orgList[index],),
                                                         transitionsBuilder: (c,
                                                                 anim,
                                                                 a2,
@@ -523,6 +534,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                 .orgList[
                                                                     index]
                                                                 .id);
+
                                                       },
                                                       transitionsBuilder:
                                                           (context,
