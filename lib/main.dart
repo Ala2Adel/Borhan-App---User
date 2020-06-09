@@ -8,6 +8,7 @@ import 'package:Borhan_User/providers/mydonation_provider.dart';
 import 'package:Borhan_User/screens/Help_organizations.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:Borhan_User/screens/email_organization.dart';
+import 'package:Borhan_User/screens/external_donation_screen.dart';
 import 'package:Borhan_User/screens/firebase_login_screen.dart';
 import 'package:Borhan_User/screens/firestore_chat_screen.dart';
 import 'package:Borhan_User/screens/google_signin.dart';
@@ -127,6 +128,7 @@ class MyApp extends StatelessWidget {
 //              '/GoogleSignin': (context) => SignInDemo(),
 
               '/Signup': (context) => SignupScreen(),
+              '/ExternalDonation' : (context) =>ExternalDonation(),
               '/Profile': (context) => Profile(),
               HelpScreen.routeName: (ctx) => HelpScreen(),
               EmailOrganization.routeName: (ctx) => EmailOrganization(),

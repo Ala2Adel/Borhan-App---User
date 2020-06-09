@@ -207,6 +207,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               }
             },
           ),
+          new ListTile(
+            title: const Text("التبرعات الخارجية" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            leading: new Icon(Icons.account_balance_wallet),
+            onTap: () {
+              Navigator.of(context).pop();
+              Navigator.pushNamed(context, '/ExternalDonation');
+            },
+          ),
 
           userLoad==null?
           new ListTile(
