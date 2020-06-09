@@ -53,8 +53,8 @@ class _ExternalDonationState extends State<ExternalDonation> {
     builder: (context) => new AlertDialog(
       elevation: 25.0
       ,
-      title: new Text('هل تود الخروج ؟'),
-      content: new Text('هل تريد الخروج من التبرعات الخارجية'),
+      title: new Text('الخروج'),
+      content: new Text('هل تريد الخروج من التبرعات الخارجية ؟'),
       
       actions: <Widget>[
         
@@ -67,7 +67,7 @@ class _ExternalDonationState extends State<ExternalDonation> {
         SizedBox(width: 30),
         new GestureDetector(
           onTap: () => Navigator.of(context).pop(true),
-          child: Text("نعم"),
+          child: Text("نعم",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
         ),
       ],
     ),
