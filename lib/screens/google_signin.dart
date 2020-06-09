@@ -27,7 +27,7 @@ class _GmailSigninState extends State<GmailSignin> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Google Sign in Demo'),
+        title: const  Text('Google Sign in Demo'),
       ),
       body: Center(child: _buildBody()),
     );
@@ -49,7 +49,7 @@ class _GmailSigninState extends State<GmailSignin> {
           ),
           RaisedButton(
             onPressed: _handleSignOut,
-            child: Text('SIGN OUT'),
+            child: const  Text('SIGN OUT'),
           )
         ],
       );
@@ -59,10 +59,10 @@ class _GmailSigninState extends State<GmailSignin> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
         children: <Widget>[
-          Text('You are not signed in..'),
+          const  Text('You are not signed in..'),
           RaisedButton(
             onPressed: _handleSignIn,
-            child: Text('SIGN IN'),
+            child: const  Text('SIGN IN'),
           )
         ],
       );

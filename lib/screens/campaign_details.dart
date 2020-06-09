@@ -28,13 +28,13 @@ class _CampaignDetailState extends State<CampaignDetail> {
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('ليس الأن'),
+            child: Text('لا ارغب'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child: Text('نعم'),
+            child: Text('موافق'),
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pushNamed(context, '/Login');
@@ -101,7 +101,7 @@ Future<UserNav> loadSharedPrefs() async {
                     UserNav userLoad = await loadSharedPrefs();
                     if(userLoad==null){
                       print("user is not here");
-                      _showErrorDialog("الرجاء التسجيل قبل الدخول");
+                      _showErrorDialog("برجاء تسجيل الدخول أولا");
                      }else{
                        print("user is  here");
                        Navigator.of(context).push(MaterialPageRoute(

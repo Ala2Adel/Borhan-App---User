@@ -71,7 +71,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
       return;
     }
     if (_image == null && selectedType != 'نقدى') {
-      _showErrorDialog("من فضلك اضاف صورة التبرع ");
+      _showErrorDialog("من فضلك اضف صورة التبرع ");
       return;
     }
 
@@ -373,7 +373,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       value == null) {
                                     return 'ادخل الاسم من فضلك';
                                   } else if (value.length < 3) {
-                                    return 'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
+                                    return 'الاسم لايمكن أن يكون أقل من ثلاثه احرف';
                                   }
                                   return null;
                                 },
@@ -396,7 +396,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               child: TextFormField(
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: "رقم التلفون المحمول",
+                                    hintText: "رقم تلفون الهاتف المحمول",
                                     prefixIcon: Icon(
                                       Icons.mobile_screen_share,
                                       color: Colors.deepPurple,

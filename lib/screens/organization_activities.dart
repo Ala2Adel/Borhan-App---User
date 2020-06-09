@@ -84,17 +84,17 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('تسجيل دخول'),
+        title: const  Text('تسجيل دخول'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('ليس الأن'),
+            child: const  Text('ليس الأن'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child: Text('نعم'),
+            child:const  Text('نعم'),
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pushNamed(context, '/Login');
@@ -148,7 +148,7 @@ Future<UserNav> loadSharedPrefs() async {
               child: new Stack(
                 children: <Widget>[
                   new Padding(
-                    padding: new EdgeInsets.only(top: 10.0),
+                    padding: const  EdgeInsets.only(top: 10.0),
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
@@ -283,7 +283,7 @@ Future<UserNav> loadSharedPrefs() async {
                     UserNav userLoad = await loadSharedPrefs();
                     if(userLoad==null){
                       print("user is not here");
-                      _showErrorDialog("الرجاء التسجيل قبل الدخول");
+                      _showErrorDialog("برجاء تسجيل الدخول أولا ");
                      }else{
                        print("user is  here");
                        Navigator.of(context).push(MaterialPageRoute(
@@ -292,7 +292,7 @@ Future<UserNav> loadSharedPrefs() async {
                     }));
                      }
                                                         },
-                                                        child: Text(
+                                                        child: const  Text(
                                                           'تبرع الآن',
                                                           style: TextStyle(
                                                               fontSize: 20.0,

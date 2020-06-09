@@ -93,7 +93,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
               selectedOraginzaton == null ||
               selectedActivity == null)) {
         _showErrorDialog(
-            "من فضلك اختار نوع التبرع والجمعية والنشاط الذى تود التبرع له");
+            "من فضلك اختر نوع التبرع والجمعية والنشاط الذى تود التبرع له");
       } else {
         current++;
       }
@@ -117,7 +117,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     }
 
     if (_image == null && selectedType != 'نقدى') {
-      _showErrorDialog("من فضلك اضاف صورة التبرع ");
+      _showErrorDialog("من فضلك اضف صورة تبرعك ");
       return;
     }
 
@@ -475,7 +475,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                                 new RegExp(r"^\\s+$")
                                                     .hasMatch(value);
                                             if (spaceRex || value.length == 0) {
-                                              return 'اادخل الاسم من فضلك';
+                                              return 'ادخل الاسم من فضلك';
                                             } else {
                                               return 'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
                                             }
@@ -618,7 +618,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                     ),
                                     Container(
                                         padding:
-                                            EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                           const  EdgeInsets.fromLTRB(10, 5, 10, 0),
                                         child: Text(
                                           'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
                                           style: TextStyle(
@@ -677,7 +677,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                               Container(
                                 child: Column(children: <Widget>[
                                   Container(
-                                    padding: EdgeInsets.all(20),
+                                    padding: const EdgeInsets.all(20),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -742,7 +742,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                   _loading
                                       ? CircularProgressIndicator()
                                       : Container(
-                                          padding: EdgeInsets.fromLTRB(
+                                          padding: const  EdgeInsets.fromLTRB(
                                               20, 0, 20, 10),
                                           child: Row(
                                             mainAxisAlignment:
@@ -949,7 +949,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                     //    if (selectedType != 'نقدى')
                                     Container(
                                         padding:
-                                            EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                            const EdgeInsets.fromLTRB(10, 5, 10, 0),
                                         child: Text(
                                           'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
                                           style: TextStyle(
@@ -960,7 +960,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                     // if (selectedType != 'نقدى')
                                     Container(
                                         padding:
-                                            EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                           const  EdgeInsets.fromLTRB(10, 5, 10, 0),
                                         child: Text(
                                           ' مثال:3 اطقم ملابس و 2بطاطين....',
                                           style: TextStyle(
@@ -1069,9 +1069,9 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                             onTap: () => _nextSubmit(),
                             child: Container(
                               height: 50,
-                              margin: EdgeInsets.symmetric(horizontal: 60),
+                              margin:  const EdgeInsets.symmetric(horizontal: 60),
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius:  BorderRadius.circular(50),
                                 color: Color.fromRGBO(49, 39, 79, 1),
                               ),
                               child: Center(

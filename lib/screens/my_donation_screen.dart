@@ -40,7 +40,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
     return Scaffold(
 //      backgroundColor: Colors.purple[400],
       appBar: AppBar(
-        title: Text('تبرعاتي'),
+        title: const Text('تبرعاتي'),
       ),
       body: _isLoading
           ? Center(
@@ -145,7 +145,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                                 i]
                                                                             .status !=
                                                                         'cancel'
-                                                                ? Text(
+                                                                ?  const Text(
                                                                     'قيد المراجعة',
                                                                     style: TextStyle(
                                                                         color: Colors
@@ -159,7 +159,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                             .items[i]
                                                                             .status ==
                                                                         'done'
-                                                                    ? Text(
+                                                                    ?  const Text(
                                                                         'تم قبول التبرع',
                                                                         style: TextStyle(
                                                                             color: Colors
@@ -169,7 +169,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                             fontWeight:
                                                                                 FontWeight.bold),
                                                                       )
-                                                                    : Text(
+                                                                    :  const Text(
                                                                         'تم رفض التبرع',
                                                                         style: TextStyle(
                                                                             color: Colors

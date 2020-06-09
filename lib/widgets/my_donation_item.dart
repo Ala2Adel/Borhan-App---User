@@ -29,7 +29,7 @@ class MyDonationItem extends StatelessWidget {
           child: orgName != '' && orgName != null
               ? Row(
                   children: <Widget>[
-                    Text(
+                      Text(
                       'اسم الجمعية : ',
                       style: TextStyle(
                           color: Colors.white,
@@ -102,7 +102,7 @@ class MyDonationItem extends StatelessWidget {
                           fontSize: 12.0,
                           fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                     Text(
                       donationDate,
                       style: TextStyle(
                           color: Colors.white,

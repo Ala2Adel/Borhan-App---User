@@ -33,11 +33,11 @@ class _SignupScreenState  extends State <SignupScreen > {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('حدث خطأ ما'),
+        title: const  Text('حدث خطأ ما'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('حسنا'),
+            child: const  Text('حسنا'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
@@ -132,7 +132,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                     )),
                   ),
                   Center(
-                    child: Text('مرحبا بك فى برهان',
+                    child: const  Text('مرحبا بك فى برهان',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 21,
@@ -268,7 +268,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.all(10),
+                            padding:  const EdgeInsets.all(10),
                             child: TextFormField(
                               decoration: InputDecoration(
                                   border: InputBorder.none,
@@ -304,13 +304,13 @@ class _SignupScreenState  extends State <SignupScreen > {
                     onTap:_submit, // handle your onTap here
                     child: Container(
                       height: 50,
-                      margin: EdgeInsets.symmetric(horizontal: 60),
+                      margin: const  EdgeInsets.symmetric(horizontal: 60),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
                         color: Color.fromRGBO(49, 39, 79, 1),
                       ),
                       child: Center(
-                        child: Text("تسجيل حساب", style: TextStyle(color: Colors.white),),
+                        child: const  Text("تسجيل حساب", style: TextStyle(color: Colors.white),),
                       ),
                     ),
                   )),
@@ -319,7 +319,7 @@ class _SignupScreenState  extends State <SignupScreen > {
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                     child: Center(
                       child: FlatButton(
-                        child: Text("أمتلك حساب",
+                        child: const  Text("أمتلك حساب",
                         style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6),
                           ),
                         ),

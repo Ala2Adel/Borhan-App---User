@@ -23,7 +23,7 @@ setState(() {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('حدد مكانك'),
+        title: const  Text('حدد مكانك'),
         actions: <Widget>[
           if(widget.isSelecting) IconButton(icon: Icon(Icons.check  )
           ,

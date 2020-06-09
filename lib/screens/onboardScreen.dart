@@ -53,7 +53,7 @@ class OnboardScreen extends StatelessWidget {
                 fontSize: 18,
               ),
       ),
-      title: Text('طعام',
+      title:  Text('طعام',
        style: new TextStyle(
                 fontFamily: ArabicFonts.Amiri,
                 package: 'google_fonts_arabic',

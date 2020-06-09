@@ -67,11 +67,11 @@ class _LoginScreenState extends State<LoginScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('حدث خطأ ما'),
+        title: const  Text('حدث خطأ ما'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('حسنا'),
+            child : const  Text('حسنا'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },

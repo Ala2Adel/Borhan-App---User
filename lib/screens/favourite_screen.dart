@@ -63,7 +63,7 @@ class _FavouriteState extends State<Favourite> {
               return ClipRRect(
                 borderRadius: BorderRadius.circular(40),
                 child: Card(
-                  margin: EdgeInsets.all(10),
+                  margin: const  EdgeInsets.all(10),
                   color: Colors.grey[400],
                   child: new ListTile(
                     contentPadding: EdgeInsets.all(8.0),
@@ -165,7 +165,7 @@ class _FavouriteState extends State<Favourite> {
                                                         return NormalDenotationScreen();
                                                       }));
                                             },
-                                            child: Text(
+                                            child: const Text(
                                               'تبرع الآن',
                                               style: TextStyle(
                                                   fontSize: 20.0,

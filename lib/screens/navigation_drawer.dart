@@ -169,12 +169,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           ),
           new ListTile(
 
-            title: new Text("الرئيسية" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text("الرئيسية" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.home),
             onTap: () => Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
-            title: new Text("المفضلة", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text("المفضلة", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.favorite),
             onTap: () {
               Navigator.of(context).pop();
@@ -182,7 +182,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
           new ListTile(
-            title: new Text("الإشعارات" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text("الإشعارات" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.notifications),
             onTap: () {
               Navigator.of(context).pop();
@@ -190,7 +190,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
           new ListTile(
-            title: new Text("تبرعاتي" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text("تبرعاتي" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.drag_handle),
             onTap: () async {
               UserNav userLoad = await loadSharedPrefs();
@@ -210,7 +210,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
 
           userLoad==null?
           new ListTile(
-            title: new Text("تسجيل الدخول" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text("تسجيل الدخول" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.arrow_right),
             onTap: (){
               Navigator.of(context).pop();
@@ -218,7 +218,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           )
           : new ListTile(
-            title: new Text("تسجيل خروج" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text("تسجيل خروج" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.arrow_left),
             onTap: (){
                      _showErrorDialog("هل تريد تسجيل الخروج");
@@ -233,7 +233,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           // ),
           Divider(),
           new ListTile(
-            title: new Text("الدعم و المساعدة" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text("الدعم و المساعدة" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             leading: new Icon(Icons.help),
             onTap: () {
               Navigator.of(context).pop();

@@ -99,11 +99,11 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                           style: TextStyle(color: Colors.teal),
                         ),
                         alignment: Alignment.centerRight,
-                        margin: EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 5.0),
+                        margin: const  EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 5.0),
                       ),
                     ],
                   ),
-                  margin: EdgeInsets.only(left: 20.0),
+                  margin: const  EdgeInsets.only(left: 20.0),
                 ),
               ),
             ],
@@ -115,11 +115,11 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                     builder: (context) => ChatScreen(orgId: orgId)));
 //                    builder: (context) => FirestoreChatScreen()));
           },
-          padding: EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+          padding: const  EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ),
-        margin: EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
+        margin: const  EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
       );
     }
   }

@@ -31,7 +31,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {}),
           title: Container(
             alignment: Alignment.center,
-            child: Text("Account Details",
+            child: const  Text("Account Details",
                 style: TextStyle(
                   color: Colors.white,
                 )),
@@ -115,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                     value: selectedType,
                     isExpanded: false,
-                    hint: Text(
+                    hint: const  Text(
                       'Choose Account Type',
                       style: TextStyle(color: Color(0xff11b719)),
                     ),

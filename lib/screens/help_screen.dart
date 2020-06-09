@@ -20,17 +20,17 @@ class _HelpScreenState extends State<HelpScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('تسجيل دخول'),
+        title: const  Text('تسجيل دخول'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('ليس الأن'),
+            child: const  Text('ليس الأن'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child: Text('نعم'),
+            child: const  Text('نعم'),
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pushNamed(context, '/Login');
@@ -56,7 +56,7 @@ Future<UserNav> loadSharedPrefs() async {
     final data = Provider.of<Auth>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('المساعدة'),
+        title: const  Text('المساعدة'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -71,7 +71,7 @@ Future<UserNav> loadSharedPrefs() async {
                         MaterialPageRoute(
                             builder: (context) => EmailOrganization()));
                   },
-                  child: Text(
+                  child: const  Text(
                     'بواسطة البريد الإلكتروني',
                     style: TextStyle(
                         color: Colors.white,
@@ -98,7 +98,7 @@ Future<UserNav> loadSharedPrefs() async {
                   UserNav userLoad = await loadSharedPrefs();
                     if(userLoad==null){
                       print("user is not here");
-                      _showErrorDialog("الرجاء التسجيل قبل الدخول");
+                      _showErrorDialog("برجاء تسجيل الدخول أولا");
                      }else{
                        print("user is  here");
                        Navigator.of(context).push(MaterialPageRoute(
@@ -108,7 +108,7 @@ Future<UserNav> loadSharedPrefs() async {
                      }
                    
                   },
-                  child: Text(
+                  child: const Text(
                     'بواسطة محادثة',
                     style: TextStyle(
                         color: Colors.white,
@@ -118,7 +118,7 @@ Future<UserNav> loadSharedPrefs() async {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30),
                   ),
-                  padding:
+                  padding: const
                       EdgeInsets.symmetric(horizontal: 30.0, vertical: 8.0),
                   color: Theme.of(context).primaryColor,
                   textColor: Theme.of(context).primaryTextTheme.button.color,

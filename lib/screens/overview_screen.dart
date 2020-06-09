@@ -75,7 +75,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                   'حدث خطأ ما '
               ),
               content: Text(
-                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالالك وحاول مرة أخرى'
+                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'
               ),
               actions: <Widget>[
                 FlatButton(onPressed: ()=>{

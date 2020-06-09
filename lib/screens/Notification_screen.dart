@@ -12,7 +12,7 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("الإشعارات"),
+        title: const  Text("الإشعارات"),
         
       ),
       body: Center(child: Text("Notification History")),

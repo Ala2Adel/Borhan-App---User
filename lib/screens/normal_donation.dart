@@ -195,11 +195,11 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text('تحذير'),
+        title: const Text('تحذير'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('حسنا'),
+            child: const Text('حسنا'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
@@ -278,7 +278,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Column(
 //                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
@@ -288,7 +288,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                   Container(
                     child: Center(
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 15),
+                        padding: const EdgeInsets.symmetric(horizontal: 15),
                         //color: Colors.deepPurple.withOpacity(0.75),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
@@ -305,7 +305,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                           //   )
                           //  ],
                         ),
-                        child: Text(
+                        child:  Text(
                           orgNotifier.currentOrg.orgName != null
                               ? orgNotifier.currentOrg.orgName
                               : 'تبرع الآن',
@@ -348,7 +348,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                           children: <Widget>[
                             /////////////////////////////////////////////////////////
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   border: Border(
                                       bottom:
@@ -429,7 +429,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
 //                                 ),
 //                               ),
                             Container(
-                              padding: EdgeInsets.all(10),
+                              padding: const EdgeInsets.all(10),
                               decoration: BoxDecoration(
                                   border: Border(
                                       bottom:
@@ -504,7 +504,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                               ),
                             ),
                             Container(
-                                padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                padding: const  EdgeInsets.fromLTRB(10, 5, 10, 0),
                                 child: Text(
                                   'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
                                   style: TextStyle(
@@ -513,7 +513,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                       fontWeight: FontWeight.bold),
                                 )),
                             Container(
-                              padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+                              padding: const  EdgeInsets.fromLTRB(10, 5, 10, 10),
                               decoration: BoxDecoration(
                                   border: Border(
                                       bottom:
@@ -595,7 +595,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   },
                                   value: selectedType,
                                   isExpanded: false,
-                                  hint: Text(
+                                  hint: const  Text(
                                     'اختار نوع التبرع',
                                     style: TextStyle(color: Color(0xff11b719)),
                                   ),
@@ -605,7 +605,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                             if (selectedType == 'نقدى' ||
                                 selectedType == 'نقدى وعينى')
                               Container(
-                                padding: EdgeInsets.all(10),
+                                padding: const  EdgeInsets.all(10),
                                 decoration: BoxDecoration(
                                     border: Border(
                                         bottom: BorderSide(
@@ -644,7 +644,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
 ///////////////////////////////////////////////////////
                             if (selectedType != 'نقدى' && selectedType != null)
                               Container(
-                                padding: EdgeInsets.all(20),
+                                padding:  const EdgeInsets.all(20),
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
@@ -655,7 +655,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     ),
                                     SizedBox(width: 10),
                                     Expanded(
-                                        child: Text("اضف صورة التبرع",
+                                        child: const  Text("اضف صورة التبرع",
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold)))
@@ -666,7 +666,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                             if (selectedType != 'نقدى' && selectedType != null)
                               InkWell(
                                 child: Container(
-                                  padding: EdgeInsets.all(10),
+                                  padding: const  EdgeInsets.all(10),
                                   color: Colors.grey[300],
                                   width: 200,
                                   height: 200,
@@ -682,8 +682,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
 
                             if (selectedType != 'نقدى' && selectedType != null)
                               Container(
-                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                  child: Text(
+                                  padding: const  EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                  child: const  Text(
                                     'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
                                     style: TextStyle(
                                         fontSize: 17,
@@ -692,8 +692,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   )),
                             if (selectedType != 'نقدى' && selectedType != null)
                               Container(
-                                  padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                  child: Text(
+                                  padding: const  EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                  child: const  Text(
                                     ' مثال:3 اطقم ملابس و 2بطاطين....',
                                     style: TextStyle(
                                         fontSize: 14,
@@ -702,7 +702,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   )),
                             if (selectedType != 'نقدى' && selectedType != null)
                               Container(
-                                padding: EdgeInsets.fromLTRB(10, 5, 10, 10),
+                                padding: const  EdgeInsets.fromLTRB(10, 5, 10, 10),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: OutlineInputBorder(

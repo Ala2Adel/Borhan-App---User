@@ -123,8 +123,8 @@ bool _loading = false;
               ):Center(child: CircularProgressIndicator()),
             ),
             Container(
-              margin: EdgeInsets.only(top: 8),
-              padding: EdgeInsets.all(8),
+              margin: const  EdgeInsets.only(top: 8),
+              padding: const  EdgeInsets.all(8),
               child: Row(
                 children: <Widget>[
                   Expanded(
