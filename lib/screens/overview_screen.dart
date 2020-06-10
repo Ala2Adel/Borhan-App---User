@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/fast_donation.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
@@ -47,6 +49,43 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
   StreamSubscription connectivitySubscription;
   ConnectivityResult _previousResult;
   bool dialogShown = false;
+
+  void _showErrorDialog(String message) {
+    print("alert");
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const  Text('تسجيل دخول'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: const  Text('ليس الأن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          FlatButton(
+            child:const  Text('نعم'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pushNamed(context, '/Login');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+Future<UserNav> loadSharedPrefs() async {
+    UserNav user;
+    try {
+     SharedPref sharedPref = SharedPref();
+       user = UserNav.fromJson(await sharedPref.read("user"));
+      } catch (Excepetion) {
+    // do something
+       }
+       return user;
+   } 
+
 
   Future<bool> checkinternet() async {
     try {
@@ -338,12 +377,22 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 borderRadius: new BorderRadius.circular(24.0),
                                // side: BorderSide(color: Colors.black),
                               ),
-                              onPressed: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (BuildContext context) {
-                                      return FastDenotationScreen();
-                                      
-                                }));
+                              onPressed: () async{
+
+                     UserNav userLoad = await loadSharedPrefs();
+                    if(userLoad==null){
+                      print("user is not here");
+                      _showErrorDialog("برجاء تسجيل الدخول أولا ");
+                     }else{
+                       print("user is  here");
+                       Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) {
+                          return FastDenotationScreen();
+                        },
+                       ),
+                      );
+                     }
+                
                               },
                               child: Text(
                                 'تبرع الآن',

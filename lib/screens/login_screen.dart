@@ -127,7 +127,7 @@ class _LoginScreenState extends State<LoginScreen> {
         Provider.of<UsersPtovider>(context, listen: false)
             .setUserData(email: _authData['email'], userId: localId);
         //////////////////////////////////////////////
-        Navigator.push(context,
+        Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
 
 //      Navigator.push(
@@ -144,12 +144,8 @@ class _LoginScreenState extends State<LoginScreen> {
       try {
         Auth auth = new Auth();
         await auth.resetPassword(_authData['email']);
-      } catch (error) {
-        print(error);
-        const errorMessage = 'البريد الإلكتروني غير موجود';
-        _showErrorDialog(errorMessage);
-      }
-       Flushbar(
+        
+        Flushbar(
         message: 'تم ارسال تغير رابط كلمه المرور',
         icon: Icon(
           Icons.thumb_up,
@@ -161,6 +157,13 @@ class _LoginScreenState extends State<LoginScreen> {
         margin: EdgeInsets.all(8),
         borderRadius: 8,
       )..show(context);
+        
+      } catch (error) {
+        print(error);
+        const errorMessage = 'البريد الإلكتروني غير موجود';
+        _showErrorDialog(errorMessage);
+      }
+       
     }
        setState(() {
       _submitLoading=false;

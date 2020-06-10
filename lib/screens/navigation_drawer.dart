@@ -8,6 +8,7 @@ import 'package:Borhan_User/screens/login_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
@@ -192,12 +193,20 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             // child: data.userData2.userName==null? Text("M"):Text(data.userData2.userName.substring(0,1)),
 
             ////////////////////////////////////////////////////
-            accountName: userLoad==null? Text("User Name",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+            accountName: userLoad==null? Text("مرحبا بك ",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17 ,height: 0.5),)
             :Text( userLoad.userName , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-            accountEmail: userLoad==null? Text("User Email@MailServer.com " , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),)
+            accountEmail: userLoad==null? InkWell(
+              onTap: (){
+                Navigator.of(context).pop();
+              Navigator.pushNamed(context, '/Login');
+              },
+              child: Text("تسجيل الدخول / التسجيل " ,
+               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                ),
+               )
             :Text( userLoad.email, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
             currentAccountPicture: CircleAvatar(backgroundColor: Colors.black,
-            child: userLoad==null? Text("M"):Text(userLoad.userName.substring(0,1)),
+            child: userLoad==null? Icon(Icons.perm_identity ,size: 40,):Text(userLoad.userName.substring(0,1)),
             ),
           ),
           new ListTile(
@@ -249,18 +258,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
 
-          userLoad==null?
-          new ListTile(
-            title: const Text("تسجيل الدخول" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-            leading: new Icon(Icons.arrow_right),
-            onTap: (){
-              Navigator.of(context).pop();
-              Navigator.pushNamed(context, '/Login');
-            },
-          )
-          : new ListTile(
+         if(userLoad!=null)
+         new ListTile(
             title: const Text("تسجيل خروج" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-            leading: new Icon(Icons.arrow_left),
+            leading: new Icon(Icons.exit_to_app ),  // FontAwesomeIcons.signOutAlt
             onTap: (){
                      _showErrorDialog("هل تريد تسجيل الخروج");
                     

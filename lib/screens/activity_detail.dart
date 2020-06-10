@@ -1,6 +1,9 @@
 //import 'package:beautiful_list/model/lesson.dart';
 import 'package:Borhan_User/Animation/FadeAnimation.dart';
+import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
+import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -16,6 +19,42 @@ class _ActivityDetailsState extends State<ActivityDetails> {
   bool isFirstTime=true;
   String myTitle = "default title";
   ActivityNotifier  activityNotifier;
+
+   void _showErrorDialog(String message) {
+    print("alert");
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const  Text('تسجيل دخول'),
+        content: Text(message),
+        actions: <Widget>[
+          FlatButton(
+            child: const  Text('ليس الأن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },
+          ),
+          FlatButton(
+            child:const  Text('نعم'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pushNamed(context, '/Login');
+            },
+          ),
+        ],
+      ),
+    );
+  }
+Future<UserNav> loadSharedPrefs() async {
+    UserNav user;
+    try {
+     SharedPref sharedPref = SharedPref();
+       user = UserNav.fromJson(await sharedPref.read("user"));
+      } catch (Excepetion) {
+    // do something
+       }
+       return user;
+   } 
 
   @override
   Widget build(BuildContext context) {
@@ -109,9 +148,21 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                       1.9,
                       Builder(
                         builder: (ctx) => InkWell(
-                          onTap: () {
+                          onTap: ()async {
                           
-                              
+                   UserNav userLoad = await loadSharedPrefs();
+                    if(userLoad==null){
+                      print("user is not here");
+                      _showErrorDialog("برجاء تسجيل الدخول أولا ");
+                     }else{
+                       print("user is  here");
+                       Navigator.of(context).push(MaterialPageRoute(
+                        builder: (BuildContext context) {
+                      return NormalDenotationScreen();
+                      },
+                     ),
+                    );
+                     }
                           }
                             , // handle your onTap here
                           child: Center(

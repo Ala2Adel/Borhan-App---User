@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:Borhan_User/models/activities.dart';
+import 'package:Borhan_User/models/activity.dart';
 import 'package:Borhan_User/models/organization.dart';
 import 'package:flutter/material.dart';
 
@@ -70,8 +70,8 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
         loadedOrganizations.add(Activity(
             id: prodId,
 //            orgId: prodData['org_id'],
-            activityName: prodData['name'],
-            activityImage: prodData['image'],
+            name:  prodData['name'],
+            image: prodData['image'],
             description: prodData['description']));
 //        }
       });

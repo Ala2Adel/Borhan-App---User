@@ -304,7 +304,9 @@ Future<UserNav> loadSharedPrefs() async {
                        Navigator.of(context).push(MaterialPageRoute(
                         builder: (BuildContext context) {
                       return NormalDenotationScreen();
-                    }));
+                      },
+                     ),
+                    );
                      }
                                                         },
                                                         child: Text(

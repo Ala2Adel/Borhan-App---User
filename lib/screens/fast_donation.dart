@@ -1,4 +1,4 @@
-import 'package:Borhan_User/models/activities.dart';
+import 'package:Borhan_User/models/activity.dart';
 import 'package:Borhan_User/models/organization.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
@@ -167,7 +167,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
               donationAmount: amount,
               donationDate: arabicFormattedDateTime,
               donationType: selectedType,
-              activityName: selectedActivity.activityName,
+              activityName: selectedActivity.name,
               donatorAddress: _authData['address'],
               donatorItems: items,
               image: _downloadUrl,
@@ -309,8 +309,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
         loadedOrganizations.add(Activity(
             id: prodId,
 //            orgId: prodData['org_id'],
-            activityName: prodData['name'],
-            activityImage: prodData['image'],
+            name: prodData['name'],
+            image: prodData['image'],
             description: prodData['description']));
 //        }
       });
@@ -802,7 +802,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                                               //     width: 50.0),
                                                               Text(
                                                                 value
-                                                                    .activityName,
+                                                                    .name,
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .grey),
