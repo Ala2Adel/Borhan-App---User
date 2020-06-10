@@ -39,7 +39,19 @@ class _ExternalDonationState extends State<ExternalDonation> {
                       });
                     },
                   ),
-                  _isLoading ? Center( child: CircularProgressIndicator()) : Container(),
+                  _isLoading ? Column( 
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                     Center( child: CircularProgressIndicator(),
+                     ),Text('جاري توجيهك الى صفحة خارجية \n عن تطبيق برهان ',
+                     textAlign: TextAlign.center,
+                    
+                     style: TextStyle(
+                       backgroundColor: Colors.black54,
+                       color: Colors.white,
+                       fontSize: 25.0
+                       ),)
+                  ],) : Container(),
                 ],
               ),
             ),
