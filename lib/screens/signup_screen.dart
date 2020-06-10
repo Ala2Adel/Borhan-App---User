@@ -1,8 +1,11 @@
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
+
+import 'dart:io' show Platform;
 
 
 class SignupScreen  extends StatefulWidget {
@@ -32,7 +35,7 @@ class _SignupScreenState  extends State <SignupScreen > {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
+      builder: (ctx) =>(Platform.isAndroid)? AlertDialog(
         title: const  Text('حدث خطأ ما'),
         content: Text(message),
         actions: <Widget>[
@@ -42,6 +45,17 @@ class _SignupScreenState  extends State <SignupScreen > {
               Navigator.of(ctx).pop();
             },
           )
+        ],
+      ):
+      CupertinoAlertDialog(
+        title: const  Text('حدث خطأ ما'),
+        content: Text(message),
+        actions: <Widget>[
+          CupertinoDialogAction( child: const  Text('حسنا'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            }),
+         
         ],
       ),
     );

@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'dart:io' show Platform;
+
 class OrganizationActivity extends StatefulWidget {
   final id;
 
@@ -83,7 +85,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
+      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
         title: const  Text('تسجيل دخول'),
         content: Text(message),
         actions: <Widget>[
@@ -100,6 +102,21 @@ class _ActivityScreenState extends State<OrganizationActivity> {
               Navigator.pushNamed(context, '/Login');
             },
           ),
+        ],
+      ):
+      CupertinoAlertDialog(
+        title: const  Text('تسجيل دخول'),
+        content: Text(message),
+        actions: <Widget>[
+          CupertinoDialogAction( child: const  Text('ليس الأن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },),
+          CupertinoDialogAction(child:const  Text('نعم'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pushNamed(context, '/Login');
+            },)
         ],
       ),
     );

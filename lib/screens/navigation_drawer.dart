@@ -6,9 +6,11 @@ import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/login_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
+import 'dart:io' show Platform;
 
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 //GmailUserDetails gmailUser = new GmailUserDetails();
@@ -28,18 +30,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: Text('تسجيل خروج'),
+      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
+        title: const  Text('تسجيل خروج'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: Text('الغاء'),
+            child: const  Text('الغاء'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child: Text('نعم'),
+            child: const  Text('نعم'),
             onPressed: () {
               SharedPref sharedPref = SharedPref();
               sharedPref.remove("user");
@@ -47,6 +49,22 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
         ],
+      ):
+      CupertinoAlertDialog(
+       title: const  Text('تسجيل خروج'),
+        content: Text(message),
+        actions: <Widget>[
+          CupertinoDialogAction( child: const  Text('الغاء'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            }),
+          CupertinoDialogAction( child: const Text('نعم'),
+            onPressed: () {
+              SharedPref sharedPref = SharedPref();
+              sharedPref.remove("user");
+              Navigator.of(ctx).pop();
+            })
+        ], 
       ),
     ).then((value) => Navigator.of(context).pop());
   }
@@ -55,7 +73,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
+      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
         title: Text('تسجيل دخول'),
         content: Text(message),
         actions: <Widget>[
@@ -72,6 +90,21 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               Navigator.pushNamed(context, '/Login');
             },
           ),
+        ],
+      ):
+      CupertinoAlertDialog(
+         title: Text('تسجيل دخول'),
+        content: Text(message),
+        actions: <Widget>[
+          CupertinoDialogAction( child: Text('ليس الأن'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            },),
+          CupertinoDialogAction(child: Text('نعم'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              Navigator.pushNamed(context, '/Login');
+            },)
         ],
       ),
     );

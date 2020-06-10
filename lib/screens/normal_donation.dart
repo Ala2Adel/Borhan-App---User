@@ -2,6 +2,7 @@ import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -13,6 +14,8 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
+
+import 'dart:io' show Platform;
 
 class NormalDenotationScreen extends StatefulWidget {
   // This widget is the root of your application.
@@ -194,7 +197,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
+      builder: (ctx) =>(Platform.isAndroid)? AlertDialog(
         title: const Text('تحذير'),
         content: Text(message),
         actions: <Widget>[
@@ -204,6 +207,16 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
               Navigator.of(ctx).pop();
             },
           )
+        ],
+      ):
+      CupertinoAlertDialog(
+        title: const Text('تحذير'),
+        content: Text(message),
+        actions: <Widget>[
+          CupertinoDialogAction( child: const Text('حسنا'),
+            onPressed: () {
+              Navigator.of(ctx).pop();
+            })
         ],
       ),
     );

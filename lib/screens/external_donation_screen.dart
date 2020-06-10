@@ -1,5 +1,8 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -62,11 +65,11 @@ class _ExternalDonationState extends State<ExternalDonation> {
         Future<bool> _onBackPressed() {
            return showDialog(
     context: context,
-    builder: (context) => new AlertDialog(
+    builder: (context) => (Platform.isIOS)?  new AlertDialog(
       elevation: 25.0
       ,
-      title: new Text('الخروج'),
-      content: new Text('هل تريد الخروج من التبرعات الخارجية ؟'),
+      title: const Text('الخروج'),
+      content: const Text('هل تريد الخروج من التبرعات الخارجية ؟'),
       
       actions: <Widget>[
         
@@ -79,8 +82,21 @@ class _ExternalDonationState extends State<ExternalDonation> {
         SizedBox(width: 30),
         new GestureDetector(
           onTap: () => Navigator.of(context).pop(true),
-          child: Text("نعم",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
+          child: const Text("نعم",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
         ),
+      ],
+    ):CupertinoAlertDialog(
+
+      title: const Text('الخروج'),
+       content: const Text('هل تريد الخروج من التبرعات الخارجية ؟'),
+      actions: <Widget>[
+        
+CupertinoDialogAction(child: const Text("نعم",style: TextStyle(color: Colors.red,fontWeight: FontWeight.bold)),
+isDefaultAction: true,
+onPressed:() => Navigator.of(context).pop(true) ,),
+CupertinoDialogAction(child: const Text("لا"),
+onPressed:()=> Navigator.of(context).pop(false),)
+
       ],
     ),
   ) ??
