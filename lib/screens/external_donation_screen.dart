@@ -65,7 +65,7 @@ class _ExternalDonationState extends State<ExternalDonation> {
         Future<bool> _onBackPressed() {
            return showDialog(
     context: context,
-    builder: (context) => (Platform.isIOS)?  new AlertDialog(
+    builder: (context) => (Platform.isAndroid)?  new AlertDialog(
       elevation: 25.0
       ,
       title: const Text('الخروج'),
