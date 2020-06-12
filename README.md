@@ -1,4 +1,4 @@
-# BorhanAdmin
+# Borhan Users App
 
 Flutter Mobile Application to make it easy for users to donate to multiple charity organizations within the app.
 
