@@ -1,16 +1,32 @@
-# Borhan_User
+# Borhan Users App
 
-A new Flutter project.
+Flutter Mobile Application to make it easy for users to donate to multiple charity organizations within the app.
 
-## Getting Started
+# Application Features
 
-This project is a starting point for a Flutter application.
+- Create account and login
+- Donate to multiple charity organizations within the app 
+- Add charity activities to user favorites
+- My Donations screen whic shows the status of the user submitted donation requests
+- External donations through redirecting the user to external web page where he can donate online through JumiaPay.
+- Help and Support within the app through email or chatting within the app
 
-A few resources to get you started if this is your first Flutter project:
+# Technology Used
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- Frontend : Flutter
+- Backend  : Firebase
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+# Screenshots:
+![image](https://i.imgur.com/0SqhWfk.png) 
+![image](https://imgur.com/DkY7oyv) 
+![image](https://i.imgur.com/7NaZcEU.png) 
+![image](https://i.imgur.com/Bqs4G6p.png) 
+![image](https://i.imgur.com/v5Vh91e.png) 
+![image](https://i.imgur.com/BgJUnXE.png) 
+![image](https://i.imgur.com/uDk0CPV.png) 
+![image](https://i.imgur.com/HI5S3oY.png) 
+
+
+
+
+
