@@ -404,7 +404,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.purple[700],
+        // backgroundColor: Colors.purple[700],
         title: Container(
           alignment: Alignment.center,
           child: Text("التبرع السريع",
@@ -421,20 +421,21 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
               height: height,
               child: Stack(
                 children: <Widget>[
-                  Positioned(
-                    top: -height / 10,
-                    height: height,
-                    width: width,
-                    child: FadeAnimation(
-                        1,
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/background.png'),
-                                  fit: BoxFit.fill)),
-                        )),
-                  ),
+                  // Positioned(
+                  //   top: -height / 10,
+                  //   height: height,
+                  //   width: width,
+                  //   child: FadeAnimation(
+                  //       1,
+                  //       Container(
+                  //         decoration: BoxDecoration(
+                  //             image: DecorationImage(
+                  //                 image: AssetImage(
+                  //                     'assets/images/background.png'),
+                  //                 fit: BoxFit.fill)),
+                  //       ),
+                  //       ),
+                  // ),
                   Positioned(
                     height: height,
                     width: width,
@@ -445,7 +446,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                               image: DecorationImage(
                                   image: AssetImage(
                                       'assets/images/BorhanLogo3.png'),
-                                  fit: BoxFit.fill)),
+//                                  fit: BoxFit.fill
+                              )),
                         )),
                   ),
                 ],

@@ -9,12 +9,8 @@ import 'package:Borhan_User/screens/Help_organizations.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:Borhan_User/screens/email_organization.dart';
 import 'package:Borhan_User/screens/external_donation_screen.dart';
-import 'package:Borhan_User/screens/firebase_login_screen.dart';
-import 'package:Borhan_User/screens/firestore_chat_screen.dart';
-import 'package:Borhan_User/screens/google_signin.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
-import 'package:Borhan_User/screens/organization_activities.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
 import 'package:Borhan_User/screens/welcomeScreen.dart';
 import 'package:Borhan_User/providers/auth.dart';
@@ -22,19 +18,12 @@ import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/Notification_screen.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/profile_screen.dart';
-import 'package:Borhan_User/widgets/auth_form.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:Borhan_User/screens/login_screen.dart';
 import 'package:Borhan_User/screens/signup_screen.dart';
-
-import './screens/location_selection.dart';
 import 'notifiers/organization_notifier.dart';
-
-import 'package:Borhan_User/screens/fast_donation.dart';
-
-import 'models/campaign.dart';
 
 void main() => runApp(MyApp());
 
@@ -111,9 +100,9 @@ class MyApp extends StatelessWidget {
               ) 
             ),
             home:
-         
+
              WelcomeScreen(),
-           // LocationSelection()
+
 
             routes: {
 //      OrganizationDetails.routeName: (ctx) => OrganizationDetails(),

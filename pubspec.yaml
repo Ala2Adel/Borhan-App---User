@@ -93,12 +93,11 @@ flutter:
   # the material Icons class.
   uses-material-design: true
   assets:
-    - assets/burhan.jpg
-    - assets/BorhanLogo.png
-    - assets/BorhanFast.png
-    - assets/BorhanFast1.png
-    - assets/Borhan2.png
-    - assets/BorhanLogo2.png
+#    - assets/BorhanLogo.png
+#    - assets/BorhanFast.png
+#    - assets/BorhanFast1.png
+#    - assets/Borhan2.png
+#    - assets/BorhanLogo3.png
     - assets/images/
     - assets/offers/
     - assets/images/donation2.png
