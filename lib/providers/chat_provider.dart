@@ -1,4 +1,7 @@
 import 'dart:io';
+import 'package:Borhan_User/models/user_nav.dart';
+import 'package:Borhan_User/providers/shard_pref.dart';
+
 import '../models/chat.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -6,27 +9,49 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class ChatProvider with ChangeNotifier {
+  UserNav userLoad;
+
   List<Chat> _items = [];
 
   List<Chat> get items {
     return [..._items];
   }
 
+  loadSharedPrefs() async {
+    try {
+      SharedPref sharedPref = SharedPref();
+      UserNav user = UserNav.fromJson(await sharedPref.read("user"));
+      userLoad = user;
+    } catch (Excepetion) {
+      // do something
+    }
+  }
+
   Future<void> fetchAndSetChat(String id, String orgId) async {
+    print("From Fetch");
+    print(id);
+    print("----------");
+    print(orgId);
+//    await loadSharedPrefs();
+//    print("From fetch chat " + userLoad.toString());
+//    id = userLoad.id;
     //  id = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';
     final url = 'https://borhanadmin.firebaseio.com/chat/$orgId/$id.json';
     try {
+      print("--------------- try");
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final List<Chat> loadedChat = [];
       if (extractedData != null) {
+        print(extractedData);
+        print("====================== if ");
         extractedData.forEach((messageId, chatData) {
           loadedChat.insert(
               0,
               Chat(
                 id: messageId,
                 userName: chatData['name'],
-                userId: chatData['userId'],
+                userId: chatData['userId'].toString(),
                 text: chatData['text'],
                 img: chatData['image'],
               ));
@@ -46,7 +71,10 @@ class ChatProvider with ChangeNotifier {
   Future<void> addMessage(Chat chat, String id, String orgId) async {
     // id is the user id not admin
 //    id = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';
-    print('chat message add message '+ chat.text);
+//    await loadSharedPrefs();
+//    print("From fetch chat " + userLoad.toString());
+//    id = userLoad.id;
+    print('chat message add message ' + chat.text);
     final url = 'https://borhanadmin.firebaseio.com/chat/$orgId/$id.json';
     try {
       final response = await http.post(

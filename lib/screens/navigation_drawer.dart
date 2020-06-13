@@ -13,16 +13,17 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 
-GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
-//GmailUserDetails gmailUser = new GmailUserDetails();
+//GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 
+//GmailUserDetails gmailUser = new GmailUserDetails();
+//
 class NavigationDrawer extends StatefulWidget {
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
-  GoogleSignInAccount _currentUser;
+//  GoogleSignInAccount _currentUser;
 
   UsersPtovider usersPtovider;
   UserNav userLoad;
@@ -31,42 +32,46 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
-        title: const  Text('تسجيل خروج'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: const  Text('الغاء'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          ),
-          FlatButton(
-            child: const  Text('نعم'),
-            onPressed: () {
-              SharedPref sharedPref = SharedPref();
-              sharedPref.remove("user");
-              Navigator.of(ctx).pop();
-            },
-          ),
-        ],
-      ):
-      CupertinoAlertDialog(
-       title: const  Text('تسجيل خروج'),
-        content: Text(message),
-        actions: <Widget>[
-          CupertinoDialogAction( child: const  Text('الغاء'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            }),
-          CupertinoDialogAction( child: const Text('نعم'),
-            onPressed: () {
-              SharedPref sharedPref = SharedPref();
-              sharedPref.remove("user");
-              Navigator.of(ctx).pop();
-            })
-        ], 
-      ),
+      builder: (ctx) => (Platform.isAndroid)
+          ? AlertDialog(
+              title: const Text('تسجيل خروج'),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text('الغاء'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+                FlatButton(
+                  child: const Text('نعم'),
+                  onPressed: () {
+                    SharedPref sharedPref = SharedPref();
+                    sharedPref.remove("user");
+                    LoginScreen.googleSignIn.disconnect();
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+              ],
+            )
+          : CupertinoAlertDialog(
+              title: const Text('تسجيل خروج'),
+              content: Text(message),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                    child: const Text('الغاء'),
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    }),
+                CupertinoDialogAction(
+                    child: const Text('نعم'),
+                    onPressed: () {
+                      SharedPref sharedPref = SharedPref();
+                      sharedPref.remove("user");
+                      Navigator.of(ctx).pop();
+                    })
+              ],
+            ),
     ).then((value) => Navigator.of(context).pop());
   }
 
@@ -74,40 +79,45 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
-        title: Text('تسجيل دخول'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('ليس الأن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          ),
-          FlatButton(
-            child: Text('نعم'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              Navigator.pushNamed(context, '/Login');
-            },
-          ),
-        ],
-      ):
-      CupertinoAlertDialog(
-         title: Text('تسجيل دخول'),
-        content: Text(message),
-        actions: <Widget>[
-          CupertinoDialogAction( child: Text('ليس الأن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },),
-          CupertinoDialogAction(child: Text('نعم'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              Navigator.pushNamed(context, '/Login');
-            },)
-        ],
-      ),
+      builder: (ctx) => (Platform.isAndroid)
+          ? AlertDialog(
+              title: Text('تسجيل دخول'),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: Text('ليس الأن'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+                FlatButton(
+                  child: Text('نعم'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    Navigator.pushNamed(context, '/Login');
+                  },
+                ),
+              ],
+            )
+          : CupertinoAlertDialog(
+              title: Text('تسجيل دخول'),
+              content: Text(message),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: Text('ليس الأن'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: Text('نعم'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    Navigator.pushNamed(context, '/Login');
+                  },
+                )
+              ],
+            ),
     );
   }
 
@@ -141,33 +151,33 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    if (_currentUser != null) {
-      _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-        setState(() {
-          _currentUser = account;
-        });
-      });
-      _googleSignIn.signInSilently();
-      Provider.of<GoogleProvider>(context).handleSignIn();
-
-      print("mygmail is " + _currentUser.email);
-    }
+//    if (_currentUser != null) {
+//      _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+//        setState(() {
+//          _currentUser = account;
+//        });
+//      });
+//      _googleSignIn.signInSilently();
+//      Provider.of<GoogleProvider>(context).handleSignIn();
+//
+//      print("mygmail is " + _currentUser.email);
+//    }
   }
 
   @override
   void initState() {
     super.initState();
 //    print("Hi Welcome" + LoginScreen.userName.toString());
-    if (_currentUser != null) {
-      _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-        setState(() {
-          _currentUser = account;
-        });
-      });
-      _googleSignIn.signInSilently();
-      print("mygmail is " + _currentUser.email);
-    }
-    usersPtovider = Provider.of<UsersPtovider>(context, listen: false);
+//    if (_currentUser != null) {
+//      _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+//        setState(() {
+//          _currentUser = account;
+//        });
+//      });
+//      _googleSignIn.signInSilently();
+//      print("mygmail is " + _currentUser.email);
+//    }
+//    usersPtovider = Provider.of<UsersPtovider>(context, listen: false);
     loadSharedPrefs();
   }
 
@@ -182,9 +192,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     return Drawer(
       child: new ListView(
         children: <Widget>[
-
           UserAccountsDrawerHeader(
-
             // accountName: data.userData2.userName==null? Text("User Name ")
             // :Text( data.userData2.userName),
             // accountEmail: data.userData2.email==null? Text("User Email@MailServer.com ")
@@ -193,30 +201,54 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             // child: data.userData2.userName==null? Text("M"):Text(data.userData2.userName.substring(0,1)),
 
             ////////////////////////////////////////////////////
-            accountName: userLoad==null? Text("مرحبا بك ",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 17 ,height: 0.5),)
-            :Text( userLoad.userName , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
-            accountEmail: userLoad==null? InkWell(
-              onTap: (){
-                Navigator.of(context).pop();
-              Navigator.pushNamed(context, '/Login');
-              },
-              child: Text("تسجيل الدخول / التسجيل " ,
-               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                ),
-               )
-            :Text( userLoad.email, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            currentAccountPicture: CircleAvatar(backgroundColor: Colors.black,
-            child: userLoad==null? Icon(Icons.perm_identity ,size: 40,):Text(userLoad.userName.substring(0,1)),
+            accountName: userLoad == null
+                ? Text(
+                    "مرحبا بك ",
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 17, height: 0.5),
+                  )
+                : Text(
+                    userLoad.userName,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
+                  ),
+            accountEmail: userLoad == null
+                ? InkWell(
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      Navigator.pushNamed(context, '/Login');
+                    },
+                    child: Text(
+                      "تسجيل الدخول / التسجيل ",
+                      style:
+                          TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                  )
+                : Text(userLoad.email,
+                    style:
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+            currentAccountPicture: CircleAvatar(
+              backgroundColor: Colors.black,
+              child: userLoad == null
+                  ? Icon(
+                      Icons.perm_identity,
+                      size: 40,
+                    )
+                  : Text(userLoad.userName.substring(0, 1)),
             ),
           ),
           new ListTile(
-
-            title: const Text("الرئيسية" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text(
+              "الرئيسية",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             leading: new Icon(Icons.home),
             onTap: () => Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
-            title: const Text("المفضلة", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text(
+              "المفضلة",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             leading: new Icon(Icons.favorite),
             onTap: () {
               Navigator.of(context).pop();
@@ -224,7 +256,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
           new ListTile(
-            title: const Text("الإشعارات" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text(
+              "الإشعارات",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             leading: new Icon(Icons.notifications),
             onTap: () {
               Navigator.of(context).pop();
@@ -232,7 +267,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
           new ListTile(
-            title: const Text("تبرعاتي" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text(
+              "تبرعاتي",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             leading: new Icon(Icons.drag_handle),
             onTap: () async {
               UserNav userLoad = await loadSharedPrefs();
@@ -250,7 +288,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
           new ListTile(
-            title: const Text("التبرعات الخارجية" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text(
+              "التبرعات الخارجية",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             leading: new Icon(Icons.account_balance_wallet),
             onTap: () {
               Navigator.of(context).pop();
@@ -258,16 +299,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
 
-         if(userLoad!=null)
-         new ListTile(
-            title: const Text("تسجيل خروج" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-            leading: new Icon(Icons.exit_to_app ),  // FontAwesomeIcons.signOutAlt
-            onTap: (){
-                     _showErrorDialog("هل تريد تسجيل الخروج");
-                    
-                    },
-          )
-          ,
+          if (userLoad != null)
+            new ListTile(
+              title: const Text(
+                "تسجيل خروج",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              ),
+              leading:
+                  new Icon(Icons.exit_to_app), // FontAwesomeIcons.signOutAlt
+              onTap: () {
+                _showErrorDialog("هل تريد تسجيل الخروج");
+              },
+            ),
           // new ListTile(
           //   title: new Text("ملفي"),
           //   leading: new Icon(Icons.people),
@@ -275,7 +318,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           // ),
           Divider(),
           new ListTile(
-            title: const Text("الدعم و المساعدة" , style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            title: const Text(
+              "الدعم و المساعدة",
+              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            ),
             leading: new Icon(Icons.help),
             onTap: () {
               Navigator.of(context).pop();

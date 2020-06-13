@@ -77,9 +77,9 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/images/BorhanLogo3.png"
+  image_path: "assets/images/borhanLogoWhite.png"
   adaptive_icon_background: "#191919"
-  adaptive_icon_foreground: "assets/images/BorhanLogo3.png"
+  adaptive_icon_foreground: "assets/images/borhanLogoWhite.png"
 
 
 # For information on the generic Dart part of this file, see the
