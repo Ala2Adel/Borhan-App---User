@@ -652,7 +652,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         padding:
                                            const  EdgeInsets.fromLTRB(10, 5, 10, 0),
                                         child: Text(
-                                          'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
+                                          'اكتب الوقت الذى تكون فيه متاح لكي يأتي مندوبنا اليك',
                                           style: TextStyle(
                                               fontSize: 17,
                                               height: 1,
