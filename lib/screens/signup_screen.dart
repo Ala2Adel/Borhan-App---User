@@ -17,7 +17,7 @@ class SignupScreen  extends StatefulWidget {
 
 class _SignupScreenState  extends State <SignupScreen > {
 
-   var _submitLoading = false;  
+  var _submitLoading = false;
   Map<String, String> _authData = {
     'name': '',
     'email': '',
@@ -54,10 +54,10 @@ class _SignupScreenState  extends State <SignupScreen > {
         content: Text(message),
         actions: <Widget>[
           CupertinoDialogAction( child: const  Text('حسنا'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            }),
-         
+              onPressed: () {
+                Navigator.of(ctx).pop();
+              }),
+
         ],
       ),
     );
@@ -69,14 +69,14 @@ class _SignupScreenState  extends State <SignupScreen > {
       return;
     }
     _formKey.currentState.save();
-     
-     setState(() {
+
+    setState(() {
       _submitLoading=true;
     });
 
     try {
       // Log user in
-     String localId= await Provider.of<Auth>(context, listen: false).signup(
+      String localId= await Provider.of<Auth>(context, listen: false).signup(
         _authData['email'],
         _authData['password'],
       );
@@ -91,8 +91,8 @@ class _SignupScreenState  extends State <SignupScreen > {
         _authData['email'],
         _authData['password'],
       );
-      
-       Flushbar(
+
+      Flushbar(
         message: 'تم تسيجل البريد الالكترونى بنجاح',
         icon: Icon(
           Icons.thumb_up,
@@ -114,7 +114,7 @@ class _SignupScreenState  extends State <SignupScreen > {
 //      Navigator.push(
 //          context, MaterialPageRoute(builder: (context) => Home()));
 
-     //Navigator.of(context).pushReplacementNamed('/Login');
+      //Navigator.of(context).pushReplacementNamed('/Login');
     }
 
     catch (error) {
@@ -123,7 +123,7 @@ class _SignupScreenState  extends State <SignupScreen > {
           'البريد الإلكتروني موجود بالفعل ';
       _showErrorDialog(errorMessage);
     }
-     setState(() {
+    setState(() {
       _submitLoading=false;
     });
   }
@@ -185,9 +185,9 @@ class _SignupScreenState  extends State <SignupScreen > {
 //                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   FadeAnimation(1.5,
-                      Text("تسجيل حساب",
-                        style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1),
-                            fontWeight: FontWeight.bold, fontSize: 30),
+                    Text("تسجيل حساب",
+                      style: TextStyle(color: Color.fromRGBO(49, 39, 79, 1),
+                          fontWeight: FontWeight.bold, fontSize: 30),
                     ),
                   ),
                   SizedBox(height: 10,),
@@ -338,11 +338,11 @@ class _SignupScreenState  extends State <SignupScreen > {
                   SizedBox(height: 30,),
                   FadeAnimation(1.9, InkWell(
                     onTap: () {
-                                if(!_submitLoading){
-                                   _submit();
-                                }
-                                  
-                              }, // handle your onTap here
+                      if(!_submitLoading){
+                        _submit();
+                      }
+
+                    }, // handle your onTap here
                     child: Container(
                       height: 40,
                       margin: EdgeInsets.symmetric(horizontal: .25*width),
@@ -351,21 +351,21 @@ class _SignupScreenState  extends State <SignupScreen > {
                         color: Color.fromRGBO(49, 39, 79, 1),
                       ),
                       child: Center(
-                        child:_submitLoading==false? 
-                              Text("تسجيل حساب", style: TextStyle(color: Colors.white),
-                              ):CircularProgressIndicator(),
+                        child:_submitLoading==false?
+                        Text("تسجيل حساب", style: TextStyle(color: Colors.white),
+                        ):CircularProgressIndicator(),
                       ),
                     ),
-                   ),
                   ),
-                
+                  ),
+
                   SizedBox(height: 10,),
                   FadeAnimation(2, Padding(
                     padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                     child: Center(
                       child: FlatButton(
                         child: const  Text("أمتلك حساب",
-                        style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6),
+                          style: TextStyle(color: Color.fromRGBO(49, 39, 79, .6),
                           ),
                         ),
                         onPressed: ()=>Navigator.pushReplacementNamed(context, '/Login'),
@@ -382,5 +382,4 @@ class _SignupScreenState  extends State <SignupScreen > {
     );
   }
 }
-
 

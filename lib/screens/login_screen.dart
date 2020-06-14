@@ -26,12 +26,13 @@ class LoginScreen extends StatefulWidget {
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
    var _submitLoading = false;  
   Map<String, String> _authData = {
     'email': '',
     'password': '',
   };
+
   AuthMode _authMode = AuthMode.Login;
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _passwordController = TextEditingController();
@@ -50,10 +51,8 @@ class _LoginScreenState extends State<LoginScreen> {
       LoginScreen.userName = _currentUser.displayName;
       LoginScreen.gmail = _currentUser.email;
     }
-//    GmailUserDetails.userName = _currentUser.displayName;
-//    user.userName=_currentUser.displayName;
-//    user.gmail=_currentUser.email;
-//    GmailUserDetails.gmail = _currentUser.email;
+
+
   }
 
   @override

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:Borhan_User/Animation/FadeAnimation.dart';
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
@@ -238,59 +239,60 @@ Future<UserNav> loadSharedPrefs() async {
                 return CampaignDetail();
               }));
             },
-            child: new Container(
-              decoration: new BoxDecoration(
-                // shape: BoxShape.circle,
-                borderRadius: new BorderRadius.circular(10.0),
-                color: Colors.purple[100],
-                boxShadow: [
-                  new BoxShadow(
-                      color: Colors.blueGrey.withAlpha(100),
-                      offset: const Offset(3.0, 10.0),
-                      blurRadius: 10.0)
-                ],
+            child:  FadeAnimation(1, Container(
+                decoration: new BoxDecoration(
+                  // shape: BoxShape.circle,
+                  borderRadius: new BorderRadius.circular(10.0),
+                  color: Colors.purple[100],
+                  boxShadow: [
+                    new BoxShadow(
+                        color: Colors.blueGrey.withAlpha(100),
+                        offset: const Offset(3.0, 10.0),
+                        blurRadius: 10.0)
+                  ],
 
-                image: new DecorationImage(
-                  image: new NetworkImage(
-                      campaignNotifier.campaignList[index].imagesUrl),
-                  fit: BoxFit.fill,
+                  image: new DecorationImage(
+                    image: new NetworkImage(
+                        campaignNotifier.campaignList[index].imagesUrl),
+                    fit: BoxFit.fill,
+                  ),
                 ),
-              ),
-              // height: 200.0,
-              width: 150.0,
-              child: new Stack(
-                children: <Widget>[
-                  new Align(
-                    alignment: Alignment.bottomCenter,
-                    child: new Container(
-                      margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
-                      decoration: new BoxDecoration(
-                          color: Colors.purple[300],
-                          borderRadius: new BorderRadius.only(
-                              bottomLeft: new Radius.circular(10.0),
-                              bottomRight: new Radius.circular(10.0))),
-                      height: 35.0,
-                      child: new Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Flexible(
-                            child: new Container(
-                              child: new Text(
-                                campaignNotifier
-                                    .campaignList[index].campaignName,
-                                overflow: TextOverflow.ellipsis,
-                                style: new TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20,
+                // height: 200.0,
+                width: 150.0,
+                child: new Stack(
+                  children: <Widget>[
+                    new Align(
+                      alignment: Alignment.bottomCenter,
+                      child: new Container(
+                        margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
+                        decoration: new BoxDecoration(
+                            color: Colors.purple[300],
+                            borderRadius: new BorderRadius.only(
+                                bottomLeft: new Radius.circular(10.0),
+                                bottomRight: new Radius.circular(10.0))),
+                        height: 35.0,
+                        child: new Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Flexible(
+                              child: new Container(
+                                child: new Text(
+                                  campaignNotifier
+                                      .campaignList[index].campaignName,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: new TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                ],
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -339,7 +341,7 @@ Future<UserNav> loadSharedPrefs() async {
 //                        ),
 
                     new Container(
-                      height: 180.0,
+                      height: 190.0,
                       child: new Carousel(
                         boxFit: BoxFit.cover,
                         images: [
@@ -351,7 +353,7 @@ Future<UserNav> loadSharedPrefs() async {
                         ],
                         autoplay: true,
                         animationCurve: Curves.fastLinearToSlowEaseIn,
-                        animationDuration: Duration(milliseconds: 1500),
+                        animationDuration: Duration(milliseconds: 2000),
                         dotSize: 4.0,
                         indicatorBgPadding: 2.0,
                       ),
@@ -397,7 +399,7 @@ Future<UserNav> loadSharedPrefs() async {
                               child: Text(
                                 'تبرع الآن',
                                 style: TextStyle(
-                                    fontSize: 20.0, color: Colors.white),
+                                    fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white),
                               ),
                             ),
                           ],
@@ -425,41 +427,42 @@ Future<UserNav> loadSharedPrefs() async {
                                         // CrossAxisAlignment.start,
                                          CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      Container(
-                                        // height: 110,
-                                        // width: 110,
-                                        height: 100,
-                                        width: 100,
-                                        decoration: new BoxDecoration(
-                                            // shape: BoxShape.circle,
-                                            borderRadius:
-                                                BorderRadius.circular(5),
-                                            color: Colors.lightBlueAccent,
-                                            boxShadow: [
-                                              new BoxShadow(
-                                                  color: Colors.blueGrey
-                                                      .withAlpha(70),
-                                                  offset:
-                                                      const Offset(2.0, 2.0),
-                                                  blurRadius: 2.0)
-                                            ],
-                                            image: new DecorationImage(
-                                              image: orgNotifier
-                                                              .orgList[index]
-                                                              .logo !=
-                                                          null &&
-                                                      orgNotifier
-                                                              .orgList[index]
-                                                              .logo !=
-                                                          ""
-                                                  ? new NetworkImage(
-                                                      orgNotifier
-                                                          .orgList[index]
-                                                          .logo)
-                                                  : NetworkImage(
-                                                      'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
-                                              fit: BoxFit.cover,
-                                            )),
+                                      FadeAnimation(2, Container(
+                                          // height: 110,
+                                          // width: 110,
+                                          height: 100,
+                                          width: 100,
+                                          decoration: new BoxDecoration(
+                                              // shape: BoxShape.circle,
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                              color: Colors.purple[300],
+                                              boxShadow: [
+                                                new BoxShadow(
+                                                    color: Colors.blueGrey
+                                                        .withAlpha(70),
+                                                    offset:
+                                                        const Offset(2.0, 2.0),
+                                                    blurRadius: 2.0)
+                                              ],
+                                              image: new DecorationImage(
+                                                image: orgNotifier
+                                                                .orgList[index]
+                                                                .logo !=
+                                                            null &&
+                                                        orgNotifier
+                                                                .orgList[index]
+                                                                .logo !=
+                                                            ""
+                                                    ? new NetworkImage(
+                                                        orgNotifier
+                                                            .orgList[index]
+                                                            .logo)
+                                                    : NetworkImage(
+                                                        'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
+                                                fit: BoxFit.cover,
+                                              )),
+                                        ),
                                       ),
                                       new SizedBox(
                                         width: 10.0,
@@ -471,27 +474,31 @@ Future<UserNav> loadSharedPrefs() async {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-                                          new Text(
-                                            orgNotifier.orgList[index]
-                                                        .orgName !=
-                                                    null
-                                                ? orgNotifier
-                                                    .orgList[index].orgName
-                                                : 'no value',
-                                            style: new TextStyle(
-                                                fontSize: 18.0,
-                                                color: Colors.white,
-                                                fontWeight: FontWeight.bold),
+                                           FadeAnimation( 1.3,
+                                              Text(
+                                              orgNotifier.orgList[index]
+                                                          .orgName !=
+                                                      null
+                                                  ? orgNotifier
+                                                      .orgList[index].orgName
+                                                  : 'no value',
+                                              style: new TextStyle(
+                                                  fontSize: 18.0,
+                                                  color: Colors.white,
+                                                  fontWeight: FontWeight.bold),
                                           ),
-                                          new Text(
-                                            orgNotifier
-                                                .orgList[index].description,
-                                            style: new TextStyle(
-                                                fontSize: 16.0,
-                                                color: Colors.white,
-                                                fontWeight:
-                                                    FontWeight.normal),
+                                           ),
+                                           FadeAnimation(1.3,
+                                             Text(
+                                              orgNotifier
+                                                  .orgList[index].description,
+                                              style: new TextStyle(
+                                                  fontSize: 16.0,
+                                                  color: Colors.white,
+                                                  fontWeight:
+                                                      FontWeight.normal),
                                           ),
+                                           ),
                                           Wrap(
                                             // spacing: 15.0,
                                             spacing: 10.0,

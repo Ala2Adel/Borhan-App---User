@@ -45,12 +45,9 @@
 //  }
 //}
 
-
 import 'dart:async';
-
-import 'package:flare_splash_screen/flare_splash_screen.dart';
+import 'package:Borhan_User/screens/overview_screen.dart';
 import 'package:flutter/material.dart';
-import 'overview_screen.dart';
 
 class WelcomeScreen extends StatefulWidget {
   @override
@@ -60,24 +57,31 @@ class WelcomeScreen extends StatefulWidget {
 class _WelcomeScreenState extends State<WelcomeScreen> {
 
   @override
+  void initState() {
+    super.initState();
+
+    Timer(
+        Duration(seconds: 4),
+            () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (BuildContext context) => OrgOverviewScreen())));
+  }
+
+  @override
   Widget build(BuildContext context) {
-      String asset = 'assets/images/HexaRotation.flr';
-      var _size = MediaQuery.of(context).size;
-
-      return SplashScreen.callback(
-        name: asset,
-        onSuccess: (_){
-          
-          Navigator.of(context).push(MaterialPageRoute(builder:(context) => OrgOverviewScreen() ));
-        },
-        onError: (e,s) {},
-        height: _size.height,
-        startAnimation: '0',
-        endAnimation: '20',
-        loopAnimation: 'untitled',
-        backgroundColor: Colors.purple[100],
-        until: () => Future.delayed(Duration(milliseconds: 20)),
-
-      );
+    return Scaffold(
+      // backgroundColor: Color.fromRGBO(43, 41, 104, 0.5),
+      backgroundColor: Colors.purple[50],
+      body: Padding(
+        padding: const EdgeInsets.all(15),
+        child: Center(
+          child: Image.asset(
+            'assets/images/BorhanLogo3.png',
+            // width: MediaQuery.of(context).size.width,
+            // height: MediaQuery.of(context).size.height,
+            fit: BoxFit.fill,
+          ),
+        ),
+      ),
+    );
   }
 }
