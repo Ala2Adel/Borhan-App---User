@@ -24,7 +24,7 @@ class CampaignNotifier with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      // print((response.body));
+     
       final List<Campaign> loadedCampaigns = [];
       if (extractedData != null) {
         extractedData.forEach((prodId, prodData) {

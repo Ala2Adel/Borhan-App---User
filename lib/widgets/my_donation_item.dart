@@ -23,7 +23,7 @@ class MyDonationItem extends StatelessWidget {
     print('donationAmount' + donationAmount);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-//      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
       children: <Widget>[
         Container(
           child: orgName != '' && orgName != null

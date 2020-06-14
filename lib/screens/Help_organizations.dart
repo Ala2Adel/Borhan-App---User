@@ -1,7 +1,5 @@
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
-import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
-import 'package:Borhan_User/screens/firestore_chat_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,15 +12,13 @@ class HelpOrganization extends StatefulWidget {
 class _HelpOrganizationState extends State<HelpOrganization> {
   var _isInit = true;
   var _isLoading = false;
-//  String currentUserId = '1212145f';
-//String currentUserId ='M8CoA0TH86hmKSikh1K';
+
   @override
   void didChangeDependencies() {
     if (_isInit) {
       Provider.of<OrganizationNotifier>(context)
           .getOrganizations()
           .then((_) => {
-                print('from provider'),
                 setState(() {
                   _isLoading = false;
                 }),
@@ -39,6 +35,7 @@ class _HelpOrganizationState extends State<HelpOrganization> {
         title: const Text('المحادثات'),
       ),
       body: WillPopScope(
+        onWillPop: () async => true,
         child: Stack(
           children: <Widget>[
             Container(
@@ -47,7 +44,7 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                       child: CircularProgressIndicator(),
                     )
                   : ListView.builder(
-                      padding: EdgeInsets.all(10.0),
+                      padding: const EdgeInsets.all(10.0),
                       itemBuilder: (context, index) => buildItem(
                           context,
                           allUsers.orgList[index].orgName,
@@ -67,7 +64,6 @@ class _HelpOrganizationState extends State<HelpOrganization> {
     if (orgName == null) {
       return Container();
     } else {
-//      print("documents"+documents.toString());
       return Container(
         child: FlatButton(
           child: Row(
@@ -99,11 +95,11 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                           style: TextStyle(color: Colors.teal),
                         ),
                         alignment: Alignment.centerRight,
-                        margin: const  EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 5.0),
+                        margin: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 5.0),
                       ),
                     ],
                   ),
-                  margin: const  EdgeInsets.only(left: 20.0),
+                  margin: const EdgeInsets.only(left: 20.0),
                 ),
               ),
             ],
@@ -113,13 +109,12 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => ChatScreen(orgId: orgId)));
-//                    builder: (context) => FirestoreChatScreen()));
           },
-          padding: const  EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
+          padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ),
-        margin: const  EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
+        margin: const EdgeInsets.only(bottom: 10.0, left: 5.0, right: 5.0),
       );
     }
   }

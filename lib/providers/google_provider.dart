@@ -4,7 +4,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 
 class GoogleProvider with ChangeNotifier {
-  GoogleSignInAccount _currentUser;
+  
 
   Future<void> handleSignIn() async {
     try {

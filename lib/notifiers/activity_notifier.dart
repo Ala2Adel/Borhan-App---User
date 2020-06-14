@@ -35,7 +35,7 @@ class ActivityNotifier with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      // print((response.body));
+    
       final List<Activity> loadedActivity = [];
       extractedData.forEach((prodId, prodData) {
         loadedActivity.add(Activity(
@@ -60,7 +60,7 @@ class ActivityNotifier with ChangeNotifier {
       String pickedImage,
       String id,
       ) {
-    print('from adding');
+ 
     final newActivity = Activity(
       id: id,
       name: pickedTitle,
@@ -87,15 +87,13 @@ class ActivityNotifier with ChangeNotifier {
       image: item['image'],
     ))
         .toList();
-    print('from fetch');
-    print(dataList);
+  
     notifyListeners();
   }
 
   void deleteFavorite(Activity activity) {
     print('from deleting');
-    print(activity);
-    print('*******************************************');
+    
     _fav.remove(activity);
     notifyListeners();
     DBHelper.delete('activity_fav', activity.id);

@@ -7,37 +7,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
-import 'package:toast/toast.dart';
 import '../Animation/FadeAnimation.dart';
 import 'dart:core';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-
 import 'package:image_picker/image_picker.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'dart:io';
 import 'package:intl/date_symbol_data_local.dart';
 import 'dart:io' show Platform;
 
-//extension IndexedIterable<E> on Iterable<E> {
-//  Iterable<T> mapIndexed<T>(T f(E e, int i)) {
-//    var i = 0;
-//    return this.map((e) => f(e, i++));
-//  }
-//}
-//enum DenotationMode { Monetary , Eyes}
-
-class FastDenotationScreen extends StatefulWidget {
-  // This widget is the root of your application.
+class FastDonationScreen extends StatefulWidget {
   @override
-  _FastDenotationScreenState createState() => _FastDenotationScreenState();
+  _FastDonationScreenState createState() => _FastDonationScreenState();
 }
 
-class _FastDenotationScreenState extends State<FastDenotationScreen> {
+class _FastDonationScreenState extends State<FastDonationScreen> {
   String selectedType;
   Future formatDates;
-  // Organization  selectedOraginzaton;
+
   var selectedOraginzaton;
   Activity selectedActivity;
   var _loading = false;
@@ -58,7 +47,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     'عينى',
     'نقدى وعينى',
   ];
-  // DenotationMode _denotationMode = DenotationMode.Eyes;
+
   List<IconData> _denoteIcons = <IconData>[
     FontAwesomeIcons.moneyBill,
     FontAwesomeIcons.eye,
@@ -101,19 +90,16 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
         current++;
       }
     }
-    // print("the current is $current");
+
     setState(() {
       checkCurrent();
     });
   }
 
   Future<void> _submit(BuildContext context) async {
-    print("Container pressed");
-
     String amount = _authData['amount'];
     String items = _authData['items'];
 
-    // Scaffold.of(ctx).showSnackBar(SnackBar(content: Text('Profile Save'),),);
     if (!_formKey.currentState.validate()) {
       // Invalid!
       return;
@@ -126,14 +112,12 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
 
     _formKey.currentState.save();
 
-   
     setState(() {
-      _submitLoading=true;
+      _submitLoading = true;
     });
 
     if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
-      print("value from upload" + _downloadUrl);
       if (selectedType == 'عينى') {
         amount = "";
       }
@@ -143,20 +127,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
           'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
 
-//    initializeDateFormatting('de_DE', null).then(formatDates);
     var arabicTimeFormat = DateFormat.Hms('ar');
     var arabicDateFormat = DateFormat.yMd('ar');
 
     String formattedTime = arabicTimeFormat.format(DateTime.now());
     String formattedDate = arabicDateFormat.format(DateTime.now());
     String arabicFormattedDateTime = formattedTime + ' ' + formattedDate;
-//    DateTime now = DateTime.now();
-//    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
-    //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
-    print(formattedDate);
-    print(formattedTime);
 
-    print(arabicFormattedDateTime);
     final data = Provider.of<Auth>(context);
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
@@ -174,18 +151,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
               orgName: _orgList[selectedOraginzaton].orgName,
               mobile: _authData['mobile'],
               userName: _authData['name']);
-////////////////////////////////////////////////////////////////////
-      //  final snackBar = SnackBar(
-      //     content: Text(
-      //   'تم ارسال طلب تبرعك بنجاح',
-      //   style: TextStyle(color: Color(0xff11b719)),
-      //  ));
-      //    Scaffold.of(context).showSnackBar(snackBar);
-      //   Navigator.of(context).pop();
-/////////////////////////////////////////////////////////////////
-
-     
-
       Flushbar(
         message: 'تم ارسال طلب تبرعك بنجاح',
         icon: Icon(
@@ -194,35 +159,22 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
           color: Colors.blue[300],
         ),
         duration: Duration(seconds: 3),
-        //leftBarIndicatorColor: Colors.blue[300],
         margin: EdgeInsets.all(8),
         borderRadius: 8,
-      )..show(context)  //;
-      .then((value) => Navigator.of(context).pop());
+      )..show(context) //;
+          .then((value) => Navigator.of(context).pop());
     } catch (error) {
       print(error);
       const errorMessage = ' حدث خطا ما';
       _showErrorDialog(errorMessage);
     }
-      setState(() {
-      _submitLoading=false;
+    setState(() {
+      _submitLoading = false;
     });
-   
   }
 
   final GlobalKey<FormState> _formKey = GlobalKey();
   final globalKey = GlobalKey<ScaffoldState>();
-//  void _switchDenotationMode() {
-//    if (_denotationMode == DenotationMode.Eyes) {
-//      setState(() {
-//        _denotationMode = DenotationMode.Monetary;
-//      });
-//    } else {
-//      setState(() {
-//        _denotationMode = DenotationMode.Eyes;
-//      });
-//    }
-//  }
   var _isLoadImg = false;
   File _image;
   String _downloadUrl;
@@ -235,7 +187,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
         _image = img;
         _isLoadImg = true;
       } else {
-        // _image = img;
         if (_image != null) {
           _isLoadImg = true;
         } else {
@@ -246,50 +197,46 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
   }
 
   Future<String> uploadImage(File image) async {
-    print("upload ");
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child(image.path.split('/').last);
     StorageUploadTask uploadTask = storageReference.putFile(image);
     await uploadTask.onComplete;
-    print('File Uploaded sucessfully ');
+
     String _downloadUrl = await storageReference.getDownloadURL();
-    print('----------------------------------------------------------');
-    print(" uploading URL :  " + _downloadUrl);
-    print('----------------------------------------------------------');
+
     return _downloadUrl;
   }
 
   void _showErrorDialog(String message) {
-    print("alert");
     showDialog(
-      context: context,
-      builder: (ctx) =>(Platform.isAndroid)? AlertDialog(
-        title: Text('تحذير'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: Text('حسنا'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ):CupertinoAlertDialog(
-        title: const  Text('تحذير'),
-              content: Text(message),
-              actions: <Widget>[
-                CupertinoDialogAction(
-                  child: const Text("حسنا"),
-                  isDefaultAction: true,
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-
-                   
-                  },
-      )]
-      ,
-    )
-    );}
+        context: context,
+        builder: (ctx) => (Platform.isAndroid)
+            ? AlertDialog(
+                title: Text('تحذير'),
+                content: Text(message),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text('حسنا'),
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                  )
+                ],
+              )
+            : CupertinoAlertDialog(
+                title: const Text('تحذير'),
+                content: Text(message),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                    child: const Text("حسنا"),
+                    isDefaultAction: true,
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    },
+                  )
+                ],
+              ));
+  }
 
   Future<void> getActivites(String orgId) async {
     _loading = true;
@@ -300,25 +247,19 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      //  print((response.body));
+
       final List<Activity> loadedOrganizations = [];
       extractedData.forEach((prodId, prodData) {
-//        if(selectedOraginzaton.id==prodData['org_id'])
-//        if(  _orgList[selectedOraginzaton].id==prodData['org_id'])
-//        {
         loadedOrganizations.add(Activity(
             id: prodId,
-//            orgId: prodData['org_id'],
             name: prodData['name'],
             image: prodData['image'],
             description: prodData['description']));
-//        }
       });
       _loading = false;
       setState(() {
         _activitesList = loadedOrganizations;
       });
-      // notifyListeners();
     } catch (error) {
       throw (error);
     }
@@ -330,7 +271,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      print((response.body));
+
       final List<Organization> loadedOrganizations = [];
       extractedData.forEach((prodId, prodData) {
         loadedOrganizations.add(Organization(
@@ -350,7 +291,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
       setState(() {
         _orgList = loadedOrganizations;
       });
-      // notifyListeners();
     } catch (error) {
       throw (error);
     }
@@ -391,20 +331,13 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
   }
 
   @override
-  void didChangeDependencies() {
-//    this.getOrganizations();
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height * (2 / 7);
-    // TODO: implement build
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        // backgroundColor: Colors.purple[700],
         title: Container(
           alignment: Alignment.center,
           child: Text("التبرع السريع",
@@ -421,21 +354,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
               height: height,
               child: Stack(
                 children: <Widget>[
-                  // Positioned(
-                  //   top: -height / 10,
-                  //   height: height,
-                  //   width: width,
-                  //   child: FadeAnimation(
-                  //       1,
-                  //       Container(
-                  //         decoration: BoxDecoration(
-                  //             image: DecorationImage(
-                  //                 image: AssetImage(
-                  //                     'assets/images/background.png'),
-                  //                 fit: BoxFit.fill)),
-                  //       ),
-                  //       ),
-                  // ),
                   Positioned(
                     height: height,
                     width: width,
@@ -444,10 +362,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                         Container(
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/BorhanLogo3.png'),
-//                                  fit: BoxFit.fill
-                              )),
+                            image: AssetImage('assets/images/BorhanLogo3.png'),
+                          )),
                         )),
                   ),
                 ],
@@ -456,7 +372,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-//                crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
                   SizedBox(
                     height: 20,
@@ -478,7 +393,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
-                            if (firstForm) ///////////first form
+                            if (firstForm)
                               Container(
                                 child: Column(
                                   children: <Widget>[
@@ -491,7 +406,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                       child: TextFormField(
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-//                                  labelText:'اسم المتبرع',
                                             hintText: "اسم المتبرع",
                                             prefixIcon: Icon(
                                               Icons.person,
@@ -499,7 +413,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             ),
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
-//                              textAlign: TextAlign.end,
                                         validator: (value) {
                                           if (value.length < 3 ||
                                               value == null) {
@@ -514,63 +427,12 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           }
                                           return null;
                                         },
-//                                    onSaved: (value) {
-//                                      _authData['name'] = value;
-//                                    },
                                         onChanged: (value) {
                                           _authData['name'] = value;
                                         },
                                         controller: nameController,
                                       ),
                                     ),
-//                                     Container(
-//                                       padding: EdgeInsets.all(10),
-//                                       decoration: BoxDecoration(
-//                                           border: Border(
-//                                               bottom: BorderSide(
-//                                                   color: Colors.grey[200]))),
-//                                       child: TextFormField(
-//                                         decoration: InputDecoration(
-//                                           border: InputBorder.none,
-//                                           hintText: "البريد الالكترونى",
-//                                           prefixIcon: Icon(
-//                                             Icons.email,
-//                                             color: Colors.deepPurple,
-//                                           ),
-//                                           hintStyle:
-//                                               TextStyle(color: Colors.grey),
-//                                         ),
-// //                              textAlign: TextAlign.end,
-//                                         keyboardType:
-//                                             TextInputType.emailAddress,
-//                                         validator: (value) {
-//                                           bool emailValid = RegExp(
-//                                                   r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-//                                               .hasMatch(value);
-//                                           if (!emailValid) {
-//                                             bool spaceRex =
-//                                                 new RegExp(r"^\\s+$")
-//                                                     .hasMatch(value);
-//                                             if (spaceRex ||
-//                                                 value.length == 0 ||
-//                                                 value == null) {
-//                                               return 'ادخل البريد الألكترونى من فضلك';
-//                                             } else {
-//                                               return 'البريد الألكترونى غيرصالح';
-//                                             }
-//                                           }
-//                                           return null;
-//                                         },
-// //                                    onSaved: (value) {
-// //                                      _authData['email'] = value;
-// //                                    },
-//                                         onChanged: (value) {
-//                                           _authData['email'] = value;
-//                                         },
-
-//                                         controller: emailController,
-//                                       ),
-//                                     ),
                                     Container(
                                       padding: EdgeInsets.all(10),
                                       decoration: BoxDecoration(
@@ -587,11 +449,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             ),
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
-//                              textAlign: TextAlign.end,
                                         keyboardType: TextInputType.number,
-//                                    onSaved: (value) {
-//                                      _authData['mobile'] = value;
-//                                    },
                                         onChanged: (val) {
                                           _authData['mobile'] = val;
                                         },
@@ -611,7 +469,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                       ),
                                     ),
                                     Container(
-                                      padding: EdgeInsets.symmetric(
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 10, vertical: 20),
                                       child: TextFormField(
                                         decoration: InputDecoration(
@@ -619,17 +477,12 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(2.0)),
                                             labelText: "العنوان",
-                                            // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 24)),
-//                              textAlign: TextAlign.end,
                                         keyboardType: TextInputType.multiline,
                                         maxLines: null,
                                         minLines: 2,
-//                                    onSaved: (value) {
-//                                      _authData['address'] = value;
-//                                    },
                                         onChanged: (val) {
                                           _authData['address'] = val;
                                         },
@@ -649,9 +502,9 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                       ),
                                     ),
                                     Container(
-                                        padding:
-                                           const  EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                        child: Text(
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 5, 10, 0),
+                                        child: const Text(
                                           'اكتب الوقت الذى تكون فيه متاح لكي يأتي مندوبنا اليك',
                                           style: TextStyle(
                                               fontSize: 17,
@@ -659,8 +512,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                               fontWeight: FontWeight.bold),
                                         )),
                                     Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 5, 10, 10),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 5, 10, 10),
                                       decoration: BoxDecoration(
                                           border: Border(
                                               bottom: BorderSide(
@@ -674,17 +527,12 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                               Icons.access_time,
                                               color: Colors.deepPurple,
                                             ),
-                                            // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 24)),
-//                              textAlign: TextAlign.end,
                                         keyboardType: TextInputType.multiline,
                                         maxLines: null,
                                         minLines: 2,
-//                                    onSaved: (value) {
-//                                      _authData['time'] = value;
-//                                    },
                                         onChanged: (val) {
                                           _authData['time'] = val;
                                         },
@@ -704,7 +552,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                   ],
                                 ),
                               ),
-//////////////////////////////////////////////////////////////////////
                             if (scondForm)
                               Container(
                                 child: Column(children: <Widget>[
@@ -722,19 +569,11 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         SizedBox(width: 50.0),
                                         Expanded(
                                           child: DropdownButton(
-//                                              items: _orgList.mapIndexed((value , index ) => DropdownMenuItem(
                                             items: _orgList
                                                 .map(
                                                   (value) => DropdownMenuItem(
-                                                    // index = _orgList.indexOf(value);
                                                     child: Row(
                                                       children: <Widget>[
-//                                          Icon(
-//                                            _denoteIcons[index],
-//                                            size: 25.0,
-//                                            color:Color(0xff11b719),
-//                                          ),
-                                                        //  SizedBox(width: 50.0),
                                                         Text(
                                                           value.orgName,
                                                           style: TextStyle(
@@ -761,7 +600,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             },
                                             value: selectedOraginzaton,
                                             isExpanded: false,
-                                            hint: Text(
+                                            hint: const Text(
                                               'اختار الجمعية',
                                               style:
                                                   TextStyle(color: Colors.grey),
@@ -774,7 +613,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                   _loading
                                       ? CircularProgressIndicator()
                                       : Container(
-                                          padding: const  EdgeInsets.fromLTRB(
+                                          padding: const EdgeInsets.fromLTRB(
                                               20, 0, 20, 10),
                                           child: Row(
                                             mainAxisAlignment:
@@ -795,16 +634,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                                             DropdownMenuItem(
                                                           child: Row(
                                                             children: <Widget>[
-//                                          Icon(
-//                                            _denoteIcons[index],
-//                                            size: 25.0,
-//                                            color:Color(0xff11b719),
-//                                          ),
-                                                              // SizedBox(
-                                                              //     width: 50.0),
                                                               Text(
-                                                                value
-                                                                    .name,
+                                                                value.name,
                                                                 style: TextStyle(
                                                                     color: Colors
                                                                         .grey),
@@ -826,7 +657,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                                   },
                                                   value: selectedActivity,
                                                   isExpanded: false,
-                                                  hint: Text(
+                                                  hint: const Text(
                                                     'اختار النشاط',
                                                     style: TextStyle(
                                                         color: Colors.grey),
@@ -884,7 +715,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         },
                                         value: selectedType,
                                         isExpanded: false,
-                                        hint: Text(
+                                        hint: const Text(
                                           'اختار نوع التبرع',
                                           style: TextStyle(
                                               color: Color(0xff11b719)),
@@ -910,11 +741,7 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                             ),
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
-//                              textAlign: TextAlign.end,
                                         keyboardType: TextInputType.number,
-//                                        onSaved: (value) {
-//                                          _authData['amount'] = value;
-//                                        },
                                         onChanged: (value) {
                                           _authData['amount'] = value;
                                         },
@@ -933,12 +760,10 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                     ),
                                 ]),
                               ),
-///////////////////////////////////////////////////////
                             if (thirdForm)
                               Container(
                                 child: Column(
                                   children: <Widget>[
-                                    //  if (selectedType != 'نقدى')
                                     Container(
                                       padding: EdgeInsets.all(20),
                                       child: Row(
@@ -952,7 +777,8 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                           ),
                                           SizedBox(width: 10),
                                           Expanded(
-                                              child: Text("اضف صورة التبرع",
+                                              child: const Text(
+                                                  "اضف صورة التبرع",
                                                   style: TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
@@ -960,8 +786,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         ],
                                       ),
                                     ),
-
-                                    //   if (selectedType != 'نقدى')
                                     InkWell(
                                       child: Container(
                                         padding: EdgeInsets.all(10),
@@ -977,11 +801,9 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                       ),
                                       onTap: getImage,
                                     ),
-
-                                    //    if (selectedType != 'نقدى')
                                     Container(
-                                        padding:
-                                            const EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 5, 10, 0),
                                         child: Text(
                                           'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
                                           style: TextStyle(
@@ -989,10 +811,9 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                               height: 1,
                                               fontWeight: FontWeight.bold),
                                         )),
-                                    // if (selectedType != 'نقدى')
                                     Container(
-                                        padding:
-                                           const  EdgeInsets.fromLTRB(10, 5, 10, 0),
+                                        padding: const EdgeInsets.fromLTRB(
+                                            10, 5, 10, 0),
                                         child: Text(
                                           ' مثال:3 اطقم ملابس و 2بطاطين....',
                                           style: TextStyle(
@@ -1000,27 +821,21 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                               height: 1,
                                               color: Colors.grey),
                                         )),
-                                    // if (selectedType != 'نقدى')
                                     Container(
-                                      padding:
-                                          EdgeInsets.fromLTRB(10, 5, 10, 10),
+                                      padding: const EdgeInsets.fromLTRB(
+                                          10, 5, 10, 10),
                                       child: TextFormField(
                                         decoration: InputDecoration(
                                             border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(2.0)),
                                             labelText: "الوصف",
-                                            // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 24)),
-//                              textAlign: TextAlign.end,
                                         keyboardType: TextInputType.multiline,
                                         maxLines: null,
                                         minLines: 3,
-//                                    onSaved: (value) {
-//                                      _authData['items'] = value;
-//                                    },
                                         onChanged: (value) {
                                           _authData['items'] = value;
                                         },
@@ -1037,52 +852,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                         },
                                       ),
                                     ),
-//                                    Container(
-//                                        padding:
-//                                            EdgeInsets.fromLTRB(10, 5, 10, 0),
-//                                        child: Text(
-//                                          'اكتب كمية او عدد الاشياء التي تود التبرع بها ',
-//                                          style: TextStyle(
-//                                              fontSize: 17,
-//                                              height: 1,
-//                                              fontWeight: FontWeight.bold),
-//                                        )),
-//                                    // if (selectedType != 'نقدى')
-//
-//                                    // if (selectedType != 'نقدى')
-//                                    Container(
-//                                      padding:
-//                                          EdgeInsets.fromLTRB(10, 5, 10, 10),
-//                                      child: TextFormField(
-//                                        decoration: InputDecoration(
-//                                            border: OutlineInputBorder(
-//                                                borderRadius:
-//                                                    BorderRadius.circular(2.0)),
-//                                            labelText: "الكمية",
-//                                            // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
-//                                            labelStyle: TextStyle(
-//                                                color: Colors.grey,
-//                                                fontSize: 24)),
-////                              textAlign: TextAlign.end,
-//                                        keyboardType: TextInputType.multiline,
-//                                        maxLines: null,
-//                                        minLines: 3,
-////                                  onSaved: (value) {
-////                                    _authData['amount'] = value;
-////                                  },
-//                                        onChanged: (value) {
-//                                          _authData['amount'] = value;
-//                                        },
-//                                        controller: amountController,
-////                                  validator: (value) {
-////                                    bool spaceRex = new RegExp(r"^\\s+$").hasMatch(value);
-////                                    if(spaceRex || value.length==0  || value==null){
-////                                      return 'ادخل اكمية من فضلك';
-////                                    }
-////                                    return null;
-////                                  },
-//                                      ),
-//                                    ),
                                   ],
                                 ),
                               )
@@ -1101,13 +870,14 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                             onTap: () => _nextSubmit(),
                             child: Container(
                               height: 50,
-                              margin:  const EdgeInsets.symmetric(horizontal: 60),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 60),
                               decoration: BoxDecoration(
-                                borderRadius:  BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(50),
                                 color: Color.fromRGBO(49, 39, 79, 1),
                               ),
                               child: Center(
-                                child: Text(
+                                child: const Text(
                                   "التالى",
                                   style: TextStyle(color: Colors.white),
                                 ),
@@ -1120,24 +890,25 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                           Builder(
                             builder: (ctx) => InkWell(
                               onTap: () {
-                                if(!_submitLoading){
-                                   _submit(ctx);
+                                if (!_submitLoading) {
+                                  _submit(ctx);
                                 }
-                                  
-                              }
-                                , // handle your onTap here
+                              },
                               child: Container(
                                 height: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 60),
+                                margin:
+                                    const EdgeInsets.symmetric(horizontal: 60),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
                                   color: Color.fromRGBO(49, 39, 79, 1),
                                 ),
                                 child: Center(
-                                  child:  _submitLoading==false?Text(
-                                    "تبرع الأن",
-                                    style: TextStyle(color: Colors.white),
-                                  ):CircularProgressIndicator(),
+                                  child: _submitLoading == false
+                                      ? Text(
+                                          "تبرع الأن",
+                                          style: TextStyle(color: Colors.white),
+                                        )
+                                      : CircularProgressIndicator(),
                                 ),
                               ),
                             ),
@@ -1163,7 +934,6 @@ class _FastDenotationScreenState extends State<FastDenotationScreen> {
                                 if (current > 1) {
                                   current--;
                                 }
-
                                 checkCurrent();
                               });
                             },

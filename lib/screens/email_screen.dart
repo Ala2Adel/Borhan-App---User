@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../models/emailm.dart';
 
 class EmailScreen extends StatefulWidget {
-  var orgEmail;
+  final orgEmail;
   EmailScreen(this.orgEmail);
 
   @override
@@ -15,14 +15,11 @@ class EmailScreen extends StatefulWidget {
 }
 
 class _EmailScreenState extends State<EmailScreen> {
-//  final requestId = ModalRoute.of(context).settings.arguments as String;
   var emailM = EmailM(
       recipientController: '', subjectController: '', bodyController: '');
   List<String> attachments = [];
 
-  final _recipientController = TextEditingController(
-//    text: widget.orgEmail,
-      );
+  final _recipientController = TextEditingController();
 
   final _subjectController = TextEditingController();
 
@@ -42,27 +39,20 @@ class _EmailScreenState extends State<EmailScreen> {
     _recipientController.text = widget.orgEmail;
     return Scaffold(
       appBar: AppBar(
-        title: Text('طلب مساعدة بالبريد الإلكتروني'),
+        title: const Text('طلب مساعدة بالبريد الإلكتروني'),
         actions: <Widget>[
           IconButton(
             onPressed: send,
             icon: Icon(Icons.open_in_new),
           )
         ],
-
-
-
-        // leading: IconButton(
-        //   onPressed: send,
-        //   icon: Icon(Icons.open_in_new),
-        // ),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(8.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Text('مستقبل الرساله'),
@@ -71,21 +61,14 @@ class _EmailScreenState extends State<EmailScreen> {
                 child: TextField(
                   controller: _recipientController,
                   readOnly: true,
-//                    onTap: () {
-//                      emailM = EmailM(
-//                        recipientController: _recipientController.text,
-//                        bodyController: emailM.bodyController,
-//                        subjectController: emailM.subjectController,
-//                      );
-//                    },
                   decoration: InputDecoration(
                     border: OutlineInputBorder(),
                   ),
                 ),
               ),
-              Text('الموضوع'),
+            const   Text('الموضوع'),
               Padding(
-                padding: EdgeInsets.all(8.0),
+                padding: const  EdgeInsets.all(8.0),
                 child: TextField(
                   controller: _subjectController,
                   textDirection: TextDirection.rtl,
@@ -131,9 +114,9 @@ class _EmailScreenState extends State<EmailScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
-        // backgroundColor: Colors.teal,
+        
         icon: Icon(Icons.camera),
-        label: Text(
+        label: const  Text(
           'إضافة صورة',
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
         ),

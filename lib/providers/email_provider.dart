@@ -19,6 +19,6 @@ class EmailProvider with ChangeNotifier {
     } catch (error) {
       platformResponse = error.toString();
     }
-    print('Sending Email : '+platformResponse);
+
   }
 }

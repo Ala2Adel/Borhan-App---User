@@ -2,13 +2,11 @@ import 'package:Borhan_User/models/activity.dart';
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
-import 'package:Borhan_User/screens/favourite_screen.dart';
 import 'package:Borhan_User/screens/activity_detail.dart';
 import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import 'dart:io' show Platform;
 
 class OrganizationActivity extends StatefulWidget {
@@ -26,12 +24,9 @@ class _ActivityScreenState extends State<OrganizationActivity> {
   List<Activity> _savedFav = [];
   final Set<String> _saved = Set<String>();
 
-  Color _favIconColor = Colors.grey;
   var activityNotifier;
-
   @override
   void didChangeDependencies() {
-    print("Org Screen" + widget.id);
     if (_isInit) {
       setState(() {
         _isLoading = true;
@@ -41,104 +36,86 @@ class _ActivityScreenState extends State<OrganizationActivity> {
           .then((_) {
         setState(() {
           _isLoading = false;
-          print('in screen activity view');
         });
       });
       Provider.of<ActivityNotifier>(context)
           .fetchAndSetFavorites()
           .then((_) => {
                 _savedFav = Provider.of<ActivityNotifier>(context).favorites,
-                print(_savedFav),
-                print('saved'),
-      if(_savedFav.length >0){
-          _savedFav.forEach((element)
-      {
-        _saved.add(element.name);
-      }),
-    }
+                if (_savedFav.length > 0)
+                  {
+                    _savedFav.forEach((element) {
+                      _saved.add(element.name);
+                    }),
+                  }
               });
 
-       activityNotifier = Provider.of<ActivityNotifier>(context);
-
+      activityNotifier = Provider.of<ActivityNotifier>(context);
     }
     _isInit = false;
     super.didChangeDependencies();
   }
 
-//  void _saveFavorite(){
-//    String pickedTitle = 'sss';
-//    String pickedDescription = 'fhsl';
-//    String pickedImage='hjh';
-//    Provider.of<ActivityNotifier>(context, listen:false).addFavorite(pickedTitle, pickedDescription, pickedImage);
-//    // Navigator.of(context).push(route)
-//
-//
-//    Navigator.of(context).push(
-//        MaterialPageRoute(
-//            builder:
-//                (BuildContext
-//            context) {
-//              return Favourite();
-//            }));
-//  }
-
- void _showErrorDialog(String message) {
-    print("alert");
+  void _showErrorDialog(String message) {
     showDialog(
       context: context,
-      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
-        title: const  Text('تسجيل دخول'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: const  Text('ليس الأن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          ),
-          FlatButton(
-            child:const  Text('نعم'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              Navigator.pushNamed(context, '/Login');
-            },
-          ),
-        ],
-      ):
-      CupertinoAlertDialog(
-        title: const  Text('تسجيل دخول'),
-        content: Text(message),
-        actions: <Widget>[
-          CupertinoDialogAction( child: const  Text('ليس الأن'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },),
-          CupertinoDialogAction(child:const  Text('نعم'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              Navigator.pushNamed(context, '/Login');
-            },)
-        ],
-      ),
+      builder: (ctx) => (Platform.isAndroid)
+          ? AlertDialog(
+              title: const Text('تسجيل دخول'),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text('ليس الأن'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+                FlatButton(
+                  child: const Text('نعم'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    Navigator.pushNamed(context, '/Login');
+                  },
+                ),
+              ],
+            )
+          : CupertinoAlertDialog(
+              title: const Text('تسجيل دخول'),
+              content: Text(message),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                  child: const Text('ليس الأن'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                ),
+                CupertinoDialogAction(
+                  child: const Text('نعم'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                    Navigator.pushNamed(context, '/Login');
+                  },
+                )
+              ],
+            ),
     );
   }
-Future<UserNav> loadSharedPrefs() async {
+
+  Future<UserNav> loadSharedPrefs() async {
     UserNav user;
     try {
-     SharedPref sharedPref = SharedPref();
-       user = UserNav.fromJson(await sharedPref.read("user"));
-      } catch (Excepetion) {
-    // do something
-       }
-       return user;
-   } 
+      SharedPref sharedPref = SharedPref();
+      user = UserNav.fromJson(await sharedPref.read("user"));
+    } catch (Excepetion) {
+      // do something
+    }
+    return user;
+  }
 
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-
-    //final activityNotifier = Provider.of<ActivityNotifier>(context);
 
     final body = new Scaffold(
       appBar: new AppBar(
@@ -149,13 +126,8 @@ Future<UserNav> loadSharedPrefs() async {
         ),
         centerTitle: true,
         elevation: 0.0,
-       backgroundColor:  Colors.purple[900],
-        actions: <Widget>[
-//          IconButton(
-//            icon: Icon(Icons.list),
-//            onPressed: _pushSaved,
-//          ),
-        ],
+        backgroundColor: Colors.purple[900],
+        actions: <Widget>[],
       ),
       backgroundColor: Colors.white,
       body: _isLoading
@@ -166,7 +138,7 @@ Future<UserNav> loadSharedPrefs() async {
               child: new Stack(
                 children: <Widget>[
                   new Padding(
-                    padding: const  EdgeInsets.only(top: 10.0),
+                    padding: const EdgeInsets.only(top: 10.0),
                     child: new Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
@@ -229,106 +201,64 @@ Future<UserNav> loadSharedPrefs() async {
                                               width: 10.0,
                                             ),
                                             new Expanded(
-                                                child: new Column(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.start,
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.end,
-                                                  children: <Widget>[
-                                                    new Text(
-                                                      activityNotifier
-                                                                  .activityList[
-                                                                      index]
-                                                                  .name !=
-                                                              null
-                                                          ? activityNotifier
-                                                              .activityList[
-                                                                  index]
-                                                              .name
-                                                          : 'no value',
-                                                      style: new TextStyle(
-                                                          fontSize: 22.0,
-                                                          color: Colors.white,
-                                                          fontWeight:
-                                                              FontWeight.bold),
-                                                    ),
-                                                    Expanded(
-                                                        child: _buildRow(
-                                                            activityNotifier
+                                              child: new Column(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.end,
+                                                    children: <Widget>[
+                                                      new Text(
+                                                        activityNotifier
                                                                     .activityList[
-                                                                index])
-                                                        ),
-                                                  ],
-                                                ),
-                                                new Text(
-                                                  activityNotifier
-                                                      .activityList[index]
-                                                      .description,
-                                                  style: new TextStyle(
-                                                      fontSize: 18.0,
-                                                       height: 0.5,
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.normal),
-                                                ),
-                                                Row(
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: <Widget>[
-                                                    RaisedButton(
-                                                        color:
-                                                            Colors.blue,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              new BorderRadius.circular(8.0),
-                                                         // side: BorderSide(color: Colors.black),
-                                                        ),
-                                                        onPressed: () async {
-                                                          activityNotifier
-                                                                  .currentActivity =
+                                                                        index]
+                                                                    .name !=
+                                                                null
+                                                            ? activityNotifier
+                                                                .activityList[
+                                                                    index]
+                                                                .name
+                                                            : 'no value',
+                                                        style: new TextStyle(
+                                                            fontSize: 22.0,
+                                                            color: Colors.white,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      Expanded(
+                                                          child: _buildRow(
                                                               activityNotifier
                                                                       .activityList[
-                                                                  index];
-
-                    UserNav userLoad = await loadSharedPrefs();
-                    if(userLoad==null){
-                      print("user is not here");
-                      _showErrorDialog("برجاء تسجيل الدخول أولا ");
-                     }else{
-                       print("user is  here");
-                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) {
-                      return NormalDenotationScreen();
-                      },
-                     ),
-                    );
-                     }
-                                                        },
-                                                        child: Text(
-                                                           'تبرع',
-                                                          style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color:
-                                                                  Colors.black),
-                                                         ),
-                                                        ),
-                                                        //////////////////////////////////////
-                                                         SizedBox(width: 10,),
-                                                         RaisedButton(
-                                                        color:
-                                                            Colors.blue,
+                                                                  index])),
+                                                    ],
+                                                  ),
+                                                  new Text(
+                                                    activityNotifier
+                                                        .activityList[index]
+                                                        .description,
+                                                    style: new TextStyle(
+                                                        fontSize: 18.0,
+                                                        height: 0.5,
+                                                        color: Colors.white,
+                                                        fontWeight:
+                                                            FontWeight.normal),
+                                                  ),
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment.start,
+                                                    children: <Widget>[
+                                                      RaisedButton(
+                                                        color: Colors.blue,
                                                         shape:
                                                             RoundedRectangleBorder(
                                                           borderRadius:
                                                               new BorderRadius
                                                                       .circular(
                                                                   8.0),
-                                                          //side: BorderSide(color: Colors.black),
                                                         ),
                                                         onPressed: () async {
                                                           activityNotifier
@@ -336,11 +266,60 @@ Future<UserNav> loadSharedPrefs() async {
                                                               activityNotifier
                                                                       .activityList[
                                                                   index];
-                                                                   Navigator.of(context).push(MaterialPageRoute(
-                                                            builder: (BuildContext context) {
-                                                                return ActivityDetails();
-                                                         }));
 
+                                                          UserNav userLoad =
+                                                              await loadSharedPrefs();
+                                                          if (userLoad ==
+                                                              null) {
+                                                            _showErrorDialog(
+                                                                "برجاء تسجيل الدخول أولا ");
+                                                          } else {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .push(
+                                                              MaterialPageRoute(
+                                                                builder:
+                                                                    (BuildContext
+                                                                        context) {
+                                                                  return NormalDenotationScreen();
+                                                                },
+                                                              ),
+                                                            );
+                                                          }
+                                                        },
+                                                        child: Text(
+                                                          'تبرع',
+                                                          style: TextStyle(
+                                                              fontSize: 20.0,
+                                                              color:
+                                                                  Colors.black),
+                                                        ),
+                                                      ),
+                                                      SizedBox(
+                                                        width: 10,
+                                                      ),
+                                                      RaisedButton(
+                                                        color: Colors.blue,
+                                                        shape:
+                                                            RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              new BorderRadius
+                                                                      .circular(
+                                                                  8.0),
+                                                        ),
+                                                        onPressed: () async {
+                                                          activityNotifier
+                                                                  .currentActivity =
+                                                              activityNotifier
+                                                                      .activityList[
+                                                                  index];
+                                                          Navigator.of(context).push(
+                                                              MaterialPageRoute(
+                                                                  builder:
+                                                                      (BuildContext
+                                                                          context) {
+                                                            return ActivityDetails();
+                                                          }));
                                                         },
                                                         child: Text(
                                                           'تفاصيل ',
@@ -348,12 +327,12 @@ Future<UserNav> loadSharedPrefs() async {
                                                               fontSize: 20.0,
                                                               color:
                                                                   Colors.black),
-                                                         ),
                                                         ),
-                                                  ],
-                                                ),
-                                              ],
-                                             ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),
@@ -381,7 +360,6 @@ Future<UserNav> loadSharedPrefs() async {
         children: <Widget>[
           new CustomPaint(
             size: new Size(_width, _height),
-            //   painter: new Background(),
           ),
           body,
         ],
@@ -389,24 +367,11 @@ Future<UserNav> loadSharedPrefs() async {
     );
   }
 
-
   Widget _buildRow(Activity activity) {
     bool alreadySaved;
 
-//    if(_savedFav.length >0){
-//      _savedFav.forEach((element) {
-//        _saved.add(element.name);
-//      });
-//    }
-
-    print('*********************************************************');
-    print(_saved);
-    print('*********************************************************');
     alreadySaved = _saved.contains(activity.name);
-    print("Already Saved is " + alreadySaved.toString());
 
-    print('pair');
-    print(activity);
     return ListTile(
       trailing: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
@@ -415,118 +380,16 @@ Future<UserNav> loadSharedPrefs() async {
       ),
       onTap: () {
         setState(() {
-          print(_saved);
           if (alreadySaved) {
-              _saved.remove(activity.name);
+            _saved.remove(activity.name);
             Provider.of<ActivityNotifier>(context).deleteFavorite(activity);
-
           } else {
-              _saved.add(activity.name);
+            _saved.add(activity.name);
             Provider.of<ActivityNotifier>(context).addFavorite(activity.name,
                 activity.description, activity.image, activity.id);
-//            _saveFavorite;
-
           }
         });
       },
     );
   }
-
-//  Widget _buildRow(String pair) {
-//    bool alreadySaved = false;
-//
-//    if(_savedFav.length >0){
-//      _savedFav.forEach((element) {
-//        _saved.add(element.name);
-//      });
-//    }
-//
-//    alreadySaved = _saved.contains(pair);
-//
-//    print('pair');
-//    print(pair);
-//    return ListTile(
-//      trailing: Icon(
-//        alreadySaved ? Icons.favorite : Icons.favorite_border,
-//        color: alreadySaved ? Colors.pink : Colors.white,
-//        size: 35.0,
-//      ),
-//      onTap: () {
-//        setState(() {
-//          print(_saved);
-//          if (alreadySaved) {
-//            _saved.remove(pair);
-//            //_decrementCounter();
-//          } else {
-//            _saved.add(pair);
-//            Provider.of<ActivityNotifier>(context).addFavorite(pair,
-//                'pickedDescription', 'pickedImage');
-////            _saveFavorite;
-//
-//            //_incrementCounter();
-//          }
-//        });
-//      },
-//    );
-//  }
-
-
-/*
-  *
-  var _saved;
-    print('pair');
-    if(_savedFav){
-      for(int i =0;i<_savedFav.length;i++)
-        {
-          print(_savedFav[i].name);
-          print('***********************************');
-          _saved = _savedFav[i].name;
-        }
-    }
-  * */
-
-////////////////////////////////////////////////////
-//  void _pushSaved() {
-//    Navigator.of(context).push(
-//      MaterialPageRoute<void>(
-//        builder:
-//        (BuildContext context) {
-//          final Iterable<ListTile> tiles = _saved.map(
-//            (String pair) {
-//              return ListTile(
-//                title: Text(
-//                  pair.toString(),
-//                  style: new TextStyle(
-//                    fontSize: 21.0,
-//                    color: Colors.blueGrey,
-//                    fontFamily: 'Arvo',
-//                    fontWeight: FontWeight.bold,
-//                  ),
-//                ),
-//              );
-//            },
-//          );
-//          final List<Widget> divided = ListTile.divideTiles(
-//            context: context,
-//            tiles: tiles,
-//          ).toList();
-//
-//          return Scaffold(
-//            backgroundColor: Colors.black12,
-//            appBar: new AppBar(
-//              elevation: 0.3,
-//              centerTitle: true,
-//              backgroundColor: Colors.blueGrey,
-//              title: new Text('Saved Suggestions'),
-//            ),
-//            body: ListView(children: divided),
-//
-//            //  new Favourite(ListView(children: divided));
-//          );
-//        },
-//        //    Favourite( ListView (children: divided));
-//      ),
-//    );
-//  }
 }
-

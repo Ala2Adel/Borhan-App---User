@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 import '../notifiers/activity_notifier.dart';
 import 'normal_donation.dart';
 
@@ -12,33 +11,13 @@ class Favourite extends StatefulWidget {
 class _FavouriteState extends State<Favourite> {
   @override
   Widget build(BuildContext context) {
-//    final Iterable<ListTile> tiles = widget.fav.map(
-//      (String pair) {
-//        return ListTile(
-//          title: Text(
-//            pair.toString(),
-//            style: new TextStyle(
-//              fontSize: 21.0,
-//              color: Colors.blueGrey,
-//              fontFamily: 'Arvo',
-//              fontWeight: FontWeight.bold,
-//            ),
-//          ),
-//        );
-//      },
-//    );
-//    final List<Widget> divided = ListTile.divideTiles(
-//      context: context,
-//      tiles: tiles,
-//    ).toList();
-
     return Scaffold(
-//      backgroundColor: Colors.black12,
+
       appBar: new AppBar(
         elevation: 0.3,
         centerTitle: true,
-//        backgroundColor: Colors.blueGrey,
-        title: new Text('المفضلة'),
+
+        title: const Text('المفضلة'),
       ),
       body: FutureBuilder(
         future: Provider.of<ActivityNotifier>(context, listen: false)
@@ -50,7 +29,7 @@ class _FavouriteState extends State<Favourite> {
         )
             : Consumer<ActivityNotifier>(
           child: Center(
-            child: Text('لا يوجد أنشطة في المفضلة'),
+            child: const Text('لا يوجد أنشطة في المفضلة'),
           ),
           builder: (ctx, favourites, ch) =>
           favourites.favorites.length <= 0
@@ -189,8 +168,6 @@ class _FavouriteState extends State<Favourite> {
         ),
 
       ),
-
-      //  new Favourite(ListView(children: divided));
     );
 
   }

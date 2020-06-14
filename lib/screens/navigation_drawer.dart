@@ -1,6 +1,4 @@
-import 'package:Borhan_User/models/mydonation.dart';
 import 'package:Borhan_User/models/user_nav.dart';
-import 'package:Borhan_User/providers/google_provider.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
@@ -8,28 +6,18 @@ import 'package:Borhan_User/screens/login_screen.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 
-//GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
-
-//GmailUserDetails gmailUser = new GmailUserDetails();
-//
 class NavigationDrawer extends StatefulWidget {
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
 }
 
 class _NavigationDrawerState extends State<NavigationDrawer> {
-//  GoogleSignInAccount _currentUser;
-
   UsersPtovider usersPtovider;
   UserNav userLoad;
 
   void _showErrorDialog(String message) {
-    print("alert");
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)
@@ -121,18 +109,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     );
   }
 
-  // loadSharedPrefs() async {
-  //   try {
-  //     SharedPref sharedPref = SharedPref();
-  //     UserNav user = UserNav.fromJson(await sharedPref.read("user"));
-  // setState(() {
-  //   userLoad = user;
-  // });
-  //   } catch (Exception) {
-  //     // do something
-  //   }
-  // }
-
   Future<UserNav> loadSharedPrefs() async {
     UserNav user;
     try {
@@ -148,59 +124,18 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-//    if (_currentUser != null) {
-//      _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-//        setState(() {
-//          _currentUser = account;
-//        });
-//      });
-//      _googleSignIn.signInSilently();
-//      Provider.of<GoogleProvider>(context).handleSignIn();
-//
-//      print("mygmail is " + _currentUser.email);
-//    }
-  }
-
-  @override
   void initState() {
     super.initState();
-//    print("Hi Welcome" + LoginScreen.userName.toString());
-//    if (_currentUser != null) {
-//      _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
-//        setState(() {
-//          _currentUser = account;
-//        });
-//      });
-//      _googleSignIn.signInSilently();
-//      print("mygmail is " + _currentUser.email);
-//    }
-//    usersPtovider = Provider.of<UsersPtovider>(context, listen: false);
+
     loadSharedPrefs();
   }
 
   @override
   Widget build(BuildContext context) {
-    final data = Provider.of<UsersPtovider>(context);
-//    print("Hi welcome" + LoginScreen.userName);
-//    print("Hi welcome" + _currentUser.displayName);
-
-//    print("Hi welcome" + LoginScreen.gmail);
-//print()
     return Drawer(
       child: new ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
-            // accountName: data.userData2.userName==null? Text("User Name ")
-            // :Text( data.userData2.userName),
-            // accountEmail: data.userData2.email==null? Text("User Email@MailServer.com ")
-            // :Text( data.userData2.email),
-            // currentAccountPicture: CircleAvatar(backgroundColor: Colors.black,
-            // child: data.userData2.userName==null? Text("M"):Text(data.userData2.userName.substring(0,1)),
-
-            ////////////////////////////////////////////////////
             accountName: userLoad == null
                 ? Text(
                     "مرحبا بك ",
@@ -217,7 +152,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                       Navigator.of(context).pop();
                       Navigator.pushNamed(context, '/Login');
                     },
-                    child: Text(
+                    child: const Text(
                       "تسجيل الدخول / التسجيل ",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
@@ -255,17 +190,17 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               Navigator.pushNamed(context, '/Favourite');
             },
           ),
-          new ListTile(
-            title: const Text(
-              "الإشعارات",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-            ),
-            leading: new Icon(Icons.notifications),
-            onTap: () {
-              Navigator.of(context).pop();
-              Navigator.pushNamed(context, '/Notifications');
-            },
-          ),
+          // new ListTile(
+          //   title: const Text(
+          //     "الإشعارات",
+          //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          //   ),
+          //   leading: Icon(Icons.notifications),
+          //   onTap: () {
+          //     Navigator.of(context).pop();
+          //     Navigator.pushNamed(context, '/Notifications');
+          //   },
+          // ),
           new ListTile(
             title: const Text(
               "تبرعاتي",
@@ -276,10 +211,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               UserNav userLoad = await loadSharedPrefs();
               Navigator.pop(context);
               if (userLoad == null) {
-                print("user is not here");
                 _showErrorDialogLogin("الرجاء التسجيل قبل الدخول");
               } else {
-                print("user is  here");
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
                   return MyDonationsScreen();
@@ -298,7 +231,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               Navigator.pushNamed(context, '/ExternalDonation');
             },
           ),
-
           if (userLoad != null)
             new ListTile(
               title: const Text(
@@ -311,11 +243,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                 _showErrorDialog("هل تريد تسجيل الخروج");
               },
             ),
-          // new ListTile(
-          //   title: new Text("ملفي"),
-          //   leading: new Icon(Icons.people),
-          //   onTap: ()=>Navigator.pushNamed(context, '/Profile'),
-          // ),
           Divider(),
           new ListTile(
             title: const Text(

@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
-
 import 'package:google_fonts_arabic/fonts.dart';
-
-
 import 'overview_screen.dart';
 
-/// App widget class
-
 class OnboardScreen extends StatelessWidget {
-  //making list of pages needed to pass in IntroViewsFlutter constructor.
+  
   final pages = [
     PageViewModel(
         pageColor: Colors.blue[500],
-        // iconImageAssetPath: 'assets/air-hostess.png',
+  
         bubble: Image.asset('assets/images/donation4.png'),
         body: Text( 'حصّنوا أموالكم بالزكاة و داووا مرضاكم بالصدقة و إستقبلوا أمواج البلاء بالدعاء و التضرع',
             style: new TextStyle(
@@ -146,19 +141,3 @@ class OnboardScreen extends StatelessWidget {
     ); //Material App
   }
 }
-
-/// Home Page of our example app.
-
-// class HomePage extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Home'),
-//       ), //Appbar
-//       body: Center(
-//         child: Text("This is the home page of the app"),
-//       ), //Center
-//     ); //Scaffold
-//   }
-// }

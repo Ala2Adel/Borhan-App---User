@@ -1,9 +1,9 @@
 import 'package:Borhan_User/models/organization.dart';
 import 'package:Borhan_User/screens/org_widgets/movie_api.dart';
 import 'package:flutter/material.dart';
-import 'package:Borhan_User/screens/org_widgets/models.dart';
+
 import 'package:Borhan_User/screens/org_widgets/arc_banner_image.dart';
-import 'package:Borhan_User/screens/org_widgets/poster.dart';
+
 import 'package:Borhan_User/screens/org_widgets/rating_information.dart';
 
 class MovieDetailHeader extends StatelessWidget {

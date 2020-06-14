@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:Borhan_User/providers/auth.dart';
-import 'package:Borhan_User/providers/shard_pref.dart';
+
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flushbar/flushbar.dart';
@@ -11,20 +11,13 @@ import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
 import 'overview_screen.dart';
 import 'dart:io' show Platform;
-import 'package:google_sign_in/google_sign_in.dart';
 
-//GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 GoogleSignInAccount _currentUser;
 
 enum AuthMode { ResetPassword, Login }
 
 class LoginScreen extends StatefulWidget {
   static GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
-
-//  static var userName;
-//  static var gmail;
-//  static var id;
-  // This widget is the root of your application.
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -41,15 +34,12 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     LoginScreen.googleSignIn.onCurrentUserChanged
         .listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
       });
-      print("from initstate google user data is : " + _currentUser.toString());
-
       Provider.of<UsersPtovider>(context, listen: false).addUser(
         _currentUser.id,
         _currentUser.displayName,
@@ -58,32 +48,10 @@ class _LoginScreenState extends State<LoginScreen> {
       );
     });
 
-//    print(_currentUser)
     LoginScreen.googleSignIn.signInSilently();
-//    if (_currentUser != null) {
-//      LoginScreen.userName = _currentUser.displayName;
-//      LoginScreen.gmail = _currentUser.email;
-//    }
-
-//    GmailUserDetails.userName = _currentUser.displayName;
-//    user.userName=_currentUser.displayName;
-//    user.gmail=_currentUser.email;
-//    GmailUserDetails.gmail = _currentUser.email;
-  }
-
-  @override
-  void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    super.didChangeDependencies();
-
-//    if (_currentUser != null) {
-//      LoginScreen.userName = _currentUser.displayName;
-//      LoginScreen.gmail = _currentUser.email;
-//    }
   }
 
   void _showErrorDialog(String message) {
-    print("alert");
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)
@@ -114,7 +82,6 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Future<void> _submit() async {
-    print("Container pressed");
     if (!_formKey.currentState.validate()) {
       // Invalid!
       print("formKey.currentState IS Invalid");
@@ -127,30 +94,16 @@ class _LoginScreenState extends State<LoginScreen> {
     });
     if (_authMode == AuthMode.Login) {
       try {
-        // Log user in
         String localId = await Provider.of<Auth>(context, listen: false).login(
           _authData['email'],
           _authData['password'],
         );
-//      Auth auth=new Auth();
-//      await auth.login(
-//        _authData['email'],
-//        _authData['password'],
-//      );
-        // const errorMessage =
-        //     'اهلا بك';
-        // _showErrorDialog(errorMessage);
-        /////////////////////////////////////////////
+
         Provider.of<UsersPtovider>(context, listen: false)
             .setUserData(email: _authData['email'], userId: localId);
-        //////////////////////////////////////////////
+
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
-
-//      Navigator.push(
-//          context, MaterialPageRoute(builder: (context) => Home()));
-
-        // Navigator.of(context).pushReplacementNamed('/home');
       } catch (error) {
         print(error);
         const errorMessage =
@@ -170,8 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
             color: Colors.blue[300],
           ),
           duration: Duration(seconds: 3),
-          //leftBarIndicatorColor: Colors.blue[300],
-          margin: EdgeInsets.all(8),
+          margin: const EdgeInsets.all(8),
           borderRadius: 8,
         )..show(context);
       } catch (error) {
@@ -201,11 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-//    print(_currentUser.displayName)
-//    LoginScreen.userName = _currentUser.displayName;
     final width = MediaQuery.of(context).size.width;
     final height = MediaQuery.of(context).size.height * (1 / 3);
-    // TODO: implement build
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -244,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         )),
                   ),
                   Center(
-                    child: Text(
+                    child: const Text(
                       'مرحبا بك فى برهان',
                       style: TextStyle(
                         color: Colors.white,
@@ -257,310 +207,231 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-//                crossAxisAlignment: CrossAxisAlignment.end,
+              padding: const EdgeInsets.symmetric(horizontal: 20),
+              child: Column(children: <Widget>[
+                FadeAnimation(
+                  1.5,
+                  Text(
+                    _authMode == AuthMode.Login
+                        ? 'تسجيل الدخول'
+                        : 'نسيت كلمه المرور',
+                    style: TextStyle(
+                        color: const Color.fromRGBO(49, 39, 79, 1),
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30),
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     FadeAnimation(
-                      1.5,
-                      Text(
-                        _authMode == AuthMode.Login
-                            ? 'تسجيل الدخول'
-                            : 'نسيت كلمه المرور',
-                        style: TextStyle(
-                            color: Color.fromRGBO(49, 39, 79, 1),
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-//                    _currentUser != null
-//                        ? Column(
-//                            mainAxisAlignment: MainAxisAlignment.center,
-//                            crossAxisAlignment: CrossAxisAlignment.center,
-//                            mainAxisSize: MainAxisSize.max,
-//                            children: <Widget>[
-//                              ListTile(
-//                                leading: GoogleUserCircleAvatar(
-//                                  identity: _currentUser,
-//                                ),
-//                                title: Text(_currentUser.displayName ?? ''),
-//                                subtitle: Text(_currentUser.email ?? ''),
-//                              ),
-////                              RaisedButton(
-////                                onPressed: _handleSignOut,
-////                                child: Text('تسجيل الخروج من حساب جوجل'),
-////                              )
-//                            ],
-//                          )
-//                        : Container(),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.max,
-                      children: <Widget>[
-                        FadeAnimation(
-                            1.7,
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  color: Colors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Color.fromRGBO(196, 135, 198, .3),
-                                      blurRadius: 20,
-                                      offset: Offset(0, 10),
-                                    )
-                                  ]),
-                              child: Form(
-                                key: _formKey,
-                                child: Column(
-                                  children: <Widget>[
-                                    Container(
-                                      padding: EdgeInsets.all(10),
-                                      decoration: BoxDecoration(
-                                          border: Border(
-                                              bottom: BorderSide(
-                                                  color: Colors.grey[200]))),
-                                      child: TextFormField(
-                                        decoration: InputDecoration(
+                        1.7,
+                        Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Color.fromRGBO(196, 135, 198, .3),
+                                  blurRadius: 20,
+                                  offset: Offset(0, 10),
+                                )
+                              ]),
+                          child: Form(
+                            key: _formKey,
+                            child: Column(
+                              children: <Widget>[
+                                Container(
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                      border: Border(
+                                          bottom: BorderSide(
+                                              color: Colors.grey[200]))),
+                                  child: TextFormField(
+                                    decoration: InputDecoration(
+                                      border: InputBorder.none,
+                                      hintText: "البريد الالكترونى",
+                                      prefixIcon: Icon(
+                                        Icons.email,
+                                        color: Colors.deepPurple,
+                                      ),
+                                      hintStyle: TextStyle(color: Colors.grey),
+                                    ),
+                                    keyboardType: TextInputType.emailAddress,
+                                    validator: (value) {
+                                      bool emailValid = RegExp(
+                                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                          .hasMatch(value);
+                                      if (!emailValid) {
+                                        bool spaceRex = new RegExp(r"^\\s+$")
+                                            .hasMatch(value);
+                                        if (spaceRex ||
+                                            value.length == 0 ||
+                                            value == null) {
+                                          return 'ادخل البريد الألكترونى من فضلك';
+                                        } else {
+                                          return 'البريد الألكترونى غيرصالح';
+                                        }
+                                      }
+                                      return null;
+                                    },
+                                    onSaved: (value) {
+                                      _authData['email'] = value;
+                                    },
+                                  ),
+                                ),
+                                if (_authMode == AuthMode.Login)
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintText: "البريد الالكترونى",
+                                          hintText: "كلمه المرور",
                                           prefixIcon: Icon(
-                                            Icons.email,
+                                            Icons.lock,
                                             color: Colors.deepPurple,
                                           ),
                                           hintStyle:
-                                              TextStyle(color: Colors.grey),
-                                        ),
-//                              textAlign: TextAlign.end,
-                                        keyboardType:
-                                            TextInputType.emailAddress,
-                                        validator: (value) {
-                                          bool emailValid = RegExp(
-                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                              .hasMatch(value);
-                                          if (!emailValid) {
-                                            bool spaceRex =
-                                                new RegExp(r"^\\s+$")
-                                                    .hasMatch(value);
-                                            if (spaceRex ||
-                                                value.length == 0 ||
-                                                value == null) {
-                                              return 'ادخل البريد الألكترونى من فضلك';
-                                            } else {
-                                              return 'البريد الألكترونى غيرصالح';
-                                            }
-                                          }
-                                          return null;
-                                        },
-                                        onSaved: (value) {
-                                          _authData['email'] = value;
-                                        },
-                                      ),
+                                              TextStyle(color: Colors.grey)),
+                                      obscureText: true,
+                                      controller: _passwordController,
+                                      onSaved: (value) {
+                                        _authData['password'] = value;
+                                      },
+                                      validator: (value) {
+                                        bool spaceRex = new RegExp(r"^\\s+$")
+                                            .hasMatch(value);
+                                        if (spaceRex ||
+                                            value.length == 0 ||
+                                            value == null) {
+                                          return 'ادخل  كلمة المرور من فضلك';
+                                        }
+                                        return null;
+                                      },
                                     ),
-                                    if (_authMode == AuthMode.Login)
-                                      Container(
-                                        padding: EdgeInsets.all(10),
-                                        child: TextFormField(
-                                          decoration: InputDecoration(
-                                              border: InputBorder.none,
-                                              hintText: "كلمه المرور",
-                                              prefixIcon: Icon(
-                                                Icons.lock,
-                                                color: Colors.deepPurple,
-                                              ),
-                                              hintStyle: TextStyle(
-                                                  color: Colors.grey)),
-//                              textAlign: TextAlign.end,
-                                          obscureText: true,
-                                          controller: _passwordController,
-                                          onSaved: (value) {
-                                            _authData['password'] = value;
-                                          },
-                                          validator: (value) {
-                                            bool spaceRex =
-                                                new RegExp(r"^\\s+$")
-                                                    .hasMatch(value);
-                                            if (spaceRex ||
-                                                value.length == 0 ||
-                                                value == null) {
-                                              return 'ادخل  كلمة المرور من فضلك';
-                                            }
-                                            return null;
-                                          },
-                                        ),
-                                      )
-                                  ],
-                                ),
-                              ),
-                            )),
-                        SizedBox(
-                          height: 20,
-                        ),
-
-                        FadeAnimation(
-                          1.7,
-                          Center(
-                            child: FlatButton(
-                              child: Text(
-                                '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
-                                style: TextStyle(
-                                  color: Color.fromRGBO(196, 135, 198, 1),
-                                ),
-                              ),
-                              onPressed: _switchAuthMode,
+                                  )
+                              ],
                             ),
                           ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        FadeAnimation(
-                          1.9,
-                          InkWell(
-                            onTap: () {
-                              if (!_submitLoading) {
-                                _submit();
-                              }
-                            }, // handle, // handle your onTap here
-                            child: Container(
-                              height: 40,
-                              margin: EdgeInsets.symmetric(horizontal: 60),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: Color.fromRGBO(49, 39, 79, 1),
-                              ),
-                              child: Center(
-                                child: _submitLoading == false
-                                    ? Text(
-                                        _authMode == AuthMode.Login
-                                            ? 'تسجيل الدخول'
-                                            : 'إرسال رابط تغيير كلمة المرور',
-                                        style: TextStyle(color: Colors.white),
-                                      )
-                                    : CircularProgressIndicator(),
-                              ),
-                            ),
-                          ),
-                        ),
-                        /////////////////////////////////
-
-                        if (_authMode == AuthMode.Login)
-                          Container(
-                            width: 280.0,
-                            child: Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: RaisedButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          new BorderRadius.circular(30.0)),
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: <Widget>[
-                                      Icon(
-                                        FontAwesomeIcons.google,
-                                        color: Colors.white,
-                                      ),
-                                      SizedBox(width: 10.0),
-                                      Text(
-                                        'تسجيل الدخول بحساب جوجل',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18.0),
-                                      ),
-                                    ],
-                                  ),
-//                            RaisedButton(
-//                              onPressed: _handleSignIn,
-//                              child: Text('SIGN IN'),
-//                            )
-                                  onPressed: _handleSignIn,
-                                ),
-                              ),
-                            ),
-                          )
-//                              : Padding(
-//                                  padding: const EdgeInsets.all(10),
-//                                  child: Container(
-//                                    width: MediaQuery.of(context).size.width,
-//                                    child: Align(
-//                                      child: RaisedButton(
-//                                        shape: RoundedRectangleBorder(
-//                                            borderRadius:
-//                                                new BorderRadius.circular(
-//                                                    30.0)),
-//                                        color: Color.fromRGBO(49, 39, 79, 1),
-//                                        child: Row(
-//                                          mainAxisAlignment:
-//                                              MainAxisAlignment.start,
-//                                          children: <Widget>[
-//                                            Icon(
-//                                              FontAwesomeIcons.google,
-//                                              color: Colors.white,
-//                                            ),
-//                                            SizedBox(width: 10.0),
-//                                            Expanded(
-//                                              child: Text(
-//                                                'تسجيل الخروج من حساب جوجل',
-//                                                style: TextStyle(
-//                                                    color: Colors.white,
-//                                                    fontSize: 18.0),
-//                                              ),
-//                                            ),
-//                                          ],
-//                                        ),
-////                            RaisedButton(
-////                              onPressed: _handleSignIn,
-////                              child: Text('SIGN IN'),
-////                            )
-//                                        onPressed: _handleSignOut,
-//                                      ),
-//                                    ),
-//                                  ),
-//                                ),
-                        ////////////////////////////////
-                        ,
-                        SizedBox(
-                          height: 0,
-                        ),
-                        FadeAnimation(
-                          2,
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                            child: Center(
-                              child: FlatButton(
-                                child: Text(
-                                  "حساب جديد",
-                                  style: TextStyle(
-                                      color: Color.fromRGBO(49, 39, 79, .6)),
-                                ),
-                                onPressed: () => Navigator.pushReplacementNamed(
-                                    context, '/Signup'),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                        )),
+                    SizedBox(
+                      height: 20,
                     ),
-                  ]),
+                    FadeAnimation(
+                      1.7,
+                      Center(
+                        child: FlatButton(
+                          child: Text(
+                            '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
+                            style: TextStyle(
+                              color: Color.fromRGBO(196, 135, 198, 1),
+                            ),
+                          ),
+                          onPressed: _switchAuthMode,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    FadeAnimation(
+                      1.9,
+                      InkWell(
+                        onTap: () {
+                          if (!_submitLoading) {
+                            _submit();
+                          }
+                        }, // handle, // handle your onTap here
+                        child: Container(
+                          height: 40,
+                          margin: const EdgeInsets.symmetric(horizontal: 60),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Color.fromRGBO(49, 39, 79, 1),
+                          ),
+                          child: Center(
+                            child: _submitLoading == false
+                                ? Text(
+                                    _authMode == AuthMode.Login
+                                        ? 'تسجيل الدخول'
+                                        : 'إرسال رابط تغيير كلمة المرور',
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                : CircularProgressIndicator(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    if (_authMode == AuthMode.Login)
+                      Container(
+                        width: 280.0,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Padding(
+                            padding: const EdgeInsets.all(10),
+                            child: RaisedButton(
+                              shape: RoundedRectangleBorder(
+                                  borderRadius:
+                                      new BorderRadius.circular(30.0)),
+                              color: Color.fromRGBO(49, 39, 79, 1),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: <Widget>[
+                                  Icon(
+                                    FontAwesomeIcons.google,
+                                    color: Colors.white,
+                                  ),
+                                  SizedBox(width: 10.0),
+                                  Text(
+                                    'تسجيل الدخول بحساب جوجل',
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 18.0),
+                                  ),
+                                ],
+                              ),
+                              onPressed: _handleSignIn,
+                            ),
+                          ),
+                        ),
+                      ),
+                    SizedBox(
+                      height: 0,
+                    ),
+                    FadeAnimation(
+                      2,
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
+                        child: Center(
+                          child: FlatButton(
+                            child: const Text(
+                              "حساب جديد",
+                              style: TextStyle(
+                                  color: Color.fromRGBO(49, 39, 79, .6)),
+                            ),
+                            onPressed: () => Navigator.pushReplacementNamed(
+                                context, '/Signup'),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ]),
             ),
           ],
         ),
-      ), //ramadan say hi
-      //hello again
+      ),
     );
   }
 
   Future<void> _handleSignIn() async {
     try {
       await LoginScreen.googleSignIn.signIn();
-      print("from handle sign in" + _currentUser.toString());
     } catch (error) {
       print(error);
     }
@@ -569,210 +440,5 @@ class _LoginScreenState extends State<LoginScreen> {
         Duration(seconds: 2),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
             builder: (BuildContext context) => OrgOverviewScreen())));
-//    Future<T> pushNamed <T extends Object>(
-//    BuildContext context,
-//    String routeName,
-//  {Object arguments}
-//    )
-//    Navigator.of(context).pushNamed(OrgOverviewScreen.routeName,arguments: _currentUser.email)
-//    Navigator.push(
-//        context, MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
-
-//    Navigator.push(
-//        context, MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
-//  }
-  }
-
-  Future<void> _handleSignOut() async {
-//    SharedPref sharedPref = SharedPref();
-//    sharedPref.remove("user");
-    LoginScreen.googleSignIn.disconnect();
-//    LoginScreen.userName = '';
-//    LoginScreen.gmail = '';
-//    LoginScreen.userName = null;
-//    LoginScreen.gmail = null;
   }
 }
-
-////import 'package:Borhan_User/screens/overview_screen.dart';
-////import 'package:flutter/material.dart';
-////import 'package:firebase_auth/firebase_auth.dart';
-////import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-////import 'package:google_sign_in/google_sign_in.dart';
-////
-////class GoogleSignApp extends StatefulWidget {
-////  @override
-////  _GoogleSignAppState createState() => _GoogleSignAppState();
-////}
-////
-////class _GoogleSignAppState extends State<GoogleSignApp> {
-////  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
-////  final GoogleSignIn _googlSignIn = new GoogleSignIn();
-////
-////  Future<FirebaseUser> _signIn(BuildContext context) async {
-////    Scaffold.of(context).showSnackBar(new SnackBar(
-////      content: new Text('Sign in'),
-////    ));
-////
-////    final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
-////    final GoogleSignInAuthentication googleAuth =
-////        await googleUser.authentication;
-////
-////    final AuthCredential credential = GoogleAuthProvider.getCredential(
-////      accessToken: googleAuth.accessToken,
-////      idToken: googleAuth.idToken,
-////    );
-////
-////    FirebaseUser userDetails =
-////        (await _firebaseAuth.signInWithCredential(credential)) as FirebaseUser;
-////    ProviderDetails providerInfo = new ProviderDetails(userDetails.providerId);
-////
-////    List<ProviderDetails> providerData = new List<ProviderDetails>();
-////    providerData.add(providerInfo);
-////
-////    UserDetails details = new UserDetails(
-////      userDetails.providerId,
-////      userDetails.displayName,
-////      userDetails.photoUrl,
-////      userDetails.email,
-////      providerData,
-////    );
-////    Navigator.push(
-////      context,
-////      new MaterialPageRoute(
-////        builder: (context) => new OrgOverviewScreen(),
-////      ),
-////    );
-////    return userDetails;
-////  }
-////
-////  @override
-////  Widget build(BuildContext context) {
-////    return Scaffold(
-////      body: Builder(
-////        builder: (context) => Stack(
-////          fit: StackFit.expand,
-////          children: <Widget>[
-////            Container(
-////              width: MediaQuery.of(context).size.width,
-////              height: MediaQuery.of(context).size.height,
-////              child: Image.network(
-////                  'https://images.unsplash.com/photo-1518050947974-4be8c7469f0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
-////                  fit: BoxFit.fill,
-////                  color: Color.fromRGBO(255, 255, 255, 0.6),
-////                  colorBlendMode: BlendMode.modulate),
-////            ),
-////            Column(
-////              mainAxisAlignment: MainAxisAlignment.center,
-////              children: <Widget>[
-////                SizedBox(height: 10.0),
-////                Container(
-////                    width: 250.0,
-////                    child: Align(
-////                      alignment: Alignment.center,
-////                      child: RaisedButton(
-////                        shape: RoundedRectangleBorder(
-////                            borderRadius: new BorderRadius.circular(30.0)),
-////                        color: Color(0xffffffff),
-////                        child: Row(
-////                          mainAxisAlignment: MainAxisAlignment.start,
-////                          children: <Widget>[
-////                            Icon(
-////                              FontAwesomeIcons.google,
-////                              color: Color(0xffCE107C),
-////                            ),
-////                            SizedBox(width: 10.0),
-////                            Text(
-////                              'Sign in with Google',
-////                              style: TextStyle(
-////                                  color: Colors.black, fontSize: 18.0),
-////                            ),
-////                          ],
-////                        ),
-////                        onPressed: () => _signIn(context)
-////                            .then((FirebaseUser user) => print(user))
-////                            .catchError((e) => print(e)),
-////                      ),
-////                    )),
-////                Container(
-////                    width: 250.0,
-////                    child: Align(
-////                      alignment: Alignment.center,
-////                      child: RaisedButton(
-////                        shape: RoundedRectangleBorder(
-////                            borderRadius: new BorderRadius.circular(30.0)),
-////                        color: Color(0xffffffff),
-////                        child: Row(
-////                          mainAxisAlignment: MainAxisAlignment.start,
-////                          children: <Widget>[
-////                            Icon(
-////                              FontAwesomeIcons.facebookF,
-////                              color: Color(0xff4754de),
-////                            ),
-////                            SizedBox(width: 10.0),
-////                            Text(
-////                              'Sign in with Facebook',
-////                              style: TextStyle(
-////                                  color: Colors.black, fontSize: 18.0),
-////                            ),
-////                          ],
-////                        ),
-////                        onPressed: () {},
-////                      ),
-////                    )),
-////                Container(
-////                    width: 250.0,
-////                    child: Align(
-////                      alignment: Alignment.center,
-////                      child: RaisedButton(
-////                        shape: RoundedRectangleBorder(
-////                            borderRadius: new BorderRadius.circular(30.0)),
-////                        color: Color(0xffffffff),
-////                        child: Row(
-////                          mainAxisAlignment: MainAxisAlignment.start,
-////                          children: <Widget>[
-////                            Icon(
-////                              FontAwesomeIcons.solidEnvelope,
-////                              color: Color(0xff4caf50),
-////                            ),
-////                            SizedBox(width: 10.0),
-////                            Text(
-////                              'Sign in with Email',
-////                              style: TextStyle(
-////                                  color: Colors.black, fontSize: 18.0),
-////                            ),
-////                          ],
-////                        ),
-////                        onPressed: () {},
-////                      ),
-////                    )),
-////              ],
-////            ),
-////          ],
-////        ),
-////      ),
-////    );
-////  }
-////}
-////
-////class UserDetails {
-////  final String providerDetails;
-////  final String userName;
-////  final String photoUrl;
-////  final String userEmail;
-////  final List<ProviderDetails> providerData;
-////
-////  UserDetails(this.providerDetails, this.userName, this.photoUrl,
-////      this.userEmail, this.providerData);
-////}
-////
-////class ProviderDetails {
-////  ProviderDetails(this.providerDetails);
-////  final String providerDetails;
-////}
-//
-////
-////class GmailUserDetails {
-//////  final String =_currentUser.displayName;
-////
-////}

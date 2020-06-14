@@ -1,9 +1,7 @@
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 import 'package:Borhan_User/providers/chat_provider.dart';
-import 'package:Borhan_User/providers/connectivity_provider.dart';
 import 'package:Borhan_User/providers/email_provider.dart';
-
 import 'package:Borhan_User/providers/mydonation_provider.dart';
 import 'package:Borhan_User/screens/Help_organizations.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
@@ -17,7 +15,7 @@ import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:Borhan_User/screens/Notification_screen.dart';
 import 'package:Borhan_User/screens/favourite_screen.dart';
-import 'package:Borhan_User/screens/profile_screen.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:provider/provider.dart';
@@ -56,9 +54,6 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider.value(
             value: MyDonationsProvider(),
           ),
-          ChangeNotifierProvider.value(
-            value: ConnectivityProvider(),
-          ),
         ],
         child: MaterialApp(
             debugShowCheckedModeBanner: false,
@@ -79,46 +74,35 @@ class MyApp extends StatelessWidget {
             },
             title: 'Borhan',
             theme: new ThemeData(
-              primarySwatch: Colors.deepPurple,
-              textTheme: TextTheme(
-                subtitle1: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                ), 
-                button: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                ),
-                bodyText1: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                 ),
-               bodyText2: TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                ),   
-              ) 
-            ),
-            home:
-
-             WelcomeScreen(),
-
-
+                primarySwatch: Colors.deepPurple,
+                textTheme: TextTheme(
+                  subtitle1: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                  button: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                  bodyText1: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                  bodyText2: TextStyle(
+                    fontFamily: ArabicFonts.Amiri,
+                    package: 'google_fonts_arabic',
+                  ),
+                )),
+            home: WelcomeScreen(),
             routes: {
-//      OrganizationDetails.routeName: (ctx) => OrganizationDetails(),
-//      OrganizationActivity.routeName: (ctx) => OrganizationActivity(),
-//      Donation.routeName: (ctx) => Donation(),
-
               '/Favourite': (context) => Favourite(),
               '/Home': (context) => OrgOverviewScreen(),
               '/Notifications': (context) => Notifications(),
               '/Login': (context) => LoginScreen(),
-//              '/FirebaseLogin': (context) => AuthScreen(),
-//              '/GoogleSignin': (context) => SignInDemo(),
 
               '/Signup': (context) => SignupScreen(),
-              '/ExternalDonation' : (context) =>ExternalDonation(),
-              '/Profile': (context) => Profile(),
+              '/ExternalDonation': (context) => ExternalDonation(),
+
               HelpScreen.routeName: (ctx) => HelpScreen(),
               EmailOrganization.routeName: (ctx) => EmailOrganization(),
               ChatScreen.routeName: (ctx) => ChatScreen(),

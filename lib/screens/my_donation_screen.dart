@@ -38,7 +38,6 @@ class _MyDonationsState extends State<MyDonationsScreen> {
   Widget build(BuildContext context) {
     final historyData = Provider.of<MyDonationsProvider>(context);
     return Scaffold(
-//      backgroundColor: Colors.purple[400],
       appBar: AppBar(
         title: const Text('تبرعاتي'),
       ),
@@ -51,7 +50,6 @@ class _MyDonationsState extends State<MyDonationsScreen> {
               itemCount: historyData.items.length,
               itemBuilder: (_, i) {
                 return Container(
-//                  color: Colors.purple[100],
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
@@ -62,7 +60,6 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                               color: Colors.purple[400],
                               elevation: 14.0,
                               borderRadius: BorderRadius.circular(24.0),
-//                        shadowColor: Color(0x802196F3),
                               child: Column(children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
@@ -116,7 +113,6 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                 .status !=
                                                             ''
                                                     ? Material(
-//                                                  color: Colors.purple[50],
                                                         elevation: 2.0,
                                                         borderRadius:
                                                             BorderRadius
@@ -145,7 +141,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                                 i]
                                                                             .status !=
                                                                         'cancel'
-                                                                ?  const Text(
+                                                                ? const Text(
                                                                     'قيد المراجعة',
                                                                     style: TextStyle(
                                                                         color: Colors
@@ -159,7 +155,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                             .items[i]
                                                                             .status ==
                                                                         'done'
-                                                                    ?  const Text(
+                                                                    ? const Text(
                                                                         'تم قبول التبرع',
                                                                         style: TextStyle(
                                                                             color: Colors
@@ -169,7 +165,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                             fontWeight:
                                                                                 FontWeight.bold),
                                                                       )
-                                                                    :  const Text(
+                                                                    : const Text(
                                                                         'تم رفض التبرع',
                                                                         style: TextStyle(
                                                                             color: Colors

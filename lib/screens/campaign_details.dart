@@ -13,13 +13,10 @@ class CampaignDetail extends StatefulWidget {
 }
 
 class _CampaignDetailState extends State<CampaignDetail> {
-  //class CampaignDetail extends StatelessWidget {
-
   bool isFirstTime = true;
 
   CampaignNotifier campaignNotifier;
   void _showErrorDialog(String message) {
-    print("alert");
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)

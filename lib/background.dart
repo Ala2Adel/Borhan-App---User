@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class Background  extends CustomPainter{
 @override
 void paint(Canvas canvas, Size size) {
-  // TODO: implement paint
+  
   _drawPentagone(canvas,  size);
 }
 
@@ -22,7 +22,7 @@ _drawPentagone(Canvas canvas, Size size){
 
 @override
 bool shouldRepaint(CustomPainter oldDelegate) {
-  // TODO: implement shouldRepaint
+  
   return false;
 }
 

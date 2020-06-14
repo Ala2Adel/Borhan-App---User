@@ -2,11 +2,11 @@ import 'dart:io';
 import 'package:Borhan_User/models/mydonation.dart';
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import '../models/activity.dart';
+
 
 class MyDonationsProvider with ChangeNotifier {
 
@@ -32,26 +32,21 @@ class MyDonationsProvider with ChangeNotifier {
        }
    }    
 
-  Future<void> fetchAndSetDonations(String userId) async {
-//    userId = 'sj34ZIYOs6PUW4jxE93lWl35b1H3';      /******************/   /* Note */ /**************/
-    
+  Future<void> fetchAndSetDonations(String userId) async { 
       await loadSharedPrefs();
-          print(userLoad);
           userId=userLoad.id;
-
-    print("from fetch userId  " + userId);
     final url = 'https://borhanadmin.firebaseio.com/MyDonations/$userId.json';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
       final List<MyDonation> loadedDonations = [];
 
-//      print("Response body"+ response.body);
+
 
       if (extractedData != null) {
         extractedData.forEach((donationId, donationData) {
-          print("Donation Id from fetch in looooop  :  " + donationId);
-          print(donationData['image']);
+
+
           loadedDonations.add(MyDonation(
             id: donationId,
             orgName: donationData['orgName'],
@@ -65,7 +60,7 @@ class MyDonationsProvider with ChangeNotifier {
           ));
         });
         _items = loadedDonations;
-        print('Items' + _items[0].orgName);
+  
         notifyListeners();
       } else {
         print('No Data in this chat');
@@ -77,7 +72,7 @@ class MyDonationsProvider with ChangeNotifier {
 
   Future<void> deleteMyDonation({String id, String userId}) async {
     await loadSharedPrefs();
-          print(userLoad);
+        
           userId=userLoad.id;
     final url = 'https://borhanadmin.firebaseio.com/MyDonations/$userId.json';
     final existingProductIndex = _items.indexWhere((prod) => prod.id == id);

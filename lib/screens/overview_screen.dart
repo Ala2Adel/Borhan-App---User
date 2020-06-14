@@ -9,24 +9,17 @@ import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/screens/campaign_details.dart';
 import 'package:Borhan_User/screens/fast_donation.dart';
 import 'package:Borhan_User/screens/navigation_drawer.dart';
-import 'package:Borhan_User/screens/org_widgets/movie_api.dart';
 import 'package:Borhan_User/screens/org_widgets/movie_details_page.dart';
 import 'package:Borhan_User/screens/organization_activities.dart';
+import 'package:app_settings/app_settings.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-
 import 'package:connectivity/connectivity.dart';
-import 'package:Borhan_User/screens/activity_detail.dart';
-
 import '../background.dart';
-import 'Donation.dart';
-import 'organization_details.dart';
-
-import 'package:getflutter/getflutter.dart';
 
 class OrgOverviewScreen extends StatefulWidget {
   static const routeName = '/home';
@@ -36,23 +29,11 @@ class OrgOverviewScreen extends StatefulWidget {
 }
 
 class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
-// void chechNet() async{
-//     var connectivityResult = await (Connectivity().checkConnectivity());
-// if (connectivityResult == ConnectivityResult.mobile) {
-//   print('4g');
-//   // I am connected to a mobile network.
-// } else if (connectivityResult == ConnectivityResult.wifi) {
-//   print('wifi');
-//   // I am connected to a wifi network.
-// }
-//   }
-
   StreamSubscription connectivitySubscription;
   ConnectivityResult _previousResult;
   bool dialogShown = false;
 
   void _showErrorDialog(String message) {
-    print("alert");
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
@@ -101,6 +82,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
   @override
   void initState() {
+    super.initState();
     connectivitySubscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult connresult) {
@@ -122,16 +104,28 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                     child: Text(
                       'خروج ',
                       style: TextStyle(color: Colors.red),
-                    ))
-              ],
+                    )),
+          FlatButton(onPressed: ()=>{
+           
+           AppSettings.openWIFISettings(),
+          
+          }, child: Text(' اعدادت Wi-Fi ',style: TextStyle(color: Colors.blue),)),
+          FlatButton(onPressed: ()=>{
+           
+            AppSettings.openDataRoamingSettings(),
+          
+          }, child: Text(' اعدادت الباقه ',style: TextStyle(color: Colors.blue,),))
+        ]
+        
+        
+              ,
             ));
       } else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {
           if (result == true) {
             if (dialogShown == true) {
               dialogShown = false;
-              print(
-                  '-------------------------put your fix here ----------------------');
+
               getOrganizationsAndCampaign();
 
               Navigator.pop(context);
@@ -158,27 +152,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      // setState(() {
-      //   _isLoading = true;
-      // });
-      // Provider.of<OrganizationNotifier>(context).getOrganizations().then((_) {
-      //   setState(() {
-      //     _isLoading = false;
-      //     print('in screen org view');
-      //   });
-      // });
-
-      // Provider.of<CampaignNotifier>(context).fetchAndSetProducts().then((_) {
-      //   setState(() {
-      //     _isLoading = false;
-      //   });
-      // });
-
       campaignNotifier = Provider.of<CampaignNotifier>(context, listen: false);
       orgNotifier = Provider.of<OrganizationNotifier>(context, listen: false);
-      ////////////////////////////////////////////////////
+
       getOrganizationsAndCampaign();
-      ////////////////////////////////////
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -195,26 +172,13 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
     setState(() {
       _isLoading = false;
-      //print('in screen org view');
     });
   }
-  //  @override
-  // void initState() {
-
-  //     campaignNotifier = Provider.of<CampaignNotifier>(context);
-  //     orgNotifier = Provider.of<OrganizationNotifier>(context);
-  //   super.initState();
-  // }
 
   @override
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-    final curScaleFactor = MediaQuery.of(context).textScaleFactor / 2;
-
-    print('org notifier');
-
-    print(orgNotifier);
 
     final headerList = new ListView.builder(
       itemBuilder: (context, index) {
@@ -228,7 +192,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
           padding: padding,
           child: new InkWell(
             onTap: () {
-              print('Card selected');
               campaignNotifier.currentCampaign =
                   campaignNotifier.campaignList[index];
 
@@ -237,9 +200,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                 return CampaignDetail();
               }));
             },
-            child:  FadeAnimation(1, Container(
+            child: FadeAnimation(
+              1,
+              Container(
                 decoration: new BoxDecoration(
-                  // shape: BoxShape.circle,
                   borderRadius: new BorderRadius.circular(10.0),
                   color: Colors.purple[100],
                   boxShadow: [
@@ -248,14 +212,12 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         offset: const Offset(3.0, 10.0),
                         blurRadius: 10.0)
                   ],
-
                   image: new DecorationImage(
                     image: new NetworkImage(
                         campaignNotifier.campaignList[index].imagesUrl),
                     fit: BoxFit.fill,
                   ),
                 ),
-                // height: 200.0,
                 width: 150.0,
                 child: new Stack(
                   children: <Widget>[
@@ -308,7 +270,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        // elevation: 0.0,
         backgroundColor: Colors.purple[900],
       ),
       drawer: NavigationDrawer(),
@@ -319,25 +280,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
             )
           : SingleChildScrollView(
               child: Container(
-                //height: _height,
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-//                        new Align(
-//                          alignment: Alignment.centerLeft,
-//                          child: new Padding(
-//                              padding: new EdgeInsets.all(20),
-//                              child: new Text(
-//                                'الحملات',
-//                                style: new TextStyle(
-//                                  color: Colors.white70,
-//                                  fontSize: 26,
-//                                ),
-//                              )),
-//                        ),
-
                     new Container(
                       height: 190.0,
                       child: new Carousel(
@@ -362,21 +309,16 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         : Container(child: Text("لا يوجد حملات حايا")),
                     ButtonTheme(
                       minWidth: MediaQuery.of(context).size.width - 50,
-                      //width: 200,
                       height: 50.0,
-
                       child: Container(
-                        //  margin: const EdgeInsets.all(10),
                         margin: EdgeInsets.only(bottom: 10),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             RaisedButton(
-                              // color: Colors.lime[700],
                               color: Colors.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(24.0),
-                                // side: BorderSide(color: Colors.black),
                               ),
                               onPressed: () async {
                                 UserNav userLoad = await loadSharedPrefs();
@@ -388,7 +330,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
-                                        return FastDenotationScreen();
+                                        return FastDonationScreen();
                                       },
                                     ),
                                   );
@@ -397,7 +339,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                               child: Text(
                                 'تبرع الآن',
                                 style: TextStyle(
-                                    fontSize: 22.0, fontWeight: FontWeight.bold, color: Colors.white),
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
                               ),
                             ),
                           ],
@@ -414,23 +358,20 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           child: Card(
                             margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
                             color: Colors.purple[200],
-                            //padding: EdgeInsets.only(top: 20.0),
                             child: new ListTile(
                               contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
                               title: new Column(
                                 children: <Widget>[
                                   new Row(
                                     crossAxisAlignment:
-                                        // CrossAxisAlignment.start,
                                         CrossAxisAlignment.center,
                                     children: <Widget>[
-                                      FadeAnimation(2, Container(
-                                          // height: 110,
-                                          // width: 110,
+                                      FadeAnimation(
+                                        2,
+                                        Container(
                                           height: 100,
                                           width: 100,
                                           decoration: new BoxDecoration(
-                                              // shape: BoxShape.circle,
                                               borderRadius:
                                                   BorderRadius.circular(5),
                                               color: Colors.purple[300],
@@ -471,8 +412,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
                                         children: <Widget>[
-                                           FadeAnimation( 1.3,
-                                              Text(
+                                          FadeAnimation(
+                                            1.3,
+                                            Text(
                                               orgNotifier.orgList[index]
                                                           .orgName !=
                                                       null
@@ -483,10 +425,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   fontSize: 18.0,
                                                   color: Colors.white,
                                                   fontWeight: FontWeight.bold),
+                                            ),
                                           ),
-                                           ),
-                                           FadeAnimation(1.3,
-                                             Text(
+                                          FadeAnimation(
+                                            1.3,
+                                            Text(
                                               orgNotifier
                                                   .orgList[index].description,
                                               style: new TextStyle(
@@ -494,14 +437,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   color: Colors.white,
                                                   fontWeight:
                                                       FontWeight.normal),
+                                            ),
                                           ),
-                                           ),
                                           Wrap(
-                                            // spacing: 15.0,
                                             spacing: 10.0,
-//                                                      mainAxisAlignment:
-//                                                          MainAxisAlignment
-//                                                              .spaceEvenly,
                                             crossAxisAlignment:
                                                 WrapCrossAlignment.center,
                                             children: <Widget>[
@@ -520,27 +459,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                       orgNotifier
                                                           .orgList[index];
 
-//                                                      Navigator.of(context)
-//                                                          .push(
-//                                                        MaterialPageRoute(
-//                                                          builder:
-//                                                              (BuildContext
-//                                                          context) {
-//                                                            return OrganizationDetails(
-//                                                                orgNotifier
-//                                                                    .orgList[
-//                                                                index]);
-//                                                          },
-//                                                        ),
-//                                                      );
                                                   Navigator.push(
                                                       context,
                                                       PageRouteBuilder(
                                                         pageBuilder: (c, a1,
                                                                 a2) =>
-                                                            // OrganizationDetails(
-                                                            //     orgNotifier.orgList[index],
-                                                            //     ),
                                                             MovieDetailsPage(
                                                           orgNotifier
                                                               .orgList[index],
@@ -606,26 +529,6 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                                   500),
                                                     ),
                                                   );
-
-//                                                      Navigator.of(context)
-//                                                          .push(
-//                                                        MaterialPageRoute(
-//                                                          builder:
-//                                                              (BuildContext
-//                                                          context) {
-//                                                            print("Over view Screen " +
-//                                                                orgNotifier
-//                                                                    .orgList[
-//                                                                index]
-//                                                                    .id);
-//                                                            return OrganizationActivity(
-//                                                                orgNotifier
-//                                                                    .orgList[
-//                                                                index]
-//                                                                    .id);
-//                                                          },
-//                                                        ),
-//                                                      );
                                                 },
                                                 child: Text(
                                                   'الانشطة',
@@ -634,94 +537,17 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                       color: Colors.black),
                                                 ),
                                               ),
-//                                                        Icon(
-//                                                          Icons.favorite,
-//                                                          color:
-//                                                              Colors.redAccent,
-//                                                          size: 30.0,
-//                                                        )
                                             ],
                                           )
                                         ],
                                       )),
                                     ],
                                   ),
-                                  //  new Divider( height: 20,color: Colors.green,),
                                 ],
                               ),
                             ),
                           ),
                         );
-
-                        ///////////////////////////////////////////////
-
-                        //                            return
-                        //   GFCard(
-                        //   boxFit: BoxFit.fill,
-                        //   margin: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
-                        //   image: Image.network(orgNotifier.orgList[index].logo ,height: 120,
-                        //   fit: BoxFit.cover,
-                        //   ),
-                        //   title: GFListTile(
-                        //    //  avatar: GFAvatar(),
-                        //      padding: EdgeInsets.all(2),
-                        //      title: Text(orgNotifier.orgList[index].orgName,
-                        //      style:TextStyle(
-                        //         fontSize: 19,
-                        //         fontWeight: FontWeight.bold
-                        //        ) ,
-                        //      ),
-                        //      subTitle: Text(orgNotifier.orgList[index].description,
-                        //         style:TextStyle(
-                        //         fontSize: 17,
-                        //         color: Colors.black
-                        //        ) ,
-                        //        maxLines: 1,
-                        //      ),
-                        //    //  color: Colors.purple[300].withOpacity(0.75),
-                        //      margin: EdgeInsets.all(0),
-                        //    ),
-                        //    padding: EdgeInsets.all(0),
-                        //   //content: Text("GFCards has three types of cards i.e, basic, with avataras and with overlay image"),
-                        //    buttonBar: GFButtonBar(
-                        //    //alignment: MainAxisAlignment.center,
-
-                        //    padding: EdgeInsets.symmetric(horizontal: 5 ,vertical: 5),
-
-                        //    children: <Widget>[
-                        //    GFButton(
-                        //      onPressed: () {
-                        //          orgNotifier.currentOrganization =orgNotifier.orgList[index];
-                        //          Navigator.of( context)
-                        //          .push(MaterialPageRoute(builder:(BuildContext context)
-                        //          {
-                        //            return OrganizationDetails(orgNotifier.orgList[index]);
-                        //           },
-                        //          ),
-                        //        );
-                        //      },
-                        //      text: 'التفاصيل',
-                        //      color: Colors.purple,
-                        //      ),
-                        //      GFButton(
-                        //      onPressed: () {
-                        //      orgNotifier.currentOrganization =orgNotifier.orgList[index];
-                        //      Navigator.of(context)
-                        //     .push(MaterialPageRoute(builder:(BuildContextcontext)
-                        //     {
-                        //     print("Over view Screen " + orgNotifier.orgList[index].id);
-                        //     return OrganizationActivity(orgNotifier.orgList[ index].id);
-                        //      },
-                        //     ),
-                        //                                                           );
-                        //    },
-                        //      text: 'الأنشطة',
-                        //       color: Colors.purple,
-                        //      )
-                        //     ],
-                        //    ),
-                        //  );
-                        ///////////////////////////////////////////////
                       },
                     ),
                   ],

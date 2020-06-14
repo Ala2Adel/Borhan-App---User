@@ -1,6 +1,6 @@
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
-import 'package:Borhan_User/widgets/chat/message_bubble.dart';
+import '../widgets/message_bubble.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/chat_provider.dart';
@@ -9,7 +9,6 @@ import '../models/chat.dart';
 class ChatScreen extends StatefulWidget {
   static const routeName = '/chat';
   final orgId;
-
   ChatScreen({this.orgId});
 
   @override
@@ -40,7 +39,7 @@ class _ChatScreenState extends State<ChatScreen> {
     print('from _send message text = ' + _enteredMessage);
     print('from _send message text from add message = ' + chat.text);
     FocusScope.of(context).unfocus();
-    // final data = Provider.of<Auth>(context);
+
     chat = Chat(
       img: chat.img,
       text: _enteredMessage,
@@ -54,7 +53,6 @@ class _ChatScreenState extends State<ChatScreen> {
         .then((value) => {
               print('from _send message email from add message = ' +
                   userLoad.email),
-//    print('from _send message text from add message = ' + _enteredMessage),
               _controller.clear(),
               _enteredMessage = '',
               print('from add message'),
@@ -63,23 +61,15 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
-    // data = Provider.of<Auth>(context);
     if (_isInit) {
       print(widget.orgId);
       loadSharedPrefs().then((_) => {
-            print(
-                "-----------------------------------------------------------"),
-//            print(userLoad.email.split('.com')[0]),
-            print(widget.orgId),
             Provider.of<ChatProvider>(context)
                 .fetchAndSetChat(userLoad.email.split('.')[0], widget.orgId)
                 .then((value) => {
                       _loading = true,
                     }),
           });
-      // Provider.of<ChatProvider>(context)
-      //     .fetchAndSetChat(userLoad.email.split('.com')[0], widget.orgId);
     }
     _isInit = false;
     if (_loading) {
@@ -92,8 +82,6 @@ class _ChatScreenState extends State<ChatScreen> {
           id: null);
     }
 
-//    print('user Data');
-//    print(data.userData);
     super.didChangeDependencies();
   }
 
@@ -137,9 +125,6 @@ class _ChatScreenState extends State<ChatScreen> {
                     child: TextField(
                       controller: _controller,
                       decoration: InputDecoration(labelText: 'كتابة رسالة ...'),
-//                      onTap: () {
-////                        _isInit = true;
-//                      },
                       onChanged: (value) {
                         setState(() {
                           _enteredMessage = value;
@@ -147,15 +132,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         print('from wigdet value is : ' + value);
                         print('from wigdet entered message is : ' +
                             _enteredMessage);
-//                        _isInit = true;
-//                        chat = Chat(
-//                          img: chat.img,
-//                          text: _enteredMessage,
-//                          userName: chat.userName,
-//                          userId: chat.userId,
-//                          id: chat.id,
-//                          time: chat.time,
-//                        );
+
                         print('from wigdet chat.text is : ' + chat.text);
                       },
                     ),

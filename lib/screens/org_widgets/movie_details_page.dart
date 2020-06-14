@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 
 import 'package:Borhan_User/screens/org_widgets/story_line.dart';
 import 'package:Borhan_User/screens/org_widgets/actor_scroller.dart';
-import 'package:Borhan_User/screens/org_widgets/models.dart';
+
 import 'package:Borhan_User/screens/org_widgets/movie_detail_header.dart';
-import 'package:Borhan_User/screens/org_widgets/photo_scroller.dart';
+
 import 'package:http/http.dart' as http;
 
 class MovieDetailsPage extends StatefulWidget {

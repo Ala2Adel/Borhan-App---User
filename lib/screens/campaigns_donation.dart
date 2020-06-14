@@ -1,7 +1,6 @@
-import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
-import 'package:Borhan_User/notifiers/organization_notifier.dart';
-import 'package:Borhan_User/providers/auth.dart';
+
+
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,21 +17,21 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'dart:io' show Platform;
 
 class CampaignDenotationScreen extends StatefulWidget {
-  // This widget is the root of your application.
   @override
-  _CampaignDenotationScreenState createState() => _CampaignDenotationScreenState();
+  _CampaignDenotationScreenState createState() =>
+      _CampaignDenotationScreenState();
 }
 
 class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
   String selectedType;
-  CampaignNotifier campaignNotifier ;
+  CampaignNotifier campaignNotifier;
   var _submitLoading = false;
   List<String> _denoteType = <String>[
     'نقدى',
     'عينى',
     'نقدى وعينى',
   ];
-  // DenotationMode _denotationMode = DenotationMode.Eyes;
+
   List<IconData> _denoteIcons = <IconData>[
     FontAwesomeIcons.moneyBill,
     FontAwesomeIcons.eye,
@@ -79,8 +78,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     }
 
     _formKey.currentState.save();
-     setState(() {
-      _submitLoading=true;
+    setState(() {
+      _submitLoading = true;
     });
     if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
@@ -94,50 +93,37 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
           'https://www.moneyunder30.com/wp-content/uploads/2018/05/2_how-to-invest-648x364-c-default.jpg';
     }
 
-    //    initializeDateFormatting('de_DE', null).then(formatDates);
     var arabicTimeFormat = DateFormat.Hms('ar');
     var arabicDateFormat = DateFormat.yMd('ar');
 
     String formattedTime = arabicTimeFormat.format(DateTime.now());
     String formattedDate = arabicDateFormat.format(DateTime.now());
     String arabicFormattedDateTime = formattedTime + ' ' + formattedDate;
-//    DateTime now = DateTime.now();
-//    String formattedDate = DateFormat('kk:mm EEE d MMM y').format(now);
-    //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
+
     print(formattedDate);
     print(formattedTime);
 
     print(arabicFormattedDateTime);
-    //String formattedDate = DateFormat('kk:mm:ss \n EEE d MMM y').format(now);
+
     print(formattedDate);
-    final data = Provider.of<Auth>(context);
+
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
-              // userId: data.userData.id,
-              orgId:  campaignNotifier.currentCampaign.orgId,
-              orgName: campaignNotifier.currentCampaign.orgName,
-              availableOn: _authData['time'],
-              donationAmount: amount,
-              donationDate: arabicFormattedDateTime,
-              donationType: selectedType,
-              activityName: campaignNotifier.currentCampaign.campaignName,
-              donatorAddress: _authData['address'],
-              donatorItems: items,
-              image: _downloadUrl,
-              mobile: _authData['mobile'],
-              userName: _authData['name'],
-              );
+        orgId: campaignNotifier.currentCampaign.orgId,
+        orgName: campaignNotifier.currentCampaign.orgName,
+        availableOn: _authData['time'],
+        donationAmount: amount,
+        donationDate: arabicFormattedDateTime,
+        donationType: selectedType,
+        activityName: campaignNotifier.currentCampaign.campaignName,
+        donatorAddress: _authData['address'],
+        donatorItems: items,
+        image: _downloadUrl,
+        mobile: _authData['mobile'],
+        userName: _authData['name'],
+      );
 
-      // //////////////////////////////////////////////
-      // final snackBar = SnackBar(
-      //     content: Text(
-      //   'تم ارسال طلب تبرعك بنجاح',
-      //   style: TextStyle(color: Color(0xff11b719)),
-      // ));
-      // Scaffold.of(context).showSnackBar(snackBar);
-      //    Navigator.of(context).pop();
-      // ///////////////////////////////////////////////
       Flushbar(
         message: 'تم ارسال طلب تبرعك بنجاح',
         icon: Icon(
@@ -146,18 +132,18 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
           color: Colors.blue[300],
         ),
         duration: Duration(seconds: 3),
-        //leftBarIndicatorColor: Colors.blue[300],
+   
         margin: EdgeInsets.all(8),
         borderRadius: 8,
       )..show(context).then((value) => Navigator.of(context).pop());
-      //////////////////////////////////////////////
+   
     } catch (error) {
       print(error);
       const errorMessage = ' حدث خطا ما';
       _showErrorDialog(errorMessage);
     }
     setState(() {
-      _submitLoading=false;
+      _submitLoading = false;
     });
   }
 
@@ -176,7 +162,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
         _image = img;
         _isLoadImg = true;
       } else {
-        // _image = img;
+    
         if (_image != null) {
           _isLoadImg = true;
         } else {
@@ -187,36 +173,36 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
   }
 
   Future<String> uploadImage(File image) async {
-    print("upload ");
+    
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child(image.path.split('/').last);
     StorageUploadTask uploadTask = storageReference.putFile(image);
     await uploadTask.onComplete;
-    print('File Uploaded sucessfully ');
+   
     String _downloadUrl = await storageReference.getDownloadURL();
-    print('----------------------------------------------------------');
-    print(" uploading URL :  " + _downloadUrl);
-    print('----------------------------------------------------------');
+   
     return _downloadUrl;
   }
 
   void _showErrorDialog(String message) {
-    print("alert");
+ 
     showDialog(
       context: context,
-      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
-        title: const  Text('تحذير'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child: const  Text('حسنا'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ):CupertinoAlertDialog(
-              title: const  Text('تحذير'),
+      builder: (ctx) => (Platform.isAndroid)
+          ? AlertDialog(
+              title: const Text('تحذير'),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text('حسنا'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                )
+              ],
+            )
+          : CupertinoAlertDialog(
+              title: const Text('تحذير'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
@@ -224,15 +210,10 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                   isDefaultAction: true,
                   onPressed: () {
                     Navigator.of(ctx).pop();
-
-                   
                   },
                 )
               ],
             ),
-      
-      
-      
     );
   }
 
@@ -240,8 +221,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
   void initState() {
     super.initState();
     initializeDateFormatting();
-    campaignNotifier =
-        Provider.of<CampaignNotifier>(context, listen: false);
+    campaignNotifier = Provider.of<CampaignNotifier>(context, listen: false);
   }
 
   @override
@@ -251,14 +231,14 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final width = MediaQuery.of(context).size.width;
-    final height = MediaQuery.of(context).size.height * (2 / 7);
+    
+    
     return Scaffold(
       body: nested(),
     );
   }
 
-///////////////////////////////////////////////////////////////
+
   nested() {
     return NestedScrollView(
       headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -271,7 +251,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
             flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(
-                 campaignNotifier.currentCampaign.campaignName != null
+                  campaignNotifier.currentCampaign.campaignName != null
                       ? campaignNotifier.currentCampaign.campaignName
                       : 'تبرع الآن',
                   style: TextStyle(
@@ -279,8 +259,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                     fontSize: 16.0,
                   ),
                 ),
-                // background: Image.asset(
-                //   "assets/burhan.jpg",
+             
                 background: Stack(children: <Widget>[
                   Positioned(
                     child: Container(
@@ -307,7 +286,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
-//                crossAxisAlignment: CrossAxisAlignment.end,
+
                 children: <Widget>[
                   SizedBox(
                     height: 20,
@@ -316,7 +295,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                     child: Center(
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 15),
-                        //color: Colors.deepPurple.withOpacity(0.75),
+            
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(20),
@@ -324,13 +303,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(0)),
                           color: Colors.deepPurple.withOpacity(0.75),
-                          //  boxShadow: [
-                          //  BoxShadow(
-                          //   color: Colors.purple,
-                          //   blurRadius: 5,
-                          //   offset: Offset(5, 5),
-                          //   )
-                          //  ],
+                        
                         ),
                         child: Text(
                           campaignNotifier.currentCampaign.orgName != null
@@ -340,7 +313,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               fontSize: 21,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
-                              // backgroundColor: Colors.lightBlue[600],
+                      
 
                               shadows: [
                                 Shadow(
@@ -373,7 +346,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
-                            /////////////////////////////////////////////////////////
+                     
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -403,9 +376,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   }
                                   return null;
                                 },
-//                                    onSaved: (value) {
-//                                      _authData['name'] = value;
-//                                    },
+//                                  
                                 onChanged: (value) {
                                   _authData['name'] = value;
                                 },
@@ -428,11 +399,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       color: Colors.deepPurple,
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey)),
-//                              textAlign: TextAlign.end,
+
                                 keyboardType: TextInputType.number,
-//                                    onSaved: (value) {
-//                                      _authData['mobile'] = value;
-//                                    },
                                 onChanged: (val) {
                                   _authData['mobile'] = val;
                                 },
@@ -460,16 +428,14 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                         borderRadius:
                                             BorderRadius.circular(2.0)),
                                     labelText: "العنوان",
-                                    // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
+                               
                                     labelStyle: TextStyle(
                                         color: Colors.grey, fontSize: 24)),
-//                              textAlign: TextAlign.end,
+
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
                                 minLines: 2,
-//                                    onSaved: (value) {
-//                                      _authData['address'] = value;
-//                                    },
+
                                 onChanged: (val) {
                                   _authData['address'] = val;
                                 },
@@ -515,13 +481,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                     labelStyle: TextStyle(
                                         color: Colors.grey, fontSize: 24)),
-//                              textAlign: TextAlign.end,
+
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
                                 minLines: 2,
-//                                    onSaved: (value) {
-//                                      _authData['time'] = value;
-//                                    },
+
                                 onChanged: (val) {
                                   _authData['time'] = val;
                                 },
@@ -538,7 +502,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                 },
                               ),
                             ),
-//////////////////////////////////////////////////////////////////////
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -604,11 +568,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                         color: Colors.deepPurple,
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
-//                              textAlign: TextAlign.end,
+
                                   keyboardType: TextInputType.number,
-//                                        onSaved: (value) {
-//                                          _authData['amount'] = value;
-//                                        },
+
                                   onChanged: (value) {
                                     _authData['amount'] = value;
                                   },
@@ -626,7 +588,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   },
                                 ),
                               ),
-///////////////////////////////////////////////////////
+
                             if (selectedType != 'نقدى' && selectedType != null)
                               Container(
                                 padding: EdgeInsets.all(20),
@@ -697,13 +659,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                       labelStyle: TextStyle(
                                           color: Colors.grey, fontSize: 24)),
-//                              textAlign: TextAlign.end,
+
                                   keyboardType: TextInputType.multiline,
                                   maxLines: null,
                                   minLines: 3,
-//                                    onSaved: (value) {
-//                                      _authData['items'] = value;
-//                                    },
+
                                   onChanged: (value) {
                                     _authData['items'] = value;
                                   },
@@ -728,34 +688,34 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                   SizedBox(
                     height: 40,
                   ),
-                 FadeAnimation(
-                          1.9,
-                          Builder(
-                            builder: (ctx) => InkWell(
-                              onTap: () {
-                                if(!_submitLoading){
-                                   _submit(ctx);
-                                }
-                                  
-                              }
-                                , // handle your onTap here
-                              child: Container(
-                                height: 50,
-                                margin: EdgeInsets.symmetric(horizontal: 60),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                ),
-                                child: Center(
-                                  child:  _submitLoading==false?Text(
+                  FadeAnimation(
+                    1.9,
+                    Builder(
+                      builder: (ctx) => InkWell(
+                        onTap: () {
+                          if (!_submitLoading) {
+                            _submit(ctx);
+                          }
+                        }, // handle your onTap here
+                        child: Container(
+                          height: 50,
+                          margin: EdgeInsets.symmetric(horizontal: 60),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(50),
+                            color: Color.fromRGBO(49, 39, 79, 1),
+                          ),
+                          child: Center(
+                            child: _submitLoading == false
+                                ? Text(
                                     "تبرع الأن",
                                     style: TextStyle(color: Colors.white),
-                                  ):CircularProgressIndicator(),
-                                ),
-                              ),
-                            ),
+                                  )
+                                : CircularProgressIndicator(),
                           ),
                         ),
+                      ),
+                    ),
+                  ),
                   SizedBox(
                     height: 20,
                   ),
@@ -768,7 +728,5 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     );
   }
 
-///////////////////////////////////////////////////////////////
+
 }
-
-

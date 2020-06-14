@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:Borhan_User/models/user.dart';
 import 'package:Borhan_User/models/user_chat.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -8,22 +6,20 @@ import 'package:http/http.dart' as http;
 import '../models/http_exception.dart';
 
 class Auth with ChangeNotifier {
-  String _token;
-  DateTime _expiryDate;
-  String _userId;
+  
 
   var _userData = UserChat(email: '', id: '');
   UserChat get userData {
     return _userData;
   }
-  final String MYKEY = 'AIzaSyCLYK4YRGvB9ouLYqxGNnRetvZuG2mhA0c';
+  final String myKey = 'AIzaSyCLYK4YRGvB9ouLYqxGNnRetvZuG2mhA0c';
 
   Future<String> _authenticate(
       String email, String password, String urlSegment) async {
 
     String localId;
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$MYKEY';
+        'https://identitytoolkit.googleapis.com/v1/accounts:$urlSegment?key=$myKey';
     try {
       final response = await http.post(
         url,
@@ -41,7 +37,7 @@ class Auth with ChangeNotifier {
         id: responseData['localId'],
       );
       localId= responseData['localId'];
-      print("User Data is :  $responseData");
+      
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
@@ -53,7 +49,7 @@ class Auth with ChangeNotifier {
 
   Future<void> _sendResetPasswordEmail(String email) async {
     final url =
-        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=$MYKEY';
+        'https://identitytoolkit.googleapis.com/v1/accounts:sendOobCode?key=$myKey';
     try {
       final response = await http.post(
         url,
@@ -62,7 +58,7 @@ class Auth with ChangeNotifier {
         ),
       );
       final responseData = json.decode(response.body);
-      print(responseData);
+      
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }

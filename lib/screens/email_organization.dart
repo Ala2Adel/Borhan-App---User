@@ -1,6 +1,5 @@
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
-import 'package:Borhan_User/providers/auth.dart';
-import 'package:Borhan_User/screens/chat_screen.dart';
+
 import 'package:Borhan_User/screens/email_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -16,8 +15,6 @@ class _EmailOrganizationState extends State<EmailOrganization> {
   var _isInit = true;
   var _isLoading = false;
 
-//  String currentUserId = '1212145f';
-//String currentUserId ='M8CoA0TH86hmKSikh1K';
   @override
   void didChangeDependencies() {
     if (_isInit) {
@@ -41,6 +38,7 @@ class _EmailOrganizationState extends State<EmailOrganization> {
         title: const Text('الدعم بواسطة البريد الإلكتروني'),
       ),
       body: WillPopScope(
+        onWillPop: () async => false,
         child: Stack(
           children: <Widget>[
             Container(
@@ -69,7 +67,6 @@ class _EmailOrganizationState extends State<EmailOrganization> {
     if (orgName == null) {
       return Container();
     } else {
-//      print("documents"+documents.toString());
       return Container(
         child: FlatButton(
           child: Row(
@@ -79,11 +76,6 @@ class _EmailOrganizationState extends State<EmailOrganization> {
                 height: 50,
                 child: Material(
                   child: Image.network(img),
-//                Icon(
-//                  Icons.account_circle,
-//                  size: 50.0,
-//                ),
-
                   borderRadius: BorderRadius.all(Radius.circular(25.0)),
                   clipBehavior: Clip.hardEdge,
                 ),
@@ -114,11 +106,6 @@ class _EmailOrganizationState extends State<EmailOrganization> {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => EmailScreen(email)));
           },
-
-//              () {
-//            Navigator.of(context)
-//                .pushNamed(EmailScreen.routeName, arguments: email);
-//          },
           padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),

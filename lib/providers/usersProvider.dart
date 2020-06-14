@@ -1,5 +1,5 @@
-import 'dart:ffi';
-import 'package:Borhan_User/models/mydonation.dart';
+
+
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -16,12 +16,7 @@ class UsersPtovider with ChangeNotifier {
   }
 
   void setUserData({String userId, String email}) async {
-    //  await loadSharedPrefs();
-    //  if(userLoad==null){
-    //     print("user is not here");
-    //  }else{
-    //    print("user is  here");
-    //  }
+  
     getUserData(userId);
   }
 
@@ -30,22 +25,13 @@ class UsersPtovider with ChangeNotifier {
     try {
       final response = await http.get(url);
       final responseData = json.decode(response.body) as Map<String, dynamic>;
-      //  print((response.body));
-//      responseData.forEach(
-//        (prodId, prodData) {
-//          _userData2 = UserNav(
-//            id: userId,
-//            email: prodData['userEmail'],
-//            userName: prodData['userName'],
-//          );
-//        },
-//      );
+  
       _userData2 = UserNav(
         id: userId,
         email: responseData['userEmail'],
         userName: responseData['userName'],
       );
-      print(_userData2);
+    
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
       }
@@ -68,7 +54,7 @@ class UsersPtovider with ChangeNotifier {
 
   Future<void> addUser(
       String userId, String userName, String email, String password) async {
-    print("the local id is : $userId");
+    
     final url = 'https://borhanuser-f92a3.firebaseio.com/Users/$userId.json';
     try {
       final response = await http.patch(
@@ -114,7 +100,7 @@ class UsersPtovider with ChangeNotifier {
       String activityName,
       String userId,
       String orgName}) async {
-    //userId="ZZTqvnHmqBQuTpzlpTT9XA9oIXO2";
+    
     await loadSharedPrefs();
     print(userLoad);
     userId = userLoad.id;
@@ -173,36 +159,5 @@ class UsersPtovider with ChangeNotifier {
     }
   }
 
-// Future<void> makeDonationRequest( {String userName, String donationAmount,String donationDate
-//       , String availableOn , String mobile ,String donationType,
-//       String donatorAddress , String donatorItems ,String image ,String activityName}
-//       ) async {
-//     final url =
-//         'https://borhanadmin.firebaseio.com/DonationRequests.json';
-//     try {
-//       final response = await http.post(
-//         url,
-//         body: json.encode(
-//           { "availableOn":availableOn,
-//             'donationAmount': donationAmount,
-//             'donationDate': donationDate,
-//             "donatorMobile":mobile,
-//             'donationType': donationType,
-//             "activityName":activityName,
-//             'donatorAddress': donatorAddress,
-//             "donationItems":donatorItems,
-//             'donatorName': userName,
-//             'donationImage': image,
-//           },
-//         ),
-//       );
-//       final responseData = json.decode(response.body);
-//       if (responseData['error'] != null) {
-//         throw HttpException(responseData['error']['message']);
-//       }
-//     } catch (error) {
-//       throw error;
-//     }
-//   }
 
 }

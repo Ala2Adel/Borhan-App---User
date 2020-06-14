@@ -2,7 +2,7 @@ import 'package:Borhan_User/models/activity.dart';
 import 'package:Borhan_User/notifiers/activity_notifier.dart';
 import 'package:Borhan_User/screens/activity_detail.dart';
 import 'package:flutter/material.dart';
-import 'package:Borhan_User/screens/org_widgets/models.dart';
+
 import 'package:provider/provider.dart';
 
 class ActorScroller extends StatelessWidget {
