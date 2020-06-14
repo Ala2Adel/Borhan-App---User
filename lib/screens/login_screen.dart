@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
@@ -12,22 +11,26 @@ import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
 import 'overview_screen.dart';
 import 'dart:io' show Platform;
+import 'package:google_sign_in/google_sign_in.dart';
 
-GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
+//GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
 GoogleSignInAccount _currentUser;
 
 enum AuthMode { ResetPassword, Login }
 
 class LoginScreen extends StatefulWidget {
-  static var userName;
-  static var gmail;
+  static GoogleSignIn googleSignIn = GoogleSignIn(scopes: ['profile', 'email']);
+
+//  static var userName;
+//  static var gmail;
+//  static var id;
   // This widget is the root of your application.
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStateMixin {
-   var _submitLoading = false;  
+class _LoginScreenState extends State<LoginScreen> {
+  var _submitLoading = false;
   Map<String, String> _authData = {
     'email': '',
     'password': '',
@@ -40,58 +43,73 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   void initState() {
     // TODO: implement initState
     super.initState();
-    _googleSignIn.onCurrentUserChanged.listen((GoogleSignInAccount account) {
+    LoginScreen.googleSignIn.onCurrentUserChanged
+        .listen((GoogleSignInAccount account) {
       setState(() {
         _currentUser = account;
       });
+      print("from initstate google user data is : " + _currentUser.toString());
+
+      Provider.of<UsersPtovider>(context, listen: false).addUser(
+        _currentUser.id,
+        _currentUser.displayName,
+        _currentUser.email,
+        _authData['password'],
+      );
     });
 
-    _googleSignIn.signInSilently();
-    if (_currentUser != null) {
-      LoginScreen.userName = _currentUser.displayName;
-      LoginScreen.gmail = _currentUser.email;
-    }
+//    print(_currentUser)
+    LoginScreen.googleSignIn.signInSilently();
+//    if (_currentUser != null) {
+//      LoginScreen.userName = _currentUser.displayName;
+//      LoginScreen.gmail = _currentUser.email;
+//    }
 
-
+//    GmailUserDetails.userName = _currentUser.displayName;
+//    user.userName=_currentUser.displayName;
+//    user.gmail=_currentUser.email;
+//    GmailUserDetails.gmail = _currentUser.email;
   }
 
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
-    if (_currentUser != null) {
-      LoginScreen.userName = _currentUser.displayName;
-      LoginScreen.gmail = _currentUser.email;
-    }
+
+//    if (_currentUser != null) {
+//      LoginScreen.userName = _currentUser.displayName;
+//      LoginScreen.gmail = _currentUser.email;
+//    }
   }
 
   void _showErrorDialog(String message) {
     print("alert");
     showDialog(
       context: context,
-      builder: (ctx) => (Platform.isAndroid)?AlertDialog(
-        title: const  Text('حدث خطأ ما'),
-        content: Text(message),
-        actions: <Widget>[
-          FlatButton(
-            child : const  Text('حسنا'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-          )
-        ],
-      ):
-      CupertinoAlertDialog(
-         title: const  Text('حدث خطأ ما'),
-        content: Text(message),
-        actions: <Widget>[
-          CupertinoDialogAction( child : const  Text('حسنا'),
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            }),
-          
-        ],
-      ),
+      builder: (ctx) => (Platform.isAndroid)
+          ? AlertDialog(
+              title: const Text('حدث خطأ ما'),
+              content: Text(message),
+              actions: <Widget>[
+                FlatButton(
+                  child: const Text('حسنا'),
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                )
+              ],
+            )
+          : CupertinoAlertDialog(
+              title: const Text('حدث خطأ ما'),
+              content: Text(message),
+              actions: <Widget>[
+                CupertinoDialogAction(
+                    child: const Text('حسنا'),
+                    onPressed: () {
+                      Navigator.of(ctx).pop();
+                    }),
+              ],
+            ),
     );
   }
 
@@ -103,9 +121,9 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       return;
     }
     _formKey.currentState.save();
-   
-     setState(() {
-      _submitLoading=true;
+
+    setState(() {
+      _submitLoading = true;
     });
     if (_authMode == AuthMode.Login) {
       try {
@@ -143,31 +161,30 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
       try {
         Auth auth = new Auth();
         await auth.resetPassword(_authData['email']);
-        
+
         Flushbar(
-        message: 'تم ارسال تغير رابط كلمه المرور',
-        icon: Icon(
-          Icons.thumb_up,
-          size: 28.0,
-          color: Colors.blue[300],
-        ),
-        duration: Duration(seconds: 3),
-        //leftBarIndicatorColor: Colors.blue[300],
-        margin: EdgeInsets.all(8),
-        borderRadius: 8,
-      )..show(context);
-        
+          message: 'تم ارسال تغير رابط كلمه المرور',
+          icon: Icon(
+            Icons.thumb_up,
+            size: 28.0,
+            color: Colors.blue[300],
+          ),
+          duration: Duration(seconds: 3),
+          //leftBarIndicatorColor: Colors.blue[300],
+          margin: EdgeInsets.all(8),
+          borderRadius: 8,
+        )..show(context);
       } catch (error) {
         print(error);
         const errorMessage = 'البريد الإلكتروني غير موجود';
         _showErrorDialog(errorMessage);
       }
-       
     }
-       setState(() {
-      _submitLoading=false;
-        },
-       );
+    setState(
+      () {
+        _submitLoading = false;
+      },
+    );
   }
 
   void _switchAuthMode() {
@@ -259,33 +276,31 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                     SizedBox(
                       height: 20,
                     ),
-                    _currentUser != null
-                        ? Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.max,
-                            children: <Widget>[
-                              ListTile(
-                                leading: GoogleUserCircleAvatar(
-                                  identity: _currentUser,
-                                ),
-                                title: Text(_currentUser.displayName ?? ''),
-                                subtitle: Text(_currentUser.email ?? ''),
-                              ),
-//                              RaisedButton(
-//                                onPressed: _handleSignOut,
-//                                child: Text('تسجيل الخروج من حساب جوجل'),
-//                              )
-                            ],
-                          )
-                        : Container(),
+//                    _currentUser != null
+//                        ? Column(
+//                            mainAxisAlignment: MainAxisAlignment.center,
+//                            crossAxisAlignment: CrossAxisAlignment.center,
+//                            mainAxisSize: MainAxisSize.max,
+//                            children: <Widget>[
+//                              ListTile(
+//                                leading: GoogleUserCircleAvatar(
+//                                  identity: _currentUser,
+//                                ),
+//                                title: Text(_currentUser.displayName ?? ''),
+//                                subtitle: Text(_currentUser.email ?? ''),
+//                              ),
+////                              RaisedButton(
+////                                onPressed: _handleSignOut,
+////                                child: Text('تسجيل الخروج من حساب جوجل'),
+////                              )
+//                            ],
+//                          )
+//                        : Container(),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
-//                              Text('You are not signed in..'),
-
                         FadeAnimation(
                             1.7,
                             Container(
@@ -385,7 +400,7 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                         SizedBox(
                           height: 20,
                         ),
-                       
+
                         FadeAnimation(
                           1.7,
                           Center(
@@ -404,114 +419,113 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                           height: 10,
                         ),
                         FadeAnimation(
-                            1.9,
-                            InkWell(
-                              onTap: () {
-                                if(!_submitLoading){
-                                   _submit();
-                                }
-                                  
-                              }, // handle, // handle your onTap here
-                              child: Container(
-                                height: 40,
-                                margin: EdgeInsets.symmetric(horizontal: 60),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(50),
-                                  color: Color.fromRGBO(49, 39, 79, 1),
-                                ),
-                                child: Center(
-                                  child: _submitLoading==false? 
-                                  Text(
-                                    _authMode == AuthMode.Login
-                                        ? 'تسجيل الدخول'
-                                        : 'إرسال رابط تغيير كلمة المرور',
-                                    style: TextStyle(color: Colors.white),
-                                  ):CircularProgressIndicator(),
-                                ),
+                          1.9,
+                          InkWell(
+                            onTap: () {
+                              if (!_submitLoading) {
+                                _submit();
+                              }
+                            }, // handle, // handle your onTap here
+                            child: Container(
+                              height: 40,
+                              margin: EdgeInsets.symmetric(horizontal: 60),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(50),
+                                color: Color.fromRGBO(49, 39, 79, 1),
                               ),
-                             ),
+                              child: Center(
+                                child: _submitLoading == false
+                                    ? Text(
+                                        _authMode == AuthMode.Login
+                                            ? 'تسجيل الدخول'
+                                            : 'إرسال رابط تغيير كلمة المرور',
+                                        style: TextStyle(color: Colors.white),
+                                      )
+                                    : CircularProgressIndicator(),
+                              ),
                             ),
-                            /////////////////////////////////
-                           
-                            if (_authMode == AuthMode.Login)
-                             _currentUser == null
-                            ?
-                             Container(
-                                width: 280.0,
-                                child: Align(
-                                  alignment: Alignment.center,
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(30.0)),
-                                      color: Color.fromRGBO(49, 39, 79, 1),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Icon(
-                                            FontAwesomeIcons.google,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(width: 10.0),
-                                          Text(
-                                            'تسجيل الدخول بحساب جوجل',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 18.0),
-                                          ),
-                                        ],
-                                      ),
-//                            RaisedButton(
-//                              onPressed: _handleSignIn,
-//                              child: Text('SIGN IN'),
-//                            )
-                                      onPressed: _handleSignIn,
-                                    ),
-                                  ),
-                                ),
-                              )
-                            : Padding(
+                          ),
+                        ),
+                        /////////////////////////////////
+
+                        if (_authMode == AuthMode.Login)
+                          Container(
+                            width: 280.0,
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Padding(
                                 padding: const EdgeInsets.all(10),
-                                child: Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Align(
-                                    child: RaisedButton(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              new BorderRadius.circular(30.0)),
-                                      color: Color.fromRGBO(49, 39, 79, 1),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: <Widget>[
-                                          Icon(
-                                            FontAwesomeIcons.google,
-                                            color: Colors.white,
-                                          ),
-                                          SizedBox(width: 10.0),
-                                          Expanded(
-                                            child: Text(
-                                              'تسجيل الخروج من حساب جوجل',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 18.0),
-                                            ),
-                                          ),
-                                        ],
+                                child: RaisedButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          new BorderRadius.circular(30.0)),
+                                  color: Color.fromRGBO(49, 39, 79, 1),
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Icon(
+                                        FontAwesomeIcons.google,
+                                        color: Colors.white,
                                       ),
+                                      SizedBox(width: 10.0),
+                                      Text(
+                                        'تسجيل الدخول بحساب جوجل',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18.0),
+                                      ),
+                                    ],
+                                  ),
 //                            RaisedButton(
 //                              onPressed: _handleSignIn,
 //                              child: Text('SIGN IN'),
 //                            )
-                                      onPressed: _handleSignOut,
-                                    ),
-                                  ),
+                                  onPressed: _handleSignIn,
                                 ),
                               ),
-                            ////////////////////////////////
+                            ),
+                          )
+//                              : Padding(
+//                                  padding: const EdgeInsets.all(10),
+//                                  child: Container(
+//                                    width: MediaQuery.of(context).size.width,
+//                                    child: Align(
+//                                      child: RaisedButton(
+//                                        shape: RoundedRectangleBorder(
+//                                            borderRadius:
+//                                                new BorderRadius.circular(
+//                                                    30.0)),
+//                                        color: Color.fromRGBO(49, 39, 79, 1),
+//                                        child: Row(
+//                                          mainAxisAlignment:
+//                                              MainAxisAlignment.start,
+//                                          children: <Widget>[
+//                                            Icon(
+//                                              FontAwesomeIcons.google,
+//                                              color: Colors.white,
+//                                            ),
+//                                            SizedBox(width: 10.0),
+//                                            Expanded(
+//                                              child: Text(
+//                                                'تسجيل الخروج من حساب جوجل',
+//                                                style: TextStyle(
+//                                                    color: Colors.white,
+//                                                    fontSize: 18.0),
+//                                              ),
+//                                            ),
+//                                          ],
+//                                        ),
+////                            RaisedButton(
+////                              onPressed: _handleSignIn,
+////                              child: Text('SIGN IN'),
+////                            )
+//                                        onPressed: _handleSignOut,
+//                                      ),
+//                                    ),
+//                                  ),
+//                                ),
+                        ////////////////////////////////
+                        ,
                         SizedBox(
                           height: 0,
                         ),
@@ -526,9 +540,8 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
                                   style: TextStyle(
                                       color: Color.fromRGBO(49, 39, 79, .6)),
                                 ),
-                                onPressed: () =>
-                                    Navigator.pushReplacementNamed(
-                                        context, '/Signup'),
+                                onPressed: () => Navigator.pushReplacementNamed(
+                                    context, '/Signup'),
                               ),
                             ),
                           ),
@@ -546,12 +559,12 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
 
   Future<void> _handleSignIn() async {
     try {
-      await _googleSignIn.signIn();
+      await LoginScreen.googleSignIn.signIn();
+      print("from handle sign in" + _currentUser.toString());
     } catch (error) {
       print(error);
     }
-//    LoginScreen.userName = _currentUser.displayName;
-//    LoginScreen.gmail = _currentUser.email;
+
     Timer(
         Duration(seconds: 2),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
@@ -571,22 +584,195 @@ class _LoginScreenState extends State<LoginScreen> with SingleTickerProviderStat
   }
 
   Future<void> _handleSignOut() async {
-    if (_currentUser != null) {
-      print("from signout : " + _currentUser.displayName);
-      LoginScreen.userName = _currentUser.displayName;
-      LoginScreen.gmail = _currentUser.email;
-    }
-    SharedPref sharedPref = SharedPref();
-    sharedPref.remove("user");
-    _googleSignIn.disconnect();
+//    SharedPref sharedPref = SharedPref();
+//    sharedPref.remove("user");
+    LoginScreen.googleSignIn.disconnect();
 //    LoginScreen.userName = '';
 //    LoginScreen.gmail = '';
 //    LoginScreen.userName = null;
 //    LoginScreen.gmail = null;
   }
 }
+
+////import 'package:Borhan_User/screens/overview_screen.dart';
+////import 'package:flutter/material.dart';
+////import 'package:firebase_auth/firebase_auth.dart';
+////import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+////import 'package:google_sign_in/google_sign_in.dart';
+////
+////class GoogleSignApp extends StatefulWidget {
+////  @override
+////  _GoogleSignAppState createState() => _GoogleSignAppState();
+////}
+////
+////class _GoogleSignAppState extends State<GoogleSignApp> {
+////  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+////  final GoogleSignIn _googlSignIn = new GoogleSignIn();
+////
+////  Future<FirebaseUser> _signIn(BuildContext context) async {
+////    Scaffold.of(context).showSnackBar(new SnackBar(
+////      content: new Text('Sign in'),
+////    ));
+////
+////    final GoogleSignInAccount googleUser = await _googlSignIn.signIn();
+////    final GoogleSignInAuthentication googleAuth =
+////        await googleUser.authentication;
+////
+////    final AuthCredential credential = GoogleAuthProvider.getCredential(
+////      accessToken: googleAuth.accessToken,
+////      idToken: googleAuth.idToken,
+////    );
+////
+////    FirebaseUser userDetails =
+////        (await _firebaseAuth.signInWithCredential(credential)) as FirebaseUser;
+////    ProviderDetails providerInfo = new ProviderDetails(userDetails.providerId);
+////
+////    List<ProviderDetails> providerData = new List<ProviderDetails>();
+////    providerData.add(providerInfo);
+////
+////    UserDetails details = new UserDetails(
+////      userDetails.providerId,
+////      userDetails.displayName,
+////      userDetails.photoUrl,
+////      userDetails.email,
+////      providerData,
+////    );
+////    Navigator.push(
+////      context,
+////      new MaterialPageRoute(
+////        builder: (context) => new OrgOverviewScreen(),
+////      ),
+////    );
+////    return userDetails;
+////  }
+////
+////  @override
+////  Widget build(BuildContext context) {
+////    return Scaffold(
+////      body: Builder(
+////        builder: (context) => Stack(
+////          fit: StackFit.expand,
+////          children: <Widget>[
+////            Container(
+////              width: MediaQuery.of(context).size.width,
+////              height: MediaQuery.of(context).size.height,
+////              child: Image.network(
+////                  'https://images.unsplash.com/photo-1518050947974-4be8c7469f0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60',
+////                  fit: BoxFit.fill,
+////                  color: Color.fromRGBO(255, 255, 255, 0.6),
+////                  colorBlendMode: BlendMode.modulate),
+////            ),
+////            Column(
+////              mainAxisAlignment: MainAxisAlignment.center,
+////              children: <Widget>[
+////                SizedBox(height: 10.0),
+////                Container(
+////                    width: 250.0,
+////                    child: Align(
+////                      alignment: Alignment.center,
+////                      child: RaisedButton(
+////                        shape: RoundedRectangleBorder(
+////                            borderRadius: new BorderRadius.circular(30.0)),
+////                        color: Color(0xffffffff),
+////                        child: Row(
+////                          mainAxisAlignment: MainAxisAlignment.start,
+////                          children: <Widget>[
+////                            Icon(
+////                              FontAwesomeIcons.google,
+////                              color: Color(0xffCE107C),
+////                            ),
+////                            SizedBox(width: 10.0),
+////                            Text(
+////                              'Sign in with Google',
+////                              style: TextStyle(
+////                                  color: Colors.black, fontSize: 18.0),
+////                            ),
+////                          ],
+////                        ),
+////                        onPressed: () => _signIn(context)
+////                            .then((FirebaseUser user) => print(user))
+////                            .catchError((e) => print(e)),
+////                      ),
+////                    )),
+////                Container(
+////                    width: 250.0,
+////                    child: Align(
+////                      alignment: Alignment.center,
+////                      child: RaisedButton(
+////                        shape: RoundedRectangleBorder(
+////                            borderRadius: new BorderRadius.circular(30.0)),
+////                        color: Color(0xffffffff),
+////                        child: Row(
+////                          mainAxisAlignment: MainAxisAlignment.start,
+////                          children: <Widget>[
+////                            Icon(
+////                              FontAwesomeIcons.facebookF,
+////                              color: Color(0xff4754de),
+////                            ),
+////                            SizedBox(width: 10.0),
+////                            Text(
+////                              'Sign in with Facebook',
+////                              style: TextStyle(
+////                                  color: Colors.black, fontSize: 18.0),
+////                            ),
+////                          ],
+////                        ),
+////                        onPressed: () {},
+////                      ),
+////                    )),
+////                Container(
+////                    width: 250.0,
+////                    child: Align(
+////                      alignment: Alignment.center,
+////                      child: RaisedButton(
+////                        shape: RoundedRectangleBorder(
+////                            borderRadius: new BorderRadius.circular(30.0)),
+////                        color: Color(0xffffffff),
+////                        child: Row(
+////                          mainAxisAlignment: MainAxisAlignment.start,
+////                          children: <Widget>[
+////                            Icon(
+////                              FontAwesomeIcons.solidEnvelope,
+////                              color: Color(0xff4caf50),
+////                            ),
+////                            SizedBox(width: 10.0),
+////                            Text(
+////                              'Sign in with Email',
+////                              style: TextStyle(
+////                                  color: Colors.black, fontSize: 18.0),
+////                            ),
+////                          ],
+////                        ),
+////                        onPressed: () {},
+////                      ),
+////                    )),
+////              ],
+////            ),
+////          ],
+////        ),
+////      ),
+////    );
+////  }
+////}
+////
+////class UserDetails {
+////  final String providerDetails;
+////  final String userName;
+////  final String photoUrl;
+////  final String userEmail;
+////  final List<ProviderDetails> providerData;
+////
+////  UserDetails(this.providerDetails, this.userName, this.photoUrl,
+////      this.userEmail, this.providerData);
+////}
+////
+////class ProviderDetails {
+////  ProviderDetails(this.providerDetails);
+////  final String providerDetails;
+////}
 //
-//class GmailUserDetails {
-////  final String =_currentUser.displayName;
-//
-//}
+////
+////class GmailUserDetails {
+//////  final String =_currentUser.displayName;
+////
+////}

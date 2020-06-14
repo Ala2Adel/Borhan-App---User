@@ -56,17 +56,17 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const  Text('تسجيل دخول'),
+        title: const Text('تسجيل دخول'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: const  Text('ليس الأن'),
+            child: const Text('ليس الأن'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child:const  Text('نعم'),
+            child: const Text('نعم'),
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pushNamed(context, '/Login');
@@ -76,17 +76,17 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
       ),
     );
   }
-Future<UserNav> loadSharedPrefs() async {
+
+  Future<UserNav> loadSharedPrefs() async {
     UserNav user;
     try {
-     SharedPref sharedPref = SharedPref();
-       user = UserNav.fromJson(await sharedPref.read("user"));
-      } catch (Excepetion) {
-    // do something
-       }
-       return user;
-   } 
-
+      SharedPref sharedPref = SharedPref();
+      user = UserNav.fromJson(await sharedPref.read("user"));
+    } catch (Excepetion) {
+      // do something
+    }
+    return user;
+  }
 
   Future<bool> checkinternet() async {
     try {
@@ -112,8 +112,7 @@ Future<UserNav> loadSharedPrefs() async {
             child: AlertDialog(
               title: const Text('حدث خطأ ما '),
               content: Text(
-                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'
-              ),
+                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
               actions: <Widget>[
                 FlatButton(
                     onPressed: () => {
@@ -230,7 +229,6 @@ Future<UserNav> loadSharedPrefs() async {
           child: new InkWell(
             onTap: () {
               print('Card selected');
-
               campaignNotifier.currentCampaign =
                   campaignNotifier.campaignList[index];
 
@@ -358,9 +356,10 @@ Future<UserNav> loadSharedPrefs() async {
                         indicatorBgPadding: 2.0,
                       ),
                     ),
-
-                    new Container(
-                        height: 150.0, width: _width, child: headerList),
+                    campaignNotifier.campaignList.length != 0
+                        ? new Container(
+                            height: 150.0, width: _width, child: headerList)
+                        : Container(child: Text("لا يوجد حملات حايا")),
                     ButtonTheme(
                       minWidth: MediaQuery.of(context).size.width - 50,
                       //width: 200,
@@ -374,27 +373,26 @@ Future<UserNav> loadSharedPrefs() async {
                           children: <Widget>[
                             RaisedButton(
                               // color: Colors.lime[700],
-                                color: Colors.blue,
+                              color: Colors.blue,
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(24.0),
-                               // side: BorderSide(color: Colors.black),
+                                // side: BorderSide(color: Colors.black),
                               ),
-                              onPressed: () async{
-
-                     UserNav userLoad = await loadSharedPrefs();
-                    if(userLoad==null){
-                      print("user is not here");
-                      _showErrorDialog("برجاء تسجيل الدخول أولا ");
-                     }else{
-                       print("user is  here");
-                       Navigator.of(context).push(MaterialPageRoute(
-                        builder: (BuildContext context) {
-                          return FastDenotationScreen();
-                        },
-                       ),
-                      );
-                     }
-                
+                              onPressed: () async {
+                                UserNav userLoad = await loadSharedPrefs();
+                                if (userLoad == null) {
+                                  print("user is not here");
+                                  _showErrorDialog("برجاء تسجيل الدخول أولا ");
+                                } else {
+                                  print("user is  here");
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(
+                                      builder: (BuildContext context) {
+                                        return FastDenotationScreen();
+                                      },
+                                    ),
+                                  );
+                                }
                               },
                               child: Text(
                                 'تبرع الآن',
@@ -407,8 +405,8 @@ Future<UserNav> loadSharedPrefs() async {
                       ),
                     ),
                     ListView.builder(
-                       shrinkWrap: true, 
-                       physics: NeverScrollableScrollPhysics(), 
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
                       itemCount: orgNotifier.orgList.length,
                       itemBuilder: (context, index) {
                         return ClipRRect(
@@ -418,14 +416,13 @@ Future<UserNav> loadSharedPrefs() async {
                             color: Colors.purple[200],
                             //padding: EdgeInsets.only(top: 20.0),
                             child: new ListTile(
-                              contentPadding:
-                                  EdgeInsets.fromLTRB(5, 5, 10, 0),
+                              contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
                               title: new Column(
                                 children: <Widget>[
                                   new Row(
                                     crossAxisAlignment:
                                         // CrossAxisAlignment.start,
-                                         CrossAxisAlignment.center,
+                                        CrossAxisAlignment.center,
                                     children: <Widget>[
                                       FadeAnimation(2, Container(
                                           // height: 110,
@@ -512,8 +509,8 @@ Future<UserNav> loadSharedPrefs() async {
                                                 color: Colors.deepPurple[50],
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      new BorderRadius
-                                                          .circular(10.0),
+                                                      new BorderRadius.circular(
+                                                          10.0),
                                                   side: BorderSide(
                                                       color: Colors.black),
                                                 ),
@@ -544,7 +541,10 @@ Future<UserNav> loadSharedPrefs() async {
                                                             // OrganizationDetails(
                                                             //     orgNotifier.orgList[index],
                                                             //     ),
-                                                             MovieDetailsPage( orgNotifier.orgList[index],),
+                                                            MovieDetailsPage(
+                                                          orgNotifier
+                                                              .orgList[index],
+                                                        ),
                                                         transitionsBuilder: (c,
                                                                 anim,
                                                                 a2,
@@ -569,8 +569,8 @@ Future<UserNav> loadSharedPrefs() async {
                                                 color: Colors.deepPurple[50],
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
-                                                      new BorderRadius
-                                                          .circular(10.0),
+                                                      new BorderRadius.circular(
+                                                          10.0),
                                                   side: BorderSide(
                                                       color: Colors.black),
                                                 ),
@@ -587,10 +587,8 @@ Future<UserNav> loadSharedPrefs() async {
                                                           animation2) {
                                                         return OrganizationActivity(
                                                             orgNotifier
-                                                                .orgList[
-                                                                    index]
+                                                                .orgList[index]
                                                                 .id);
-
                                                       },
                                                       transitionsBuilder:
                                                           (context,

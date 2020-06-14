@@ -20,24 +20,23 @@ class _ChatScreenState extends State<ChatScreen> {
   var _enteredMessage = '';
   var _isInit = true;
   var chat =
-  Chat(time: '', text: '', userId: '', userName: '', img: '', id: null);
+      Chat(time: '', text: '', userId: '', userName: '', img: '', id: null);
 
   final _controller = new TextEditingController();
   // var data;
   UserNav userLoad;
-bool _loading = false;
-   loadSharedPrefs() async {
+  bool _loading = false;
+  loadSharedPrefs() async {
     try {
-     SharedPref sharedPref = SharedPref();
-     UserNav user = UserNav.fromJson(await sharedPref.read("user"));
+      SharedPref sharedPref = SharedPref();
+      UserNav user = UserNav.fromJson(await sharedPref.read("user"));
       userLoad = user;
-      } catch (Excepetion) {
-    // do something
-       }
-   }  
+    } catch (Excepetion) {
+      // do something
+    }
+  }
 
-
-  void _sendMessage() async{
+  void _sendMessage() async {
     print('from _send message text = ' + _enteredMessage);
     print('from _send message text from add message = ' + chat.text);
     FocusScope.of(context).unfocus();
@@ -51,44 +50,48 @@ bool _loading = false;
       time: chat.time,
     );
     Provider.of<ChatProvider>(context, listen: false)
-        .addMessage(chat, userLoad.email.split('.com')[0], widget.orgId)
+        .addMessage(chat, userLoad.email.split('.')[0], widget.orgId)
         .then((value) => {
-      print('from _send message email from add message = ' + userLoad.email),
+              print('from _send message email from add message = ' +
+                  userLoad.email),
 //    print('from _send message text from add message = ' + _enteredMessage),
-      _controller.clear(),
-      _enteredMessage = '',
-      print('from add message'),
-    });
+              _controller.clear(),
+              _enteredMessage = '',
+              print('from add message'),
+            });
   }
-  
+
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
     // data = Provider.of<Auth>(context);
     if (_isInit) {
       print(widget.orgId);
-      loadSharedPrefs().then((_)=>{
-        Provider.of<ChatProvider>(context)
-          .fetchAndSetChat(userLoad.email.split('.com')[0], widget.orgId).then((value) => 
-          {
-            _loading =true,
-          }
-          ),
-      });
+      loadSharedPrefs().then((_) => {
+            print(
+                "-----------------------------------------------------------"),
+//            print(userLoad.email.split('.com')[0]),
+            print(widget.orgId),
+            Provider.of<ChatProvider>(context)
+                .fetchAndSetChat(userLoad.email.split('.')[0], widget.orgId)
+                .then((value) => {
+                      _loading = true,
+                    }),
+          });
       // Provider.of<ChatProvider>(context)
       //     .fetchAndSetChat(userLoad.email.split('.com')[0], widget.orgId);
     }
     _isInit = false;
-    if(_loading){
-    chat = Chat(
-        time: '',
-        text: '',
-        userId: userLoad.id,
-        userName: userLoad.email.split('@')[0],
-        img: '',
-        id: null);  
+    if (_loading) {
+      chat = Chat(
+          time: '',
+          text: '',
+          userId: userLoad.id.toString(),
+          userName: userLoad.email.split('@')[0],
+          img: '',
+          id: null);
     }
-    
+
 //    print('user Data');
 //    print(data.userData);
     super.didChangeDependencies();
@@ -105,26 +108,29 @@ bool _loading = false;
         child: Column(
           children: <Widget>[
             Expanded(
-              child: _loading ?FutureBuilder(
-                future: chatDocs.fetchAndSetChat(userLoad.email.split('.com')[0], widget.orgId),
-                builder: (ctx, futureSnapshot) {
-                  return StreamBuilder(builder: (ctx, chatSnapshot) {
-                    return ListView.builder(
-                      reverse: true,
-                      itemCount: chatDocs.items.length,
-                      itemBuilder: (_, index) => MessageBubble(
-                        chatDocs.items[index].text,
-                        chatDocs.items[index].userName,
-                        chatDocs.items[index].userName == "Admin",
-                      ),
-                    );
-                  });
-                },
-              ):Center(child: CircularProgressIndicator()),
+              child: _loading
+                  ? FutureBuilder(
+                      future: chatDocs.fetchAndSetChat(
+                          userLoad.email.split('.')[0], widget.orgId),
+                      builder: (ctx, futureSnapshot) {
+                        return StreamBuilder(builder: (ctx, chatSnapshot) {
+                          return ListView.builder(
+                            reverse: true,
+                            itemCount: chatDocs.items.length,
+                            itemBuilder: (_, index) => MessageBubble(
+                              chatDocs.items[index].text,
+                              chatDocs.items[index].userName,
+                              chatDocs.items[index].userName == "Admin",
+                            ),
+                          );
+                        });
+                      },
+                    )
+                  : Center(child: CircularProgressIndicator()),
             ),
             Container(
-              margin: const  EdgeInsets.only(top: 8),
-              padding: const  EdgeInsets.all(8),
+              margin: const EdgeInsets.only(top: 8),
+              padding: const EdgeInsets.all(8),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -139,7 +145,8 @@ bool _loading = false;
                           _enteredMessage = value;
                         });
                         print('from wigdet value is : ' + value);
-                        print('from wigdet entered message is : ' + _enteredMessage);
+                        print('from wigdet entered message is : ' +
+                            _enteredMessage);
 //                        _isInit = true;
 //                        chat = Chat(
 //                          img: chat.img,
@@ -159,7 +166,7 @@ bool _loading = false;
                       Icons.send,
                     ),
                     onPressed:
-                    _enteredMessage.trim().isEmpty ? null : _sendMessage,
+                        _enteredMessage.trim().isEmpty ? null : _sendMessage,
                   )
                 ],
               ),
