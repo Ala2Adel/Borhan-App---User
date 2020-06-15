@@ -38,7 +38,7 @@ class _EmailOrganizationState extends State<EmailOrganization> {
         title: const Text('الدعم بواسطة البريد الإلكتروني'),
       ),
       body: WillPopScope(
-        onWillPop: () async => false,
+        onWillPop: () async => true,
         child: Stack(
           children: <Widget>[
             Container(
