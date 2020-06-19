@@ -17,6 +17,8 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import 'dart:io' show Platform;
 
+import '../app_localizations.dart';
+
 class NormalDenotationScreen extends StatefulWidget {
   @override
   _NormalDenotationScreenState createState() => _NormalDenotationScreenState();
@@ -235,7 +237,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                 title: Text(
                   activityNotifier.currentActivity.name != null
                       ? activityNotifier.currentActivity.name
-                      : 'تبرع الآن',
+                      : AppLocalizations.of(context)
+                          .translate('Donate_Now_String'),
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
@@ -283,7 +286,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                         child: Text(
                           orgNotifier.currentOrg.orgName != null
                               ? orgNotifier.currentOrg.orgName
-                              : 'تبرع الآن',
+                              : AppLocalizations.of(context)
+                                  .translate('Donate_Now_String'),
                           style: TextStyle(
                               fontSize: 21,
                               fontWeight: FontWeight.bold,

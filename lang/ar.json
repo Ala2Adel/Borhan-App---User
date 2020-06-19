@@ -1,0 +1,20 @@
+{
+  "login_string": "تسجيل الدخول",
+  "not_now_string": "ليس الآن",
+  "yes_string": "نعم",
+  "Please_signin_first_string":"برجاء تسجيل الدخول أولا",
+  "Donate_Now_String": "تبرع الآن",
+  "Details_String":"التفاصيل",
+  "Activities_String": "الأنشطة",
+  "Something_went_wrong_String": "حدث خطأ ما",
+  "logout_string": "تسجيل الخروج",
+  "welcome_string": "مرحبا بك",
+  "Login_Signup_string": "تسجيل الدخول / التسجيل",
+  "Home_String": "الرئيسية",
+  "favorites_string": "المفضلة",
+  "Mydonations_String": "تبرعاتي",
+  "External_Donations": "التبرعات الخارجية",
+  "help and support": "الدعم و المساعدة",
+  "cancel": "إلغاء",
+  "Burhan": "برهان"
+}

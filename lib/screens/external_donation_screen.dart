@@ -5,6 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
+import '../app_localizations.dart';
+
 class ExternalDonation extends StatefulWidget {
   @override
   _ExternalDonationState createState() => _ExternalDonationState();
@@ -83,7 +85,8 @@ class _ExternalDonationState extends State<ExternalDonation> {
                     SizedBox(width: 30),
                     new GestureDetector(
                       onTap: () => Navigator.of(context).pop(true),
-                      child: const Text("نعم",
+                      child: Text(
+                          AppLocalizations.of(context).translate('yes_string'),
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold)),
                     ),
@@ -94,7 +97,8 @@ class _ExternalDonationState extends State<ExternalDonation> {
                   content: const Text('هل تريد الخروج من التبرعات الخارجية ؟'),
                   actions: <Widget>[
                     CupertinoDialogAction(
-                      child: const Text("نعم",
+                      child: Text(
+                          AppLocalizations.of(context).translate('yes_string'),
                           style: TextStyle(
                               color: Colors.red, fontWeight: FontWeight.bold)),
                       isDefaultAction: true,

@@ -1,0 +1,22 @@
+{
+  "login_string": "Login",
+  "not_now_string": "Not now",
+  "yes_string": "yes",
+  "Please_signin_first_string":"Please Signin First",
+  "Donate_Now_String": "Donate Now",
+  "Details_String":"Details",
+  "Activities_String": "Activities",
+  "Something_went_wrong_String": "Something went wrong",
+  "logout_string": "logout",
+  "welcome_string": "welcome",
+  "Login_Signup_string": "Login / Signup",
+  "Home_String": "Home",
+  "favorites_string": "Favorites",
+  "Mydonations_String": "My Donations",
+  "External_Donations": "External Donations",
+  "help and support": "Help and Support",
+  "cancel": "Cancel",
+  "Burhan": "Borhan"
+
+
+}

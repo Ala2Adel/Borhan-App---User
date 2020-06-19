@@ -9,6 +9,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
+import '../app_localizations.dart';
 import 'overview_screen.dart';
 import 'dart:io' show Platform;
 
@@ -213,7 +214,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   1.5,
                   Text(
                     _authMode == AuthMode.Login
-                        ? 'تسجيل الدخول'
+                        ? Text(AppLocalizations.of(context)
+                            .translate('login_string'))
                         : 'نسيت كلمه المرور',
                     style: TextStyle(
                         color: const Color.fromRGBO(49, 39, 79, 1),
@@ -358,7 +360,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: _submitLoading == false
                                 ? Text(
                                     _authMode == AuthMode.Login
-                                        ? 'تسجيل الدخول'
+                                        ? Text(AppLocalizations.of(context)
+                                            .translate('login_string'))
                                         : 'إرسال رابط تغيير كلمة المرور',
                                     style: TextStyle(color: Colors.white),
                                   )

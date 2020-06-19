@@ -7,6 +7,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
+import '../app_localizations.dart';
+
 class HelpScreen extends StatefulWidget {
   static const routeName = '/help';
 
@@ -16,7 +18,6 @@ class HelpScreen extends StatefulWidget {
 
 class _HelpScreenState extends State<HelpScreen> {
   void _showErrorDialog(String message) {
-   
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)
@@ -25,13 +26,15 @@ class _HelpScreenState extends State<HelpScreen> {
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: const Text('ليس الأن'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('not_now_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: const Text('نعم'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('yes_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -44,12 +47,14 @@ class _HelpScreenState extends State<HelpScreen> {
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child: const Text('ليس الأن'),
+                    child: Text(AppLocalizations.of(context)
+                        .translate('not_now_string')),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     }),
                 CupertinoDialogAction(
-                    child: const Text('نعم'),
+                    child: Text(
+                        AppLocalizations.of(context).translate('yes_string')),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                       Navigator.pushNamed(context, '/Login');
@@ -72,7 +77,6 @@ class _HelpScreenState extends State<HelpScreen> {
 
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       appBar: AppBar(
         title: const Text('المساعدة'),
@@ -115,8 +119,8 @@ class _HelpScreenState extends State<HelpScreen> {
                   onPressed: () async {
                     UserNav userLoad = await loadSharedPrefs();
                     if (userLoad == null) {
-                     
-                      _showErrorDialog("برجاء تسجيل الدخول أولا");
+                      _showErrorDialog(AppLocalizations.of(context)
+                          .translate('Please_signin_first_string'));
                     } else {
                       print("user is  here");
                       Navigator.of(context).push(

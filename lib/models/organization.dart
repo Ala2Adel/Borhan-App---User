@@ -2,14 +2,14 @@ import 'package:flutter/foundation.dart';
 
 class Organization with ChangeNotifier {
   final String id;
-  final String orgName;
+  var orgName;
   final String logo;
-  final String address;
-  final String description;
+  var address;
+  var description;
   final String licenseNo;
   final String landLineNo;
   final String mobileNo;
-  final String bankAccounts;
+  var bankAccounts;
   final String webPage;
   final String email;
 

@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 
+import '../app_localizations.dart';
+
 class CampaignDetail extends StatefulWidget {
   @override
   _CampaignDetailState createState() => _CampaignDetailState();
@@ -111,7 +113,8 @@ class _CampaignDetailState extends State<CampaignDetail> {
                   UserNav userLoad = await loadSharedPrefs();
                   if (userLoad == null) {
                     print("user is not here");
-                    _showErrorDialog("برجاء تسجيل الدخول أولا");
+                    _showErrorDialog(AppLocalizations.of(context)
+                        .translate('Please_signin_first_string'));
                   } else {
                     print("user is  here");
                     Navigator.of(context).push(
@@ -121,7 +124,7 @@ class _CampaignDetailState extends State<CampaignDetail> {
                   }
                 },
                 child: Text(
-                  'تبرع الآن',
+                  AppLocalizations.of(context).translate('Donate_Now_String'),
                   style: TextStyle(fontSize: 21.0, color: Colors.white),
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

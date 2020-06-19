@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
+import '../app_localizations.dart';
+
 class NavigationDrawer extends StatefulWidget {
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
@@ -22,17 +24,19 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: const Text('تسجيل خروج'),
+              title:
+                  Text(AppLocalizations.of(context).translate('logout_string')),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: const Text('الغاء'),
+                  child: Text(AppLocalizations.of(context).translate('cancel')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: const Text('نعم'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('yes_string')),
                   onPressed: () {
                     SharedPref sharedPref = SharedPref();
                     sharedPref.remove("user");
@@ -43,16 +47,19 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               ],
             )
           : CupertinoAlertDialog(
-              title: const Text('تسجيل خروج'),
+              title:
+                  Text(AppLocalizations.of(context).translate('logout_string')),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child: const Text('الغاء'),
+                    child:
+                        Text(AppLocalizations.of(context).translate('cancel')),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     }),
                 CupertinoDialogAction(
-                    child: const Text('نعم'),
+                    child: Text(
+                        AppLocalizations.of(context).translate('yes_string')),
                     onPressed: () {
                       SharedPref sharedPref = SharedPref();
                       sharedPref.remove("user");
@@ -69,17 +76,20 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text('ليس الأن'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('not_now_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: Text('نعم'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('yes_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(ctx, '/Login');
@@ -88,17 +98,20 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               ],
             )
           : CupertinoAlertDialog(
-              title: Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text('ليس الأن'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('not_now_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 CupertinoDialogAction(
-                  child: Text('نعم'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('yes_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -138,7 +151,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           UserAccountsDrawerHeader(
             accountName: userLoad == null
                 ? Text(
-                    "مرحبا بك ",
+                    AppLocalizations.of(context).translate('welcome_string'),
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 17, height: 0.5),
                   )
@@ -152,8 +165,9 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                       Navigator.of(context).pop();
                       Navigator.pushNamed(context, '/Login');
                     },
-                    child: const Text(
-                      "تسجيل الدخول / التسجيل ",
+                    child: Text(
+                      AppLocalizations.of(context)
+                          .translate("Login_Signup_string"),
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
@@ -172,16 +186,16 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             ),
           ),
           new ListTile(
-            title: const Text(
-              "الرئيسية",
+            title: Text(
+              AppLocalizations.of(context).translate("Home_String"),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.home),
             onTap: () => Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
-            title: const Text(
-              "المفضلة",
+            title: Text(
+              AppLocalizations.of(context).translate("favorites_string"),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.favorite),
@@ -202,8 +216,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           //   },
           // ),
           new ListTile(
-            title: const Text(
-              "تبرعاتي",
+            title: Text(
+              AppLocalizations.of(context).translate("Mydonations_String"),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.drag_handle),
@@ -221,8 +235,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
           new ListTile(
-            title: const Text(
-              "التبرعات الخارجية",
+            title: Text(
+              AppLocalizations.of(context).translate("External_Donations"),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.account_balance_wallet),
@@ -233,8 +247,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           ),
           if (userLoad != null)
             new ListTile(
-              title: const Text(
-                "تسجيل خروج",
+              title: Text(
+                AppLocalizations.of(context).translate("logout_string"),
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               leading:
@@ -245,8 +259,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             ),
           Divider(),
           new ListTile(
-            title: const Text(
-              "الدعم و المساعدة",
+            title: Text(
+              AppLocalizations.of(context).translate("help and support"),
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.help),

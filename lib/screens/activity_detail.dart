@@ -6,6 +6,8 @@ import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../app_localizations.dart';
+
 class ActivityDetails extends StatefulWidget {
   @override
   _ActivityDetailsState createState() => _ActivityDetailsState();
@@ -24,13 +26,14 @@ class _ActivityDetailsState extends State<ActivityDetails> {
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: const Text('ليس الأن'),
+            child:
+                Text(AppLocalizations.of(context).translate('not_now_string')),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child: const Text('نعم'),
+            child: Text(AppLocalizations.of(context).translate('yes_string')),
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pushNamed(context, '/Login');
@@ -134,7 +137,8 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                   onTap: () async {
                     UserNav userLoad = await loadSharedPrefs();
                     if (userLoad == null) {
-                      _showErrorDialog("برجاء تسجيل الدخول أولا ");
+                      _showErrorDialog(AppLocalizations.of(context)
+                          .translate('Please_signin_first_string'));
                     } else {
                       print("user is  here");
                       Navigator.of(context).push(

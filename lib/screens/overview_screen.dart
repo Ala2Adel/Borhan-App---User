@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:io';
-
+import 'package:translator/translator.dart';
 import 'package:Borhan_User/Animation/FadeAnimation.dart';
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
@@ -19,11 +19,13 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'package:connectivity/connectivity.dart';
+import '../app_localizations.dart';
 import '../background.dart';
+import 'package:devicelocale/devicelocale.dart';
 
 class OrgOverviewScreen extends StatefulWidget {
   static const routeName = '/home';
-
+  var translated;
   @override
   _OrgOverviewScreenState createState() => _OrgOverviewScreenState();
 }
@@ -32,22 +34,25 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
   StreamSubscription connectivitySubscription;
   ConnectivityResult _previousResult;
   bool dialogShown = false;
+  List _languages = List();
 
+  set translated(String translated) {}
   void _showErrorDialog(String message) {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('تسجيل دخول'),
+        title: Text(AppLocalizations.of(context).translate('login_string')),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child: const Text('ليس الأن'),
+            child:
+                Text(AppLocalizations.of(context).translate('not_now_string')),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child: const Text('نعم'),
+            child: Text(AppLocalizations.of(context).translate('yes_string')),
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pushNamed(context, '/Login');
@@ -80,9 +85,16 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
     }
   }
 
+  Future<void> translateWords(String myWord) async {
+    final translator = new GoogleTranslator();
+    translated = await translator.translate(myWord, from: 'ar', to: 'en');
+  }
+
   @override
   void initState() {
     super.initState();
+    initPlatformState();
+
     connectivitySubscription = Connectivity()
         .onConnectivityChanged
         .listen((ConnectivityResult connresult) {
@@ -105,20 +117,25 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                       'خروج ',
                       style: TextStyle(color: Colors.red),
                     )),
-          FlatButton(onPressed: ()=>{
-           
-           AppSettings.openWIFISettings(),
-          
-          }, child: Text(' اعدادت Wi-Fi ',style: TextStyle(color: Colors.blue),)),
-          FlatButton(onPressed: ()=>{
-           
-            AppSettings.openDataRoamingSettings(),
-          
-          }, child: Text(' اعدادت الباقه ',style: TextStyle(color: Colors.blue,),))
-        ]
-        
-        
-              ,
+                FlatButton(
+                    onPressed: () => {
+                          AppSettings.openWIFISettings(),
+                        },
+                    child: Text(
+                      ' اعدادت Wi-Fi ',
+                      style: TextStyle(color: Colors.blue),
+                    )),
+                FlatButton(
+                    onPressed: () => {
+                          AppSettings.openDataRoamingSettings(),
+                        },
+                    child: Text(
+                      ' اعدادت الباقه ',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ))
+              ],
             ));
       } else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {
@@ -134,6 +151,27 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
         });
       }
       _previousResult = connresult;
+    });
+  }
+
+  Future<void> initPlatformState() async {
+    List languages;
+    print("Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii");
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      languages = await Devicelocale.preferredLanguages;
+      print(languages);
+    } on PlatformException {
+      print("Error obtaining preferred languages");
+    }
+
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) return;
+    print("Hi Language of Device" + languages[0].toString());
+    setState(() {
+      _languages = languages;
     });
   }
 
@@ -179,7 +217,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
   Widget build(BuildContext context) {
     final _width = MediaQuery.of(context).size.width;
     final _height = MediaQuery.of(context).size.height;
-
+    final translator = new GoogleTranslator();
+//    print(_languages[0].toString());
     final headerList = new ListView.builder(
       itemBuilder: (context, index) {
         EdgeInsets padding = index == 0
@@ -234,19 +273,34 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         child: new Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Flexible(
-                              child: new Container(
-                                child: new Text(
-                                  campaignNotifier
-                                      .campaignList[index].campaignName,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: new TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 20,
+                            _languages[0].toString() == 'en_US'
+                                ? Flexible(
+                                    child: new Container(
+                                      child: new Text(
+                                        campaignNotifier
+                                            .translatedCampaignList[index]
+                                            .campaignName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: new TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Flexible(
+                                    child: new Container(
+                                      child: new Text(
+                                        campaignNotifier
+                                            .campaignList[index].campaignName,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: new TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            ),
                           ],
                         ),
                       ),
@@ -265,7 +319,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
     final body = new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'برهان',
+          AppLocalizations.of(context).translate("Burhan"),
           style: new TextStyle(
               color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
         ),
@@ -324,7 +378,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 UserNav userLoad = await loadSharedPrefs();
                                 if (userLoad == null) {
                                   print("user is not here");
-                                  _showErrorDialog("برجاء تسجيل الدخول أولا ");
+                                  _showErrorDialog(AppLocalizations.of(context)
+                                      .translate('Please_signin_first_string'));
                                 } else {
                                   print("user is  here");
                                   Navigator.of(context).push(
@@ -337,7 +392,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 }
                               },
                               child: Text(
-                                'تبرع الآن',
+                                AppLocalizations.of(context)
+                                    .translate('Donate_Now_String'),
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold,
@@ -418,8 +474,15 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                               orgNotifier.orgList[index]
                                                           .orgName !=
                                                       null
-                                                  ? orgNotifier
-                                                      .orgList[index].orgName
+                                                  ? (_languages[0].toString() ==
+                                                          'en_US'
+                                                      ? orgNotifier
+                                                          .translatedOrgList[
+                                                              index]
+                                                          .orgName
+                                                      : orgNotifier
+                                                          .orgList[index]
+                                                          .orgName)
                                                   : 'no value',
                                               style: new TextStyle(
                                                   fontSize: 18.0,
@@ -430,8 +493,19 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                           FadeAnimation(
                                             1.3,
                                             Text(
-                                              orgNotifier
-                                                  .orgList[index].description,
+                                              orgNotifier.orgList[index]
+                                                          .description !=
+                                                      null
+                                                  ? (_languages[0].toString() ==
+                                                          'en_US'
+                                                      ? orgNotifier
+                                                          .translatedOrgList[
+                                                              index]
+                                                          .description
+                                                      : orgNotifier
+                                                          .orgList[index]
+                                                          .description)
+                                                  : 'no value',
                                               style: new TextStyle(
                                                   fontSize: 16.0,
                                                   color: Colors.white,
@@ -482,7 +556,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                       ));
                                                 },
                                                 child: Text(
-                                                  'التفاصيل',
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          'Details_String'),
                                                   style: TextStyle(
                                                       fontSize: 18.0,
                                                       color: Colors.black),
@@ -531,7 +607,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   );
                                                 },
                                                 child: Text(
-                                                  'الانشطة',
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          'Activities_String'),
                                                   style: TextStyle(
                                                       fontSize: 16.0,
                                                       color: Colors.black),

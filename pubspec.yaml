@@ -20,6 +20,8 @@ dependencies:
   flutter:
     sdk: flutter
   location: ^3.0.2
+  devicelocale: ^0.2.3
+  translator: ^0.1.4
   google_maps_flutter: ^0.5.28+1
   firebase_messaging: ^6.0.16
   connectivity: ^0.4.8+6
@@ -99,7 +101,8 @@ flutter:
     - assets/images/donation5.png
     - assets/images/donation9.png
     - assets/images/mdonation2.png
-    
+    - lang/en.json
+    - lang/ar.json
 
 
     

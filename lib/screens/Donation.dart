@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../app_localizations.dart';
+
 class Donation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -13,7 +15,7 @@ class Donation extends StatelessWidget {
       appBar: AppBar(
         title: Text(activityNotifier.currentActivity.name != null
             ? activityNotifier.currentActivity.name
-            : 'تبرع الآن'),
+            : AppLocalizations.of(context).translate('Donate_Now_String')),
       ),
       body: Center(),
     );

@@ -2,12 +2,12 @@ import 'package:flutter/foundation.dart';
 
 class Campaign with ChangeNotifier {
   final String id;
-  final String campaignName;
-  final String campaignDescription;
-  final String orgName;
+  var campaignName;
+  var campaignDescription;
+  var orgName;
   final String orgId;
   final String imagesUrl;
-  final String time;
+  var time;
 
   Campaign({
     this.id,
