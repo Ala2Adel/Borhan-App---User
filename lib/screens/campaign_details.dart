@@ -23,17 +23,20 @@ class _CampaignDetailState extends State<CampaignDetail> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: const Text('لا ارغب'),
+                  child: Text(AppLocalizations.of(context)
+                      .translate('IDont_want_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: const Text('موافق'),
+                  child: Text(
+                      AppLocalizations.of(context).translate('Accept_string')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -42,11 +45,13 @@ class _CampaignDetailState extends State<CampaignDetail> {
               ],
             )
           : CupertinoAlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: const Text("موافق"),
+                  child: Text(
+                      AppLocalizations.of(context).translate('Accept_string')),
                   isDefaultAction: true,
                   onPressed: () {
                     Navigator.of(ctx).pop();
@@ -55,7 +60,8 @@ class _CampaignDetailState extends State<CampaignDetail> {
                   },
                 ),
                 CupertinoDialogAction(
-                  child: const Text('لا ارغب'),
+                  child: Text(AppLocalizations.of(context)
+                      .translate('IDont_want_string')),
                   onPressed: () => Navigator.of(ctx).pop(),
                 )
               ],

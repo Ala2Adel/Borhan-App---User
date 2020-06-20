@@ -254,7 +254,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               leading:
                   new Icon(Icons.exit_to_app), // FontAwesomeIcons.signOutAlt
               onTap: () {
-                _showErrorDialog("هل تريد تسجيل الخروج");
+                _showErrorDialog(
+                    AppLocalizations.of(context).translate('logout_sure'));
               },
             ),
           Divider(),

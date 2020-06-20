@@ -29,7 +29,8 @@ class _ExternalDonationState extends State<ExternalDonation> {
       onWillPop: _onBackPressed,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('التبرعات الخارجية'),
+          title: Text(
+              AppLocalizations.of(context).translate('External_Donations')),
         ),
         body: Stack(
           children: <Widget>[
@@ -53,7 +54,7 @@ class _ExternalDonationState extends State<ExternalDonation> {
                         child: CircularProgressIndicator(),
                       ),
                       Text(
-                        'جاري توجيهك الى صفحة خارجية \n عن تطبيق برهان ',
+                        AppLocalizations.of(context).translate('redirect'),
                         textAlign: TextAlign.center,
                         style: TextStyle(
                             backgroundColor: Colors.black54,
@@ -75,12 +76,12 @@ class _ExternalDonationState extends State<ExternalDonation> {
           builder: (context) => (Platform.isAndroid)
               ? new AlertDialog(
                   elevation: 25.0,
-                  title: const Text('الخروج'),
-                  content: const Text('هل تريد الخروج من التبرعات الخارجية ؟'),
+                  title: Text(AppLocalizations.of(context).translate('exit')),
+                  content: Text(AppLocalizations.of(context).translate('sure')),
                   actions: <Widget>[
                     new GestureDetector(
                       onTap: () => Navigator.of(context).pop(false),
-                      child: Text("لا"),
+                      child: Text(AppLocalizations.of(context).translate('no')),
                     ),
                     SizedBox(width: 30),
                     new GestureDetector(
@@ -93,8 +94,8 @@ class _ExternalDonationState extends State<ExternalDonation> {
                   ],
                 )
               : CupertinoAlertDialog(
-                  title: const Text('الخروج'),
-                  content: const Text('هل تريد الخروج من التبرعات الخارجية ؟'),
+                  title: Text(AppLocalizations.of(context).translate('exit')),
+                  content: Text(AppLocalizations.of(context).translate('sure')),
                   actions: <Widget>[
                     CupertinoDialogAction(
                       child: Text(
@@ -105,7 +106,7 @@ class _ExternalDonationState extends State<ExternalDonation> {
                       onPressed: () => Navigator.of(context).pop(true),
                     ),
                     CupertinoDialogAction(
-                      child: const Text("لا"),
+                      child: Text(AppLocalizations.of(context).translate('no')),
                       onPressed: () => Navigator.of(context).pop(false),
                     )
                   ],

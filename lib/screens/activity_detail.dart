@@ -22,7 +22,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('تسجيل دخول'),
+        title: Text(AppLocalizations.of(context).translate('login_string')),
         content: Text(message),
         actions: <Widget>[
           FlatButton(

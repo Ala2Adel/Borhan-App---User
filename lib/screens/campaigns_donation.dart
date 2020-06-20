@@ -70,11 +70,13 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     }
 
     if (selectedType == null) {
-      _showErrorDialog("من فضلك اختار نوع التبرع ");
+      _showErrorDialog(
+          AppLocalizations.of(context).translate('choose_don_type'));
       return;
     }
     if (_image == null && selectedType != 'نقدى') {
-      _showErrorDialog("من فضلك اضف صورة التبرع ");
+      _showErrorDialog(
+          AppLocalizations.of(context).translate('choose_don_photo'));
       return;
     }
 
@@ -126,7 +128,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
       );
 
       Flushbar(
-        message: 'تم ارسال طلب تبرعك بنجاح',
+        message: AppLocalizations.of(context).translate('success_sent_request'),
         icon: Icon(
           Icons.thumb_up,
           size: 28.0,
@@ -138,7 +140,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
       )..show(context).then((value) => Navigator.of(context).pop());
     } catch (error) {
       print(error);
-      const errorMessage = ' حدث خطا ما';
+      var errorMessage =
+          AppLocalizations.of(context).translate('Something_went_wrong_String');
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -186,11 +189,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: const Text('تحذير'),
+              title: Text(AppLocalizations.of(context).translate('warning')),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: const Text('حسنا'),
+                  child: Text(AppLocalizations.of(context).translate('ok')),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
@@ -198,11 +201,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
               ],
             )
           : CupertinoAlertDialog(
-              title: const Text('تحذير'),
+              title: Text(AppLocalizations.of(context).translate('warning')),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: const Text("حسنا"),
+                  child: Text(AppLocalizations.of(context).translate("ok")),
                   isDefaultAction: true,
                   onPressed: () {
                     Navigator.of(ctx).pop();
@@ -345,7 +348,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
 //                                  labelText:'اسم المتبرع',
-                                    hintText: "اسم المتبرع",
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('name'),
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: Colors.deepPurple,
@@ -380,7 +384,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               child: TextFormField(
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: "رقم تلفون الهاتف المحمول",
+                                    hintText: AppLocalizations.of(context)
+                                        .translate('mobile'),
                                     prefixIcon: Icon(
                                       Icons.mobile_screen_share,
                                       color: Colors.deepPurple,
@@ -413,7 +418,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(2.0)),
-                                    labelText: "العنوان",
+                                    labelText: AppLocalizations.of(context)
+                                        .translate('address'),
                                     labelStyle: TextStyle(
                                         color: Colors.grey, fontSize: 24)),
                                 keyboardType: TextInputType.multiline,
@@ -440,7 +446,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                             Container(
                                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                 child: Text(
-                                  'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
+                                  AppLocalizations.of(context)
+                                      .translate('available_on'),
                                   style: TextStyle(
                                       fontSize: 17,
                                       height: 1,
@@ -525,7 +532,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   value: selectedType,
                                   isExpanded: false,
                                   hint: Text(
-                                    'اختار نوع التبرع',
+                                    AppLocalizations.of(context)
+                                        .translate('choose_don_type'),
                                     style: TextStyle(color: Color(0xff11b719)),
                                   ),
                                 )
@@ -542,7 +550,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: " المبلغ بالجنيه المصرى ",
+                                      hintText: AppLocalizations.of(context)
+                                          .translate('amount'),
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.moneyBill,
                                         color: Colors.deepPurple,
@@ -579,7 +588,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     ),
                                     SizedBox(width: 10),
                                     Expanded(
-                                        child: Text("اضف صورة التبرع",
+                                        child: Text(
+                                            AppLocalizations.of(context)
+                                                .translate('choose_don_photo'),
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold)))
@@ -606,7 +617,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               Container(
                                   padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                   child: Text(
-                                    'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
+                                    AppLocalizations.of(context)
+                                        .translate('don_details'),
                                     style: TextStyle(
                                         fontSize: 17,
                                         height: 1,
@@ -616,7 +628,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               Container(
                                   padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                   child: Text(
-                                    ' مثال:3 اطقم ملابس و 2بطاطين....',
+                                    AppLocalizations.of(context)
+                                        .translate('example'),
                                     style: TextStyle(
                                         fontSize: 14,
                                         height: 1,
@@ -630,7 +643,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(2.0)),
-                                      labelText: "الوصف",
+                                      labelText: AppLocalizations.of(context)
+                                          .translate('description'),
                                       // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                       labelStyle: TextStyle(
                                           color: Colors.grey, fontSize: 24)),
@@ -680,7 +694,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                           child: Center(
                             child: _submitLoading == false
                                 ? Text(
-                                    "تبرع الأن",
+                                    AppLocalizations.of(context)
+                                        .translate('Donate_Now_String'),
                                     style: TextStyle(color: Colors.white),
                                   )
                                 : CircularProgressIndicator(),

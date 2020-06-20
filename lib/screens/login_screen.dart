@@ -195,8 +195,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         )),
                   ),
                   Center(
-                    child: const Text(
-                      'مرحبا بك فى برهان',
+                    child: Text(
+                      AppLocalizations.of(context).translate("Welcome"),
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 21,
@@ -214,8 +214,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   1.5,
                   Text(
                     _authMode == AuthMode.Login
-                        ? Text(AppLocalizations.of(context)
-                            .translate('login_string'))
+                        ? AppLocalizations.of(context).translate('login_string')
                         : 'نسيت كلمه المرور',
                     style: TextStyle(
                         color: const Color.fromRGBO(49, 39, 79, 1),
@@ -257,7 +256,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: TextFormField(
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "البريد الالكترونى",
+                                      hintText: AppLocalizations.of(context)
+                                          .translate('Email'),
                                       prefixIcon: Icon(
                                         Icons.email,
                                         color: Colors.deepPurple,
@@ -293,7 +293,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: TextFormField(
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintText: "كلمه المرور",
+                                          hintText: AppLocalizations.of(context)
+                                              .translate('Password'),
                                           prefixIcon: Icon(
                                             Icons.lock,
                                             color: Colors.deepPurple,
@@ -329,7 +330,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Center(
                         child: FlatButton(
                           child: Text(
-                            '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
+                            '${_authMode == AuthMode.Login ? AppLocalizations.of(context).translate('ForgetPassword') : 'الرجوع إلي تسجيل الدخول'} ',
                             style: TextStyle(
                               color: Color.fromRGBO(196, 135, 198, 1),
                             ),
@@ -360,8 +361,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: _submitLoading == false
                                 ? Text(
                                     _authMode == AuthMode.Login
-                                        ? Text(AppLocalizations.of(context)
-                                            .translate('login_string'))
+                                        ? AppLocalizations.of(context)
+                                            .translate('login_string')
                                         : 'إرسال رابط تغيير كلمة المرور',
                                     style: TextStyle(color: Colors.white),
                                   )
@@ -391,7 +392,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   SizedBox(width: 10.0),
                                   Text(
-                                    'تسجيل الدخول بحساب جوجل',
+                                    AppLocalizations.of(context)
+                                        .translate('Signin With google'),
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 18.0),
                                   ),
@@ -411,8 +413,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                         child: Center(
                           child: FlatButton(
-                            child: const Text(
-                              "حساب جديد",
+                            child: Text(
+                              AppLocalizations.of(context)
+                                  .translate('NewAccount'),
                               style: TextStyle(
                                   color: Color.fromRGBO(49, 39, 79, .6)),
                             ),
