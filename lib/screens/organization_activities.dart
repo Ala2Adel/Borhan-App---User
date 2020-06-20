@@ -63,7 +63,8 @@ class _ActivityScreenState extends State<OrganizationActivity> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
@@ -84,7 +85,8 @@ class _ActivityScreenState extends State<OrganizationActivity> {
               ],
             )
           : CupertinoAlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
@@ -126,7 +128,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     final body = new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'الانشطة',
+          AppLocalizations.of(context).translate('Activities_String'),
           style: new TextStyle(
               color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
         ),
@@ -301,7 +303,10 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                           }
                                                         },
                                                         child: Text(
-                                                          'تبرع',
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'donate'),
                                                           style: TextStyle(
                                                               fontSize: 20.0,
                                                               color:
@@ -335,7 +340,10 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                           }));
                                                         },
                                                         child: Text(
-                                                          'تفاصيل ',
+                                                          AppLocalizations.of(
+                                                                  context)
+                                                              .translate(
+                                                                  'detail'),
                                                           style: TextStyle(
                                                               fontSize: 20.0,
                                                               color:

@@ -362,9 +362,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return 'ادخل الاسم من فضلك';
+                                    return AppLocalizations.of(context)
+                                        .translate('enter_name_please');
                                   } else if (value.length < 3) {
-                                    return 'الاسم لايمكن أن يكون أقل من ثلاثه احرف';
+                                    return AppLocalizations.of(context)
+                                        .translate("name_3_chars");
                                   }
                                   return null;
                                 },
@@ -402,9 +404,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return 'ادخل رقم الهاتف من فضلك';
+                                    return AppLocalizations.of(context)
+                                        .translate('mobile_please');
                                   } else if (value.length < 11) {
-                                    return 'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
+                                    return AppLocalizations.of(context)
+                                        .translate('11_no');
                                   }
                                   return null;
                                 },
@@ -434,9 +438,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return 'ادخل العنوان من فضلك';
+                                    return AppLocalizations.of(context)
+                                        .translate('address_please');
                                   } else if (value.length < 5) {
-                                    return 'العنوان لايمكن ان يكون اقل من 5 احرف';
+                                    return AppLocalizations.of(context)
+                                        .translate('address_5');
                                   }
                                   return null;
                                 },
@@ -484,7 +490,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return 'ادخل الوقت من فضلك';
+                                    return AppLocalizations.of(context)
+                                        .translate('time_please');
                                   }
                                   return null;
                                 },
@@ -568,7 +575,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     if (spaceRex ||
                                         value.length == 0 ||
                                         value == null) {
-                                      return 'ادخل المبلغ من فضلك';
+                                      return AppLocalizations.of(context)
+                                          .translate('amount_please');
                                     }
 
                                     return null;
@@ -661,7 +669,8 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     if (spaceRex ||
                                         value.length == 0 ||
                                         value == null) {
-                                      return 'ادخل الوصف من فضلك';
+                                      return AppLocalizations.of(context)
+                                          .translate('desc_please');
                                     }
                                     return null;
                                   },

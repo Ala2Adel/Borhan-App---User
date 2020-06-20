@@ -1,3 +1,4 @@
+import 'package:Borhan_User/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:intro_views_flutter/Models/page_view_model.dart';
 import 'package:intro_views_flutter/intro_views_flutter.dart';
@@ -5,55 +6,55 @@ import 'package:google_fonts_arabic/fonts.dart';
 import 'overview_screen.dart';
 
 class OnboardScreen extends StatelessWidget {
-  
   final pages = [
     PageViewModel(
-        pageColor: Colors.blue[500],
-  
-        bubble: Image.asset('assets/images/donation4.png'),
-        body: Text( 'حصّنوا أموالكم بالزكاة و داووا مرضاكم بالصدقة و إستقبلوا أمواج البلاء بالدعاء و التضرع',
-            style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 18,
-              ),
+      pageColor: Colors.blue[500],
+      bubble: Image.asset('assets/images/donation4.png'),
+      body: Text(
+        'حصّنوا أموالكم بالزكاة و داووا مرضاكم بالصدقة و إستقبلوا أمواج البلاء بالدعاء و التضرع',
+        style: new TextStyle(
+          fontFamily: ArabicFonts.Amiri,
+          package: 'google_fonts_arabic',
+          fontSize: 18,
         ),
-        title: Text(
-          'نقود',
-           style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 44,
-              ),
+      ),
+      title: Text(
+        'نقود',
+        style: new TextStyle(
+          fontFamily: ArabicFonts.Amiri,
+          package: 'google_fonts_arabic',
+          fontSize: 44,
         ),
-        titleTextStyle: TextStyle(fontFamily:'MyFont' , color: Colors.white),
-        bodyTextStyle: TextStyle(fontFamily: 'MyFont', color: Colors.white),
-        mainImage: Image.asset(
-          'assets/images/mdonation2.png',
-          height: 285.0,
-          width: 285.0,
-          alignment: Alignment.center,
-          fit: BoxFit.cover,
-          ),
-        ),
+      ),
+      titleTextStyle: TextStyle(fontFamily: 'MyFont', color: Colors.white),
+      bodyTextStyle: TextStyle(fontFamily: 'MyFont', color: Colors.white),
+      mainImage: Image.asset(
+        'assets/images/mdonation2.png',
+        height: 285.0,
+        width: 285.0,
+        alignment: Alignment.center,
+        fit: BoxFit.cover,
+      ),
+    ),
     PageViewModel(
       pageColor: const Color(0xFF8BC34A),
       iconImageAssetPath: 'assets/images/donation5.png',
       body: Text(
         'وَأَطْعِمُوا الطَّعَامَ، وَصِلُوا الْأَرْحَامَ، وَصَلُّوا بِاللَّيْلِ وَالنَّاسُ نِيَامٌ تَدْخُلُوا الْجَنَّةَ بِسَلَامٍ',
-         style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 18,
-              ),
+        style: new TextStyle(
+          fontFamily: ArabicFonts.Amiri,
+          package: 'google_fonts_arabic',
+          fontSize: 18,
+        ),
       ),
-      title:  Text('طعام',
-       style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 44,
-              ),
-              ),
+      title: Text(
+        'طعام',
+        style: new TextStyle(
+          fontFamily: ArabicFonts.Amiri,
+          package: 'google_fonts_arabic',
+          fontSize: 44,
+        ),
+      ),
       mainImage: Image.asset(
         'assets/images/donation2.png',
         height: 285.0,
@@ -68,19 +69,20 @@ class OnboardScreen extends StatelessWidget {
       iconImageAssetPath: 'assets/images/donation9.png',
       body: Text(
         'ما نقصت صدقة من مال ، وما زاد الله عبدا بعفو إلا عزاً ، وما تواضع أحد لله إلا رفعة الله',
-         style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 18,
-              ),
+        style: new TextStyle(
+          fontFamily: ArabicFonts.Amiri,
+          package: 'google_fonts_arabic',
+          fontSize: 18,
+        ),
       ),
-      title: Text('ملابس',
-       style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 44,
-               ),
-              ),
+      title: Text(
+        'ملابس',
+        style: new TextStyle(
+          fontFamily: ArabicFonts.Amiri,
+          package: 'google_fonts_arabic',
+          fontSize: 44,
+        ),
+      ),
       mainImage: Image.asset(
         'assets/images/donation9.png',
         height: 285.0,
@@ -95,7 +97,6 @@ class OnboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
       body: Builder(
         builder: (context) => IntroViewsFlutter(
           pages,
@@ -109,34 +110,38 @@ class OnboardScreen extends StatelessWidget {
               ), //MaterialPageRoute
             );
           },
-          doneText:Text('حسنا',
-           style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 21,
-               ),
-              ) ,
-          skipText:Text('تخطى',
-           style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 21,
-               ),
-              ) ,
-          nextText: Text('التالى',
-           style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 21,
-               ),
-              ),
-          backText:Text('رجوع',
-          style: new TextStyle(
-                fontFamily: ArabicFonts.Amiri,
-                package: 'google_fonts_arabic',
-                fontSize: 21,
-               ),
-              ),
+          doneText: Text(
+            AppLocalizations.of(context).translate('ok'),
+            style: new TextStyle(
+              fontFamily: ArabicFonts.Amiri,
+              package: 'google_fonts_arabic',
+              fontSize: 21,
+            ),
+          ),
+          skipText: Text(
+            AppLocalizations.of(context).translate("skip"),
+            style: new TextStyle(
+              fontFamily: ArabicFonts.Amiri,
+              package: 'google_fonts_arabic',
+              fontSize: 21,
+            ),
+          ),
+          nextText: Text(
+            'التالى',
+            style: new TextStyle(
+              fontFamily: ArabicFonts.Amiri,
+              package: 'google_fonts_arabic',
+              fontSize: 21,
+            ),
+          ),
+          backText: Text(
+            AppLocalizations.of(context).translate('Previous'),
+            style: new TextStyle(
+              fontFamily: ArabicFonts.Amiri,
+              package: 'google_fonts_arabic',
+              fontSize: 21,
+            ),
+          ),
           pageButtonTextStyles: TextStyle(
             color: Colors.white,
             fontSize: 18.0,

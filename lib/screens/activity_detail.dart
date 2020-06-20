@@ -88,7 +88,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                   color: Colors.deepPurple.withOpacity(0.75),
                 ),
                 child: Text(
-                  ' الوصف',
+                  AppLocalizations.of(context).translate('description'),
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -160,7 +160,8 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                       ),
                       child: Center(
                         child: Text(
-                          "تبرع الأن",
+                          AppLocalizations.of(context)
+                              .translate('Donate_Now_String'),
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,

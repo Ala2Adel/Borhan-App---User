@@ -1,3 +1,4 @@
+import 'package:Borhan_User/app_localizations.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/mydonation_provider.dart';
 import 'package:Borhan_User/widgets/my_donation_item.dart';
@@ -39,7 +40,8 @@ class _MyDonationsState extends State<MyDonationsScreen> {
     final historyData = Provider.of<MyDonationsProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('تبرعاتي'),
+        title:
+            Text(AppLocalizations.of(context).translate('Mydonations_String')),
       ),
       body: _isLoading
           ? Center(
@@ -123,7 +125,10 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                   .center,
                                                           children: <Widget>[
                                                             Text(
-                                                              'حالة التبرع : ',
+                                                              AppLocalizations.of(
+                                                                      context)
+                                                                  .translate(
+                                                                      'status'),
                                                               style: TextStyle(
                                                                   color: Colors
                                                                       .purple,
@@ -141,8 +146,11 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                                 i]
                                                                             .status !=
                                                                         'cancel'
-                                                                ? const Text(
-                                                                    'قيد المراجعة',
+                                                                ? Text(
+                                                                    AppLocalizations.of(
+                                                                            context)
+                                                                        .translate(
+                                                                            'wait'),
                                                                     style: TextStyle(
                                                                         color: Colors
                                                                             .yellow,
@@ -155,8 +163,9 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                             .items[i]
                                                                             .status ==
                                                                         'done'
-                                                                    ? const Text(
-                                                                        'تم قبول التبرع',
+                                                                    ? Text(
+                                                                        AppLocalizations.of(context)
+                                                                            .translate("accepted"),
                                                                         style: TextStyle(
                                                                             color: Colors
                                                                                 .green,
@@ -165,8 +174,9 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                             fontWeight:
                                                                                 FontWeight.bold),
                                                                       )
-                                                                    : const Text(
-                                                                        'تم رفض التبرع',
+                                                                    : Text(
+                                                                        AppLocalizations.of(context)
+                                                                            .translate('reject'),
                                                                         style: TextStyle(
                                                                             color: Colors
                                                                                 .red,

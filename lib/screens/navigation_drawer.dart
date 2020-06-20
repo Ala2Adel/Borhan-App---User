@@ -225,7 +225,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               UserNav userLoad = await loadSharedPrefs();
               Navigator.pop(context);
               if (userLoad == null) {
-                _showErrorDialogLogin("الرجاء التسجيل قبل الدخول");
+                _showErrorDialogLogin(AppLocalizations.of(context)
+                    .translate('Please_signin_first_string'));
               } else {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {

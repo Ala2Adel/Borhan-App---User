@@ -1,3 +1,4 @@
+import 'package:Borhan_User/app_localizations.dart';
 import 'package:Borhan_User/models/activity.dart';
 import 'package:Borhan_User/models/organization.dart';
 import 'package:Borhan_User/providers/auth.dart';
@@ -84,8 +85,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
           (selectedType == null ||
               selectedOraginzaton == null ||
               selectedActivity == null)) {
-        _showErrorDialog(
-            "من فضلك اختر نوع التبرع والجمعية والنشاط الذى تود التبرع له");
+        _showErrorDialog(AppLocalizations.of(context).translate("choose_all"));
       } else {
         current++;
       }
@@ -106,7 +106,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
     }
 
     if (_image == null && selectedType != 'نقدى') {
-      _showErrorDialog("من فضلك اضف صورة تبرعك ");
+      _showErrorDialog(
+          AppLocalizations.of(context).translate('choose_don_photo'));
       return;
     }
 
@@ -152,7 +153,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
               mobile: _authData['mobile'],
               userName: _authData['name']);
       Flushbar(
-        message: 'تم ارسال طلب تبرعك بنجاح',
+        message: AppLocalizations.of(context).translate('success_sent_request'),
         icon: Icon(
           Icons.thumb_up,
           size: 28.0,
@@ -165,7 +166,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
           .then((value) => Navigator.of(context).pop());
     } catch (error) {
       print(error);
-      const errorMessage = ' حدث خطا ما';
+      var errorMessage =
+          AppLocalizations.of(context).translate('Something_went_wrong_String');
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -212,11 +214,11 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
         context: context,
         builder: (ctx) => (Platform.isAndroid)
             ? AlertDialog(
-                title: Text('تحذير'),
+                title: Text(AppLocalizations.of(context).translate('warning')),
                 content: Text(message),
                 actions: <Widget>[
                   FlatButton(
-                    child: Text('حسنا'),
+                    child: Text(AppLocalizations.of(context).translate('ok')),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     },
@@ -224,11 +226,11 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                 ],
               )
             : CupertinoAlertDialog(
-                title: const Text('تحذير'),
+                title: Text(AppLocalizations.of(context).translate('warning')),
                 content: Text(message),
                 actions: <Widget>[
                   CupertinoDialogAction(
-                    child: const Text("حسنا"),
+                    child: Text(AppLocalizations.of(context).translate('ok')),
                     isDefaultAction: true,
                     onPressed: () {
                       Navigator.of(ctx).pop();
@@ -340,7 +342,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
       appBar: AppBar(
         title: Container(
           alignment: Alignment.center,
-          child: Text("التبرع السريع",
+          child: Text(AppLocalizations.of(context).translate('fast_don'),
               style: TextStyle(
                 color: Colors.white,
               )),
@@ -406,7 +408,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                       child: TextFormField(
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: "اسم المتبرع",
+                                            hintText:
+                                                AppLocalizations.of(context)
+                                                    .translate('name'),
                                             prefixIcon: Icon(
                                               Icons.person,
                                               color: Colors.deepPurple,
@@ -420,9 +424,14 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                                 new RegExp(r"^\\s+$")
                                                     .hasMatch(value);
                                             if (spaceRex || value.length == 0) {
-                                              return 'ادخل الاسم من فضلك';
+                                              return AppLocalizations.of(
+                                                      context)
+                                                  .translate(
+                                                      'enter_name_please');
                                             } else {
-                                              return 'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
+                                              return AppLocalizations.of(
+                                                      context)
+                                                  .translate('name_3_chars');
                                             }
                                           }
                                           return null;
@@ -442,7 +451,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                       child: TextFormField(
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: "رقم التلفون المحمول",
+                                            hintText:
+                                                AppLocalizations.of(context)
+                                                    .translate('mobile'),
                                             prefixIcon: Icon(
                                               Icons.mobile_screen_share,
                                               color: Colors.deepPurple,
@@ -460,9 +471,11 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           if (spaceRex ||
                                               value.length == 0 ||
                                               value == null) {
-                                            return 'ادخل رقم الهاتف من فضلك';
+                                            return AppLocalizations.of(context)
+                                                .translate('mobile_please');
                                           } else if (value.length < 11) {
-                                            return 'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
+                                            return AppLocalizations.of(context)
+                                                .translate('11_no');
                                           }
                                           return null;
                                         },
@@ -476,7 +489,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(2.0)),
-                                            labelText: "العنوان",
+                                            labelText:
+                                                AppLocalizations.of(context)
+                                                    .translate("address"),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 24)),
@@ -492,9 +507,11 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           if (spaceRex ||
                                               value.length == 0 ||
                                               value == null) {
-                                            return 'ادخل العنوان من فضلك';
+                                            return AppLocalizations.of(context)
+                                                .translate('address_please');
                                           } else if (value.length < 5) {
-                                            return 'العنوان لايمكن ان يكون اقل من 5 احرف';
+                                            return AppLocalizations.of(context)
+                                                .translate('address_5');
                                           }
                                           return null;
                                         },
@@ -504,8 +521,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                     Container(
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 5, 10, 0),
-                                        child: const Text(
-                                          'اكتب الوقت الذى تكون فيه متاح لكي يأتي مندوبنا اليك',
+                                        child: Text(
+                                          AppLocalizations.of(context)
+                                              .translate('available_on'),
                                           style: TextStyle(
                                               fontSize: 17,
                                               height: 1,
@@ -543,7 +561,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           if (spaceRex ||
                                               value.length == 0 ||
                                               value == null) {
-                                            return 'ادخل الوقت من فضلك';
+                                            return AppLocalizations.of(context)
+                                                .translate('time_please');
                                           }
                                           return null;
                                         },
@@ -600,8 +619,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             },
                                             value: selectedOraginzaton,
                                             isExpanded: false,
-                                            hint: const Text(
-                                              'اختار الجمعية',
+                                            hint: Text(
+                                              AppLocalizations.of(context)
+                                                  .translate('org_choose'),
                                               style:
                                                   TextStyle(color: Colors.grey),
                                             ),
@@ -657,8 +677,10 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                                   },
                                                   value: selectedActivity,
                                                   isExpanded: false,
-                                                  hint: const Text(
-                                                    'اختار النشاط',
+                                                  hint: Text(
+                                                    AppLocalizations.of(context)
+                                                        .translate(
+                                                            'activity_choose'),
                                                     style: TextStyle(
                                                         color: Colors.grey),
                                                   ),
@@ -715,8 +737,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                         },
                                         value: selectedType,
                                         isExpanded: false,
-                                        hint: const Text(
-                                          'اختار نوع التبرع',
+                                        hint: Text(
+                                          AppLocalizations.of(context)
+                                              .translate('choose_don_type'),
                                           style: TextStyle(
                                               color: Color(0xff11b719)),
                                         ),
@@ -734,7 +757,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                       child: TextFormField(
                                         decoration: InputDecoration(
                                             border: InputBorder.none,
-                                            hintText: " المبلغ بالجنيه المصرى ",
+                                            hintText:
+                                                AppLocalizations.of(context)
+                                                    .translate('amount'),
                                             prefixIcon: Icon(
                                               FontAwesomeIcons.moneyBill,
                                               color: Colors.deepPurple,
@@ -752,7 +777,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           if (spaceRex ||
                                               value.length == 0 ||
                                               value == null) {
-                                            return 'ادخل المبلغ من فضلك';
+                                            return AppLocalizations.of(context)
+                                                .translate('amount_please');
                                           }
                                           return null;
                                         },
@@ -777,8 +803,10 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           ),
                                           SizedBox(width: 10),
                                           Expanded(
-                                              child: const Text(
-                                                  "اضف صورة التبرع",
+                                              child: Text(
+                                                  AppLocalizations.of(context)
+                                                      .translate(
+                                                          'choose_don_photo'),
                                                   style: TextStyle(
                                                       fontSize: 15,
                                                       fontWeight:
@@ -805,7 +833,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 5, 10, 0),
                                         child: Text(
-                                          'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
+                                          AppLocalizations.of(context)
+                                              .translate('don_details'),
                                           style: TextStyle(
                                               fontSize: 17,
                                               height: 1,
@@ -815,7 +844,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                         padding: const EdgeInsets.fromLTRB(
                                             10, 5, 10, 0),
                                         child: Text(
-                                          ' مثال:3 اطقم ملابس و 2بطاطين....',
+                                          AppLocalizations.of(context)
+                                              .translate('example'),
                                           style: TextStyle(
                                               fontSize: 14,
                                               height: 1,
@@ -829,7 +859,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             border: OutlineInputBorder(
                                                 borderRadius:
                                                     BorderRadius.circular(2.0)),
-                                            labelText: "الوصف",
+                                            labelText:
+                                                AppLocalizations.of(context)
+                                                    .translate("description"),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey,
                                                 fontSize: 24)),
@@ -846,7 +878,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           if (spaceRex ||
                                               value.length == 0 ||
                                               value == null) {
-                                            return 'ادخل الوصف من فضلك';
+                                            return AppLocalizations.of(context)
+                                                .translate('desc_please');
                                           }
                                           return null;
                                         },
@@ -877,8 +910,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                 color: Color.fromRGBO(49, 39, 79, 1),
                               ),
                               child: Center(
-                                child: const Text(
-                                  "التالى",
+                                child: Text(
+                                  AppLocalizations.of(context)
+                                      .translate('Next'),
                                   style: TextStyle(color: Colors.white),
                                 ),
                               ),
@@ -905,7 +939,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                 child: Center(
                                   child: _submitLoading == false
                                       ? Text(
-                                          "تبرع الأن",
+                                          AppLocalizations.of(context)
+                                              .translate('Donate_Now_String'),
                                           style: TextStyle(color: Colors.white),
                                         )
                                       : CircularProgressIndicator(),
@@ -925,7 +960,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                         child: Center(
                           child: FlatButton(
                             child: Text(
-                              "السابق",
+                              AppLocalizations.of(context)
+                                  .translate('Previous'),
                               style: TextStyle(
                                   color: Color.fromRGBO(49, 39, 79, .6)),
                             ),

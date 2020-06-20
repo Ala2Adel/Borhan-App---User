@@ -104,9 +104,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
             context: context,
             barrierDismissible: false,
             child: AlertDialog(
-              title: const Text('حدث خطأ ما '),
-              content: Text(
-                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
+              title: Text(AppLocalizations.of(context)
+                  .translate('Something_went_wrong_String')),
+              content: Text(AppLocalizations.of(context).translate('internet')),
               actions: <Widget>[
                 FlatButton(
                     onPressed: () => {
@@ -114,7 +114,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                               .invokeMethod('SystemNavigator.pop'),
                         },
                     child: Text(
-                      'خروج ',
+                      AppLocalizations.of(context).translate('exit'),
                       style: TextStyle(color: Colors.red),
                     )),
                 FlatButton(
@@ -122,7 +122,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           AppSettings.openWIFISettings(),
                         },
                     child: Text(
-                      ' اعدادت Wi-Fi ',
+                      AppLocalizations.of(context).translate('wisettings'),
                       style: TextStyle(color: Colors.blue),
                     )),
                 FlatButton(
@@ -130,7 +130,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           AppSettings.openDataRoamingSettings(),
                         },
                     child: Text(
-                      ' اعدادت الباقه ',
+                      AppLocalizations.of(context).translate('Sim'),
                       style: TextStyle(
                         color: Colors.blue,
                       ),
@@ -360,7 +360,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                     campaignNotifier.campaignList.length != 0
                         ? new Container(
                             height: 150.0, width: _width, child: headerList)
-                        : Container(child: Text("لا يوجد حملات حايا")),
+                        : Container(
+                            child: Text(AppLocalizations.of(context)
+                                .translate('no_camp'))),
                     ButtonTheme(
                       minWidth: MediaQuery.of(context).size.width - 50,
                       height: 50.0,

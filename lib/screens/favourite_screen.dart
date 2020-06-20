@@ -56,7 +56,8 @@ class _FavouriteState extends State<Favourite> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
@@ -77,7 +78,8 @@ class _FavouriteState extends State<Favourite> {
               ],
             )
           : CupertinoAlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
@@ -119,7 +121,7 @@ class _FavouriteState extends State<Favourite> {
     final body = new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          'المفضلة',
+          AppLocalizations.of(context).translate('favorites_string'),
           style: new TextStyle(
               color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
         ),
@@ -135,7 +137,7 @@ class _FavouriteState extends State<Favourite> {
             )
           : activityNotifier.favorites.length == 0
               ? Center(
-                  child: const Text('لا يوجد أنشطة في المفضلة'),
+                  child: Text(AppLocalizations.of(context).translate('no_fav')),
                 )
               : new Container(
                   child: new Stack(
@@ -307,7 +309,10 @@ class _FavouriteState extends State<Favourite> {
                                                               }
                                                             },
                                                             child: Text(
-                                                              'تبرع',
+                                                              AppLocalizations.of(
+                                                                      context)
+                                                                  .translate(
+                                                                      'donate'),
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       20.0,
@@ -344,7 +349,10 @@ class _FavouriteState extends State<Favourite> {
                                                               }));
                                                             },
                                                             child: Text(
-                                                              'تفاصيل ',
+                                                              AppLocalizations.of(
+                                                                      context)
+                                                                  .translate(
+                                                                      'detail'),
                                                               style: TextStyle(
                                                                   fontSize:
                                                                       20.0,

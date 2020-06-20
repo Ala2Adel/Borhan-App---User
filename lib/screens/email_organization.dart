@@ -1,3 +1,4 @@
+import 'package:Borhan_User/app_localizations.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 
 import 'package:Borhan_User/screens/email_screen.dart';
@@ -35,7 +36,7 @@ class _EmailOrganizationState extends State<EmailOrganization> {
     final allOrg = Provider.of<OrganizationNotifier>(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('الدعم بواسطة البريد الإلكتروني'),
+        title: Text(AppLocalizations.of(context).translate('Email_Support')),
       ),
       body: WillPopScope(
         onWillPop: () async => true,

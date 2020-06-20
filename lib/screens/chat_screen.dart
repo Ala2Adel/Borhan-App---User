@@ -1,3 +1,4 @@
+import 'package:Borhan_User/app_localizations.dart';
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import '../widgets/message_bubble.dart';
@@ -90,7 +91,7 @@ class _ChatScreenState extends State<ChatScreen> {
     final chatDocs = Provider.of<ChatProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('المحادثة'),
+        title: Text(AppLocalizations.of(context).translate('conversation')),
       ),
       body: Container(
         child: Column(
@@ -108,7 +109,9 @@ class _ChatScreenState extends State<ChatScreen> {
                             itemBuilder: (_, index) => MessageBubble(
                               chatDocs.items[index].text,
                               chatDocs.items[index].userName,
-                              chatDocs.items[index].userName == "Admin",
+                              chatDocs.items[index].userName ==
+                                  AppLocalizations.of(context)
+                                      .translate('Admin'),
                             ),
                           );
                         });
@@ -124,7 +127,9 @@ class _ChatScreenState extends State<ChatScreen> {
                   Expanded(
                     child: TextField(
                       controller: _controller,
-                      decoration: InputDecoration(labelText: 'كتابة رسالة ...'),
+                      decoration: InputDecoration(
+                          labelText: AppLocalizations.of(context)
+                              .translate('writing_message')),
                       onChanged: (value) {
                         setState(() {
                           _enteredMessage = value;

@@ -22,7 +22,8 @@ class _HelpScreenState extends State<HelpScreen> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
@@ -43,7 +44,8 @@ class _HelpScreenState extends State<HelpScreen> {
               ],
             )
           : CupertinoAlertDialog(
-              title: const Text('تسجيل دخول'),
+              title:
+                  Text(AppLocalizations.of(context).translate('login_string')),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
@@ -79,7 +81,7 @@ class _HelpScreenState extends State<HelpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('المساعدة'),
+        title: Text(AppLocalizations.of(context).translate('help')),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -94,8 +96,8 @@ class _HelpScreenState extends State<HelpScreen> {
                         MaterialPageRoute(
                             builder: (context) => EmailOrganization()));
                   },
-                  child: const Text(
-                    'بواسطة البريد الإلكتروني',
+                  child: Text(
+                    AppLocalizations.of(context).translate('Email_Support'),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -129,8 +131,8 @@ class _HelpScreenState extends State<HelpScreen> {
                       }));
                     }
                   },
-                  child: const Text(
-                    'بواسطة محادثة',
+                  child: Text(
+                    AppLocalizations.of(context).translate('chat_support'),
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
