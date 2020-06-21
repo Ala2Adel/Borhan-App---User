@@ -69,21 +69,16 @@ class _HelpOrganizationState extends State<HelpOrganization> {
           child: Row(
             children: <Widget>[
               Container(
-                width: 50,
-                height: 50,
+                width: 70,
+                height: 70,
                 child: Material(
                   child: Image.network(img),
-//                Icon(
-//                  Icons.account_circle,
-//                  size: 50.0,
-//                ),
-
-                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                  borderRadius: BorderRadius.all(Radius.circular(20.0)),
                   clipBehavior: Clip.hardEdge,
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: const EdgeInsets.all(2.0),
               ),
               Flexible(
                 child: Container(
@@ -92,14 +87,13 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                       Container(
                         child: Text(
                           orgName,
-                          style: TextStyle(color: Colors.teal),
+                          style: TextStyle(color: Colors.black,fontSize: 20.0),
                         ),
                         alignment: Alignment.centerRight,
-                        margin: const EdgeInsets.fromLTRB(10.0, 0.0, 0.0, 5.0),
+                        margin: const EdgeInsets.fromLTRB(5.0, 0.0, 0.0, 5.0),
                       ),
                     ],
                   ),
-                  margin: const EdgeInsets.only(left: 20.0),
                 ),
               ),
             ],
@@ -110,7 +104,6 @@ class _HelpOrganizationState extends State<HelpOrganization> {
                 MaterialPageRoute(
                     builder: (context) => ChatScreen(orgId: orgId)));
           },
-          padding: const EdgeInsets.fromLTRB(25.0, 10.0, 25.0, 10.0),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
         ),

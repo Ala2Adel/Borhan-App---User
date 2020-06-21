@@ -408,7 +408,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             hintText: "اسم المتبرع",
                                             prefixIcon: Icon(
                                               Icons.person,
-                                              color: Colors.deepPurple,
+                                              color: Colors.green[700],
                                             ),
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
@@ -444,7 +444,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             hintText: "رقم التلفون المحمول",
                                             prefixIcon: Icon(
                                               Icons.mobile_screen_share,
-                                              color: Colors.deepPurple,
+                                              color: Colors.green[700],
                                             ),
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
@@ -524,7 +524,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                                     BorderRadius.circular(2.0)),
                                             prefixIcon: Icon(
                                               Icons.access_time,
-                                              color: Colors.deepPurple,
+                                              color: Colors.green[700],
                                             ),
                                             labelStyle: TextStyle(
                                                 color: Colors.grey,
@@ -563,7 +563,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                         Icon(
                                           FontAwesomeIcons.solidBuilding,
                                           size: 25.0,
-                                          color: Colors.deepPurple,
+                                          color: Colors.green[700],
                                         ),
                                         SizedBox(width: 50.0),
                                         Expanded(
@@ -621,7 +621,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                                 FontAwesomeIcons
                                                     .galacticRepublic,
                                                 size: 25.0,
-                                                color: Colors.deepPurple,
+                                                color: Colors.green[700],
                                               ),
                                               SizedBox(width: 50.0),
                                               Expanded(
@@ -669,7 +669,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                       Icon(
                                         FontAwesomeIcons.handsHelping,
                                         size: 25.0,
-                                        color: Colors.deepPurple,
+                                        color: Colors.green[700],
                                       ),
                                       SizedBox(width: 50.0),
                                       DropdownButton(
@@ -732,7 +732,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             hintText: " المبلغ بالجنيه المصرى ",
                                             prefixIcon: Icon(
                                               FontAwesomeIcons.moneyBill,
-                                              color: Colors.deepPurple,
+                                              color: Colors.green[700],
                                             ),
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
@@ -768,7 +768,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           Icon(
                                             FontAwesomeIcons.camera,
                                             size: 25.0,
-                                            color: Colors.deepPurple,
+                                            color: Colors.green[700],
                                           ),
                                           SizedBox(width: 10),
                                           Expanded(

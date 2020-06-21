@@ -33,7 +33,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[50],
+      backgroundColor: Colors.green[50],
       body: SingleChildScrollView(
         child: Column(
           children: [

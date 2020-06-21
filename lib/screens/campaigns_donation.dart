@@ -236,7 +236,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
             expandedHeight: 180.0,
             floating: false,
             pinned: true,
-            backgroundColor: Colors.purple[700],
+            backgroundColor: Colors.green[700],
             flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(
@@ -291,7 +291,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               bottomRight: Radius.circular(0),
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(0)),
-                          color: Colors.deepPurple.withOpacity(0.75),
+                          color: Colors.green[700].withOpacity(0.75),
                         
                         ),
                         child: Text(
@@ -349,7 +349,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     hintText: "اسم المتبرع",
                                     prefixIcon: Icon(
                                       Icons.person,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey)),
 //                              textAlign: TextAlign.end,
@@ -385,7 +385,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     hintText: "رقم تلفون الهاتف المحمول",
                                     prefixIcon: Icon(
                                       Icons.mobile_screen_share,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey)),
 
@@ -465,7 +465,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                             BorderRadius.circular(2.0)),
                                     prefixIcon: Icon(
                                       Icons.access_time,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                     labelStyle: TextStyle(
@@ -498,7 +498,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                 Icon(
                                   FontAwesomeIcons.handsHelping,
                                   size: 25.0,
-                                  color: Colors.deepPurple,
+                                  color: Colors.green[700],
                                 ),
                                 SizedBox(width: 50.0),
                                 DropdownButton(
@@ -553,7 +553,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       hintText: " المبلغ بالجنيه المصرى ",
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.moneyBill,
-                                        color: Colors.deepPurple,
+                                        color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
 
@@ -586,7 +586,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     Icon(
                                       FontAwesomeIcons.camera,
                                       size: 25.0,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     SizedBox(width: 10),
                                     Expanded(

@@ -115,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await auth.resetPassword(_authData['email']);
 
         Flushbar(
-          message: 'تم ارسال تغير رابط كلمه المرور',
+          message: 'تم ارسال تغير رابط كلمة المرور',
           icon: Icon(
             Icons.thumb_up,
             size: 28.0,
@@ -212,9 +212,10 @@ class _LoginScreenState extends State<LoginScreen> {
                   Text(
                     _authMode == AuthMode.Login
                         ? 'تسجيل الدخول'
-                        : 'نسيت كلمه المرور',
+                        : 'نسيت كلمة المرور',
                     style: TextStyle(
-                        color: const Color.fromRGBO(49, 39, 79, 1),
+//                        color: const Color.fromRGBO(49, 39, 79, 1),
+                    color: Colors.green[700],
                         fontWeight: FontWeight.bold,
                         fontSize: 30),
                   ),
@@ -253,10 +254,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: TextFormField(
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "البريد الالكترونى",
+                                      hintText: "البريد الإلكتروني",
                                       prefixIcon: Icon(
                                         Icons.email,
-                                        color: Colors.deepPurple,
+                                        color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey),
                                     ),
@@ -271,9 +272,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         if (spaceRex ||
                                             value.length == 0 ||
                                             value == null) {
-                                          return 'ادخل البريد الألكترونى من فضلك';
+                                          return 'ادخل البريد الإلكتروني من فضلك';
                                         } else {
-                                          return 'البريد الألكترونى غيرصالح';
+                                          return 'البريد الإلكتروني غيرصالح';
                                         }
                                       }
                                       return null;
@@ -289,10 +290,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: TextFormField(
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintText: "كلمه المرور",
+                                          hintText: "كلمة المرور",
                                           prefixIcon: Icon(
                                             Icons.lock,
-                                            color: Colors.deepPurple,
+                                            color: Colors.green[700],
                                           ),
                                           hintStyle:
                                               TextStyle(color: Colors.grey)),
@@ -327,7 +328,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Text(
                             '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
                             style: TextStyle(
-                              color: Color.fromRGBO(196, 135, 198, 1),
+//                              color: Color.fromRGBO(196, 135, 198, 1),
+                              color: Colors.green[700],
                             ),
                           ),
                           onPressed: _switchAuthMode,
@@ -350,7 +352,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           margin: const EdgeInsets.symmetric(horizontal: 60),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Color.fromRGBO(49, 39, 79, 1),
+//                            color: Color.fromRGBO(49, 39, 79, 1),
+                            color: Colors.green[700],
                           ),
                           child: Center(
                             child: _submitLoading == false
@@ -376,7 +379,8 @@ class _LoginScreenState extends State<LoginScreen> {
                               shape: RoundedRectangleBorder(
                                   borderRadius:
                                       new BorderRadius.circular(30.0)),
-                              color: Color.fromRGBO(49, 39, 79, 1),
+//                              color: Color.fromRGBO(49, 39, 79, 1),
+                              color: Colors.green[700],
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -409,7 +413,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: const Text(
                               "حساب جديد",
                               style: TextStyle(
-                                  color: Color.fromRGBO(49, 39, 79, .6)),
+                                color: Colors.green,
+//                                  color: Color.fromRGBO(49, 39, 79, .6)
+                                  ),
                             ),
                             onPressed: () => Navigator.pushReplacementNamed(
                                 context, '/Signup'),

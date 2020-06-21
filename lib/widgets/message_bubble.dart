@@ -14,7 +14,8 @@ class MessageBubble extends StatelessWidget {
       children: <Widget>[
         Container(
           decoration: BoxDecoration(
-            color: isMe ? Colors.grey[300] : Theme.of(context).accentColor,
+            color: isMe ? Colors.grey[300] : Colors.green[100] ,
+            //Theme.of(context).accentColor
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(12),
               topRight: Radius.circular(12),
@@ -22,7 +23,7 @@ class MessageBubble extends StatelessWidget {
               bottomRight: isMe ? Radius.circular(0) : Radius.circular(12),
             ),
           ),
-          width: 140,
+          width: MediaQuery.of(context).size.width*2/3,
           padding: EdgeInsets.symmetric(
             vertical: 10,
             horizontal: 16,
@@ -39,17 +40,19 @@ class MessageBubble extends StatelessWidget {
                 userName,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  color: isMe
-                      ? Colors.black
-                      : Theme.of(context).accentTextTheme.headline6.color,
+color: Colors.black,
+//                  color: isMe
+//                      ? Colors.black
+//                      : Theme.of(context).accentTextTheme.headline6.color,
                 ),
               ),
               Text(
                 message,
                 style: TextStyle(
-                  color: isMe
-                      ? Colors.black
-                      : Theme.of(context).accentTextTheme.headline6.color,
+                  color: Colors.black,
+//                  color: isMe
+//                      ? Colors.black
+//                      : Theme.of(context).accentTextTheme.headline6.color,
                 ),
                 textAlign: isMe ? TextAlign.end : TextAlign.start,
               ),

@@ -105,20 +105,25 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                       'خروج ',
                       style: TextStyle(color: Colors.red),
                     )),
-          FlatButton(onPressed: ()=>{
-           
-           AppSettings.openWIFISettings(),
-          
-          }, child: Text(' اعدادت Wi-Fi ',style: TextStyle(color: Colors.blue),)),
-          FlatButton(onPressed: ()=>{
-           
-            AppSettings.openDataRoamingSettings(),
-          
-          }, child: Text(' اعدادت الباقه ',style: TextStyle(color: Colors.blue,),))
-        ]
-        
-        
-              ,
+                FlatButton(
+                    onPressed: () => {
+                          AppSettings.openWIFISettings(),
+                        },
+                    child: Text(
+                      ' اعدادت Wi-Fi ',
+                      style: TextStyle(color: Colors.blue),
+                    )),
+                FlatButton(
+                    onPressed: () => {
+                          AppSettings.openDataRoamingSettings(),
+                        },
+                    child: Text(
+                      ' اعدادت الباقه ',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ))
+              ],
             ));
       } else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {

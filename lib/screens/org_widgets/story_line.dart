@@ -51,7 +51,7 @@ class _StorylineState extends State<Storyline> {
             ),
           ),
            Text(
-            'البريد الألكترونى',
+            'البريد الإلكتروني',
             style: textTheme.subhead.copyWith(fontSize: 21.0),
           ),
           SizedBox(height: 5.0),

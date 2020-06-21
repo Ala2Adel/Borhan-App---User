@@ -16,14 +16,14 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Timer(
         Duration(seconds: 4),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-//           builder: (BuildContext context) => OnboardScreen())));
-             builder: (BuildContext context) => OrgOverviewScreen())));
+           builder: (BuildContext context) => OnboardScreen())));
+//             builder: (BuildContext context) => OrgOverviewScreen())));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple[50],
+      backgroundColor: Colors.green[50],
       body: Padding(
         padding: const EdgeInsets.all(15),
         child: Center(
