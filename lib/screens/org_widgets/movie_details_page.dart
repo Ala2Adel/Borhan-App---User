@@ -39,13 +39,14 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
           children: [
             MovieDetailHeader(widget.currentOrg),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
-              child: Storyline(widget.currentOrg),
-            ),
+            padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 20),
+            child: Storyline(widget.currentOrg),
+              ),
             // PhotoScroller(movie.photoUrls),
             // SizedBox(height: 20.0),
+           
              ActorScroller(_activitesList),
-            SizedBox(height: 40.0),
+            SizedBox(height: 20.0),
           ],
         ),
       ),

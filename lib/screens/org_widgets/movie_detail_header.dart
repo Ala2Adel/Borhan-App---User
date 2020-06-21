@@ -33,19 +33,21 @@ class MovieDetailHeader extends StatelessWidget {
     var movieInformation = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          // movie.title,
-         currentOrg.orgName,
-          // style: textTheme.title,
-          style:TextStyle(
-            fontSize: 31,
-            fontWeight: FontWeight.bold,
+        Center(
+          child: Text(
+            // movie.title,
+           currentOrg.orgName,
+            // style: textTheme.title,
+            style:TextStyle(
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
-        SizedBox(height: 8.0),
-        // RatingInformation(movie),
-         RatingInformation(testMovie),
-        SizedBox(height: 12.0),
+        // SizedBox(height: 8.0),
+        // // RatingInformation(movie),
+        //  RatingInformation(testMovie),
+        // SizedBox(height: 12.0),
         // Row(children: _buildCategoryChips(textTheme)),
       ],
     );
@@ -53,7 +55,7 @@ class MovieDetailHeader extends StatelessWidget {
     return Stack(
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 140.0),
+          padding: const EdgeInsets.only(bottom: 70.0),
           // child: ArcBannerImage(movie.bannerUrl),
             child: ArcBannerImage(currentOrg.logo),
         ),
@@ -69,8 +71,9 @@ class MovieDetailHeader extends StatelessWidget {
               //   movie.posterUrl,
               //   height: 180.0,
               // ),
-              SizedBox(width: 16.0),
-              Expanded(child: movieInformation),
+              // SizedBox(width: 16.0),
+              // Expanded(child: movieInformation),
+               Expanded(child: movieInformation),
             ],
           ),
         ),

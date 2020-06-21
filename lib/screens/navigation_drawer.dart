@@ -82,7 +82,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   child: Text('نعم'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
-                    Navigator.pushNamed(context, '/Login');
+                    Navigator.pushNamed(ctx, '/Login');
                   },
                 ),
               ],

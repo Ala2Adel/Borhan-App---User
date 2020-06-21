@@ -68,6 +68,11 @@ class OnboardScreen extends StatelessWidget {
       iconImageAssetPath: 'assets/images/donation9.png',
       body: Text(
         'ما نقصت صدقة من مال ، وما زاد الله عبدا بعفو إلا عزاً ، وما تواضع أحد لله إلا رفعة الله',
+         style: new TextStyle(
+                fontFamily: ArabicFonts.Amiri,
+                package: 'google_fonts_arabic',
+                fontSize: 18,
+              ),
       ),
       title: Text('ملابس',
        style: new TextStyle(
