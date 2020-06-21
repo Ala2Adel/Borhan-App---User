@@ -388,7 +388,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   Text(
                                     'تسجيل الدخول بحساب جوجل',
                                     style: TextStyle(
-                                        color: Colors.white, fontSize: 18.0),
+                                        color: Colors.white, fontSize: 16.0),
                                   ),
                                 ],
                               ),
