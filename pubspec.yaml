@@ -124,6 +124,7 @@ flutter:
      - family: MyFont
        fonts:
          - asset: assets/Fonts/sspu.ttf
+         - asset: assets/Fonts/Cairo-Regular.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro

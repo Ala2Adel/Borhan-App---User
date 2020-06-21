@@ -76,22 +76,26 @@ class MyApp extends StatelessWidget {
             theme: new ThemeData(
                 primarySwatch: Colors.deepPurple,
                 textTheme: TextTheme(
+
+
                   subtitle1: TextStyle(
-                    fontFamily: ArabicFonts.Amiri,
+                    fontFamily: ArabicFonts.Cairo,
                     package: 'google_fonts_arabic',
                   ),
                   button: TextStyle(
-                    fontFamily: ArabicFonts.Amiri,
+                    fontFamily: ArabicFonts.Cairo,
                     package: 'google_fonts_arabic',
                   ),
                   bodyText1: TextStyle(
-                    fontFamily: ArabicFonts.Amiri,
+                    fontFamily: ArabicFonts.Cairo,
                     package: 'google_fonts_arabic',
                   ),
                   bodyText2: TextStyle(
-                    fontFamily: ArabicFonts.Amiri,
+                    fontFamily: ArabicFonts.Cairo,
                     package: 'google_fonts_arabic',
                   ),
+
+
                 )),
             home: WelcomeScreen(),
             routes: {
@@ -106,8 +110,6 @@ class MyApp extends StatelessWidget {
               HelpScreen.routeName: (ctx) => HelpScreen(),
               EmailOrganization.routeName: (ctx) => EmailOrganization(),
               ChatScreen.routeName: (ctx) => ChatScreen(),
-//              FirestoreChatScreen.routeName: (ctx) => FirestoreChatScreen(),
-
               HelpOrganization.routeName: (ctx) => HelpOrganization(),
               MyDonationsScreen.routeName: (ctx) => MyDonationsScreen(),
             }));
