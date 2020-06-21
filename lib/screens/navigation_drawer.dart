@@ -8,8 +8,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
-import '../app_localizations.dart';
-
 class NavigationDrawer extends StatefulWidget {
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
@@ -24,19 +22,17 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('logout_string')),
+              title: const Text('تسجيل خروج'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(AppLocalizations.of(context).translate('cancel')),
+                  child: const Text('الغاء'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('yes_string')),
+                  child: const Text('نعم'),
                   onPressed: () {
                     SharedPref sharedPref = SharedPref();
                     sharedPref.remove("user");
@@ -47,19 +43,16 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               ],
             )
           : CupertinoAlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('logout_string')),
+              title: const Text('تسجيل خروج'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child:
-                        Text(AppLocalizations.of(context).translate('cancel')),
+                    child: const Text('الغاء'),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     }),
                 CupertinoDialogAction(
-                    child: Text(
-                        AppLocalizations.of(context).translate('yes_string')),
+                    child: const Text('نعم'),
                     onPressed: () {
                       SharedPref sharedPref = SharedPref();
                       sharedPref.remove("user");
@@ -76,20 +69,17 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('not_now_string')),
+                  child: Text('ليس الأن'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('yes_string')),
+                  child: Text('نعم'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(ctx, '/Login');
@@ -98,20 +88,17 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               ],
             )
           : CupertinoAlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text(
-                      AppLocalizations.of(context).translate('not_now_string')),
+                  child: Text('ليس الأن'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 CupertinoDialogAction(
-                  child: Text(
-                      AppLocalizations.of(context).translate('yes_string')),
+                  child: Text('نعم'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -151,7 +138,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           UserAccountsDrawerHeader(
             accountName: userLoad == null
                 ? Text(
-                    AppLocalizations.of(context).translate('welcome_string'),
+                    "مرحبا بك ",
                     style: TextStyle(
                         fontWeight: FontWeight.bold, fontSize: 17, height: 0.5),
                   )
@@ -165,9 +152,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                       Navigator.of(context).pop();
                       Navigator.pushNamed(context, '/Login');
                     },
-                    child: Text(
-                      AppLocalizations.of(context)
-                          .translate("Login_Signup_string"),
+                    child: const Text(
+                      "تسجيل الدخول / التسجيل ",
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
@@ -186,16 +172,16 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             ),
           ),
           new ListTile(
-            title: Text(
-              AppLocalizations.of(context).translate("Home_String"),
+            title: const Text(
+              "الرئيسية",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.home),
             onTap: () => Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
-            title: Text(
-              AppLocalizations.of(context).translate("favorites_string"),
+            title: const Text(
+              "المفضلة",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.favorite),
@@ -216,8 +202,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           //   },
           // ),
           new ListTile(
-            title: Text(
-              AppLocalizations.of(context).translate("Mydonations_String"),
+            title: const Text(
+              "تبرعاتي",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.drag_handle),
@@ -225,8 +211,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
               UserNav userLoad = await loadSharedPrefs();
               Navigator.pop(context);
               if (userLoad == null) {
-                _showErrorDialogLogin(AppLocalizations.of(context)
-                    .translate('Please_signin_first_string'));
+                _showErrorDialogLogin("الرجاء التسجيل قبل الدخول");
               } else {
                 Navigator.of(context)
                     .push(MaterialPageRoute(builder: (BuildContext context) {
@@ -236,8 +221,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             },
           ),
           new ListTile(
-            title: Text(
-              AppLocalizations.of(context).translate("External_Donations"),
+            title: const Text(
+              "التبرعات الخارجية",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.account_balance_wallet),
@@ -248,21 +233,20 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           ),
           if (userLoad != null)
             new ListTile(
-              title: Text(
-                AppLocalizations.of(context).translate("logout_string"),
+              title: const Text(
+                "تسجيل خروج",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
               ),
               leading:
                   new Icon(Icons.exit_to_app), // FontAwesomeIcons.signOutAlt
               onTap: () {
-                _showErrorDialog(
-                    AppLocalizations.of(context).translate('logout_sure'));
+                _showErrorDialog("هل تريد تسجيل الخروج");
               },
             ),
           Divider(),
           new ListTile(
-            title: Text(
-              AppLocalizations.of(context).translate("help and support"),
+            title: const Text(
+              "الدعم و المساعدة",
               style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             ),
             leading: new Icon(Icons.help),

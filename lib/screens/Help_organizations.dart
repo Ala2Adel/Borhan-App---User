@@ -1,4 +1,3 @@
-import 'package:Borhan_User/app_localizations.dart';
 import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:flutter/material.dart';
@@ -33,7 +32,7 @@ class _HelpOrganizationState extends State<HelpOrganization> {
     final allUsers = Provider.of<OrganizationNotifier>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('conversations')),
+        title: const Text('المحادثات'),
       ),
       body: WillPopScope(
         onWillPop: () async => true,

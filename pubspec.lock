@@ -127,13 +127,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.6"
-  devicelocale:
-    dependency: "direct main"
-    description:
-      name: devicelocale
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.2.3"
   firebase:
     dependency: transitive
     description:
@@ -593,13 +586,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.15"
-  translator:
-    dependency: "direct main"
-    description:
-      name: translator
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.1.4"
   typed_data:
     dependency: transitive
     description:

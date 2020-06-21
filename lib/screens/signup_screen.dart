@@ -1,4 +1,3 @@
-import 'package:Borhan_User/app_localizations.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/cupertino.dart';
@@ -38,12 +37,11 @@ class _SignupScreenState extends State<SignupScreen> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: Text(AppLocalizations.of(context)
-                  .translate('Something_went_wrong_String')),
+              title: const Text('حدث خطأ ما'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(AppLocalizations.of(context).translate('ok')),
+                  child: const Text('حسنا'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
@@ -51,12 +49,11 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             )
           : CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context)
-                  .translate('Something_went_wrong_String')),
+              title: const Text('حدث خطأ ما'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context).translate('ok')),
+                    child: const Text('حسنا'),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     }),
@@ -91,7 +88,7 @@ class _SignupScreenState extends State<SignupScreen> {
       );
 
       Flushbar(
-        message: AppLocalizations.of(context).translate('new'),
+        message: 'تم تسيجل البريد الالكترونى بنجاح',
         icon: Icon(
           Icons.thumb_up,
           size: 28.0,
@@ -104,7 +101,7 @@ class _SignupScreenState extends State<SignupScreen> {
           (value) => Navigator.of(context).pushReplacementNamed('/Login'));
     } catch (error) {
       print(error);
-      var errorMessage = AppLocalizations.of(context).translate('already');
+      const errorMessage = 'البريد الإلكتروني موجود بالفعل ';
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -155,8 +152,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         )),
                   ),
                   Center(
-                    child: Text(
-                      AppLocalizations.of(context).translate('Welcome'),
+                    child: const Text(
+                      'مرحبا بك فى برهان',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 21,
@@ -174,7 +171,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   FadeAnimation(
                     1.5,
                     Text(
-                      AppLocalizations.of(context).translate('register'),
+                      "تسجيل حساب",
                       style: TextStyle(
                           color: Color.fromRGBO(49, 39, 79, 1),
                           fontWeight: FontWeight.bold,
@@ -206,8 +203,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: AppLocalizations.of(context)
-                                          .translate('username'),
+                                      hintText: "اسم المستخدم",
                                       prefixIcon: Icon(
                                         Icons.person,
                                         color: Colors.deepPurple,
@@ -227,8 +223,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: AppLocalizations.of(context)
-                                        .translate('Email'),
+                                    hintText: "البريد الالكترونى",
                                     prefixIcon: Icon(
                                       Icons.email,
                                       color: Colors.deepPurple,
@@ -241,8 +236,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                         .hasMatch(value);
                                     if (!emailValid) {
-                                      return AppLocalizations.of(context)
-                                          .translate('invalid_mail');
+                                      return 'البريد الالكترونى غير صالح ';
                                     }
                                     return null;
                                   },
@@ -256,8 +250,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: AppLocalizations.of(context)
-                                          .translate('Password'),
+                                      hintText: "كلمه المرور",
                                       prefixIcon: Icon(
                                         Icons.lock,
                                         color: Colors.deepPurple,
@@ -267,8 +260,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller: _passwordController,
                                   validator: (value) {
                                     if (value.isEmpty || value.length < 5) {
-                                      return AppLocalizations.of(context)
-                                          .translate('short');
+                                      return 'كلمة المرور قصيرة جدا';
                                     }
                                     return null;
                                   },
@@ -282,8 +274,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: AppLocalizations.of(context)
-                                          .translate('conf'),
+                                      hintText: "تأكيد كلمه المرور",
                                       prefixIcon: Icon(
                                         Icons.lock,
                                         color: Colors.deepPurple,
@@ -293,8 +284,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   controller: _passwordConfirmController,
                                   validator: (value) {
                                     if (value != _passwordController.text) {
-                                      return AppLocalizations.of(context)
-                                          .translate('notconsist');
+                                      return 'غير مطابقة';
                                     }
                                     return null;
                                   },
@@ -328,8 +318,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         child: Center(
                           child: _submitLoading == false
                               ? Text(
-                                  AppLocalizations.of(context)
-                                      .translate('register'),
+                                  "تسجيل حساب",
                                   style: TextStyle(color: Colors.white),
                                 )
                               : CircularProgressIndicator(),
@@ -346,8 +335,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                         child: Center(
                           child: FlatButton(
-                            child: Text(
-                              AppLocalizations.of(context).translate('have'),
+                            child: const Text(
+                              "أمتلك حساب",
                               style: TextStyle(
                                 color: Color.fromRGBO(49, 39, 79, .6),
                               ),

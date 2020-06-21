@@ -9,7 +9,6 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
-import '../app_localizations.dart';
 import 'overview_screen.dart';
 import 'dart:io' show Platform;
 
@@ -57,12 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: Text(AppLocalizations.of(context)
-                  .translate('Something_went_wrong_String')),
+              title: const Text('حدث خطأ ما'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(AppLocalizations.of(context).translate('ok')),
+                  child: const Text('حسنا'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
@@ -70,12 +68,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             )
           : CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context)
-                  .translate('Something_went_wrong_String')),
+              title: const Text('حدث خطأ ما'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context).translate('ok')),
+                    child: const Text('حسنا'),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     }),
@@ -109,7 +106,8 @@ class _LoginScreenState extends State<LoginScreen> {
             MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
       } catch (error) {
         print(error);
-        var errorMessage = AppLocalizations.of(context).translate('error');
+        const errorMessage =
+            'البريد الإلكتروني أو كلمة المرور غير صحيحة ,رجاء المحاولة مرة أخري';
         _showErrorDialog(errorMessage);
       }
     } else {
@@ -118,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
         await auth.resetPassword(_authData['email']);
 
         Flushbar(
-          message: AppLocalizations.of(context).translate('done'),
+          message: 'تم ارسال تغير رابط كلمه المرور',
           icon: Icon(
             Icons.thumb_up,
             size: 28.0,
@@ -130,7 +128,7 @@ class _LoginScreenState extends State<LoginScreen> {
         )..show(context);
       } catch (error) {
         print(error);
-        var errorMessage = AppLocalizations.of(context).translate('notexist');
+        const errorMessage = 'البريد الإلكتروني غير موجود';
         _showErrorDialog(errorMessage);
       }
     }
@@ -196,8 +194,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         )),
                   ),
                   Center(
-                    child: Text(
-                      AppLocalizations.of(context).translate("Welcome"),
+                    child: const Text(
+                      'مرحبا بك فى برهان',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 21,
@@ -215,9 +213,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   1.5,
                   Text(
                     _authMode == AuthMode.Login
-                        ? AppLocalizations.of(context).translate('login_string')
-                        : AppLocalizations.of(context)
-                            .translate('ForgetPassword'),
+                        ? 'تسجيل الدخول'
+                        : 'نسيت كلمه المرور',
                     style: TextStyle(
                         color: const Color.fromRGBO(49, 39, 79, 1),
                         fontWeight: FontWeight.bold,
@@ -258,8 +255,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   child: TextFormField(
                                     decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: AppLocalizations.of(context)
-                                          .translate('Email'),
+                                      hintText: "البريد الالكترونى",
                                       prefixIcon: Icon(
                                         Icons.email,
                                         color: Colors.deepPurple,
@@ -277,11 +273,9 @@ class _LoginScreenState extends State<LoginScreen> {
                                         if (spaceRex ||
                                             value.length == 0 ||
                                             value == null) {
-                                          return AppLocalizations.of(context)
-                                              .translate('mail');
+                                          return 'ادخل البريد الألكترونى من فضلك';
                                         } else {
-                                          return AppLocalizations.of(context)
-                                              .translate('invalid_mail');
+                                          return 'البريد الألكترونى غيرصالح';
                                         }
                                       }
                                       return null;
@@ -297,8 +291,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: TextFormField(
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
-                                          hintText: AppLocalizations.of(context)
-                                              .translate('Password'),
+                                          hintText: "كلمه المرور",
                                           prefixIcon: Icon(
                                             Icons.lock,
                                             color: Colors.deepPurple,
@@ -316,8 +309,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         if (spaceRex ||
                                             value.length == 0 ||
                                             value == null) {
-                                          return AppLocalizations.of(context)
-                                              .translate('password_please');
+                                          return 'ادخل  كلمة المرور من فضلك';
                                         }
                                         return null;
                                       },
@@ -335,7 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       Center(
                         child: FlatButton(
                           child: Text(
-                            '${_authMode == AuthMode.Login ? AppLocalizations.of(context).translate('ForgetPassword') : AppLocalizations.of(context).translate('backToLogin')} ',
+                            '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
                             style: TextStyle(
                               color: Color.fromRGBO(196, 135, 198, 1),
                             ),
@@ -366,10 +358,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: _submitLoading == false
                                 ? Text(
                                     _authMode == AuthMode.Login
-                                        ? AppLocalizations.of(context)
-                                            .translate('login_string')
-                                        : AppLocalizations.of(context)
-                                            .translate('send'),
+                                        ? 'تسجيل الدخول'
+                                        : 'إرسال رابط تغيير كلمة المرور',
                                     style: TextStyle(color: Colors.white),
                                   )
                                 : CircularProgressIndicator(),
@@ -398,8 +388,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   ),
                                   SizedBox(width: 10.0),
                                   Text(
-                                    AppLocalizations.of(context)
-                                        .translate('Signin With google'),
+                                    'تسجيل الدخول بحساب جوجل',
                                     style: TextStyle(
                                         color: Colors.white, fontSize: 18.0),
                                   ),
@@ -419,9 +408,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                         child: Center(
                           child: FlatButton(
-                            child: Text(
-                              AppLocalizations.of(context)
-                                  .translate('NewAccount'),
+                            child: const Text(
+                              "حساب جديد",
                               style: TextStyle(
                                   color: Color.fromRGBO(49, 39, 79, .6)),
                             ),

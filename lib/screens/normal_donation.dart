@@ -17,8 +17,6 @@ import 'package:intl/date_symbol_data_local.dart';
 
 import 'dart:io' show Platform;
 
-import '../app_localizations.dart';
-
 class NormalDenotationScreen extends StatefulWidget {
   @override
   _NormalDenotationScreenState createState() => _NormalDenotationScreenState();
@@ -72,13 +70,11 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     }
 
     if (selectedType == null) {
-      _showErrorDialog(
-          AppLocalizations.of(context).translate('choose_don_type'));
+      _showErrorDialog("من فضلك اختار نوع التبرع ");
       return;
     }
     if (_image == null && selectedType != 'نقدى') {
-      _showErrorDialog(
-          AppLocalizations.of(context).translate('choose_don_photo'));
+      _showErrorDialog("من فضلك اضاف صورة التبرع ");
       return;
     }
 
@@ -124,7 +120,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
               userName: _authData['name']);
 
       Flushbar(
-        message: AppLocalizations.of(context).translate('success_sent_request'),
+        message: 'تم ارسال طلب تبرعك بنجاح',
         icon: Icon(
           Icons.thumb_up,
           size: 28.0,
@@ -136,8 +132,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
       )..show(context).then((value) => Navigator.of(context).pop());
     } catch (error) {
       print(error);
-      var errorMessage =
-          AppLocalizations.of(context).translate('Something_went_wrong_String');
+      const errorMessage = ' حدث خطا ما';
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -186,11 +181,11 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: Text(AppLocalizations.of(context).translate('warning')),
+              title: const Text('تحذير'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(AppLocalizations.of(context).translate('ok')),
+                  child: const Text('حسنا'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
@@ -198,11 +193,11 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
               ],
             )
           : CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context).translate('warning')),
+              title: const Text('تحذير'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context).translate('ok')),
+                    child: const Text('حسنا'),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     })
@@ -240,8 +235,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                 title: Text(
                   activityNotifier.currentActivity.name != null
                       ? activityNotifier.currentActivity.name
-                      : AppLocalizations.of(context)
-                          .translate('Donate_Now_String'),
+                      : 'تبرع الآن',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
@@ -289,8 +283,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                         child: Text(
                           orgNotifier.currentOrg.orgName != null
                               ? orgNotifier.currentOrg.orgName
-                              : AppLocalizations.of(context)
-                                  .translate('Donate_Now_String'),
+                              : 'تبرع الآن',
                           style: TextStyle(
                               fontSize: 21,
                               fontWeight: FontWeight.bold,
@@ -335,8 +328,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                               child: TextFormField(
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: AppLocalizations.of(context)
-                                        .translate('name'),
+                                    hintText: "اسم المتبرع",
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: Colors.deepPurple,
@@ -348,11 +340,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('enter_name_please');
+                                    return 'ادخل الاسم من فضلك';
                                   } else if (value.length < 3) {
-                                    return AppLocalizations.of(context)
-                                        .translate('name_3_chars');
+                                    return 'الاسم لايمكن ان يكون اقل من ثلاثه احرف';
                                   }
                                   return null;
                                 },
@@ -371,8 +361,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                               child: TextFormField(
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: AppLocalizations.of(context)
-                                        .translate('mobile'),
+                                    hintText: "رقم التلفون المحمول",
                                     prefixIcon: Icon(
                                       Icons.mobile_screen_share,
                                       color: Colors.deepPurple,
@@ -389,11 +378,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('mobile_please');
+                                    return 'ادخل رقم الهاتف من فضلك';
                                   } else if (value.length < 11) {
-                                    return AppLocalizations.of(context)
-                                        .translate('11_no');
+                                    return 'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
                                   }
                                   return null;
                                 },
@@ -407,8 +394,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(2.0)),
-                                    labelText: AppLocalizations.of(context)
-                                        .translate('address'),
+                                    labelText: "العنوان",
                                     labelStyle: TextStyle(
                                         color: Colors.grey, fontSize: 24)),
                                 keyboardType: TextInputType.multiline,
@@ -423,11 +409,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('address_please');
+                                    return 'ادخل العنوان من فضلك';
                                   } else if (value.length < 5) {
-                                    return AppLocalizations.of(context)
-                                        .translate('address_5');
+                                    return 'العنوان لايمكن ان يكون اقل من 5 احرف';
                                   }
                                   return null;
                                 },
@@ -438,8 +422,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                 padding:
                                     const EdgeInsets.fromLTRB(10, 5, 10, 0),
                                 child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('available_on'),
+                                  'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
                                   style: TextStyle(
                                       fontSize: 17,
                                       height: 1,
@@ -475,8 +458,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('time_please');
+                                    return 'ادخل الوقت من فضلك';
                                   }
                                   return null;
                                 },
@@ -523,9 +505,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   },
                                   value: selectedType,
                                   isExpanded: false,
-                                  hint: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('choose_don_type'),
+                                  hint: const Text(
+                                    'اختار نوع التبرع',
                                     style: TextStyle(color: Color(0xff11b719)),
                                   ),
                                 )
@@ -542,8 +523,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: AppLocalizations.of(context)
-                                          .translate('amount'),
+                                      hintText: " المبلغ بالجنيه المصرى ",
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.moneyBill,
                                         color: Colors.deepPurple,
@@ -560,8 +540,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     if (spaceRex ||
                                         value.length == 0 ||
                                         value == null) {
-                                      return AppLocalizations.of(context)
-                                          .translate('amount_please');
+                                      return 'ادخل المبلغ من فضلك';
                                     }
 
                                     return null;
@@ -581,9 +560,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     ),
                                     SizedBox(width: 10),
                                     Expanded(
-                                        child: Text(
-                                            AppLocalizations.of(context)
-                                                .translate('choose_don_photo'),
+                                        child: const Text("اضف صورة التبرع",
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold)))
@@ -610,9 +587,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                               Container(
                                   padding:
                                       const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('don_details'),
+                                  child: const Text(
+                                    'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
                                     style: TextStyle(
                                         fontSize: 17,
                                         height: 1,
@@ -622,9 +598,8 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                               Container(
                                   padding:
                                       const EdgeInsets.fromLTRB(10, 5, 10, 0),
-                                  child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('example'),
+                                  child: const Text(
+                                    ' مثال:3 اطقم ملابس و 2بطاطين....',
                                     style: TextStyle(
                                         fontSize: 14,
                                         height: 1,
@@ -639,8 +614,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(2.0)),
-                                      labelText: AppLocalizations.of(context)
-                                          .translate('description'),
+                                      labelText: "الوصف",
                                       labelStyle: TextStyle(
                                           color: Colors.grey, fontSize: 24)),
                                   keyboardType: TextInputType.multiline,
@@ -656,8 +630,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     if (spaceRex ||
                                         value.length == 0 ||
                                         value == null) {
-                                      return AppLocalizations.of(context)
-                                          .translate('desc_please');
+                                      return 'ادخل الوصف من فضلك';
                                     }
                                     return null;
                                   },
@@ -690,8 +663,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                           child: Center(
                             child: _submitLoading == false
                                 ? Text(
-                                    AppLocalizations.of(context)
-                                        .translate('Donate_Now_String'),
+                                    "تبرع الأن",
                                     style: TextStyle(color: Colors.white),
                                   )
                                 : CircularProgressIndicator(),

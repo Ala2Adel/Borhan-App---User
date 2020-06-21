@@ -7,8 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
-import '../app_localizations.dart';
-
 class HelpScreen extends StatefulWidget {
   static const routeName = '/help';
 
@@ -18,24 +16,22 @@ class HelpScreen extends StatefulWidget {
 
 class _HelpScreenState extends State<HelpScreen> {
   void _showErrorDialog(String message) {
+   
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: const Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('not_now_string')),
+                  child: const Text('ليس الأن'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('yes_string')),
+                  child: const Text('نعم'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -44,19 +40,16 @@ class _HelpScreenState extends State<HelpScreen> {
               ],
             )
           : CupertinoAlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: const Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                    child: Text(AppLocalizations.of(context)
-                        .translate('not_now_string')),
+                    child: const Text('ليس الأن'),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                     }),
                 CupertinoDialogAction(
-                    child: Text(
-                        AppLocalizations.of(context).translate('yes_string')),
+                    child: const Text('نعم'),
                     onPressed: () {
                       Navigator.of(ctx).pop();
                       Navigator.pushNamed(context, '/Login');
@@ -79,9 +72,10 @@ class _HelpScreenState extends State<HelpScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('help')),
+        title: const Text('المساعدة'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -96,8 +90,8 @@ class _HelpScreenState extends State<HelpScreen> {
                         MaterialPageRoute(
                             builder: (context) => EmailOrganization()));
                   },
-                  child: Text(
-                    AppLocalizations.of(context).translate('Email_Support'),
+                  child: const Text(
+                    'بواسطة البريد الإلكتروني',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,
@@ -121,8 +115,8 @@ class _HelpScreenState extends State<HelpScreen> {
                   onPressed: () async {
                     UserNav userLoad = await loadSharedPrefs();
                     if (userLoad == null) {
-                      _showErrorDialog(AppLocalizations.of(context)
-                          .translate('Please_signin_first_string'));
+                     
+                      _showErrorDialog("برجاء تسجيل الدخول أولا");
                     } else {
                       print("user is  here");
                       Navigator.of(context).push(
@@ -131,8 +125,8 @@ class _HelpScreenState extends State<HelpScreen> {
                       }));
                     }
                   },
-                  child: Text(
-                    AppLocalizations.of(context).translate('chat_support'),
+                  child: const Text(
+                    'بواسطة محادثة',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18.0,

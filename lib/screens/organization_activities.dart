@@ -9,8 +9,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 
-import '../app_localizations.dart';
-
 class OrganizationActivity extends StatefulWidget {
   final id;
 
@@ -63,20 +61,17 @@ class _ActivityScreenState extends State<OrganizationActivity> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: const Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('not_now_string')),
+                  child: const Text('ليس الأن'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('yes_string')),
+                  child: const Text('نعم'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -85,20 +80,17 @@ class _ActivityScreenState extends State<OrganizationActivity> {
               ],
             )
           : CupertinoAlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: const Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text(
-                      AppLocalizations.of(context).translate('not_now_string')),
+                  child: const Text('ليس الأن'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 CupertinoDialogAction(
-                  child: Text(
-                      AppLocalizations.of(context).translate('yes_string')),
+                  child: const Text('نعم'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -128,7 +120,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
     final body = new Scaffold(
       appBar: new AppBar(
         title: new Text(
-          AppLocalizations.of(context).translate('Activities_String'),
+          'الانشطة',
           style: new TextStyle(
               color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),
         ),
@@ -154,216 +146,208 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                       children: <Widget>[
                         new Expanded(
                           child: ListView.builder(
-                            itemCount: activityNotifier.activityList.length,
-                            itemBuilder: (context, index) {
-                              return ClipRRect(
-                                borderRadius: BorderRadius.circular(40),
-                                child: Card(
-                                  margin: EdgeInsets.all(10),
-                                  color: Colors.deepPurple[400],
-                                  child: new ListTile(
-                                    contentPadding: EdgeInsets.all(8.0),
-                                    title: new Column(
-                                      children: <Widget>[
-                                        new Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            new Container(
-                                              height: 110.0,
-                                              width: 110.0,
-                                              decoration: new BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: Colors.lightBlueAccent,
-                                                boxShadow: [
-                                                  new BoxShadow(
-                                                      color: Colors.blueGrey
-                                                          .withAlpha(70),
-                                                      offset: const Offset(
-                                                          2.0, 2.0),
-                                                      blurRadius: 2.0)
-                                                ],
-                                                image: new DecorationImage(
-                                                  image: activityNotifier
-                                                                  .activityList[
-                                                                      index]
-                                                                  .image !=
-                                                              null &&
-                                                          activityNotifier
-                                                                  .activityList[
-                                                                      index]
-                                                                  .image !=
-                                                              ""
-                                                      ? new NetworkImage(
-                                                          activityNotifier
-                                                              .activityList[
-                                                                  index]
-                                                              .image)
-                                                      : NetworkImage(
-                                                          'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ),
-                                            new SizedBox(
-                                              width: 10.0,
-                                            ),
-                                            new Expanded(
-                                              child: new Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment.start,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: <Widget>[
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      new Text(
+                              itemCount: activityNotifier.activityList.length,
+                              itemBuilder: (context, index) {
+                           return ClipRRect(
+                             borderRadius: BorderRadius.circular(40),
+                             child: Card(
+                               margin: EdgeInsets.all(10),
+                               color: Colors.deepPurple[400],
+                               child: new ListTile(
+                                 contentPadding: EdgeInsets.all(8.0),
+                                 title: new Column(
+                                   children: <Widget>[
+                                     new Row(
+                                       crossAxisAlignment:
+                                           CrossAxisAlignment.center,
+                                       children: <Widget>[
+                                         new Container(
+                                           height: 110.0,
+                                           width: 110.0,
+                                           decoration: new BoxDecoration(
+                                             shape: BoxShape.circle,
+                                             color: Colors.lightBlueAccent,
+                                             boxShadow: [
+                                               new BoxShadow(
+                                                   color: Colors.blueGrey
+                                                       .withAlpha(70),
+                                                   offset: const Offset(
+                                                       2.0, 2.0),
+                                                   blurRadius: 2.0)
+                                             ],
+                                             image: new DecorationImage(
+                                               image: activityNotifier
+                                                               .activityList[
+                                                                   index]
+                                                               .image !=
+                                                           null &&
+                                                       activityNotifier
+                                                               .activityList[
+                                                                   index]
+                                                               .image !=
+                                                           ""
+                                                   ? new NetworkImage(
+                                                       activityNotifier
+                                                           .activityList[
+                                                               index]
+                                                           .image)
+                                                   : NetworkImage(
+                                                       'https://img2.arabpng.com/20171128/5d2/gold-soccer-ball-png-clip-art-image-5a1d466b159ac0.0656563615118680110885.jpg'),
+                                               fit: BoxFit.cover,
+                                             ),
+                                           ),
+                                         ),
+                                         new SizedBox(
+                                           width: 10.0,
+                                         ),
+                                         new Expanded(
+                                           child: new Column(
+                                             mainAxisAlignment:
+                                                 MainAxisAlignment.start,
+                                             crossAxisAlignment:
+                                                 CrossAxisAlignment.start,
+                                             children: <Widget>[
+                                               Row(
+                                                 mainAxisAlignment:
+                                                     MainAxisAlignment.spaceBetween,
+                                                 children: <Widget>[
+                                                   new Text(
+                                                     activityNotifier
+                                                                 .activityList[
+                                                                     index]
+                                                                 .name !=
+                                                             null
+                                                         ? activityNotifier
+                                                             .activityList[
+                                                                 index]
+                                                             .name
+                                                         : 'no value',
+                                                     style: new TextStyle(
+                                                         fontSize: 22.0,
+                                                         color: Colors.white,
+                                                         fontWeight:
+                                                             FontWeight
+                                                                 .bold),
+                                                   ),
+                                                  //  Expanded(
+                                                  //      child: _buildRow(
+                                                  //          activityNotifier
+                                                  //                  .activityList[
+                                                  //              index])),
+                                                    _buildRow(
                                                         activityNotifier
-                                                                    .activityList[
-                                                                        index]
-                                                                    .name !=
-                                                                null
-                                                            ? activityNotifier
                                                                 .activityList[
-                                                                    index]
-                                                                .name
-                                                            : 'no value',
-                                                        style: new TextStyle(
-                                                            fontSize: 22.0,
-                                                            color: Colors.white,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      //  Expanded(
-                                                      //      child: _buildRow(
-                                                      //          activityNotifier
-                                                      //                  .activityList[
-                                                      //              index])),
-                                                      _buildRow(activityNotifier
-                                                          .activityList[index]),
-                                                    ],
-                                                  ),
-                                                  new Text(
-                                                    activityNotifier
-                                                        .activityList[index]
-                                                        .description,
-                                                    maxLines: 1,
-                                                    style: new TextStyle(
-                                                        fontSize: 18.0,
-                                                        // height: 0.5,
-                                                        color: Colors.white,
-                                                        fontWeight:
-                                                            FontWeight.normal),
-                                                  ),
-                                                  Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment.start,
-                                                    children: <Widget>[
-                                                      RaisedButton(
-                                                        color: Colors.blue,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                      .circular(
-                                                                  8.0),
-                                                        ),
-                                                        onPressed: () async {
-                                                          activityNotifier
-                                                                  .currentActivity =
-                                                              activityNotifier
-                                                                      .activityList[
-                                                                  index];
+                                                            index]),
+                                                 ],
+                                               ),
+                                               new Text(
+                                                 activityNotifier
+                                                     .activityList[index]
+                                                     .description,
+                                                     maxLines: 1,
+                                                 style: new TextStyle(
+                                                     fontSize: 18.0,
+                                                     // height: 0.5,
+                                                     color: Colors.white,
+                                                     fontWeight:
+                                                         FontWeight.normal),
+                                               ),
+                                               Row(
+                                                 mainAxisAlignment:
+                                                     MainAxisAlignment.start,
+                                                 children: <Widget>[
+                                                   RaisedButton(
+                                                     color: Colors.blue,
+                                                     shape:
+                                                         RoundedRectangleBorder(
+                                                       borderRadius:
+                                                           new BorderRadius
+                                                                   .circular(
+                                                               8.0),
+                                                     ),
+                                                     onPressed: () async {
+                                                       activityNotifier
+                                                               .currentActivity =
+                                                           activityNotifier
+                                                                   .activityList[
+                                                               index];
 
-                                                          UserNav userLoad =
-                                                              await loadSharedPrefs();
-                                                          if (userLoad ==
-                                                              null) {
-                                                            _showErrorDialog(
-                                                                AppLocalizations.of(
-                                                                        context)
-                                                                    .translate(
-                                                                        'Please_signin_first_string'));
-                                                          } else {
-                                                            Navigator.of(
-                                                                    context)
-                                                                .push(
-                                                              MaterialPageRoute(
-                                                                builder:
-                                                                    (BuildContext
-                                                                        context) {
-                                                                  return NormalDenotationScreen();
-                                                                },
-                                                              ),
-                                                            );
-                                                          }
-                                                        },
-                                                        child: Text(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .translate(
-                                                                  'donate'),
-                                                          style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                      SizedBox(
-                                                        width: 10,
-                                                      ),
-                                                      RaisedButton(
-                                                        color: Colors.blue,
-                                                        shape:
-                                                            RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              new BorderRadius
-                                                                      .circular(
-                                                                  8.0),
-                                                        ),
-                                                        onPressed: () async {
-                                                          activityNotifier
-                                                                  .currentActivity =
-                                                              activityNotifier
-                                                                      .activityList[
-                                                                  index];
-                                                          Navigator.of(context).push(
-                                                              MaterialPageRoute(
-                                                                  builder:
-                                                                      (BuildContext
-                                                                          context) {
-                                                            return ActivityDetails();
-                                                          }));
-                                                        },
-                                                        child: Text(
-                                                          AppLocalizations.of(
-                                                                  context)
-                                                              .translate(
-                                                                  'detail'),
-                                                          style: TextStyle(
-                                                              fontSize: 20.0,
-                                                              color:
-                                                                  Colors.black),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
+                                                       UserNav userLoad =
+                                                           await loadSharedPrefs();
+                                                       if (userLoad ==
+                                                           null) {
+                                                         _showErrorDialog(
+                                                             "برجاء تسجيل الدخول أولا ");
+                                                       } else {
+                                                         Navigator.of(
+                                                                 context)
+                                                             .push(
+                                                           MaterialPageRoute(
+                                                             builder:
+                                                                 (BuildContext
+                                                                     context) {
+                                                               return NormalDenotationScreen();
+                                                             },
+                                                           ),
+                                                         );
+                                                       }
+                                                     },
+                                                     child: Text(
+                                                       'تبرع',
+                                                       style: TextStyle(
+                                                           fontSize: 20.0,
+                                                           color:
+                                                               Colors.black),
+                                                     ),
+                                                   ),
+                                                   SizedBox(
+                                                     width: 10,
+                                                   ),
+                                                   RaisedButton(
+                                                     color: Colors.blue,
+                                                     shape:
+                                                         RoundedRectangleBorder(
+                                                       borderRadius:
+                                                           new BorderRadius
+                                                                   .circular(
+                                                               8.0),
+                                                     ),
+                                                     onPressed: () async {
+                                                       activityNotifier
+                                                               .currentActivity =
+                                                           activityNotifier
+                                                                   .activityList[
+                                                               index];
+                                                       Navigator.of(context).push(
+                                                           MaterialPageRoute(
+                                                               builder:
+                                                                   (BuildContext
+                                                                       context) {
+                                                         return ActivityDetails();
+                                                       }));
+                                                     },
+                                                     child: Text(
+                                                       'تفاصيل ',
+                                                       style: TextStyle(
+                                                           fontSize: 20.0,
+                                                           color:
+                                                               Colors.black),
+                                                     ),
+                                                   ),
+                                                 ],
+                                               ),
+                                             ],
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+                                   ],
+                                 ),
+                               ),
+                             ),
+                           );
+                              },
+                            ),
                         )
                       ],
                     ),
@@ -393,7 +377,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
 
     alreadySaved = _saved.contains(activity.name);
 
-    return InkWell(
+     return InkWell(
       child: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.pink : Colors.white,
@@ -413,7 +397,8 @@ class _ActivityScreenState extends State<OrganizationActivity> {
       },
     );
 
-    // return ListTile(
+
+    // return ListTile(  
     //   trailing: Icon(
     //     alreadySaved ? Icons.favorite : Icons.favorite_border,
     //     color: alreadySaved ? Colors.pink : Colors.white,

@@ -1,5 +1,6 @@
 import 'package:Borhan_User/notifiers/campaign_notifier.dart';
 
+
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,8 +15,6 @@ import 'dart:io';
 import 'package:flushbar/flushbar.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'dart:io' show Platform;
-
-import '../app_localizations.dart';
 
 class CampaignDenotationScreen extends StatefulWidget {
   @override
@@ -70,13 +69,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     }
 
     if (selectedType == null) {
-      _showErrorDialog(
-          AppLocalizations.of(context).translate('choose_don_type'));
+      _showErrorDialog("من فضلك اختار نوع التبرع ");
       return;
     }
     if (_image == null && selectedType != 'نقدى') {
-      _showErrorDialog(
-          AppLocalizations.of(context).translate('choose_don_photo'));
+      _showErrorDialog("من فضلك اضف صورة التبرع ");
       return;
     }
 
@@ -128,20 +125,21 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
       );
 
       Flushbar(
-        message: AppLocalizations.of(context).translate('success_sent_request'),
+        message: 'تم ارسال طلب تبرعك بنجاح',
         icon: Icon(
           Icons.thumb_up,
           size: 28.0,
           color: Colors.blue[300],
         ),
         duration: Duration(seconds: 3),
+   
         margin: EdgeInsets.all(8),
         borderRadius: 8,
       )..show(context).then((value) => Navigator.of(context).pop());
+   
     } catch (error) {
       print(error);
-      var errorMessage =
-          AppLocalizations.of(context).translate('Something_went_wrong_String');
+      const errorMessage = ' حدث خطا ما';
       _showErrorDialog(errorMessage);
     }
     setState(() {
@@ -164,6 +162,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
         _image = img;
         _isLoadImg = true;
       } else {
+    
         if (_image != null) {
           _isLoadImg = true;
         } else {
@@ -174,26 +173,28 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
   }
 
   Future<String> uploadImage(File image) async {
+    
     StorageReference storageReference =
         FirebaseStorage.instance.ref().child(image.path.split('/').last);
     StorageUploadTask uploadTask = storageReference.putFile(image);
     await uploadTask.onComplete;
-
+   
     String _downloadUrl = await storageReference.getDownloadURL();
-
+   
     return _downloadUrl;
   }
 
   void _showErrorDialog(String message) {
+ 
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title: Text(AppLocalizations.of(context).translate('warning')),
+              title: const Text('تحذير'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(AppLocalizations.of(context).translate('ok')),
+                  child: const Text('حسنا'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
@@ -201,11 +202,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
               ],
             )
           : CupertinoAlertDialog(
-              title: Text(AppLocalizations.of(context).translate('warning')),
+              title: const Text('تحذير'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text(AppLocalizations.of(context).translate("ok")),
+                  child: const Text("حسنا"),
                   isDefaultAction: true,
                   onPressed: () {
                     Navigator.of(ctx).pop();
@@ -230,10 +231,13 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
 
   @override
   Widget build(BuildContext context) {
+    
+    
     return Scaffold(
       body: nested(),
     );
   }
+
 
   nested() {
     return NestedScrollView(
@@ -249,13 +253,13 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                 title: Text(
                   campaignNotifier.currentCampaign.campaignName != null
                       ? campaignNotifier.currentCampaign.campaignName
-                      : AppLocalizations.of(context)
-                          .translate('Donate_Now_String'),
+                      : 'تبرع الآن',
                   style: TextStyle(
                     color: Colors.white,
                     fontSize: 16.0,
                   ),
                 ),
+             
                 background: Stack(children: <Widget>[
                   Positioned(
                     child: Container(
@@ -282,6 +286,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 20),
               child: Column(
+
                 children: <Widget>[
                   SizedBox(
                     height: 20,
@@ -290,6 +295,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                     child: Center(
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 15),
+            
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(20),
@@ -297,16 +303,18 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(0)),
                           color: Colors.deepPurple.withOpacity(0.75),
+                        
                         ),
                         child: Text(
                           campaignNotifier.currentCampaign.orgName != null
                               ? campaignNotifier.currentCampaign.orgName
-                              : AppLocalizations.of(context)
-                                  .translate('Donate_Now_String'),
+                              : 'تبرع الآن',
                           style: TextStyle(
                               fontSize: 21,
                               fontWeight: FontWeight.bold,
                               color: Colors.white,
+                      
+
                               shadows: [
                                 Shadow(
                                     color: Colors.grey[600],
@@ -338,6 +346,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                         key: _formKey,
                         child: Column(
                           children: <Widget>[
+                     
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -348,8 +357,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
 //                                  labelText:'اسم المتبرع',
-                                    hintText: AppLocalizations.of(context)
-                                        .translate('name'),
+                                    hintText: "اسم المتبرع",
                                     prefixIcon: Icon(
                                       Icons.person,
                                       color: Colors.deepPurple,
@@ -362,21 +370,20 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('enter_name_please');
+                                    return 'ادخل الاسم من فضلك';
                                   } else if (value.length < 3) {
-                                    return AppLocalizations.of(context)
-                                        .translate("name_3_chars");
+                                    return 'الاسم لايمكن أن يكون أقل من ثلاثه احرف';
                                   }
                                   return null;
                                 },
-//
+//                                  
                                 onChanged: (value) {
                                   _authData['name'] = value;
                                 },
                                 controller: nameController,
                               ),
                             ),
+
                             Container(
                               padding: EdgeInsets.all(10),
                               decoration: BoxDecoration(
@@ -386,13 +393,13 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               child: TextFormField(
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: AppLocalizations.of(context)
-                                        .translate('mobile'),
+                                    hintText: "رقم تلفون الهاتف المحمول",
                                     prefixIcon: Icon(
                                       Icons.mobile_screen_share,
                                       color: Colors.deepPurple,
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey)),
+
                                 keyboardType: TextInputType.number,
                                 onChanged: (val) {
                                   _authData['mobile'] = val;
@@ -404,11 +411,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('mobile_please');
+                                    return 'ادخل رقم الهاتف من فضلك';
                                   } else if (value.length < 11) {
-                                    return AppLocalizations.of(context)
-                                        .translate('11_no');
+                                    return 'رقم الهاتف لايمكن ان يكون اقل من 11 رقم';
                                   }
                                   return null;
                                 },
@@ -422,13 +427,15 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     border: OutlineInputBorder(
                                         borderRadius:
                                             BorderRadius.circular(2.0)),
-                                    labelText: AppLocalizations.of(context)
-                                        .translate('address'),
+                                    labelText: "العنوان",
+                               
                                     labelStyle: TextStyle(
                                         color: Colors.grey, fontSize: 24)),
+
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
                                 minLines: 2,
+
                                 onChanged: (val) {
                                   _authData['address'] = val;
                                 },
@@ -438,11 +445,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('address_please');
+                                    return 'ادخل العنوان من فضلك';
                                   } else if (value.length < 5) {
-                                    return AppLocalizations.of(context)
-                                        .translate('address_5');
+                                    return 'العنوان لايمكن ان يكون اقل من 5 احرف';
                                   }
                                   return null;
                                 },
@@ -452,8 +457,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                             Container(
                                 padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                 child: Text(
-                                  AppLocalizations.of(context)
-                                      .translate('available_on'),
+                                  'اكتب الوقت الذى تكون فيه متاح لكي ياتى مندوبنا اليك',
                                   style: TextStyle(
                                       fontSize: 17,
                                       height: 1,
@@ -477,9 +481,11 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                     labelStyle: TextStyle(
                                         color: Colors.grey, fontSize: 24)),
+
                                 keyboardType: TextInputType.multiline,
                                 maxLines: null,
                                 minLines: 2,
+
                                 onChanged: (val) {
                                   _authData['time'] = val;
                                 },
@@ -490,13 +496,13 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   if (spaceRex ||
                                       value.length == 0 ||
                                       value == null) {
-                                    return AppLocalizations.of(context)
-                                        .translate('time_please');
+                                    return 'ادخل الوقت من فضلك';
                                   }
                                   return null;
                                 },
                               ),
                             ),
+
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
@@ -539,8 +545,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                   value: selectedType,
                                   isExpanded: false,
                                   hint: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('choose_don_type'),
+                                    'اختار نوع التبرع',
                                     style: TextStyle(color: Color(0xff11b719)),
                                   ),
                                 )
@@ -557,14 +562,15 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: AppLocalizations.of(context)
-                                          .translate('amount'),
+                                      hintText: " المبلغ بالجنيه المصرى ",
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.moneyBill,
                                         color: Colors.deepPurple,
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
+
                                   keyboardType: TextInputType.number,
+
                                   onChanged: (value) {
                                     _authData['amount'] = value;
                                   },
@@ -575,14 +581,14 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     if (spaceRex ||
                                         value.length == 0 ||
                                         value == null) {
-                                      return AppLocalizations.of(context)
-                                          .translate('amount_please');
+                                      return 'ادخل المبلغ من فضلك';
                                     }
 
                                     return null;
                                   },
                                 ),
                               ),
+
                             if (selectedType != 'نقدى' && selectedType != null)
                               Container(
                                 padding: EdgeInsets.all(20),
@@ -596,15 +602,14 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     ),
                                     SizedBox(width: 10),
                                     Expanded(
-                                        child: Text(
-                                            AppLocalizations.of(context)
-                                                .translate('choose_don_photo'),
+                                        child: Text("اضف صورة التبرع",
                                             style: TextStyle(
                                                 fontSize: 15,
                                                 fontWeight: FontWeight.bold)))
                                   ],
                                 ),
                               ),
+
                             if (selectedType != 'نقدى' && selectedType != null)
                               InkWell(
                                 child: Container(
@@ -621,12 +626,12 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                 ),
                                 onTap: getImage,
                               ),
+
                             if (selectedType != 'نقدى' && selectedType != null)
                               Container(
                                   padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                   child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('don_details'),
+                                    'اكتب مواصفات ونوع الاشياء والكمية التي تود التبرع بها ',
                                     style: TextStyle(
                                         fontSize: 17,
                                         height: 1,
@@ -636,8 +641,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                               Container(
                                   padding: EdgeInsets.fromLTRB(10, 5, 10, 0),
                                   child: Text(
-                                    AppLocalizations.of(context)
-                                        .translate('example'),
+                                    ' مثال:3 اطقم ملابس و 2بطاطين....',
                                     style: TextStyle(
                                         fontSize: 14,
                                         height: 1,
@@ -651,14 +655,15 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       border: OutlineInputBorder(
                                           borderRadius:
                                               BorderRadius.circular(2.0)),
-                                      labelText: AppLocalizations.of(context)
-                                          .translate('description'),
+                                      labelText: "الوصف",
                                       // hintStyle: TextStyle(color: Colors.grey ,fontSize: 18),
                                       labelStyle: TextStyle(
                                           color: Colors.grey, fontSize: 24)),
+
                                   keyboardType: TextInputType.multiline,
                                   maxLines: null,
                                   minLines: 3,
+
                                   onChanged: (value) {
                                     _authData['items'] = value;
                                   },
@@ -669,8 +674,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     if (spaceRex ||
                                         value.length == 0 ||
                                         value == null) {
-                                      return AppLocalizations.of(context)
-                                          .translate('desc_please');
+                                      return 'ادخل الوصف من فضلك';
                                     }
                                     return null;
                                   },
@@ -703,8 +707,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                           child: Center(
                             child: _submitLoading == false
                                 ? Text(
-                                    AppLocalizations.of(context)
-                                        .translate('Donate_Now_String'),
+                                    "تبرع الأن",
                                     style: TextStyle(color: Colors.white),
                                   )
                                 : CircularProgressIndicator(),
@@ -724,4 +727,6 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
       ),
     );
   }
+
+
 }

@@ -7,8 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'dart:io' show Platform;
 
-import '../app_localizations.dart';
-
 class CampaignDetail extends StatefulWidget {
   @override
   _CampaignDetailState createState() => _CampaignDetailState();
@@ -23,20 +21,17 @@ class _CampaignDetailState extends State<CampaignDetail> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? AlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: const Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 FlatButton(
-                  child: Text(AppLocalizations.of(context)
-                      .translate('IDont_want_string')),
+                  child: const Text('لا ارغب'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                   },
                 ),
                 FlatButton(
-                  child: Text(
-                      AppLocalizations.of(context).translate('Accept_string')),
+                  child: const Text('موافق'),
                   onPressed: () {
                     Navigator.of(ctx).pop();
                     Navigator.pushNamed(context, '/Login');
@@ -45,13 +40,11 @@ class _CampaignDetailState extends State<CampaignDetail> {
               ],
             )
           : CupertinoAlertDialog(
-              title:
-                  Text(AppLocalizations.of(context).translate('login_string')),
+              title: const Text('تسجيل دخول'),
               content: Text(message),
               actions: <Widget>[
                 CupertinoDialogAction(
-                  child: Text(
-                      AppLocalizations.of(context).translate('Accept_string')),
+                  child: const Text("موافق"),
                   isDefaultAction: true,
                   onPressed: () {
                     Navigator.of(ctx).pop();
@@ -60,8 +53,7 @@ class _CampaignDetailState extends State<CampaignDetail> {
                   },
                 ),
                 CupertinoDialogAction(
-                  child: Text(AppLocalizations.of(context)
-                      .translate('IDont_want_string')),
+                  child: const Text('لا ارغب'),
                   onPressed: () => Navigator.of(ctx).pop(),
                 )
               ],
@@ -119,8 +111,7 @@ class _CampaignDetailState extends State<CampaignDetail> {
                   UserNav userLoad = await loadSharedPrefs();
                   if (userLoad == null) {
                     print("user is not here");
-                    _showErrorDialog(AppLocalizations.of(context)
-                        .translate('Please_signin_first_string'));
+                    _showErrorDialog("برجاء تسجيل الدخول أولا");
                   } else {
                     print("user is  here");
                     Navigator.of(context).push(
@@ -130,7 +121,7 @@ class _CampaignDetailState extends State<CampaignDetail> {
                   }
                 },
                 child: Text(
-                  AppLocalizations.of(context).translate('Donate_Now_String'),
+                  'تبرع الآن',
                   style: TextStyle(fontSize: 21.0, color: Colors.white),
                 ),
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),

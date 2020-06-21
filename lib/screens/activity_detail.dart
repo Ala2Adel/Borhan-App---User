@@ -6,8 +6,6 @@ import 'package:Borhan_User/screens/normal_donation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../app_localizations.dart';
-
 class ActivityDetails extends StatefulWidget {
   @override
   _ActivityDetailsState createState() => _ActivityDetailsState();
@@ -22,18 +20,17 @@ class _ActivityDetailsState extends State<ActivityDetails> {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: Text(AppLocalizations.of(context).translate('login_string')),
+        title: const Text('تسجيل دخول'),
         content: Text(message),
         actions: <Widget>[
           FlatButton(
-            child:
-                Text(AppLocalizations.of(context).translate('not_now_string')),
+            child: const Text('ليس الأن'),
             onPressed: () {
               Navigator.of(ctx).pop();
             },
           ),
           FlatButton(
-            child: Text(AppLocalizations.of(context).translate('yes_string')),
+            child: const Text('نعم'),
             onPressed: () {
               Navigator.of(ctx).pop();
               Navigator.pushNamed(context, '/Login');
@@ -88,7 +85,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                   color: Colors.deepPurple.withOpacity(0.75),
                 ),
                 child: Text(
-                  AppLocalizations.of(context).translate('description'),
+                  ' الوصف',
                   style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
@@ -137,8 +134,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                   onTap: () async {
                     UserNav userLoad = await loadSharedPrefs();
                     if (userLoad == null) {
-                      _showErrorDialog(AppLocalizations.of(context)
-                          .translate('Please_signin_first_string'));
+                      _showErrorDialog("برجاء تسجيل الدخول أولا ");
                     } else {
                       print("user is  here");
                       Navigator.of(context).push(
@@ -160,8 +156,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                       ),
                       child: Center(
                         child: Text(
-                          AppLocalizations.of(context)
-                              .translate('Donate_Now_String'),
+                          "تبرع الأن",
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,

@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'package:Borhan_User/app_localizations.dart';
-
 import '../providers/email_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +39,7 @@ class _EmailScreenState extends State<EmailScreen> {
     _recipientController.text = widget.orgEmail;
     return Scaffold(
       appBar: AppBar(
-        title: Text(AppLocalizations.of(context).translate('Email_Support')),
+        title: const Text('طلب مساعدة بالبريد الإلكتروني'),
         actions: <Widget>[
           IconButton(
             onPressed: send,
@@ -54,9 +52,10 @@ class _EmailScreenState extends State<EmailScreen> {
           padding: EdgeInsets.all(8.0),
           child: Column(
             mainAxisSize: MainAxisSize.max,
+          
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(AppLocalizations.of(context).translate('receiver')),
+              Text('مستقبل الرساله'),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: TextField(
@@ -67,9 +66,9 @@ class _EmailScreenState extends State<EmailScreen> {
                   ),
                 ),
               ),
-              Text(AppLocalizations.of(context).translate('subject')),
+            const   Text('الموضوع'),
               Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const  EdgeInsets.all(8.0),
                 child: TextField(
                   controller: _subjectController,
                   textDirection: TextDirection.rtl,
@@ -85,7 +84,7 @@ class _EmailScreenState extends State<EmailScreen> {
                   ),
                 ),
               ),
-              Text(AppLocalizations.of(context).translate('content')),
+              Text('المضمون'),
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: TextField(
@@ -115,9 +114,10 @@ class _EmailScreenState extends State<EmailScreen> {
         ),
       ),
       floatingActionButton: FloatingActionButton.extended(
+        
         icon: Icon(Icons.camera),
-        label: Text(
-          AppLocalizations.of(context).translate('photo_attach'),
+        label: const  Text(
+          'إضافة صورة',
           style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
         ),
         onPressed: _openImagePicker,
