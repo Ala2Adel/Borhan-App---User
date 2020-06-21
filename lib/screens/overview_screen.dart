@@ -63,7 +63,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
     try {
       SharedPref sharedPref = SharedPref();
       user = UserNav.fromJson(await sharedPref.read("user"));
-    } catch (Excepetion) {
+    } catch (error) {
       // do something
     }
     return user;
@@ -205,7 +205,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               Container(
                 decoration: new BoxDecoration(
                   borderRadius: new BorderRadius.circular(10.0),
-                  color: Colors.purple[100],
+                  color: Colors.green[100],
                   boxShadow: [
                     new BoxShadow(
                         color: Colors.blueGrey.withAlpha(100),
@@ -226,7 +226,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                       child: new Container(
                         margin: EdgeInsets.fromLTRB(0, 10, 0, 0),
                         decoration: new BoxDecoration(
-                            color: Colors.purple[300],
+                            color: Colors.white,
                             borderRadius: new BorderRadius.only(
                                 bottomLeft: new Radius.circular(10.0),
                                 bottomRight: new Radius.circular(10.0))),
@@ -241,7 +241,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                       .campaignList[index].campaignName,
                                   overflow: TextOverflow.ellipsis,
                                   style: new TextStyle(
-                                    color: Colors.white,
+                                    color: Colors.green,
                                     fontSize: 20,
                                   ),
                                 ),
@@ -270,10 +270,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               color: Colors.white, fontSize: 40, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        backgroundColor: Colors.purple[900],
+        backgroundColor: Colors.green,
       ),
       drawer: NavigationDrawer(),
-      backgroundColor: Colors.purple[50],
+      backgroundColor: Colors.green[50],
       body: _isLoading
           ? Center(
               child: CircularProgressIndicator(),
@@ -316,17 +316,15 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             RaisedButton(
-                              color: Colors.blue,
+                              color: Colors.green[400],
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(24.0),
                               ),
                               onPressed: () async {
                                 UserNav userLoad = await loadSharedPrefs();
                                 if (userLoad == null) {
-                                  print("user is not here");
                                   _showErrorDialog("برجاء تسجيل الدخول أولا ");
                                 } else {
-                                  print("user is  here");
                                   Navigator.of(context).push(
                                     MaterialPageRoute(
                                       builder: (BuildContext context) {
@@ -357,7 +355,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           borderRadius: new BorderRadius.circular(20),
                           child: Card(
                             margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
-                            color: Colors.purple[200],
+//                            color: Colors.purple[200],
                             child: new ListTile(
                               contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
                               title: new Column(
@@ -374,7 +372,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                           decoration: new BoxDecoration(
                                               borderRadius:
                                                   BorderRadius.circular(5),
-                                              color: Colors.purple[300],
+                                              color: Colors.green[300],
                                               boxShadow: [
                                                 new BoxShadow(
                                                     color: Colors.blueGrey
@@ -423,7 +421,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   : 'no value',
                                               style: new TextStyle(
                                                   fontSize: 18.0,
-                                                  color: Colors.white,
+                                                  color: Colors.green,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
@@ -434,7 +432,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   .orgList[index].description,
                                               style: new TextStyle(
                                                   fontSize: 16.0,
-                                                  color: Colors.white,
+                                                  color: Colors.green,
                                                   fontWeight:
                                                       FontWeight.normal),
                                             ),
@@ -445,7 +443,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                 WrapCrossAlignment.center,
                                             children: <Widget>[
                                               RaisedButton(
-                                                color: Colors.deepPurple[50],
+                                                color: Colors.green[50],
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
@@ -489,7 +487,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                 ),
                                               ),
                                               RaisedButton(
-                                                color: Colors.deepPurple[50],
+                                                color: Colors.green[50],
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(

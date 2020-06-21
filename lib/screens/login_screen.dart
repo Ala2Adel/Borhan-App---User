@@ -105,7 +105,6 @@ class _LoginScreenState extends State<LoginScreen> {
         Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) => OrgOverviewScreen()));
       } catch (error) {
-        print(error);
         const errorMessage =
             'البريد الإلكتروني أو كلمة المرور غير صحيحة ,رجاء المحاولة مرة أخري';
         _showErrorDialog(errorMessage);
@@ -127,7 +126,6 @@ class _LoginScreenState extends State<LoginScreen> {
           borderRadius: 8,
         )..show(context);
       } catch (error) {
-        print(error);
         const errorMessage = 'البريد الإلكتروني غير موجود';
         _showErrorDialog(errorMessage);
       }

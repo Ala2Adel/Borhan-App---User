@@ -118,7 +118,6 @@ class _HelpScreenState extends State<HelpScreen> {
                      
                       _showErrorDialog("برجاء تسجيل الدخول أولا");
                     } else {
-                      print("user is  here");
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return HelpOrganization();

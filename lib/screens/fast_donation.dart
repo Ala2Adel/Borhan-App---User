@@ -266,8 +266,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
   }
 
   Future<void> getOrganizations() async {
-    const url =
-        'https://borhanadmin.firebaseio.com/CharitableOrganizations.json';
+    const url = 'https://borhanadmin.firebaseio.com/CharitableOrganizations.json';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -590,7 +589,6 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                                 )
                                                 .toList(),
                                             onChanged: (selected) {
-                                              print('$selected');
                                               setState(() {
                                                 selectedOraginzaton = selected;
                                               });
@@ -648,8 +646,6 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                                       .toList(),
                                                   onChanged:
                                                       (selectedAccountType) {
-                                                    print(
-                                                        '$selectedAccountType');
                                                     setState(() {
                                                       selectedActivity =
                                                           selectedAccountType;
@@ -702,7 +698,6 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             )
                                             .toList(),
                                         onChanged: (selectedAccountType) {
-                                          print('$selectedAccountType');
                                           setState(() {
                                             selectedType = selectedAccountType;
                                             if (selectedType == 'نقدى' &&

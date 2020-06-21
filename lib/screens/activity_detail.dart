@@ -136,7 +136,6 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                     if (userLoad == null) {
                       _showErrorDialog("برجاء تسجيل الدخول أولا ");
                     } else {
-                      print("user is  here");
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (BuildContext context) {

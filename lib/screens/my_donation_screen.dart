@@ -40,6 +40,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('تبرعاتي'),
+        backgroundColor: Colors.green,
       ),
       body: _isLoading
           ? Center(
@@ -57,9 +58,10 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                         child: Row(
                           children: <Widget>[
                             Material(
-                              color: Colors.purple[400],
+//                              color: Colors.purple[400],
+//                            color: Colors.green[300],
                               elevation: 14.0,
-                              borderRadius: BorderRadius.circular(24.0),
+                              borderRadius: BorderRadius.circular(10.0),
                               child: Column(children: <Widget>[
                                 Row(
                                   mainAxisAlignment:
@@ -69,17 +71,18 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Container(
                                         width: 80,
-                                        height: 100,
+                                        height: MediaQuery.of(context).size.width/3,
+//                                      height: 100,
                                         child: ClipRRect(
                                           borderRadius:
-                                              new BorderRadius.circular(24.0),
+                                              new BorderRadius.circular(10.0),
                                           child: historyData.items[i].image !=
                                                       '' &&
                                                   historyData.items[i].image !=
                                                       null
                                               ? Image(
                                                   fit: BoxFit.fill,
-                                                  alignment: Alignment.topLeft,
+                                                  alignment: Alignment.centerLeft,
                                                   image: NetworkImage(
                                                     historyData.items[i].image,
                                                   ),
@@ -114,6 +117,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                             ''
                                                     ? Material(
                                                         elevation: 2.0,
+                                                  color: Colors.green[100],
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10.0),
@@ -125,8 +129,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                             Text(
                                                               'حالة التبرع : ',
                                                               style: TextStyle(
-                                                                  color: Colors
-                                                                      .purple,
+//                                                                  color: Colors.green,
                                                                   fontSize:
                                                                       18.0,
                                                                   fontWeight:
@@ -144,8 +147,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                                 ? const Text(
                                                                     'قيد المراجعة',
                                                                     style: TextStyle(
-                                                                        color: Colors
-                                                                            .yellow,
+                                                                        color: Colors.orange,
                                                                         fontSize:
                                                                             18.0,
                                                                         fontWeight:
@@ -179,6 +181,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                         ),
                                                       )
                                                     : Container(),
+
                                               ],
                                             ),
                                             Padding(
@@ -200,6 +203,8 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                       .items[i].donationDate,
                                                   donationAmount: historyData
                                                       .items[i].donationAmount,
+                                                  status: historyData.items[i].status,
+                                                  id: historyData.items[i].id,
                                                 ),
                                               ],
                                             ),

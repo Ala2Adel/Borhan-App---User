@@ -110,10 +110,8 @@ class _CampaignDetailState extends State<CampaignDetail> {
                 onPressed: () async {
                   UserNav userLoad = await loadSharedPrefs();
                   if (userLoad == null) {
-                    print("user is not here");
                     _showErrorDialog("برجاء تسجيل الدخول أولا");
                   } else {
-                    print("user is  here");
                     Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {
                       return CampaignDenotationScreen();
