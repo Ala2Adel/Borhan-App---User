@@ -62,7 +62,6 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      //  print((response.body));
       final List<Activity> loadedOrganizations = [];
       extractedData.forEach((prodId, prodData) {
 //        if(selectedOraginzaton.id==prodData['org_id'])

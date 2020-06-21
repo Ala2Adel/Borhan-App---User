@@ -1,55 +1,51 @@
-{
-  "project_info": {
-    "project_number": "158102414168",
-    "firebase_url": "https://borhanuser-f92a3.firebaseio.com",
-    "project_id": "borhanuser-f92a3",
-    "storage_bucket": "borhanuser-f92a3.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:158102414168:android:d5e3ad28fad3ca9ccd3b2d",
-        "android_client_info": {
-          "package_name": "com.example.Borhan_User"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "158102414168-qmf2s2fjlbfj0d78c491fqqs8sq0g3bk.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.example.Borhan_User",
-            "certificate_hash": "e98fa2800b44e2a9deae24455bd11c6108e34eeb"
-          }
-        },
-        {
-          "client_id": "158102414168-7dk5oageaokdbkm4e7uuf6vc4pkaj9r5.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCLYK4YRGvB9ouLYqxGNnRetvZuG2mhA0c"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "158102414168-7dk5oageaokdbkm4e7uuf6vc4pkaj9r5.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "158102414168-bmti9r1r8d1bvvf824rt1luqhmkhqooo.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.BorhanUser"
-              }
-            }
-          ]
-        }
-      }
-    }
-  ],
-  "configuration_version": "1"
+import 'dart:io' show Platform;
+import 'package:BorhanAdmin/providers/organizations_provider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import '../screens/add_activity.dart';
+import 'package:provider/provider.dart';
+import '../providers/activities.dart';
+
+class ActivityItem extends StatefulWidget {
+  final String name;
+  final String id;
+  final String image;
+  final orgLocalId;
+
+  ActivityItem({this.name, this.id, this.image, this.orgLocalId});
+
+  @override
+  _ActivityItemState createState() => _ActivityItemState();
 }
+
+class _ActivityItemState extends State<ActivityItem> {
+  String orgId = '';
+  var _isInit = true;
+  @override
+  void didChangeDependencies() {
+    if (_isInit) {
+      Provider.of<Organizations>(context)
+          .fetchAndSetOrg(widget.orgLocalId)
+          .then((value) => {
+                orgId = value.id,
+              });
+    }
+    _isInit = false;
+    super.didChangeDependencies();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        widget.name,
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+      ),
+      trailing: Container(
+        width: 100,
+        child: Row(
+          children: <Widget>[
+            IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.

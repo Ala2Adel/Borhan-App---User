@@ -26,7 +26,6 @@ class OrganizationNotifier with ChangeNotifier {
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
-      print((response.body));
       final List<Organization> loadedOrganizations = [];
       extractedData.forEach((prodId, prodData) {
         loadedOrganizations.add(Organization(

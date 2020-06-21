@@ -59,8 +59,6 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     'amount': '',
   };
   Future<void> _submit(BuildContext context) async {
-    print("Container pressed");
-
     String amount = _authData['amount'];
     String items = _authData['items'];
 
@@ -85,7 +83,6 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
     });
     if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
-      print("value from upload" + _downloadUrl);
       if (selectedType == 'عينى') {
         amount = "";
       }

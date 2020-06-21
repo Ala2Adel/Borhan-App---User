@@ -32,7 +32,6 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void _showErrorDialog(String message) {
-    print("alert");
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)

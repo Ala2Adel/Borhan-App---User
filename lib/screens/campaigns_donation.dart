@@ -58,8 +58,6 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     'amount': '',
   };
   Future<void> _submit(BuildContext context) async {
-    print("Container pressed");
-
     String amount = _authData['amount'];
     String items = _authData['items'];
 
@@ -83,7 +81,6 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     });
     if (selectedType != 'نقدى') {
       _downloadUrl = await uploadImage(_image);
-      print("value from upload" + _downloadUrl);
       if (selectedType == 'عينى') {
         amount = "";
       }
@@ -99,14 +96,6 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
     String formattedTime = arabicTimeFormat.format(DateTime.now());
     String formattedDate = arabicDateFormat.format(DateTime.now());
     String arabicFormattedDateTime = formattedTime + ' ' + formattedDate;
-
-    print(formattedDate);
-    print(formattedTime);
-
-    print(arabicFormattedDateTime);
-
-    print(formattedDate);
-
     try {
       await Provider.of<UsersPtovider>(context, listen: false)
           .makeDonationRequest2(
@@ -537,7 +526,6 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       )
                                       .toList(),
                                   onChanged: (selectedAccountType) {
-                                    print('$selectedAccountType');
                                     setState(() {
                                       selectedType = selectedAccountType;
                                     });

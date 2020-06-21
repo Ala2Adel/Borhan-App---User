@@ -93,57 +93,44 @@ class _CampaignDetailState extends State<CampaignDetail> {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0)),
       child: Column(
           children: <Widget>[
-//            Expanded(
-//                child:
-//                    Image.network(campaignNotifier.currentCampaign.imagesUrl)),
-//            SizedBox(height: 30),
-//            Text(
-//              campaignNotifier.currentCampaign.campaignName,
-//              style: TextStyle(fontSize: 24),
-//            ),
-//            Text(
-//              campaignNotifier.currentCampaign.campaignDescription,
-//              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
-//            ),
-//            Container(
-//              margin: EdgeInsets.all(10),
-//              child: RaisedButton(
-//                color: Colors.deepPurple,
-//                shape: RoundedRectangleBorder(
-//                  borderRadius: new BorderRadius.circular(18.0),
-//                  // side: BorderSide(
-//                  //     color:
-//                  //         Colors.white),
-//                ),
-//                onPressed: () async {
-//                  UserNav userLoad = await loadSharedPrefs();
-//                  if (userLoad == null) {
-//                    print("user is not here");
-//                    _showErrorDialog("برجاء تسجيل الدخول أولا");
-//                  } else {
-//                    print("user is  here");
-//                    Navigator.of(context).push(
-//                        MaterialPageRoute(builder: (BuildContext context) {
-//                      return CampaignDenotationScreen();
-//                    }));
-//                  }
-//                },
-//                child: Text(
-//                  'تبرع الآن',
-//                  style: TextStyle(fontSize: 21.0, color: Colors.white),
-//                ),
-//                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-//              ),
-//            ),
-
-            ClipRRect(
-
-              borderRadius: BorderRadius.vertical(top: Radius.circular(0)),
-
-              child: Image.network(campaignNotifier.currentCampaign.imagesUrl ,
-                height: MediaQuery.of(context).size.height * 0.41,
-               // alignment: Alignment(-offset.abs(), 0),
-                fit: BoxFit.none,
+            Expanded(
+                child:
+                    Image.network(campaignNotifier.currentCampaign.imagesUrl)),
+            SizedBox(height: 30),
+            Text(
+              campaignNotifier.currentCampaign.campaignName,
+              style: TextStyle(fontSize: 24),
+            ),
+            Text(
+              campaignNotifier.currentCampaign.campaignDescription,
+              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
+            ),
+            Container(
+              margin: EdgeInsets.all(10),
+              child: RaisedButton(
+                color: Colors.deepPurple,
+                shape: RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(18.0),
+                  // side: BorderSide(
+                  //     color:
+                  //         Colors.white),
+                ),
+                onPressed: () async {
+                  UserNav userLoad = await loadSharedPrefs();
+                  if (userLoad == null) {
+                    _showErrorDialog("برجاء تسجيل الدخول أولا");
+                  } else {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return CampaignDenotationScreen();
+                    }));
+                  }
+                },
+                child: Text(
+                  'تبرع الآن',
+                  style: TextStyle(fontSize: 21.0, color: Colors.white),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
               ),
             ),
             SizedBox(height: 8),
@@ -208,5 +195,3 @@ class _CampaignDetailState extends State<CampaignDetail> {
     );
   }
 }
-
-

@@ -8,6 +8,7 @@ import 'package:Borhan_User/screens/chat_screen.dart';
 import 'package:Borhan_User/screens/email_organization.dart';
 import 'package:Borhan_User/screens/external_donation_screen.dart';
 import 'package:Borhan_User/screens/help_screen.dart';
+import 'package:Borhan_User/screens/my_donation_edit.dart';
 import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
 import 'package:Borhan_User/screens/welcomeScreen.dart';
@@ -74,7 +75,7 @@ class MyApp extends StatelessWidget {
             },
             title: 'Borhan',
             theme: new ThemeData(
-                primarySwatch: Colors.deepPurple,
+                primarySwatch: Colors.green,
                 textTheme: TextTheme(
 
 
@@ -103,15 +104,14 @@ class MyApp extends StatelessWidget {
               '/Home': (context) => OrgOverviewScreen(),
               '/Notifications': (context) => Notifications(),
               '/Login': (context) => LoginScreen(),
-
               '/Signup': (context) => SignupScreen(),
               '/ExternalDonation': (context) => ExternalDonation(),
-
               HelpScreen.routeName: (ctx) => HelpScreen(),
               EmailOrganization.routeName: (ctx) => EmailOrganization(),
               ChatScreen.routeName: (ctx) => ChatScreen(),
               HelpOrganization.routeName: (ctx) => HelpOrganization(),
               MyDonationsScreen.routeName: (ctx) => MyDonationsScreen(),
+              EditDonation.routeName: (ctx) => EditDonation(),
             }));
   }
 }

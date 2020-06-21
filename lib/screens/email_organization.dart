@@ -21,7 +21,6 @@ class _EmailOrganizationState extends State<EmailOrganization> {
       Provider.of<OrganizationNotifier>(context)
           .getOrganizations()
           .then((_) => {
-                print('from provider'),
                 setState(() {
                   _isLoading = false;
                 }),

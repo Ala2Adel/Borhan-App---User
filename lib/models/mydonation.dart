@@ -9,10 +9,17 @@ class MyDonation with ChangeNotifier {
   final String image;
   final String orgName;
   final String actName;
-  final String    status;
+  final String status;
+  final String userId;
+  final String donatorAddress;
+  final String donatorMobileNo;
+  final String availableOn;
+  final String donatorName;
 
   MyDonation({
     this.id,
+    this.donatorName,
+    this.availableOn,
     this.donationType,
     this.donationItems,
     this.donationAmount,
@@ -21,5 +28,8 @@ class MyDonation with ChangeNotifier {
     this.orgName,
     this.actName,
     this.status,
+    this.userId,
+    this.donatorMobileNo,
+    this.donatorAddress,
   });
 }

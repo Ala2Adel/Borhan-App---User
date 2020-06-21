@@ -102,7 +102,6 @@ class UsersPtovider with ChangeNotifier {
       String orgName}) async {
     
     await loadSharedPrefs();
-    print(userLoad);
     userId = userLoad.id;
     final url =
         'https://borhanadmin.firebaseio.com/DonationRequests/$orgId.json';
@@ -121,7 +120,7 @@ class UsersPtovider with ChangeNotifier {
             "donationItems": donatorItems,
             'donatorName': userName,
             'donationImage': image,
-            'status': 'wating',
+            'status': 'waiting',
             'userId': userId,
           },
         ),
@@ -148,7 +147,7 @@ class UsersPtovider with ChangeNotifier {
             "donationItems": donatorItems,
             'donatorName': userName,
             'donationImage': image,
-            'status': 'wating',
+            'status': 'waiting',
             'userId': userId,
             'orgName': orgName,
           },

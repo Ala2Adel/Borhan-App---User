@@ -64,7 +64,6 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
   }
 
   void _showErrorDialogLogin(String message) {
-    print("alert");
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)

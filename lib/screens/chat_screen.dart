@@ -36,8 +36,6 @@ class _ChatScreenState extends State<ChatScreen> {
   }
 
   void _sendMessage() async {
-    print('from _send message text = ' + _enteredMessage);
-    print('from _send message text from add message = ' + chat.text);
     FocusScope.of(context).unfocus();
 
     chat = Chat(
@@ -51,18 +49,14 @@ class _ChatScreenState extends State<ChatScreen> {
     Provider.of<ChatProvider>(context, listen: false)
         .addMessage(chat, userLoad.email.split('.')[0], widget.orgId)
         .then((value) => {
-              print('from _send message email from add message = ' +
-                  userLoad.email),
               _controller.clear(),
               _enteredMessage = '',
-              print('from add message'),
             });
   }
 
   @override
   void didChangeDependencies() {
     if (_isInit) {
-      print(widget.orgId);
       loadSharedPrefs().then((_) => {
             Provider.of<ChatProvider>(context)
                 .fetchAndSetChat(userLoad.email.split('.')[0], widget.orgId)
@@ -129,11 +123,6 @@ class _ChatScreenState extends State<ChatScreen> {
                         setState(() {
                           _enteredMessage = value;
                         });
-                        print('from wigdet value is : ' + value);
-                        print('from wigdet entered message is : ' +
-                            _enteredMessage);
-
-                        print('from wigdet chat.text is : ' + chat.text);
                       },
                     ),
                   ),

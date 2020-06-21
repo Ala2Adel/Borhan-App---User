@@ -47,7 +47,6 @@ class ActivityNotifier with ChangeNotifier {
         ));
       });
       _activityList = loadedActivity;
-      print("Notifier" + loadedActivity[0].id);
       notifyListeners();
     } catch (error) {
       throw (error);
@@ -92,8 +91,6 @@ class ActivityNotifier with ChangeNotifier {
   }
 
   void deleteFavorite(Activity activity) {
-    print('from deleting');
-    
     _fav.remove(activity);
     notifyListeners();
     DBHelper.delete('activity_fav', activity.id);
