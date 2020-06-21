@@ -86,7 +86,6 @@ class _CampaignDetailState extends State<CampaignDetail> {
 
      //   child: Column(
 
-
       child: Card(
       margin: EdgeInsets.only(top:24 ,left: 20, right: 20, bottom: 24),
       elevation: 8, shadowColor: Colors.grey[50],
@@ -96,44 +95,6 @@ class _CampaignDetailState extends State<CampaignDetail> {
             Expanded(
                 child:
                     Image.network(campaignNotifier.currentCampaign.imagesUrl)),
-            SizedBox(height: 30),
-            Text(
-              campaignNotifier.currentCampaign.campaignName,
-              style: TextStyle(fontSize: 24),
-            ),
-            Text(
-              campaignNotifier.currentCampaign.campaignDescription,
-              style: TextStyle(fontSize: 20, fontStyle: FontStyle.italic),
-            ),
-            Container(
-              margin: EdgeInsets.all(10),
-              child: RaisedButton(
-                color: Colors.deepPurple,
-                shape: RoundedRectangleBorder(
-                  borderRadius: new BorderRadius.circular(18.0),
-                  // side: BorderSide(
-                  //     color:
-                  //         Colors.white),
-                ),
-                onPressed: () async {
-                  UserNav userLoad = await loadSharedPrefs();
-                  if (userLoad == null) {
-                    _showErrorDialog("برجاء تسجيل الدخول أولا");
-                  } else {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return CampaignDenotationScreen();
-                    }));
-                  }
-                },
-                child: Text(
-                  'تبرع الآن',
-                  style: TextStyle(fontSize: 21.0, color: Colors.white),
-                ),
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              ),
-            ),
-            SizedBox(height: 8),
             Expanded(
 
               child: Column(
