@@ -256,7 +256,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             new ListTile(
               title: const Text(
                 "تسجيل خروج",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                style: TextStyle( fontSize: 16),
               ),
               leading:
                   new Icon(Icons.exit_to_app,
