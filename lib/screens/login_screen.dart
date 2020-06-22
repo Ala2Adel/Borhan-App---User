@@ -215,7 +215,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         : 'نسيت كلمة المرور',
                     style: TextStyle(
 //                        color: const Color.fromRGBO(49, 39, 79, 1),
-                    color: Colors.green[700],
+                        color: Colors.green[700],
                         fontWeight: FontWeight.bold,
                         fontSize: 30),
                   ),
@@ -370,11 +370,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                     if (_authMode == AuthMode.Login)
                       Container(
-                        width: 280.0,
+                        width: MediaQuery.of(context).size.width,
                         child: Align(
                           alignment: Alignment.center,
                           child: Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(8),
                             child: RaisedButton(
                               shape: RoundedRectangleBorder(
                                   borderRadius:
@@ -382,13 +382,16 @@ class _LoginScreenState extends State<LoginScreen> {
 //                              color: Color.fromRGBO(49, 39, 79, 1),
                               color: Colors.green[700],
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
                                   Icon(
                                     FontAwesomeIcons.google,
                                     color: Colors.white,
                                   ),
-                                  SizedBox(width: 10.0),
+//                                  SizedBox(width: 10.0),
+                                  Padding(
+                                    padding: EdgeInsets.all(5),
+                                  ),
                                   Text(
                                     'تسجيل الدخول بحساب جوجل',
                                     style: TextStyle(
@@ -415,7 +418,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               style: TextStyle(
                                 color: Colors.green,
 //                                  color: Color.fromRGBO(49, 39, 79, .6)
-                                  ),
+                              ),
                             ),
                             onPressed: () => Navigator.pushReplacementNamed(
                                 context, '/Signup'),
