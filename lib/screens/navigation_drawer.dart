@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+
 class NavigationDrawer extends StatefulWidget {
   @override
   _NavigationDrawerState createState() => _NavigationDrawerState();
@@ -135,6 +137,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       child: new ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image:   AssetImage('assets/images/backg1.png', 
+                ),
+                fit: BoxFit.fill
+              ),
+            ),
             accountName: userLoad == null
                 ? Text(
                     "مرحبا بك ",
@@ -159,7 +168,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   )
                 : Text(userLoad.email,
                     style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                        ),
             currentAccountPicture: CircleAvatar(
               backgroundColor: Colors.black,
               child: userLoad == null
@@ -173,17 +183,22 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: const Text(
               "الرئيسية",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(fontSize: 16),
             ),
-            leading: new Icon(Icons.home),
+
+            leading: new Icon(Icons.home,
+                 size: 30,
+                color: Colors.brown,),
             onTap: () => Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
             title: const Text(
               "المفضلة",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle( fontSize: 16),
             ),
-            leading: new Icon(Icons.favorite),
+            leading: new Icon(Icons.favorite,
+                 size: 30,
+                color: Colors.red,),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.pushNamed(context, '/Favourite');
@@ -203,9 +218,14 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: const Text(
               "تبرعاتي",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle(fontSize: 16,
+              // fontWeight: FontWeight.bold
+              ),
             ),
-            leading: new Icon(Icons.drag_handle),
+            leading: new Icon( FontAwesomeIcons.handsHelping,
+               size: 30,
+                color: Colors.green,
+              ),
             onTap: () async {
               UserNav userLoad = await loadSharedPrefs();
               Navigator.pop(context);
@@ -222,9 +242,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: const Text(
               "التبرعات الخارجية",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle( fontSize: 16),
             ),
-            leading: new Icon(Icons.account_balance_wallet),
+            leading: new Icon(Icons.account_balance_wallet,
+             size: 30,
+            color: Colors.blue,),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.pushNamed(context, '/ExternalDonation');
@@ -234,10 +256,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             new ListTile(
               title: const Text(
                 "تسجيل خروج",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
               ),
               leading:
-                  new Icon(Icons.exit_to_app), // FontAwesomeIcons.signOutAlt
+                  new Icon(Icons.exit_to_app,
+                   size: 30,
+                  ), // FontAwesomeIcons.signOutAlt
               onTap: () {
                 _showErrorDialog("هل تريد تسجيل الخروج");
               },
@@ -246,9 +270,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: const Text(
               "الدعم و المساعدة",
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+              style: TextStyle( fontSize: 16),
             ),
-            leading: new Icon(Icons.help),
+            leading: new Icon(Icons.help,
+                size: 30,
+                ),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(context,
