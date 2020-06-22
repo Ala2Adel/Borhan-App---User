@@ -82,7 +82,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                       bottomRight: Radius.circular(20),
                       topRight: Radius.circular(0),
                       topLeft: Radius.circular(20)),
-                  color: Colors.deepPurple.withOpacity(0.75),
+                  color: Colors.green[700].withOpacity(0.75),
                 ),
                 child: Text(
                   ' الوصف',

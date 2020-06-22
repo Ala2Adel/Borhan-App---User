@@ -87,7 +87,7 @@ class _SignupScreenState extends State<SignupScreen> {
       );
 
       Flushbar(
-        message: 'تم تسيجل البريد الالكترونى بنجاح',
+        message: 'تم تسيجل البريد الإلكتروني بنجاح',
         icon: Icon(
           Icons.thumb_up,
           size: 28.0,
@@ -172,7 +172,8 @@ class _SignupScreenState extends State<SignupScreen> {
                     Text(
                       "تسجيل حساب",
                       style: TextStyle(
-                          color: Color.fromRGBO(49, 39, 79, 1),
+//                          color: Color.fromRGBO(49, 39, 79, 1),
+                      color: Colors.green[700],
                           fontWeight: FontWeight.bold,
                           fontSize: 30),
                     ),
@@ -205,7 +206,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                       hintText: "اسم المستخدم",
                                       prefixIcon: Icon(
                                         Icons.person,
-                                        color: Colors.deepPurple,
+                                        color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   onSaved: (value) {
@@ -222,10 +223,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                     border: InputBorder.none,
-                                    hintText: "البريد الالكترونى",
+                                    hintText: "البريد الإلكتروني",
                                     prefixIcon: Icon(
                                       Icons.email,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey),
                                   ),
@@ -235,7 +236,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                             r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                                         .hasMatch(value);
                                     if (!emailValid) {
-                                      return 'البريد الالكترونى غير صالح ';
+                                      return 'البريد الإلكتروني غير صالح ';
                                     }
                                     return null;
                                   },
@@ -249,10 +250,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "كلمه المرور",
+                                      hintText: "كلمة المرور",
                                       prefixIcon: Icon(
                                         Icons.lock,
-                                        color: Colors.deepPurple,
+                                        color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   obscureText: true,
@@ -273,10 +274,10 @@ class _SignupScreenState extends State<SignupScreen> {
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
-                                      hintText: "تأكيد كلمه المرور",
+                                      hintText: "تأكيد كلمة المرور",
                                       prefixIcon: Icon(
                                         Icons.lock,
-                                        color: Colors.deepPurple,
+                                        color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   obscureText: true,
@@ -312,7 +313,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         margin: EdgeInsets.symmetric(horizontal: .25 * width),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
-                          color: Color.fromRGBO(49, 39, 79, 1),
+//                          color: Color.fromRGBO(49, 39, 79, 1),
+                          color: Colors.green[700],
                         ),
                         child: Center(
                           child: _submitLoading == false

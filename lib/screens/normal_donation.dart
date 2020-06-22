@@ -226,7 +226,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
             expandedHeight: 180.0,
             floating: false,
             pinned: true,
-            backgroundColor: Colors.purple[700],
+            backgroundColor: Colors.green[700],
             flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
                 title: Text(
@@ -275,7 +275,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                               bottomRight: Radius.circular(0),
                               topRight: Radius.circular(20),
                               topLeft: Radius.circular(0)),
-                          color: Colors.deepPurple.withOpacity(0.75),
+                          color: Colors.green[700].withOpacity(0.75),
                         ),
                         child: Text(
                           orgNotifier.currentOrg.orgName != null
@@ -328,7 +328,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     hintText: "اسم المتبرع",
                                     prefixIcon: Icon(
                                       Icons.person,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey)),
                                 validator: (value) {
@@ -361,7 +361,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     hintText: "رقم التلفون المحمول",
                                     prefixIcon: Icon(
                                       Icons.mobile_screen_share,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey)),
                                 keyboardType: TextInputType.number,
@@ -438,7 +438,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                             BorderRadius.circular(2.0)),
                                     prefixIcon: Icon(
                                       Icons.access_time,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     labelStyle: TextStyle(
                                         color: Colors.grey, fontSize: 24)),
@@ -467,7 +467,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                 Icon(
                                   FontAwesomeIcons.handsHelping,
                                   size: 25.0,
-                                  color: Colors.deepPurple,
+                                  color: Colors.green[700],
                                 ),
                                 SizedBox(width: 50.0),
                                 DropdownButton(
@@ -523,7 +523,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                       hintText: " المبلغ بالجنيه المصرى ",
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.moneyBill,
-                                        color: Colors.deepPurple,
+                                        color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   keyboardType: TextInputType.number,
@@ -553,7 +553,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     Icon(
                                       FontAwesomeIcons.camera,
                                       size: 25.0,
-                                      color: Colors.deepPurple,
+                                      color: Colors.green[700],
                                     ),
                                     SizedBox(width: 10),
                                     Expanded(

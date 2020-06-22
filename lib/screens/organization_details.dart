@@ -22,7 +22,7 @@ class OrganizationDetails extends StatelessWidget {
               ? currentOrg.orgName
               : 'no value',
         ),
-        backgroundColor:  Colors.purple[900],
+        backgroundColor:  Colors.green[900],
         
       ),
       body: SingleChildScrollView(
