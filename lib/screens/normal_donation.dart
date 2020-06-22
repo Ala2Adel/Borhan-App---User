@@ -4,6 +4,7 @@ import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
@@ -323,6 +324,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                       bottom:
                                           BorderSide(color: Colors.grey[200]))),
                               child: TextFormField(
+                                keyboardType: TextInputType.text,
                                 decoration: InputDecoration(
                                     border: InputBorder.none,
                                     hintText: "اسم المتبرع",
@@ -364,7 +366,10 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                       color: Colors.green[700],
                                     ),
                                     hintStyle: TextStyle(color: Colors.grey)),
-                                keyboardType: TextInputType.number,
+                                keyboardType: TextInputType.phone,
+                                inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly
+                                ],
                                 onChanged: (val) {
                                   _authData['mobile'] = val;
                                 },
@@ -521,12 +526,17 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: " المبلغ بالجنيه المصرى ",
+                                      
+                               
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.moneyBill,
                                         color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   keyboardType: TextInputType.number,
+                                   inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                   onChanged: (value) {
                                     _authData['amount'] = value;
                                   },
