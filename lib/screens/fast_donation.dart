@@ -876,7 +876,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                   const EdgeInsets.symmetric(horizontal: 60),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                color: Color.fromRGBO(49, 39, 79, 1),
+                                color: Colors.green,
                               ),
                               child: Center(
                                 child: const Text(
@@ -902,7 +902,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                     const EdgeInsets.symmetric(horizontal: 60),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
-                                  color: Color.fromRGBO(49, 39, 79, 1),
+                                  color: Colors.green,
                                 ),
                                 child: Center(
                                   child: _submitLoading == false

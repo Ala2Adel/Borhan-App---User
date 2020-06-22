@@ -290,22 +290,25 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    new Container(
-                      height: 190.0,
-                      child: new Carousel(
-                        boxFit: BoxFit.cover,
-                        images: [
-                          AssetImage('assets/offers/Offer1.jpg'),
-                          AssetImage('assets/offers/Offer2.jpg'),
-                          AssetImage('assets/offers/Offer3.jpg'),
-                          AssetImage('assets/offers/Offer4.jpg'),
-                          AssetImage('assets/offers/Offer5.jpg'),
-                        ],
-                        autoplay: true,
-                        animationCurve: Curves.fastLinearToSlowEaseIn,
-                        animationDuration: Duration(milliseconds: 3000),
-                        dotSize: 4.0,
-                        indicatorBgPadding: 2.0,
+                    AspectRatio(
+                        aspectRatio: 4/2,
+                        child: new Container(
+                        // height:(_height/3)<150?160: _height/3,
+                        child: new Carousel(
+                          boxFit: BoxFit.cover,
+                          images: [
+                            AssetImage('assets/offers/Offer1.jpg'),
+                            AssetImage('assets/offers/Offer2.jpg'),
+                            AssetImage('assets/offers/Offer3.jpg'),
+                            AssetImage('assets/offers/Offer4.jpg'),
+                            AssetImage('assets/offers/Offer5.jpg'),
+                          ],
+                          autoplay: true,
+                          animationCurve: Curves.fastLinearToSlowEaseIn,
+                          animationDuration: Duration(milliseconds: 3000),
+                          dotSize: 4.0,
+                          indicatorBgPadding: 2.0,
+                        ),
                       ),
                     ),
                     campaignNotifier.campaignList.length != 0
@@ -359,7 +362,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         return ClipRRect(
                           borderRadius: new BorderRadius.circular(20),
                           child: Card(
-                            margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                            margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
 //                            color: Colors.purple[200],
                             child: new ListTile(
                               contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
@@ -413,7 +416,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           FadeAnimation(
                                             1.3,
@@ -424,144 +427,130 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   ? orgNotifier
                                                       .orgList[index].orgName
                                                   : 'no value',
+                                                    overflow: TextOverflow.ellipsis,
+                                                   maxLines: 2,
                                               style: new TextStyle(
-                                                  fontSize: 18.0,
+                                                  fontSize: 17.0,
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                           FadeAnimation(
                                             1.3,
-                                            Row(
-                                              children: <Widget>[
-                                                Flexible(
-                                                  child: Container(
-                                                    child: Text(
-                                                      orgNotifier.orgList[index]
-                                                          .description,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: new TextStyle(
-                                                          fontSize: 16.0,
-                                                          color: Colors.green,
-                                                          fontWeight: FontWeight
-                                                              .normal),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
+                                            Text(
+                                            orgNotifier
+                                                .orgList[index].description,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                            style: new TextStyle(
+                                                fontSize: 14.0,
+                                                color: Colors.green,
+                                                fontWeight:
+                                                    FontWeight.normal),
+                                              ),
                                           ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                          Wrap(
+                                            spacing: 10.0,
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.center,
                                             children: <Widget>[
-                                              Wrap(
-                                                spacing: 10.0,
-                                                crossAxisAlignment:
-                                                    WrapCrossAlignment.center,
-                                                children: <Widget>[
-                                                  RaisedButton(
-                                                    color: Colors.green[50],
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          new BorderRadius
-                                                              .circular(10.0),
-                                                      side: BorderSide(
-                                                          color: Colors.black),
-                                                    ),
-                                                    onPressed: () {
+                                              RaisedButton(
+                                                //color: Colors.green[50],
+                                                 color: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                             24.0),
+                                                  // side: BorderSide(
+                                                  //     color: Colors.black),
+                                                ),
+                                                onPressed: () {
+                                                  orgNotifier
+                                                          .currentOrganization =
                                                       orgNotifier
-                                                              .currentOrganization =
-                                                          orgNotifier
-                                                              .orgList[index];
+                                                          .orgList[index];
 
-                                                      Navigator.push(
-                                                          context,
-                                                          PageRouteBuilder(
-                                                            pageBuilder: (c, a1,
-                                                                    a2) =>
-                                                                MovieDetailsPage(
-                                                              orgNotifier
-                                                                      .orgList[
-                                                                  index],
-                                                            ),
-                                                            transitionsBuilder: (c,
-                                                                    anim,
-                                                                    a2,
-                                                                    child) =>
-                                                                FadeTransition(
-                                                                    opacity:
-                                                                        anim,
-                                                                    child:
-                                                                        child),
-                                                            transitionDuration:
-                                                                Duration(
-                                                                    milliseconds:
-                                                                        500),
-                                                          ));
-                                                    },
-                                                    child: Text(
-                                                      'التفاصيل',
-                                                      style: TextStyle(
-                                                          fontSize: 18.0,
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                  RaisedButton(
-                                                    color: Colors.green[50],
-                                                    shape:
-                                                        RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          new BorderRadius
-                                                              .circular(10.0),
-                                                      side: BorderSide(
-                                                          color: Colors.black),
-                                                    ),
-                                                    onPressed: () {
-                                                      orgNotifier
-                                                              .currentOrganization =
+                                                  Navigator.push(
+                                                      context,
+                                                      PageRouteBuilder(
+                                                        pageBuilder: (c, a1,
+                                                                a2) =>
+                                                            MovieDetailsPage(
                                                           orgNotifier
-                                                              .orgList[index];
-                                                      Navigator.push(
-                                                        context,
-                                                        PageRouteBuilder(
-                                                          pageBuilder: (context,
-                                                              animation1,
-                                                              animation2) {
-                                                            return OrganizationActivity(
-                                                                orgNotifier
-                                                                    .orgList[
-                                                                        index]
-                                                                    .id);
-                                                          },
-                                                          transitionsBuilder:
-                                                              (context,
-                                                                  animation1,
-                                                                  animation2,
-                                                                  child) {
-                                                            return FadeTransition(
-                                                              opacity:
-                                                                  animation1,
-                                                              child: child,
-                                                            );
-                                                          },
-                                                          transitionDuration:
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      500),
+                                                              .orgList[index],
                                                         ),
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      'الأنشطة',
-                                                      style: TextStyle(
-                                                          fontSize: 18.0,
-                                                          color: Colors.black),
+                                                        transitionsBuilder: (c,
+                                                                anim,
+                                                                a2,
+                                                                child) =>
+                                                            FadeTransition(
+                                                                opacity: anim,
+                                                                child: child),
+                                                        transitionDuration:
+                                                            Duration(
+                                                                milliseconds:
+                                                                    500),
+                                                      ));
+                                                },
+                                                child: Text(
+                                                  'تفاصيل',
+                                                  style: TextStyle(
+                                                      // fontSize: 18.0,
+                                                     // color: Colors.black,
+                                                      color: Colors.green[900]
+                                                      ),
+                                                ),
+                                              ),
+                                              RaisedButton(
+                                                //color: Colors.green[50],
+                                                 color: Colors.white,
+                                                shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      new BorderRadius.circular(
+                                                          24),
+                                                  // side: BorderSide(
+                                                  //     color: Colors.black),
+                                                ),
+                                                onPressed: () {
+                                                  orgNotifier
+                                                          .currentOrganization =
+                                                      orgNotifier
+                                                          .orgList[index];
+                                                  Navigator.push(
+                                                    context,
+                                                    PageRouteBuilder(
+                                                      pageBuilder: (context,
+                                                          animation1,
+                                                          animation2) {
+                                                        return OrganizationActivity(
+                                                            orgNotifier
+                                                                .orgList[index]
+                                                                .id);
+                                                      },
+                                                      transitionsBuilder:
+                                                          (context,
+                                                              animation1,
+                                                              animation2,
+                                                              child) {
+                                                        return FadeTransition(
+                                                          opacity: animation1,
+                                                          child: child,
+                                                        );
+                                                      },
+                                                      transitionDuration:
+                                                          Duration(
+                                                              milliseconds:
+                                                                  500),
                                                     ),
-                                                  ),
-                                                ],
+                                                  );
+                                                },
+                                                child: Text(
+                                                  'أنشطة',
+                                                  style: TextStyle(
+                                                      // fontSize: 16.0,
+                                                      // color: Colors.black,
+                                                       color: Colors.green[900]),
+                                                ),
                                               ),
                                             ],
                                           )
