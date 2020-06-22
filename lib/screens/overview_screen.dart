@@ -291,8 +291,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     AspectRatio(
-                      aspectRatio: 4 / 2,
-                      child: new Container(
+                        aspectRatio: 4/2,
+                        child: new Container(
                         // height:(_height/3)<150?160: _height/3,
                         child: new Carousel(
                           boxFit: BoxFit.cover,
@@ -416,7 +416,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,
                                         crossAxisAlignment:
-                                            CrossAxisAlignment.center,
+                                            CrossAxisAlignment.start,
                                         children: <Widget>[
                                           FadeAnimation(
                                             1.3,
@@ -427,11 +427,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   ? orgNotifier
                                                       .orgList[index].orgName
                                                   : 'no value',
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
+                                                    overflow: TextOverflow.ellipsis,
+                                                   maxLines: 2,
                                               style: new TextStyle(
                                                   fontSize: 17.0,
-                                                  height: 1.2,
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -439,38 +438,44 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                           FadeAnimation(
                                             1.3,
                                             Text(
-                                              orgNotifier
-                                                  .orgList[index].description,
-                                              overflow: TextOverflow.ellipsis,
-                                              maxLines: 2,
-                                              style: new TextStyle(
-                                                  fontSize: 14.0,
-                                                  color: Colors.green,
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            ),
+                                            orgNotifier
+                                                .orgList[index].description,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                            style: new TextStyle(
+                                                fontSize: 14.0,
+                                                color: Colors.green,
+                                                fontWeight:
+                                                    FontWeight.normal),
+                                              ),
                                           ),
-                                          Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
+                                          Wrap(
+                                            spacing: 10.0,
+                                            crossAxisAlignment:
+                                                WrapCrossAlignment.center,
                                             children: <Widget>[
                                               RaisedButton(
-                                                color: Colors.white,
+                                                //color: Colors.green[50],
+                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                child: Text(
-                                                  'تفاصيل',
-                                                  style: TextStyle(
-                                                      color: Colors.green[900]),
+                                                             24.0),
+                                                  // side: BorderSide(
+                                                  //     color: Colors.black),
                                                 ),
                                                 onPressed: () {
                                                   orgNotifier
                                                           .currentOrganization =
                                                       orgNotifier
-                                                              .currentOrganization =
+                                                          .orgList[index];
+
+                                                  Navigator.push(
+                                                      context,
+                                                      PageRouteBuilder(
+                                                        pageBuilder: (c, a1,
+                                                                a2) =>
+                                                            MovieDetailsPage(
                                                           orgNotifier
                                                               .orgList[index],
                                                         ),
@@ -485,68 +490,68 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                             Duration(
                                                                 milliseconds:
                                                                     500),
-                                                       ),
-                                                      );
+                                                      ));
                                                 },
+                                                child: Text(
+                                                  'تفاصيل',
+                                                  style: TextStyle(
+                                                      // fontSize: 18.0,
+                                                     // color: Colors.black,
+                                                      color: Colors.green[900]
+                                                      ),
+                                                ),
                                               ),
-                                               RaisedButton(
-                                                color: Colors.white,
+                                              RaisedButton(
+                                                //color: Colors.green[50],
+                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
-                                                          24.0),
-                                                ),
-                                                child: Text(
-                                                  'أنشطة',
-                                                  style: TextStyle(
-                                                      color: Colors.green[900]),
+                                                          24),
+                                                  // side: BorderSide(
+                                                  //     color: Colors.black),
                                                 ),
                                                 onPressed: () {
                                                   orgNotifier
                                                           .currentOrganization =
                                                       orgNotifier
-                                                              .currentOrganization =
-                                                          orgNotifier
-                                                              .orgList[index];
-                                                      Navigator.push(
-                                                        context,
-                                                        PageRouteBuilder(
-                                                          pageBuilder: (context,
+                                                          .orgList[index];
+                                                  Navigator.push(
+                                                    context,
+                                                    PageRouteBuilder(
+                                                      pageBuilder: (context,
+                                                          animation1,
+                                                          animation2) {
+                                                        return OrganizationActivity(
+                                                            orgNotifier
+                                                                .orgList[index]
+                                                                .id);
+                                                      },
+                                                      transitionsBuilder:
+                                                          (context,
                                                               animation1,
-                                                              animation2) {
-                                                            return OrganizationActivity(
-                                                                orgNotifier
-                                                                    .orgList[
-                                                                        index]
-                                                                    .id);
-                                                          },
-                                                          transitionsBuilder:
-                                                              (context,
-                                                                  animation1,
-                                                                  animation2,
-                                                                  child) {
-                                                            return FadeTransition(
-                                                              opacity:
-                                                                  animation1,
-                                                              child: child,
-                                                            );
-                                                          },
-                                                          transitionDuration:
-                                                              Duration(
-                                                                  milliseconds:
-                                                                      500),
-                                                        ),
-                                                      );
-                                                    },
-                                                    child: Text(
-                                                      'الأنشطة',
-                                                      style: TextStyle(
-                                                          fontSize: 18.0,
-                                                          color: Colors.black),
+                                                              animation2,
+                                                              child) {
+                                                        return FadeTransition(
+                                                          opacity: animation1,
+                                                          child: child,
+                                                        );
+                                                      },
+                                                      transitionDuration:
+                                                          Duration(
+                                                              milliseconds:
+                                                                  500),
                                                     ),
                                                   );
                                                 },
-                                              )
+                                                child: Text(
+                                                  'أنشطة',
+                                                  style: TextStyle(
+                                                      // fontSize: 16.0,
+                                                      // color: Colors.black,
+                                                       color: Colors.green[900]),
+                                                ),
+                                              ),
                                             ],
                                           )
                                         ],
@@ -568,7 +573,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
 
     return new Container(
       decoration: new BoxDecoration(
-      //  color: Colors.green,
+        color: Colors.white,
       ),
       child: new Stack(
         children: <Widget>[
