@@ -287,7 +287,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               child: Container(
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     new Container(
@@ -303,7 +303,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         ],
                         autoplay: true,
                         animationCurve: Curves.fastLinearToSlowEaseIn,
-                        animationDuration: Duration(milliseconds: 3000),
+                        animationDuration: Duration(milliseconds: 4000),
                         dotSize: 4.0,
                         indicatorBgPadding: 2.0,
                       ),
