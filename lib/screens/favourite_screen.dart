@@ -123,7 +123,7 @@ class _FavouriteState extends State<Favourite> {
         ),
         centerTitle: true,
         elevation: 0.0,
-        backgroundColor: Colors.grey[400],
+        backgroundColor: Colors.green,
         actions: <Widget>[],
       ),
       backgroundColor: Colors.white,
@@ -152,8 +152,8 @@ class _FavouriteState extends State<Favourite> {
                            return ClipRRect(
                              borderRadius: BorderRadius.circular(20),
                              child: Card(
-                               margin: EdgeInsets.all(5),
-                               color: Colors.grey[400],
+                               margin: EdgeInsets.all(10),
+                               color: Colors.green[300],
                                child: new ListTile(
                                  contentPadding: EdgeInsets.all(8.0),
                                  title: new Column(
@@ -170,7 +170,7 @@ class _FavouriteState extends State<Favourite> {
                                              color: Colors.lightBlueAccent,
                                              boxShadow: [
                                                new BoxShadow(
-                                                   color: Colors.blueGrey
+                                                   color: Colors.green
                                                        .withAlpha(70),
                                                    offset: const Offset(
                                                        2.0, 2.0),
@@ -258,13 +258,13 @@ class _FavouriteState extends State<Favourite> {
                                                      MainAxisAlignment.start,
                                                  children: <Widget>[
                                                    RaisedButton(
-                                                     color: Colors.grey[500],
+                                                     color: Colors.grey[200],
                                                      shape:
                                                          RoundedRectangleBorder(
                                                        borderRadius:
                                                            new BorderRadius
                                                                    .circular(
-                                                               8.0),
+                                                               5.0),
                                                      ),
                                                      onPressed: () async {
                                                        activityNotifier
@@ -305,13 +305,13 @@ class _FavouriteState extends State<Favourite> {
                                                      width: 10,
                                                    ),
                                                    RaisedButton(
-                                                     color: Colors.grey[500],
+                                                     color: Colors.grey[200],
                                                      shape:
                                                          RoundedRectangleBorder(
                                                        borderRadius:
                                                            new BorderRadius
                                                                    .circular(
-                                                               8.0),
+                                                               5.0),
                                                      ),
                                                      onPressed: () async {
                                                        activityNotifier
@@ -382,7 +382,7 @@ class _FavouriteState extends State<Favourite> {
       child: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.pink : Colors.white,
-        size: 35.0,
+        size: 32.0,
       ),
       onTap: () {
         setState(() {

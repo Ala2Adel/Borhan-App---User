@@ -149,7 +149,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                               itemCount: activityNotifier.activityList.length,
                               itemBuilder: (context, index) {
                            return ClipRRect(
-                             borderRadius: BorderRadius.circular(40),
+                             borderRadius: BorderRadius.circular(20),
                              child: Card(
                                margin: EdgeInsets.all(10),
                                color: Colors.green[400],
@@ -166,7 +166,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                            width: 110.0,
                                            decoration: new BoxDecoration(
                                              shape: BoxShape.circle,
-                                             color: Colors.lightBlueAccent,
+                                             color: Colors.green[200],
                                              boxShadow: [
                                                new BoxShadow(
                                                    color: Colors.blueGrey
@@ -198,7 +198,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                            ),
                                          ),
                                          new SizedBox(
-                                           width: 10.0,
+                                           width: 15.0,
                                          ),
                                          new Expanded(
                                            child: new Column(
@@ -223,7 +223,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                              .name
                                                          : 'no value',
                                                      style: new TextStyle(
-                                                         fontSize: 22.0,
+                                                         fontSize: 19.0,
                                                          color: Colors.white,
                                                          fontWeight:
                                                              FontWeight
@@ -244,9 +244,11 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                  activityNotifier
                                                      .activityList[index]
                                                      .description,
+                                                 overflow:
+                                                 TextOverflow.ellipsis,
                                                      maxLines: 1,
                                                  style: new TextStyle(
-                                                     fontSize: 18.0,
+                                                     fontSize: 17.0,
                                                      // height: 0.5,
                                                      color: Colors.white,
                                                      fontWeight:
@@ -257,13 +259,13 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                      MainAxisAlignment.start,
                                                  children: <Widget>[
                                                    RaisedButton(
-                                                     color: Colors.blue,
+                                                     color: Colors.blue[200],
                                                      shape:
                                                          RoundedRectangleBorder(
                                                        borderRadius:
                                                            new BorderRadius
                                                                    .circular(
-                                                               8.0),
+                                                               5.0),
                                                      ),
                                                      onPressed: () async {
                                                        activityNotifier
@@ -304,13 +306,13 @@ class _ActivityScreenState extends State<OrganizationActivity> {
                                                      width: 10,
                                                    ),
                                                    RaisedButton(
-                                                     color: Colors.blue,
+                                                     color: Colors.blue[200],
                                                      shape:
                                                          RoundedRectangleBorder(
                                                        borderRadius:
                                                            new BorderRadius
                                                                    .circular(
-                                                               8.0),
+                                                               5.0),
                                                      ),
                                                      onPressed: () async {
                                                        activityNotifier
@@ -381,7 +383,7 @@ class _ActivityScreenState extends State<OrganizationActivity> {
       child: Icon(
         alreadySaved ? Icons.favorite : Icons.favorite_border,
         color: alreadySaved ? Colors.pink : Colors.white,
-        size: 35.0,
+        size: 32.0,
       ),
       onTap: () {
         setState(() {

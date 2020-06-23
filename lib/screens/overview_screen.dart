@@ -322,7 +322,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               child: Container(
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     AspectRatio(
