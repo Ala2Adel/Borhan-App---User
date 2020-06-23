@@ -28,6 +28,7 @@ class _ExternalDonationState extends State<ExternalDonation> {
       child: Scaffold(
         appBar: AppBar(
           title: const Text('التبرعات الخارجية'),
+          backgroundColor: Colors.blue,
         ),
         body: Stack(
           children: <Widget>[

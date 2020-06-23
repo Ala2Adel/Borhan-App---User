@@ -34,13 +34,17 @@ class MovieDetailHeader extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Center(
-          child: Text(
-            // movie.title,
-           currentOrg.orgName,
-            // style: textTheme.title,
-            style:TextStyle(
-              fontSize: 32,
-              fontWeight: FontWeight.bold,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0,horizontal: 16),
+            child: Text(
+              // movie.title,
+             currentOrg.orgName,
+              // style: textTheme.title,
+              style:TextStyle(
+                fontSize: 28,
+                height: 1.2,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
         ),
@@ -52,32 +56,51 @@ class MovieDetailHeader extends StatelessWidget {
       ],
     );
 
-    return Stack(
+    // return Stack(
+    //   children: [
+    //     Padding(
+    //       padding: const EdgeInsets.only(bottom: 100.0),
+    //       // child: ArcBannerImage(movie.bannerUrl),
+    //         child: ArcBannerImage(currentOrg.logo),
+    //     ),
+    //     Positioned(
+    //       bottom: 0.0,
+    //       left: 16.0,
+    //       right: 16.0,
+    //       child: Row(
+    //         crossAxisAlignment: CrossAxisAlignment.end,
+    //         mainAxisAlignment: MainAxisAlignment.end,
+    //         children: [
+    //           // Poster(
+    //           //   movie.posterUrl,
+    //           //   height: 180.0,
+    //           // ),
+    //           // SizedBox(width: 16.0),
+    //           // Expanded(child: movieInformation),
+    //            Expanded(child: movieInformation),
+    //         ],
+    //       ),
+    //     ),
+    //   ],
+    // );
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(bottom: 70.0),
-          // child: ArcBannerImage(movie.bannerUrl),
+           Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
             child: ArcBannerImage(currentOrg.logo),
         ),
-        Positioned(
-          bottom: 0.0,
-          left: 16.0,
-          right: 16.0,
+          Positioned(
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              // Poster(
-              //   movie.posterUrl,
-              //   height: 180.0,
-              // ),
-              // SizedBox(width: 16.0),
-              // Expanded(child: movieInformation),
                Expanded(child: movieInformation),
             ],
           ),
         ),
       ],
-    );
+     );
+
   }
 }

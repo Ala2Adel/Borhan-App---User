@@ -67,6 +67,7 @@ dependencies:
 
   # getflutter: ^1.0.11
   carousel_pro: ^0.0.13 
+  foldable_sidebar: ^1.0.0
 
 
 dev_dependencies:
@@ -94,6 +95,7 @@ flutter:
   assets:
     - assets/images/
     - assets/offers/
+    - assets/images/backg1.png
     - assets/images/donation2.png
     - assets/images/donation4.png
     - assets/images/donation5.png

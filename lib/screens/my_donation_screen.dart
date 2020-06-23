@@ -46,6 +46,13 @@ class _MyDonationsState extends State<MyDonationsScreen> {
           ? Center(
               child: CircularProgressIndicator(),
             )
+           :historyData.items.length==0? 
+           Center(
+            child: const Text('لا توجد تبرعات حاليا'
+            ,style: TextStyle(
+              fontSize: 19,
+            ),),
+          )
           : ListView.builder(
               scrollDirection: Axis.vertical,
               itemCount: historyData.items.length,

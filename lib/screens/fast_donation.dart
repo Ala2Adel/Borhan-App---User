@@ -5,6 +5,7 @@ import 'package:Borhan_User/providers/usersProvider.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../Animation/FadeAnimation.dart';
@@ -448,7 +449,10 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             ),
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
-                                        keyboardType: TextInputType.number,
+                                        keyboardType: TextInputType.phone,
+                                         inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                         onChanged: (val) {
                                           _authData['mobile'] = val;
                                         },
@@ -737,6 +741,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
                                         keyboardType: TextInputType.number,
+                                         inputFormatters: <TextInputFormatter>[
+        WhitelistingTextInputFormatter.digitsOnly
+    ],
                                         onChanged: (value) {
                                           _authData['amount'] = value;
                                         },
@@ -869,7 +876,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                   const EdgeInsets.symmetric(horizontal: 60),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                color: Color.fromRGBO(49, 39, 79, 1),
+                                color: Colors.green,
                               ),
                               child: Center(
                                 child: const Text(
@@ -895,7 +902,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                     const EdgeInsets.symmetric(horizontal: 60),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(50),
-                                  color: Color.fromRGBO(49, 39, 79, 1),
+                                  color: Colors.green,
                                 ),
                                 child: Center(
                                   child: _submitLoading == false
