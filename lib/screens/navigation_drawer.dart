@@ -54,7 +54,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                       Navigator.of(ctx).pop();
                     }),
                 CupertinoDialogAction(
-                    child: const Text('نعم'),
+                    child: const Text('نعم',style:  TextStyle(
+                              color: Colors.red, fontWeight: FontWeight.bold),),
                     onPressed: () {
                       SharedPref sharedPref = SharedPref();
                       sharedPref.remove("user");

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:Borhan_User/Animation/FadeAnimation.dart';
 import 'package:Borhan_User/models/user_nav.dart';
@@ -91,7 +92,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
         showDialog(
             context: context,
             barrierDismissible: false,
-            child: AlertDialog(
+            child:(Platform.isAndroid)? AlertDialog(
               title: const Text('حدث خطأ ما '),
               content: Text(
                   'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
@@ -124,7 +125,41 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                       ),
                     ))
               ],
-            ));
+            ):CupertinoAlertDialog(
+               title: const Text('حدث خطأ ما '),
+               content: Text(
+                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      onPressed: () => {
+                          AppSettings.openWIFISettings(),
+                        },
+                    child: Text(
+                      ' اعدادت Wi-Fi ',
+                      style: TextStyle(color: Colors.blue),
+                    )
+                    ),
+                    CupertinoDialogAction(onPressed: () => {
+                          AppSettings.openDataRoamingSettings(),
+                        },
+                    child: Text(
+                      ' اعدادت الباقه ',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    )),
+                    CupertinoDialogAction(onPressed: () => {
+                          SystemChannels.platform
+                              .invokeMethod('SystemNavigator.pop'),
+                        },
+                    child: Text(
+                      'خروج ',
+                      style: TextStyle(color: Colors.red),
+                    ))
+                  ],
+
+            )
+            );
       } else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {
           if (result == true) {
