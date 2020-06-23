@@ -2,6 +2,7 @@ import 'package:Borhan_User/models/mydonation.dart';
 import 'package:Borhan_User/providers/mydonation_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:provider/provider.dart';
@@ -178,249 +179,260 @@ class _EditDonationState extends State<EditDonation> {
           : Container(
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
-                child: Form(
-                  key: _form,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          _initValues['orgName'],
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          _initValues['actName'],
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 24,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'اسم المتبرع',
-                          textAlign: TextAlign.center,
-                        ),
-                        TextFormField(
-                          textAlign: TextAlign.right,
-                          initialValue: _initValues['donatorName'],
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_descFocusNode);
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'من فضلك أدخل أسم المتبرع';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            print('from on save name = '+ value);
-                            _editedDonation = MyDonation(
-                              donatorName: value,
-                              actName: _editedDonation.actName,
-                              id: _editedDonation.id,
-                              status: _editedDonation.status,
-                              donationType: _editedDonation.donationType,
-                              donationItems: _editedDonation.donationItems,
-                              donationDate: _editedDonation.donationDate,
-                              donationAmount: _editedDonation.donationAmount,
-                              orgName: _editedDonation.orgName,
-                              image: _editedDonation.image,
-                              userId: _editedDonation.userId,
-                              availableOn: _editedDonation.availableOn,
-                              donatorAddress: _editedDonation.donatorAddress,
-                              donatorMobileNo: _editedDonation.donatorMobileNo,
-                            );
-                            print('from on save name after = '+ _editedDonation.donatorName);
-                          },
-                        ),
-                        Text(
-                          'عنوان المتبرع',
-                          textAlign: TextAlign.center,
-                        ),
-                        TextFormField(
-                          textAlign: TextAlign.right,
-                          initialValue: _initValues['donatorAddress'],
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_descFocusNode);
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'من فضلك أدخل عنوان المتبرع';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _editedDonation = MyDonation(
-                              donatorAddress: value,
-                              donatorMobileNo: _editedDonation.donatorMobileNo,
-                              availableOn: _editedDonation.availableOn,
-                              userId: _editedDonation.userId,
-                              donatorName: _editedDonation.donatorName,
-                              actName: _editedDonation.actName,
-                              id: _editedDonation.id,
-                              status: _editedDonation.status,
-                              donationType: _editedDonation.donationType,
-                              donationItems: _editedDonation.donationItems,
-                              donationDate: _editedDonation.donationDate,
-                              donationAmount: _editedDonation.donationAmount,
-                              orgName: _editedDonation.orgName,
-                              image: _editedDonation.image,
-                            );
-                          },
-                        ),
-                        Text(
-                          'رقم التليفون',
-                          textAlign: TextAlign.center,
-                        ),
-                        TextFormField(
-                          textAlign: TextAlign.right,
-                          initialValue: _initValues['donatorMobile'],
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_descFocusNode);
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'من فضلك أدخل رقم التليفون';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _editedDonation = MyDonation(
-                              donatorAddress: _editedDonation.donatorAddress,
-                              donatorMobileNo: value,
-                              availableOn: _editedDonation.availableOn,
-                              userId: _editedDonation.userId,
-                              donatorName: _editedDonation.donatorName,
-                              actName: _editedDonation.actName,
-                              id: _editedDonation.id,
-                              status: _editedDonation.status,
-                              donationType: _editedDonation.donationType,
-                              donationItems: _editedDonation.donationItems,
-                              donationDate: _editedDonation.donationDate,
-                              donationAmount: _editedDonation.donationAmount,
-                              orgName: _editedDonation.orgName,
-                              image: _editedDonation.image,
-                            );
-                          },
-                        ),
-                        Text(
-                          'المواعيد المتاحه',
-                          textAlign: TextAlign.center,
-                        ),
-                        TextFormField(
-                          textAlign: TextAlign.right,
-                          initialValue: _initValues['availableOn'],
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_descFocusNode);
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'من فضلك أدخل المواعيد المتاحه';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _editedDonation = MyDonation(
-                              donatorAddress: _editedDonation.donatorAddress,
-                              donatorMobileNo: _editedDonation.donatorMobileNo,
-                              availableOn: value,
-                              userId: _editedDonation.userId,
-                              donatorName: _editedDonation.donatorName,
-                              actName: _editedDonation.actName,
-                              id: _editedDonation.id,
-                              status: _editedDonation.status,
-                              donationType: _editedDonation.donationType,
-                              donationItems: _editedDonation.donationItems,
-                              donationDate: _editedDonation.donationDate,
-                              donationAmount: _editedDonation.donationAmount,
-                              orgName: _editedDonation.orgName,
-                              image: _editedDonation.image,
-                            );
-                          },
-                        ),
-                        _initValues['donationType'] != 'عينى'
-                            ?Text(
-                          'المبلغ',
-                          textAlign: TextAlign.center,
-                        ):Container(),
-                        _initValues['donationType'] != 'عينى'
-                            ?TextFormField(
-                          textAlign: TextAlign.right,
-                          initialValue: _initValues['donationAmount'],
-                          textInputAction: TextInputAction.next,
-                          onFieldSubmitted: (_) {
-                            FocusScope.of(context).requestFocus(_descFocusNode);
-                          },
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return 'من فضلك أدخل المبلغ';
-                            }
-                            return null;
-                          },
-                          onSaved: (value) {
-                            _editedDonation = MyDonation(
-                              actName: _editedDonation.actName,
-                              id: _editedDonation.id,
-                              status: _editedDonation.status,
-                              donationType: _editedDonation.donationType,
-                              donationItems: _editedDonation.donationItems,
-                              donationDate: _editedDonation.donationDate,
-                              donationAmount: value,
-                              orgName: _editedDonation.orgName,
-                              image: _editedDonation.image,
-                              userId: _editedDonation.userId,
-                              availableOn: _editedDonation.availableOn,
-                              donatorAddress: _editedDonation.donatorAddress,
-                              donatorMobileNo: _editedDonation.donatorMobileNo,
-                              donatorName: _editedDonation.donatorName,
-                            );
-                          },
-                        ):Container(),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        _initValues['donationType'] != 'نقدى'
-                            ? Container(
-                                child: RaisedButton(
-                                  child: Text(
-                                    'اختيار صورة',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 18.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  color: Colors.green,
-                                  onPressed: () {
-                                    getImage();
-                                  },
-                                ),
-                              )
-                            : Container(),
-                        Container(
-                          padding: const EdgeInsets.all(5.0),
-                          child: _isLoadImg
-                              ? Center(
-                                  child: CircularProgressIndicator(),
-                                )
-                              : _initValues['donationType'] != 'نقدى'
-                                  ? newImage()
-                                  : Container(),
-                        ),
-                        Container(
-                          padding: const EdgeInsets.all(5.0),
-                          child: new RaisedButton(
-                            textColor: Colors.white,
-                            child: Text('حفظ'),
-                            color: Colors.green,
-                            onPressed: _saveForm,
+                child: GestureDetector (
+                  onTap: () => FocusScope.of(context).requestFocus(new FocusNode()),
+                                  child: Form(
+                    key: _form,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          Text(
+                            _initValues['orgName'],
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
                           ),
-                        ),
-                      ],
+                          Text(
+                            _initValues['actName'],
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'اسم المتبرع',
+                            textAlign: TextAlign.center,
+                          ),
+                          TextFormField(
+                            textAlign: TextAlign.right,
+                            initialValue: _initValues['donatorName'],
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_descFocusNode);
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'من فضلك أدخل أسم المتبرع';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              print('from on save name = '+ value);
+                              _editedDonation = MyDonation(
+                                donatorName: value,
+                                actName: _editedDonation.actName,
+                                id: _editedDonation.id,
+                                status: _editedDonation.status,
+                                donationType: _editedDonation.donationType,
+                                donationItems: _editedDonation.donationItems,
+                                donationDate: _editedDonation.donationDate,
+                                donationAmount: _editedDonation.donationAmount,
+                                orgName: _editedDonation.orgName,
+                                image: _editedDonation.image,
+                                userId: _editedDonation.userId,
+                                availableOn: _editedDonation.availableOn,
+                                donatorAddress: _editedDonation.donatorAddress,
+                                donatorMobileNo: _editedDonation.donatorMobileNo,
+                              );
+                              print('from on save name after = '+ _editedDonation.donatorName);
+                            },
+                          ),
+                          Text(
+                            'عنوان المتبرع',
+                            textAlign: TextAlign.center,
+                          ),
+                          TextFormField(
+                            textAlign: TextAlign.right,
+                            initialValue: _initValues['donatorAddress'],
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_descFocusNode);
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'من فضلك أدخل عنوان المتبرع';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedDonation = MyDonation(
+                                donatorAddress: value,
+                                donatorMobileNo: _editedDonation.donatorMobileNo,
+                                availableOn: _editedDonation.availableOn,
+                                userId: _editedDonation.userId,
+                                donatorName: _editedDonation.donatorName,
+                                actName: _editedDonation.actName,
+                                id: _editedDonation.id,
+                                status: _editedDonation.status,
+                                donationType: _editedDonation.donationType,
+                                donationItems: _editedDonation.donationItems,
+                                donationDate: _editedDonation.donationDate,
+                                donationAmount: _editedDonation.donationAmount,
+                                orgName: _editedDonation.orgName,
+                                image: _editedDonation.image,
+                              );
+                            },
+                          ),
+                          Text(
+                            'رقم التليفون',
+                            textAlign: TextAlign.center,
+                          ),
+                          TextFormField(
+                            keyboardType: TextInputType.phone,
+                             inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly
+                                ],
+                            textAlign: TextAlign.right,
+                            initialValue: _initValues['donatorMobile'],
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_descFocusNode);
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'من فضلك أدخل رقم التليفون';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedDonation = MyDonation(
+                                donatorAddress: _editedDonation.donatorAddress,
+                                donatorMobileNo: value,
+                                availableOn: _editedDonation.availableOn,
+                                userId: _editedDonation.userId,
+                                donatorName: _editedDonation.donatorName,
+                                actName: _editedDonation.actName,
+                                id: _editedDonation.id,
+                                status: _editedDonation.status,
+                                donationType: _editedDonation.donationType,
+                                donationItems: _editedDonation.donationItems,
+                                donationDate: _editedDonation.donationDate,
+                                donationAmount: _editedDonation.donationAmount,
+                                orgName: _editedDonation.orgName,
+                                image: _editedDonation.image,
+                              );
+                            },
+                          ),
+                          Text(
+                            'المواعيد المتاحه',
+                            textAlign: TextAlign.center,
+                          ),
+                          TextFormField(
+                            textAlign: TextAlign.right,
+                            initialValue: _initValues['availableOn'],
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_descFocusNode);
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'من فضلك أدخل المواعيد المتاحه';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedDonation = MyDonation(
+                                donatorAddress: _editedDonation.donatorAddress,
+                                donatorMobileNo: _editedDonation.donatorMobileNo,
+                                availableOn: value,
+                                userId: _editedDonation.userId,
+                                donatorName: _editedDonation.donatorName,
+                                actName: _editedDonation.actName,
+                                id: _editedDonation.id,
+                                status: _editedDonation.status,
+                                donationType: _editedDonation.donationType,
+                                donationItems: _editedDonation.donationItems,
+                                donationDate: _editedDonation.donationDate,
+                                donationAmount: _editedDonation.donationAmount,
+                                orgName: _editedDonation.orgName,
+                                image: _editedDonation.image,
+                              );
+                            },
+                          ),
+                          _initValues['donationType'] != 'عينى'
+                              ?Text(
+                            'المبلغ',
+                            textAlign: TextAlign.center,
+                          ):Container(),
+                          _initValues['donationType'] != 'عينى'
+                              ?TextFormField(
+                            textAlign: TextAlign.right,
+                            initialValue: _initValues['donationAmount'],
+                            keyboardType: TextInputType.phone,
+                             inputFormatters: <TextInputFormatter>[
+                                  WhitelistingTextInputFormatter.digitsOnly
+                                ],
+                            textInputAction: TextInputAction.next,
+                            onFieldSubmitted: (_) {
+                              FocusScope.of(context).requestFocus(_descFocusNode);
+                            },
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return 'من فضلك أدخل المبلغ';
+                              }
+                              return null;
+                            },
+                            onSaved: (value) {
+                              _editedDonation = MyDonation(
+                                actName: _editedDonation.actName,
+                                id: _editedDonation.id,
+                                status: _editedDonation.status,
+                                donationType: _editedDonation.donationType,
+                                donationItems: _editedDonation.donationItems,
+                                donationDate: _editedDonation.donationDate,
+                                donationAmount: value,
+                                orgName: _editedDonation.orgName,
+                                image: _editedDonation.image,
+                                userId: _editedDonation.userId,
+                                availableOn: _editedDonation.availableOn,
+                                donatorAddress: _editedDonation.donatorAddress,
+                                donatorMobileNo: _editedDonation.donatorMobileNo,
+                                donatorName: _editedDonation.donatorName,
+                              );
+                            },
+                          ):Container(),
+                          SizedBox(
+                            height: 10.0,
+                          ),
+                          _initValues['donationType'] != 'نقدى'
+                              ? Container(
+                                  child: RaisedButton(
+                                    child: Text(
+                                      'اختيار صورة',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    color: Colors.green,
+                                    onPressed: () {
+                                      getImage();
+                                    },
+                                  ),
+                                )
+                              : Container(),
+                          Container(
+                            padding: const EdgeInsets.all(5.0),
+                            child: _isLoadImg
+                                ? Center(
+                                    child: CircularProgressIndicator(),
+                                  )
+                                : _initValues['donationType'] != 'نقدى'
+                                    ? newImage()
+                                    : Container(),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.all(5.0),
+                            child: new RaisedButton(
+                              textColor: Colors.white,
+                              child: Text('حفظ'),
+                              color: Colors.green,
+                              onPressed: _saveForm,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
