@@ -114,7 +114,7 @@ class _StorylineState extends State<Storyline> {
              });
            },
            child: Row(
-            mainAxisAlignment: MainAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(more?'المزيد':'اقل',

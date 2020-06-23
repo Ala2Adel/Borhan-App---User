@@ -34,6 +34,15 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.green[50],
+        extendBodyBehindAppBar: true,
+      appBar: AppBar(
+      //  title: const Text('تبرعاتي'),
+        backgroundColor: Colors.transparent,
+         elevation: 0,
+         iconTheme: IconThemeData(
+         color: Colors.black, //change your color here
+       ),
+      ),
       body: SingleChildScrollView(
         child: Column(
           children: [

@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:io' show Platform;
 
 import 'package:Borhan_User/Animation/FadeAnimation.dart';
 import 'package:Borhan_User/models/user_nav.dart';
@@ -91,7 +92,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
         showDialog(
             context: context,
             barrierDismissible: false,
-            child: AlertDialog(
+            child:(Platform.isAndroid)? AlertDialog(
               title: const Text('حدث خطأ ما '),
               content: Text(
                   'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
@@ -124,7 +125,41 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                       ),
                     ))
               ],
-            ));
+            ):CupertinoAlertDialog(
+               title: const Text('حدث خطأ ما '),
+               content: Text(
+                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
+                  actions: <Widget>[
+                    CupertinoDialogAction(
+                      onPressed: () => {
+                          AppSettings.openWIFISettings(),
+                        },
+                    child: Text(
+                      ' اعدادت Wi-Fi ',
+                      style: TextStyle(color: Colors.blue),
+                    )
+                    ),
+                    CupertinoDialogAction(onPressed: () => {
+                          AppSettings.openDataRoamingSettings(),
+                        },
+                    child: Text(
+                      ' اعدادت الباقه ',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    )),
+                    CupertinoDialogAction(onPressed: () => {
+                          SystemChannels.platform
+                              .invokeMethod('SystemNavigator.pop'),
+                        },
+                    child: Text(
+                      'خروج ',
+                      style: TextStyle(color: Colors.red),
+                    ))
+                  ],
+
+            )
+            );
       } else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {
           if (result == true) {
@@ -287,25 +322,28 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
               child: Container(
                 child: new Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
+                  mainAxisSize: MainAxisSize.min,
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    new Container(
-                      height: 190.0,
-                      child: new Carousel(
-                        boxFit: BoxFit.cover,
-                        images: [
-                          AssetImage('assets/offers/Offer1.jpg'),
-                          AssetImage('assets/offers/Offer2.jpg'),
-                          AssetImage('assets/offers/Offer3.jpg'),
-                          AssetImage('assets/offers/Offer4.jpg'),
-                          AssetImage('assets/offers/Offer5.jpg'),
-                        ],
-                        autoplay: true,
-                        animationCurve: Curves.fastLinearToSlowEaseIn,
-                        animationDuration: Duration(milliseconds: 3000),
-                        dotSize: 4.0,
-                        indicatorBgPadding: 2.0,
+                    AspectRatio(
+                        aspectRatio: 4/2,
+                        child: new Container(
+                        // height:(_height/3)<150?160: _height/3,
+                        child: new Carousel(
+                          boxFit: BoxFit.cover,
+                          images: [
+                            AssetImage('assets/offers/Offer1.jpg'),
+                            AssetImage('assets/offers/Offer2.jpg'),
+                            AssetImage('assets/offers/Offer3.jpg'),
+                            AssetImage('assets/offers/Offer4.jpg'),
+                            AssetImage('assets/offers/Offer5.jpg'),
+                          ],
+                          autoplay: true,
+                          animationCurve: Curves.fastLinearToSlowEaseIn,
+                          animationDuration: Duration(milliseconds: 3000),
+                          dotSize: 4.0,
+                          indicatorBgPadding: 2.0,
+                        ),
                       ),
                     ),
                     campaignNotifier.campaignList.length != 0
@@ -359,7 +397,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                         return ClipRRect(
                           borderRadius: new BorderRadius.circular(20),
                           child: Card(
-                            margin: EdgeInsets.fromLTRB(20, 5, 20, 5),
+                            margin: EdgeInsets.fromLTRB(10, 5, 10, 5),
 //                            color: Colors.purple[200],
                             child: new ListTile(
                               contentPadding: EdgeInsets.fromLTRB(5, 5, 10, 0),
@@ -424,8 +462,10 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   ? orgNotifier
                                                       .orgList[index].orgName
                                                   : 'no value',
+                                                    overflow: TextOverflow.ellipsis,
+                                                   maxLines: 2,
                                               style: new TextStyle(
-                                                  fontSize: 18.0,
+                                                  fontSize: 17.0,
                                                   color: Colors.green,
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -433,14 +473,16 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                           FadeAnimation(
                                             1.3,
                                             Text(
-                                              orgNotifier
-                                                  .orgList[index].description,
-                                              style: new TextStyle(
-                                                  fontSize: 16.0,
-                                                  color: Colors.green,
-                                                  fontWeight:
-                                                      FontWeight.normal),
-                                            ),
+                                            orgNotifier
+                                                .orgList[index].description,
+                                                overflow: TextOverflow.ellipsis,
+                                                maxLines: 2,
+                                            style: new TextStyle(
+                                                fontSize: 14.0,
+                                                color: Colors.green,
+                                                fontWeight:
+                                                    FontWeight.normal),
+                                              ),
                                           ),
                                           Wrap(
                                             spacing: 10.0,
@@ -448,13 +490,14 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                 WrapCrossAlignment.center,
                                             children: <Widget>[
                                               RaisedButton(
-                                                color: Colors.green[50],
+                                                //color: Colors.green[50],
+                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
-                                                          10.0),
-                                                  side: BorderSide(
-                                                      color: Colors.black),
+                                                             24.0),
+                                                  // side: BorderSide(
+                                                  //     color: Colors.black),
                                                 ),
                                                 onPressed: () {
                                                   orgNotifier
@@ -485,20 +528,23 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                       ));
                                                 },
                                                 child: Text(
-                                                  'التفاصيل',
+                                                  'تفاصيل',
                                                   style: TextStyle(
-                                                      fontSize: 18.0,
-                                                      color: Colors.black),
+                                                      // fontSize: 18.0,
+                                                     // color: Colors.black,
+                                                      color: Colors.green[900]
+                                                      ),
                                                 ),
                                               ),
                                               RaisedButton(
-                                                color: Colors.green[50],
+                                                //color: Colors.green[50],
+                                                 color: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
-                                                          10.0),
-                                                  side: BorderSide(
-                                                      color: Colors.black),
+                                                          24),
+                                                  // side: BorderSide(
+                                                  //     color: Colors.black),
                                                 ),
                                                 onPressed: () {
                                                   orgNotifier
@@ -534,10 +580,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   );
                                                 },
                                                 child: Text(
-                                                  'الانشطة',
+                                                  'أنشطة',
                                                   style: TextStyle(
-                                                      fontSize: 16.0,
-                                                      color: Colors.black),
+                                                      // fontSize: 16.0,
+                                                      // color: Colors.black,
+                                                       color: Colors.green[900]),
                                                 ),
                                               ),
                                             ],

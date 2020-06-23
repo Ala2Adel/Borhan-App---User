@@ -8,6 +8,8 @@ import '../Animation/FadeAnimation.dart';
 
 import 'dart:io' show Platform;
 
+import 'org_widgets/arc_banner_image.dart';
+
 class SignupScreen extends StatefulWidget {
   @override
   _SignupScreenState createState() => _SignupScreenState();
@@ -114,57 +116,83 @@ class _SignupScreenState extends State<SignupScreen> {
     final height = MediaQuery.of(context).size.height * (1 / 3);
 
     return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+        backgroundColor: Colors.transparent,
+         elevation: 0,
+         iconTheme: IconThemeData(
+         color: Colors.white, //change your color here
+       ),
+      ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-              height: height,
+            //  height: height,
               child: Stack(
                 children: <Widget>[
-                  Positioned(
-                    top: -height / 10,
-                    height: height,
-                    width: width,
-                    child: FadeAnimation(
-                        1,
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/background.png'),
-                                  fit: BoxFit.fill)),
-                        )),
+
+                  // Positioned(
+                  //   top: -height / 10,
+                  //   height: height,
+                  //   width: width,
+                  //   child: FadeAnimation(
+                  //       1,
+                  //       Container(
+                  //         decoration: BoxDecoration(
+                  //             image: DecorationImage(
+                  //                 image: AssetImage(
+                  //                     'assets/images/background.png'),
+                  //                 fit: BoxFit.fill)),
+                  //       )),
+                  // ),
+                  // Positioned(
+                  //   height: height,
+                  //   width: width + 20,
+                  //   child: FadeAnimation(
+                  //       1.3,
+                  //       Container(
+                  //         decoration: BoxDecoration(
+                  //             image: DecorationImage(
+                  //                 image: AssetImage(
+                  //                     'assets/images/background-2.png'),
+                  //                 fit: BoxFit.fill)),
+                  //       )),
+                  // ),
+
+                    Positioned(
+                      top: -100,
+                      child: ClipPath(
+                      clipper: ArcClipper(),
+                      child: Image.asset(
+                        'assets/images/backg2.png',
+                        fit: BoxFit.fill,
+                        height: 600.0,
+                        width: width,
+                      ),
                   ),
-                  Positioned(
-                    height: height,
-                    width: width + 20,
-                    child: FadeAnimation(
-                        1.3,
-                        Container(
-                          decoration: BoxDecoration(
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      'assets/images/background-2.png'),
-                                  fit: BoxFit.fill)),
-                        )),
-                  ),
-                  Center(
-                    child: const Text(
-                      'مرحبا بك فى برهان',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 21,
-                        fontWeight: FontWeight.bold,
+                    ),
+
+                     Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 100),
+                    child: Center(
+                      child: const Text(
+                        'مرحبا بك فى برهان',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
                     ),
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+                  ),
+///////////////////////////////////
+
+             Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20 ,vertical: 150),
               child: Column(
                 children: <Widget>[
                   FadeAnimation(
@@ -173,7 +201,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       "تسجيل حساب",
                       style: TextStyle(
 //                          color: Color.fromRGBO(49, 39, 79, 1),
-                      color: Colors.green[700],
+                      color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 30),
                     ),
@@ -200,6 +228,10 @@ class _SignupScreenState extends State<SignupScreen> {
                             children: <Widget>[
                               Container(
                                 padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[200]))),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -247,6 +279,10 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               Container(
                                 padding: EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[200]))),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -271,6 +307,10 @@ class _SignupScreenState extends State<SignupScreen> {
                               ),
                               Container(
                                 padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    border: Border(
+                                        bottom: BorderSide(
+                                            color: Colors.grey[200]))),
                                 child: TextFormField(
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
@@ -293,14 +333,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                   },
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                      )),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  FadeAnimation(
+                               SizedBox(  height: 30,),
+                    FadeAnimation(
                     1.9,
                     InkWell(
                       onTap: () {
@@ -309,8 +343,8 @@ class _SignupScreenState extends State<SignupScreen> {
                         }
                       }, // handle your onTap here
                       child: Container(
-                        height: 40,
-                        margin: EdgeInsets.symmetric(horizontal: .25 * width),
+                          height: 45,
+                          margin: const EdgeInsets.fromLTRB(30, 0, 30, 30),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(50),
 //                          color: Color.fromRGBO(49, 39, 79, 1),
@@ -320,13 +354,22 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: _submitLoading == false
                               ? Text(
                                   "تسجيل حساب",
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 17
+                                  ),
                                 )
                               : CircularProgressIndicator(),
                         ),
                       ),
                     ),
                   ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      ),
+                 
                   SizedBox(
                     height: 10,
                   ),
@@ -350,6 +393,14 @@ class _SignupScreenState extends State<SignupScreen> {
                 ],
               ),
             )
+
+///////////////////////////////////////////
+                ],
+              ),
+            ),
+
+
+            //////////////////////////00000000000000000000000000000000
           ],
         ),
       ),
