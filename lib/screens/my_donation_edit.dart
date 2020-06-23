@@ -22,7 +22,7 @@ class _EditDonationState extends State<EditDonation> {
   final _form = GlobalKey<FormState>();
   var _isLoadImg = false;
   var _isInit = true;
-  var _isLoading = false;
+  var _isLoading = true;
   File _image;
   String _downloadUrl;
   var _editedDonation = MyDonation(
@@ -94,14 +94,12 @@ class _EditDonationState extends State<EditDonation> {
     if (!isValid) {
       return;
     }
-    if (_editedDonation.image != null && _editedDonation.image != '') {
+    if (_editedDonation.image != null && _downloadUrl != null) {
       Provider.of<MyDonationsProvider>(context, listen: false)
           .deleteImage(_editedDonation.image);
     }
     _form.currentState.save();
-    setState(() {
-      _isLoading = true;
-    });
+
     _editedDonation = MyDonation(
       id: _editedDonation.id,
       image: _downloadUrl != null ? _downloadUrl : _editedDonation.image,
@@ -124,7 +122,7 @@ class _EditDonationState extends State<EditDonation> {
     Provider.of<MyDonationsProvider>(context, listen: false)
         .updateDonationReq(_editedDonation, orgId);
     setState(() {
-      _isLoading = false;
+      _isLoading = true;
     });
     Navigator.of(context).pop();
   }
@@ -138,6 +136,9 @@ class _EditDonationState extends State<EditDonation> {
       MyDonation myDonation =
           Provider.of<MyDonationsProvider>(context, listen: false)
               .findById(_editedDonation.id);
+      setState(() {
+        _isLoading = false;
+      });
       Provider.of<MyDonationsProvider>(context, listen: false)
           .fetchAndSetOrg(myDonation.orgName)
           .then((value) => {
@@ -157,7 +158,7 @@ class _EditDonationState extends State<EditDonation> {
         'donatorMobile': _editedDonation.donatorMobileNo,
         'availableOn': _editedDonation.availableOn,
       };
-      print(_editedDonation.donatorMobileNo);
+
     }
     _isInit = false;
     super.didChangeDependencies();
@@ -214,7 +215,9 @@ class _EditDonationState extends State<EditDonation> {
                             return null;
                           },
                           onSaved: (value) {
+                            print('from on save name = '+ value);
                             _editedDonation = MyDonation(
+                              donatorName: value,
                               actName: _editedDonation.actName,
                               id: _editedDonation.id,
                               status: _editedDonation.status,
@@ -228,8 +231,8 @@ class _EditDonationState extends State<EditDonation> {
                               availableOn: _editedDonation.availableOn,
                               donatorAddress: _editedDonation.donatorAddress,
                               donatorMobileNo: _editedDonation.donatorMobileNo,
-                              donatorName: value,
                             );
+                            print('from on save name after = '+ _editedDonation.donatorName);
                           },
                         ),
                         Text(
@@ -367,14 +370,14 @@ class _EditDonationState extends State<EditDonation> {
                               donationType: _editedDonation.donationType,
                               donationItems: _editedDonation.donationItems,
                               donationDate: _editedDonation.donationDate,
-                              donationAmount: _editedDonation.donationAmount,
+                              donationAmount: value,
                               orgName: _editedDonation.orgName,
                               image: _editedDonation.image,
                               userId: _editedDonation.userId,
                               availableOn: _editedDonation.availableOn,
                               donatorAddress: _editedDonation.donatorAddress,
                               donatorMobileNo: _editedDonation.donatorMobileNo,
-                              donatorName: value,
+                              donatorName: _editedDonation.donatorName,
                             );
                           },
                         ):Container(),

@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:Borhan_User/models/mydonation.dart';
+import 'package:Borhan_User/screens/my_donation_screen.dart';
 import 'package:Borhan_User/screens/onboardScreen.dart';
 import 'package:Borhan_User/screens/overview_screen.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +18,8 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
     Timer(
         Duration(seconds: 4),
         () => Navigator.of(context).pushReplacement(MaterialPageRoute(
-           builder: (BuildContext context) => OnboardScreen())));
-//             builder: (BuildContext context) => OrgOverviewScreen())));
+//           builder: (BuildContext context) => OnboardScreen())));
+             builder: (BuildContext context) => MyDonationsScreen())));
   }
 
   @override

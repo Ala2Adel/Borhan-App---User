@@ -42,6 +42,7 @@ List<Organization> _orgList = [];
       final List<MyDonation> loadedDonations = [];
       if (extractedData != null) {
         extractedData.forEach((donationId, donationData) {
+          print(donationData['donatorName']);
           loadedDonations.add(MyDonation(
             id: donationId,
             orgName: donationData['orgName'],
@@ -129,7 +130,7 @@ List<Organization> _orgList = [];
   }
 
   Future<void> updateDonationReq(MyDonation donationReq, String orgId) async {
-    print('*************\n***************\n***************\n'+orgId);
+    print('*************\n***************\n***************\n'+donationReq.donatorName);
     final reqIndex =
     _items.indexWhere((request) => request.id == donationReq.id);
     if (reqIndex >= 0) {
