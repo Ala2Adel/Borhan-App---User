@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
@@ -23,46 +25,56 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
     showDialog(
       context: context,
       builder: (ctx) => (Platform.isAndroid)
-          ? AlertDialog(
-              title: const Text('تسجيل خروج'),
-              content: Text(message),
-              actions: <Widget>[
-                FlatButton(
-                  child: const Text('الغاء'),
-                  onPressed: () {
-                    Navigator.of(ctx).pop();
-                  },
-                ),
-                FlatButton(
-                  child: const Text('نعم'),
-                  onPressed: () {
-                    SharedPref sharedPref = SharedPref();
-                    sharedPref.remove("user");
-                    LoginScreen.googleSignIn.disconnect();
-                    Navigator.of(ctx).pop();
-                  },
-                ),
-              ],
-            )
-          : CupertinoAlertDialog(
-              title: const Text('تسجيل خروج'),
-              content: Text(message),
-              actions: <Widget>[
-                CupertinoDialogAction(
+          ? BackdropFilter(
+               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                      child: AlertDialog(
+                title: const Text('تسجيل خروج'),
+                content: Text(message),
+                actions: <Widget>[
+                  FlatButton(
                     child: const Text('الغاء'),
                     onPressed: () {
                       Navigator.of(ctx).pop();
-                    }),
-                CupertinoDialogAction(
+                    },
+                  ),
+                  FlatButton(
                     child: const Text('نعم',style:  TextStyle(
-                              color: Colors.red, fontWeight: FontWeight.bold),),
+                                color: Colors.red, fontWeight: FontWeight.bold),),
                     onPressed: () {
                       SharedPref sharedPref = SharedPref();
                       sharedPref.remove("user");
+                      LoginScreen.googleSignIn.disconnect();
                       Navigator.of(ctx).pop();
-                    })
-              ],
-            ),
+                    },
+                  ),
+                ],
+              ),
+          )
+          : BackdropFilter(
+             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10
+             )
+             ,
+                      child: CupertinoAlertDialog(
+                        
+                title: const Text('تسجيل خروج'),
+                content: Text(message),
+                actions: <Widget>[
+                  CupertinoDialogAction(
+                      child: const Text('الغاء'),
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      }),
+                  CupertinoDialogAction(
+                      child: const Text('نعم',style:  TextStyle(
+                                color: Colors.red, fontWeight: FontWeight.bold),),
+                      onPressed: () {
+                        SharedPref sharedPref = SharedPref();
+                        sharedPref.remove("user");
+                        Navigator.of(ctx).pop();
+                      })
+                ],
+              ),
+          ),
     ).then((value) => Navigator.of(context).pop());
   }
 
