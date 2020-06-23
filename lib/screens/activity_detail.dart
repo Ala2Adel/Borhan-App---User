@@ -151,7 +151,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                       width: MediaQuery.of(context).size.width * 2 / 5,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
-                        color: Color.fromRGBO(49, 39, 79, 1),
+                        color: Colors.green[800],
                       ),
                       child: Center(
                         child: Text(
@@ -184,7 +184,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
           SliverOverlapAbsorber(
             handle: NestedScrollView.sliverOverlapAbsorberHandleFor(context),
             sliver: SliverAppBar(
-              backgroundColor: Colors.blue,
+              backgroundColor: Colors.green,
               pinned: true,
               expandedHeight: MediaQuery.of(context).size.height * 4 / 9,
               forceElevated: innerBoxIsScrolled,
@@ -198,7 +198,7 @@ class _ActivityDetailsState extends State<ActivityDetails> {
                         bottomRight: Radius.circular(0),
                         topRight: Radius.circular(20),
                         topLeft: Radius.circular(20)),
-                    color: Colors.blue.withOpacity(0.75),
+                    color: Colors.green.withOpacity(0.75),
                   ),
                   child: Text(
                     activityNotifier.currentActivity.name,

@@ -34,6 +34,8 @@ class _MyDonationsState extends State<MyDonationsScreen> {
     super.didChangeDependencies();
   }
 
+ 
+
   @override
   Widget build(BuildContext context) {
     final historyData = Provider.of<MyDonationsProvider>(context);
@@ -59,7 +61,7 @@ class _MyDonationsState extends State<MyDonationsScreen> {
               itemBuilder: (_, i) {
                 return Container(
                   child: Padding(
-                    padding: const EdgeInsets.all(10.0),
+                    padding: const EdgeInsets.symmetric(vertical: 5,horizontal: 10),
                     child: Container(
                       child: FittedBox(
                         child: Row(
@@ -75,10 +77,12 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                       MainAxisAlignment.spaceAround,
                                   children: <Widget>[
                                     Padding(
-                                      padding: const EdgeInsets.all(8.0),
+                                      padding: const EdgeInsets.all(5.0),
                                       child: Container(
-                                        width: 80,
-                                        height: MediaQuery.of(context).size.width/3,
+                                        // width: 80,
+                                        // height: MediaQuery.of(context).size.width/3,
+                                        width: 120,
+                                        height: 120,
 //                                      height: 100,
                                         child: ClipRRect(
                                           borderRadius:
@@ -128,63 +132,67 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                                         borderRadius:
                                                             BorderRadius
                                                                 .circular(10.0),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .center,
-                                                          children: <Widget>[
-                                                            Text(
-                                                              'حالة التبرع : ',
-                                                              style: TextStyle(
+                                                        child: Padding(
+                                                          padding: const EdgeInsets.symmetric(
+                                                            horizontal:10 ,vertical: 5 ),
+                                                          child: Row(
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .center,
+                                                            children: <Widget>[
+                                                              Text(
+                                                                'حالة التبرع : ',
+                                                                style: TextStyle(
 //                                                                  color: Colors.green,
-                                                                  fontSize:
-                                                                      18.0,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            ),
-                                                            historyData.items[i]
-                                                                            .status !=
-                                                                        'done' &&
-                                                                    historyData
-                                                                            .items[
-                                                                                i]
-                                                                            .status !=
-                                                                        'cancel'
-                                                                ? const Text(
-                                                                    'قيد المراجعة',
-                                                                    style: TextStyle(
-                                                                        color: Colors.orange,
-                                                                        fontSize:
-                                                                            18.0,
-                                                                        fontWeight:
-                                                                            FontWeight.bold),
-                                                                  )
-                                                                : historyData
-                                                                            .items[i]
-                                                                            .status ==
-                                                                        'done'
-                                                                    ? const Text(
-                                                                        'تم قبول التبرع',
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .green,
-                                                                            fontSize:
-                                                                                18.0,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      )
-                                                                    : const Text(
-                                                                        'تم رفض التبرع',
-                                                                        style: TextStyle(
-                                                                            color: Colors
-                                                                                .red,
-                                                                            fontSize:
-                                                                                18.0,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                          ],
+                                                                    fontSize:
+                                                                        18.0,
+                                                                    fontWeight:
+                                                                        FontWeight
+                                                                            .bold),
+                                                              ),
+                                                              historyData.items[i]
+                                                                              .status !=
+                                                                          'done' &&
+                                                                      historyData
+                                                                              .items[
+                                                                                  i]
+                                                                              .status !=
+                                                                          'cancel'
+                                                                  ? const Text(
+                                                                      'قيد المراجعة',
+                                                                      style: TextStyle(
+                                                                          color: Colors.orange,
+                                                                          fontSize:
+                                                                              18.0,
+                                                                          fontWeight:
+                                                                              FontWeight.bold),
+                                                                    )
+                                                                  : historyData
+                                                                              .items[i]
+                                                                              .status ==
+                                                                          'done'
+                                                                      ? const Text(
+                                                                          'تم قبول التبرع',
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .green,
+                                                                              fontSize:
+                                                                                  18.0,
+                                                                              fontWeight:
+                                                                                  FontWeight.bold),
+                                                                        )
+                                                                      : const Text(
+                                                                          'تم رفض التبرع',
+                                                                          style: TextStyle(
+                                                                              color: Colors
+                                                                                  .red,
+                                                                              fontSize:
+                                                                                  18.0,
+                                                                              fontWeight:
+                                                                                  FontWeight.bold),
+                                                                        ),
+                                                            ],
+                                                          ),
                                                         ),
                                                       )
                                                     : Container(),
@@ -198,6 +206,8 @@ class _MyDonationsState extends State<MyDonationsScreen> {
                                             Row(
                                               children: <Widget>[
                                                 MyDonationItem(
+                                                  donationImage: historyData
+                                                      .items[i].image,
                                                   orgName: historyData
                                                       .items[i].orgName,
                                                   donationType: historyData

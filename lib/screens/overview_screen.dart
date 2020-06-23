@@ -59,6 +59,9 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
     );
   }
 
+  ////////////////////////////////////////////////////
+ 
+  ////////////////////////////////////////////////////
   Future<UserNav> loadSharedPrefs() async {
     UserNav user;
     try {
@@ -92,74 +95,75 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
         showDialog(
             context: context,
             barrierDismissible: false,
-            child:(Platform.isAndroid)? AlertDialog(
-              title: const Text('حدث خطأ ما '),
-              content: Text(
-                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
-              actions: <Widget>[
-                FlatButton(
-                    onPressed: () => {
-                          SystemChannels.platform
-                              .invokeMethod('SystemNavigator.pop'),
-                        },
-                    child: Text(
-                      'خروج ',
-                      style: TextStyle(color: Colors.red),
-                    )),
-                FlatButton(
-                    onPressed: () => {
-                          AppSettings.openWIFISettings(),
-                        },
-                    child: Text(
-                      ' اعدادت Wi-Fi ',
-                      style: TextStyle(color: Colors.blue),
-                    )),
-                FlatButton(
-                    onPressed: () => {
-                          AppSettings.openDataRoamingSettings(),
-                        },
-                    child: Text(
-                      ' اعدادت الباقه ',
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    ))
-              ],
-            ):CupertinoAlertDialog(
-               title: const Text('حدث خطأ ما '),
-               content: Text(
-                  'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
-                  actions: <Widget>[
-                    CupertinoDialogAction(
-                      onPressed: () => {
-                          AppSettings.openWIFISettings(),
-                        },
-                    child: Text(
-                      ' اعدادت Wi-Fi ',
-                      style: TextStyle(color: Colors.blue),
-                    )
-                    ),
-                    CupertinoDialogAction(onPressed: () => {
-                          AppSettings.openDataRoamingSettings(),
-                        },
-                    child: Text(
-                      ' اعدادت الباقه ',
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
-                    )),
-                    CupertinoDialogAction(onPressed: () => {
-                          SystemChannels.platform
-                              .invokeMethod('SystemNavigator.pop'),
-                        },
-                    child: Text(
-                      'خروج ',
-                      style: TextStyle(color: Colors.red),
-                    ))
-                  ],
-
-            )
-            );
+            child: (Platform.isAndroid)
+                ? AlertDialog(
+                    title: const Text('حدث خطأ ما '),
+                    content: Text(
+                        'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
+                    actions: <Widget>[
+                      FlatButton(
+                          onPressed: () => {
+                                SystemChannels.platform
+                                    .invokeMethod('SystemNavigator.pop'),
+                              },
+                          child: Text(
+                            'خروج ',
+                            style: TextStyle(color: Colors.red),
+                          )),
+                      FlatButton(
+                          onPressed: () => {
+                                AppSettings.openWIFISettings(),
+                              },
+                          child: Text(
+                            ' اعدادت Wi-Fi ',
+                            style: TextStyle(color: Colors.blue),
+                          )),
+                      FlatButton(
+                          onPressed: () => {
+                                AppSettings.openDataRoamingSettings(),
+                              },
+                          child: Text(
+                            ' اعدادت الباقه ',
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          ))
+                    ],
+                  )
+                : CupertinoAlertDialog(
+                    title: const Text('حدث خطأ ما '),
+                    content: Text(
+                        'فقدنا الاتصال بالانترنت  ،\n تأكد من اتصالك وحاول مرة أخرى'),
+                    actions: <Widget>[
+                      CupertinoDialogAction(
+                          onPressed: () => {
+                                AppSettings.openWIFISettings(),
+                              },
+                          child: Text(
+                            ' اعدادت Wi-Fi ',
+                            style: TextStyle(color: Colors.blue),
+                          )),
+                      CupertinoDialogAction(
+                          onPressed: () => {
+                                AppSettings.openDataRoamingSettings(),
+                              },
+                          child: Text(
+                            ' اعدادت الباقه ',
+                            style: TextStyle(
+                              color: Colors.blue,
+                            ),
+                          )),
+                      CupertinoDialogAction(
+                          onPressed: () => {
+                                SystemChannels.platform
+                                    .invokeMethod('SystemNavigator.pop'),
+                              },
+                          child: Text(
+                            'خروج ',
+                            style: TextStyle(color: Colors.red),
+                          ))
+                    ],
+                  ));
       } else if (_previousResult == ConnectivityResult.none) {
         checkinternet().then((result) {
           if (result == true) {
@@ -326,8 +330,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     AspectRatio(
-                        aspectRatio: 4/2,
-                        child: new Container(
+                      aspectRatio: 4 / 2,
+                      child: new Container(
                         // height:(_height/3)<150?160: _height/3,
                         child: new Carousel(
                           boxFit: BoxFit.cover,
@@ -364,6 +368,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                 borderRadius: new BorderRadius.circular(24.0),
                               ),
                               onPressed: () async {
+                               // showCustomDialogWithImage(context);
                                 UserNav userLoad = await loadSharedPrefs();
                                 if (userLoad == null) {
                                   _showErrorDialog("برجاء تسجيل الدخول أولا ");
@@ -462,8 +467,8 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   ? orgNotifier
                                                       .orgList[index].orgName
                                                   : 'no value',
-                                                    overflow: TextOverflow.ellipsis,
-                                                   maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
                                               style: new TextStyle(
                                                   fontSize: 17.0,
                                                   color: Colors.green,
@@ -473,16 +478,16 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                           FadeAnimation(
                                             1.3,
                                             Text(
-                                            orgNotifier
-                                                .orgList[index].description,
-                                                overflow: TextOverflow.ellipsis,
-                                                maxLines: 2,
-                                            style: new TextStyle(
-                                                fontSize: 14.0,
-                                                color: Colors.green,
-                                                fontWeight:
-                                                    FontWeight.normal),
-                                              ),
+                                              orgNotifier
+                                                  .orgList[index].description,
+                                              overflow: TextOverflow.ellipsis,
+                                              maxLines: 2,
+                                              style: new TextStyle(
+                                                  fontSize: 14.0,
+                                                  color: Colors.green,
+                                                  fontWeight:
+                                                      FontWeight.normal),
+                                            ),
                                           ),
                                           Wrap(
                                             spacing: 10.0,
@@ -491,11 +496,11 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                             children: <Widget>[
                                               RaisedButton(
                                                 //color: Colors.green[50],
-                                                 color: Colors.white,
+                                                color: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
-                                                             24.0),
+                                                          24.0),
                                                   // side: BorderSide(
                                                   //     color: Colors.black),
                                                 ),
@@ -531,14 +536,13 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   'تفاصيل',
                                                   style: TextStyle(
                                                       // fontSize: 18.0,
-                                                     // color: Colors.black,
-                                                      color: Colors.green[900]
-                                                      ),
+                                                      // color: Colors.black,
+                                                      color: Colors.green[900]),
                                                 ),
                                               ),
                                               RaisedButton(
                                                 //color: Colors.green[50],
-                                                 color: Colors.white,
+                                                color: Colors.white,
                                                 shape: RoundedRectangleBorder(
                                                   borderRadius:
                                                       new BorderRadius.circular(
@@ -584,7 +588,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                                                   style: TextStyle(
                                                       // fontSize: 16.0,
                                                       // color: Colors.black,
-                                                       color: Colors.green[900]),
+                                                      color: Colors.green[900]),
                                                 ),
                                               ),
                                             ],
