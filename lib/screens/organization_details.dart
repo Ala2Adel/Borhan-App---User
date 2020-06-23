@@ -3,9 +3,11 @@ import 'package:Borhan_User/notifiers/organization_notifier.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+
 import 'package:url_launcher/url_launcher.dart';
 
 class OrganizationDetails extends StatelessWidget {
+
 
     OrganizationNotifier orgNotifier;
     Organization currentOrg;
@@ -87,4 +89,6 @@ class OrganizationDetails extends StatelessWidget {
       ),
     );
   }
+
+
 }

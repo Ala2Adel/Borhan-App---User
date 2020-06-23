@@ -1,6 +1,8 @@
 import 'package:Borhan_User/models/organization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class Storyline extends StatefulWidget {
   Storyline(this.storyline);
@@ -11,9 +13,13 @@ class Storyline extends StatefulWidget {
 }
 
 class _StorylineState extends State<Storyline> {
+
+
+
   var more =true;
   @override
   Widget build(BuildContext context) {
+    
     var theme = Theme.of(context);
     var textTheme = Theme.of(context).textTheme;
 
@@ -22,13 +28,13 @@ class _StorylineState extends State<Storyline> {
       children: [
         Text(
           'الوصف',
-          style: textTheme.subhead.copyWith(fontSize: 24.0),
+          style: textTheme.subtitle1.copyWith(fontSize: 24.0),
         ),
         SizedBox(height: 5.0),
         Text(
           widget.storyline.description,
         //  'وَأَطْعِمُوا الطَّعَامَ، وَصِلُوا الْأَرْحَامَ، وَصَلُّوا بِاللَّيْلِ وَالنَّاسُ نِيَامٌ تَدْخُلُوا الْجَنَّةَ بِسَلَامٍ',
-          style: textTheme.body1.copyWith(
+          style: textTheme.bodyText2.copyWith(
             color: Colors.black45,
             fontSize: 18.0,
           ),
@@ -38,45 +44,74 @@ class _StorylineState extends State<Storyline> {
        child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          
             Text(
             'العنوان',
-            style: textTheme.subhead.copyWith(fontSize: 21.0),
+            style: textTheme.subtitle1.copyWith(fontSize: 21.0),
           ),
           SizedBox(height: 5.0),
           Text(
             widget.storyline.address,
-            style: textTheme.body1.copyWith(
+            style: textTheme.bodyText2.copyWith(
               color: Colors.black45,
               fontSize: 18.0,
             ),
           ),
            Text(
             'البريد الإلكتروني',
-            style: textTheme.subhead.copyWith(fontSize: 21.0),
+            style: textTheme.subtitle1.copyWith(fontSize: 21.0),
           ),
           SizedBox(height: 5.0),
-          Text(
-            widget.storyline.email,
-            style: textTheme.body1.copyWith(
-              color: Colors.black45,
-              fontSize: 18.0,
+          GestureDetector(
+            onLongPress: ()=>{
+              Clipboard.setData(new ClipboardData(text: widget.storyline.email)),
+               Fluttertoast.showToast(msg: 'تم نسخ البريد الإلكتروني ',
+               toastLength: Toast.LENGTH_LONG,
+              
+               ),
+              HapticFeedback.mediumImpact()
+            },
+            onTap:(){
+               launch("mailto:${widget.storyline.email}");    
+            } ,
+                      child: Text(
+              widget.storyline.email,
+              style: textTheme.bodyText2.copyWith(
+                color: Colors.black45,
+                fontSize: 18.0,
+              ),
             ),
           ),
            Text(
             ' رقم التليفون المحمول',  
-            style: textTheme.subhead.copyWith(fontSize: 21.0),
+            style: textTheme.subtitle1.copyWith(fontSize: 21.0),
           ),
           SizedBox(height: 5.0),
-          Text(
-            widget.storyline.mobileNo,
-            style: textTheme.body1.copyWith(
-              color: Colors.black45,
-              fontSize: 18.0,
+          
+          GestureDetector(
+            onLongPress: ()=>{
+               Clipboard.setData(new ClipboardData(text: widget.storyline.mobileNo)),
+               Fluttertoast.showToast(msg: 'تم نسخ الرقم ',
+               toastLength: Toast.LENGTH_LONG,
+              
+               ),
+              HapticFeedback.mediumImpact()
+            },
+            onTap: (){
+            
+          launch("tel:${widget.storyline.mobileNo}");    
+            },
+                      child: Text(
+              widget.storyline.mobileNo,
+              style: textTheme.bodyText2.copyWith(
+                color: Colors.black45,
+                fontSize: 18.0,
+              ),
             ),
           ),
           Text(
             ' رابط صفحة الإنترنت ',
-            style: textTheme.subhead.copyWith(fontSize: 21.0),
+            style: textTheme.subtitle1.copyWith(fontSize: 21.0),
           ),
           SizedBox(height: 5.0),
           Center(
@@ -118,7 +153,7 @@ class _StorylineState extends State<Storyline> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(more?'المزيد':'اقل',
-                style: textTheme.body1
+                style: textTheme.bodyText2
                     .copyWith(fontSize: 18.0, color: theme.accentColor),
               ),
               Icon(more?Icons.keyboard_arrow_down:Icons.keyboard_arrow_up,
