@@ -15,6 +15,7 @@ class CampaignDetail extends StatefulWidget {
 
 class _CampaignDetailState extends State<CampaignDetail> {
   bool isFirstTime = true;
+  var more =true;
 
   CampaignNotifier campaignNotifier;
   void _showErrorDialog(String message) {
@@ -75,6 +76,8 @@ class _CampaignDetailState extends State<CampaignDetail> {
 
   @override
   Widget build(BuildContext context) {
+    var theme = Theme.of(context);
+    var textTheme = Theme.of(context).textTheme;
     if (isFirstTime) {
       campaignNotifier = Provider.of<CampaignNotifier>(context, listen: false);
       isFirstTime = false;
@@ -122,14 +125,42 @@ class _CampaignDetailState extends State<CampaignDetail> {
                            ),
 
                         SizedBox(height: 2),
-
+more==true?
                                 Flexible(
+                                  child: Text(campaignNotifier.currentCampaign.campaignDescription,
+                                  overflow: TextOverflow.ellipsis,
+                                     style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic, color: Colors.grey),
+
+                               ),
+                                ):
+                               Flexible(
                                   child: Text(campaignNotifier.currentCampaign.campaignDescription,
                                      style: TextStyle(fontSize: 18, fontStyle: FontStyle.italic, color: Colors.grey),
 
                                ),
-                                ),
-                        SizedBox(height: 120),
+                                ) ,
+                                InkWell(
+           onTap: (){
+             setState(() {
+               more=!more;
+             });
+           },
+           child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Text(more?'المزيد':'اقل',
+                style: textTheme.body1
+                    .copyWith(fontSize: 18.0, color: theme.accentColor),
+              ),
+              Icon(more?Icons.keyboard_arrow_down:Icons.keyboard_arrow_up,
+                size: 20.0,
+                color: theme.accentColor,
+              ),
+            ],
+          ),
+        ),
+                        SizedBox(height: 30),
                              RaisedButton(
                               color: Colors.green,
                               shape: RoundedRectangleBorder(

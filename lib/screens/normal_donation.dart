@@ -526,17 +526,15 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                   decoration: InputDecoration(
                                       border: InputBorder.none,
                                       hintText: " المبلغ بالجنيه المصرى ",
-                                      
-                               
                                       prefixIcon: Icon(
                                         FontAwesomeIcons.moneyBill,
                                         color: Colors.green[700],
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   keyboardType: TextInputType.number,
-                                   inputFormatters: <TextInputFormatter>[
-        WhitelistingTextInputFormatter.digitsOnly
-    ],
+                                  inputFormatters: <TextInputFormatter>[
+                                    WhitelistingTextInputFormatter.digitsOnly
+                                  ],
                                   onChanged: (value) {
                                     _authData['amount'] = value;
                                   },
@@ -665,7 +663,7 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                           margin: const EdgeInsets.symmetric(horizontal: 60),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                           color: Colors.green,
+                            color: Colors.green,
                           ),
                           child: Center(
                             child: _submitLoading == false
@@ -673,7 +671,9 @@ class _NormalDenotationScreenState extends State<NormalDenotationScreen> {
                                     "تبرع الأن",
                                     style: TextStyle(color: Colors.white),
                                   )
-                                : CircularProgressIndicator(),
+                                : CircularProgressIndicator(
+                                    backgroundColor: Colors.white,
+                                  ),
                           ),
                         ),
                       ),

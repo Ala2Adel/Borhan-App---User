@@ -156,13 +156,13 @@ class _LoginScreenState extends State<LoginScreen> {
     final height = MediaQuery.of(context).size.height * (2 / 3);
 
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-         elevation: 0,
-         iconTheme: IconThemeData(
-         color: Colors.white, //change your color here
-       ),
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -193,12 +193,12 @@ class _LoginScreenState extends State<LoginScreen> {
                   Positioned(
                     // top: -height / 10,
                     top: -100,
-                     child: ClipPath(
+                    child: ClipPath(
                       clipper: ArcClipper(),
                       child: Image.asset(
                         'assets/images/backg2.png',
                         fit: BoxFit.fill,
-                         height: 500.0,
+                        height: 500.0,
                         width: width,
                       ),
                     ),
@@ -392,7 +392,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                               height: 45,
                                               margin:
                                                   const EdgeInsets.symmetric(
-                                                      horizontal: 30,),
+                                                horizontal: 30,
+                                              ),
                                               decoration: BoxDecoration(
                                                 borderRadius:
                                                     BorderRadius.circular(50),
@@ -412,23 +413,26 @@ class _LoginScreenState extends State<LoginScreen> {
                                                                 FontWeight
                                                                     .bold),
                                                       )
-                                                    : CircularProgressIndicator(),
+                                                    : CircularProgressIndicator(
+                                                        backgroundColor:
+                                                            Colors.white,
+                                                      ),
                                               ),
                                             ),
                                           ),
                                         ),
-                                         if (_authMode != AuthMode.Login) 
-                                         SizedBox(
-                                           height: 20,
-                                         ),
-                                       if (_authMode == AuthMode.Login) 
-                                        Text(
-                                          'أو',
-                                          style: TextStyle(
-                                              color: Colors.green,
-                                              fontSize: 18.0,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+                                        if (_authMode != AuthMode.Login)
+                                          SizedBox(
+                                            height: 20,
+                                          ),
+                                        if (_authMode == AuthMode.Login)
+                                          Text(
+                                            'أو',
+                                            style: TextStyle(
+                                                color: Colors.green,
+                                                fontSize: 18.0,
+                                                fontWeight: FontWeight.bold),
+                                          ),
                                         if (_authMode == AuthMode.Login)
                                           Container(
                                             height: 45,

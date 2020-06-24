@@ -116,13 +116,13 @@ class _SignupScreenState extends State<SignupScreen> {
     final height = MediaQuery.of(context).size.height * (1 / 3);
 
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        appBar: AppBar(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
         backgroundColor: Colors.transparent,
-         elevation: 0,
-         iconTheme: IconThemeData(
-         color: Colors.white, //change your color here
-       ),
+        elevation: 0,
+        iconTheme: IconThemeData(
+          color: Colors.white, //change your color here
+        ),
       ),
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -130,10 +130,9 @@ class _SignupScreenState extends State<SignupScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Container(
-            //  height: height,
+              //  height: height,
               child: Stack(
                 children: <Widget>[
-
                   // Positioned(
                   //   top: -height / 10,
                   //   height: height,
@@ -162,9 +161,9 @@ class _SignupScreenState extends State<SignupScreen> {
                   //       )),
                   // ),
 
-                    Positioned(
-                      top: -100,
-                      child: ClipPath(
+                  Positioned(
+                    top: -100,
+                    child: ClipPath(
                       clipper: ArcClipper(),
                       child: Image.asset(
                         'assets/images/backg2.png',
@@ -172,10 +171,10 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 600.0,
                         width: width,
                       ),
-                  ),
                     ),
+                  ),
 
-                     Padding(
+                  Padding(
                     padding: const EdgeInsets.symmetric(
                         horizontal: 20, vertical: 100),
                     child: Center(
@@ -191,214 +190,225 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
 ///////////////////////////////////
 
-             Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20 ,vertical: 150),
-              child: Column(
-                children: <Widget>[
-                  FadeAnimation(
-                    1.5,
-                    Text(
-                      "تسجيل حساب",
-                      style: TextStyle(
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 150),
+                    child: Column(
+                      children: <Widget>[
+                        FadeAnimation(
+                          1.5,
+                          Text(
+                            "تسجيل حساب",
+                            style: TextStyle(
 //                          color: Color.fromRGBO(49, 39, 79, 1),
-                      color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 30),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FadeAnimation(
-                      1.7,
-                      Container(
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(196, 135, 198, .3),
-                                blurRadius: 20,
-                                offset: Offset(0, 10),
-                              )
-                            ]),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: <Widget>[
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "اسم المستخدم",
-                                      prefixIcon: Icon(
-                                        Icons.person,
-                                        color: Colors.green[700],
-                                      ),
-                                      hintStyle: TextStyle(color: Colors.grey)),
-                                  onSaved: (value) {
-                                    _authData['name'] = value;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    hintText: "البريد الإلكتروني",
-                                    prefixIcon: Icon(
-                                      Icons.email,
-                                      color: Colors.green[700],
-                                    ),
-                                    hintStyle: TextStyle(color: Colors.grey),
-                                  ),
-                                  keyboardType: TextInputType.emailAddress,
-                                  validator: (value) {
-                                    bool emailValid = RegExp(
-                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                        .hasMatch(value);
-                                    if (!emailValid) {
-                                      return 'البريد الإلكتروني غير صالح ';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    _authData['email'] = value;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "كلمة المرور",
-                                      prefixIcon: Icon(
-                                        Icons.lock,
-                                        color: Colors.green[700],
-                                      ),
-                                      hintStyle: TextStyle(color: Colors.grey)),
-                                  obscureText: true,
-                                  controller: _passwordController,
-                                  validator: (value) {
-                                    if (value.isEmpty || value.length < 5) {
-                                      return 'كلمة المرور قصيرة جدا';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    _authData['password'] = value;
-                                  },
-                                ),
-                              ),
-                              Container(
-                                padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    border: Border(
-                                        bottom: BorderSide(
-                                            color: Colors.grey[200]))),
-                                child: TextFormField(
-                                  decoration: InputDecoration(
-                                      border: InputBorder.none,
-                                      hintText: "تأكيد كلمة المرور",
-                                      prefixIcon: Icon(
-                                        Icons.lock,
-                                        color: Colors.green[700],
-                                      ),
-                                      hintStyle: TextStyle(color: Colors.grey)),
-                                  obscureText: true,
-                                  controller: _passwordConfirmController,
-                                  validator: (value) {
-                                    if (value != _passwordController.text) {
-                                      return 'غير مطابقة';
-                                    }
-                                    return null;
-                                  },
-                                  onSaved: (value) {
-                                    _authData['password'] = value;
-                                  },
-                                ),
-                              ),
-                               SizedBox(  height: 30,),
-                    FadeAnimation(
-                    1.9,
-                    InkWell(
-                      onTap: () {
-                        if (!_submitLoading) {
-                          _submit();
-                        }
-                      }, // handle your onTap here
-                      child: Container(
-                          height: 45,
-                          margin: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-//                          color: Color.fromRGBO(49, 39, 79, 1),
-                          color: Colors.green[700],
-                        ),
-                        child: Center(
-                          child: _submitLoading == false
-                              ? Text(
-                                  "تسجيل حساب",
-                                  style: TextStyle(color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 17
-                                  ),
-                                )
-                              : CircularProgressIndicator(),
-                        ),
-                      ),
-                    ),
-                  ),
-                            ],
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 30),
                           ),
                         ),
-                      ),
-                      ),
-                 
-                  SizedBox(
-                    height: 10,
-                  ),
-                  FadeAnimation(
-                      2,
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                        child: Center(
-                          child: FlatButton(
-                            child: const Text(
-                              "أمتلك حساب",
-                              style: TextStyle(
-                                color: Color.fromRGBO(49, 39, 79, .6),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        FadeAnimation(
+                          1.7,
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.white,
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Color.fromRGBO(196, 135, 198, .3),
+                                    blurRadius: 20,
+                                    offset: Offset(0, 10),
+                                  )
+                                ]),
+                            child: Form(
+                              key: _formKey,
+                              child: Column(
+                                children: <Widget>[
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.grey[200]))),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "اسم المستخدم",
+                                          prefixIcon: Icon(
+                                            Icons.person,
+                                            color: Colors.green[700],
+                                          ),
+                                          hintStyle:
+                                              TextStyle(color: Colors.grey)),
+                                      onSaved: (value) {
+                                        _authData['name'] = value;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.grey[200]))),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: "البريد الإلكتروني",
+                                        prefixIcon: Icon(
+                                          Icons.email,
+                                          color: Colors.green[700],
+                                        ),
+                                        hintStyle:
+                                            TextStyle(color: Colors.grey),
+                                      ),
+                                      keyboardType: TextInputType.emailAddress,
+                                      validator: (value) {
+                                        bool emailValid = RegExp(
+                                                r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                            .hasMatch(value);
+                                        if (!emailValid) {
+                                          return 'البريد الإلكتروني غير صالح ';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) {
+                                        _authData['email'] = value;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.grey[200]))),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "كلمة المرور",
+                                          prefixIcon: Icon(
+                                            Icons.lock,
+                                            color: Colors.green[700],
+                                          ),
+                                          hintStyle:
+                                              TextStyle(color: Colors.grey)),
+                                      obscureText: true,
+                                      controller: _passwordController,
+                                      validator: (value) {
+                                        if (value.isEmpty || value.length < 5) {
+                                          return 'كلمة المرور قصيرة جدا';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) {
+                                        _authData['password'] = value;
+                                      },
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: const EdgeInsets.all(10),
+                                    decoration: BoxDecoration(
+                                        border: Border(
+                                            bottom: BorderSide(
+                                                color: Colors.grey[200]))),
+                                    child: TextFormField(
+                                      decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "تأكيد كلمة المرور",
+                                          prefixIcon: Icon(
+                                            Icons.lock,
+                                            color: Colors.green[700],
+                                          ),
+                                          hintStyle:
+                                              TextStyle(color: Colors.grey)),
+                                      obscureText: true,
+                                      controller: _passwordConfirmController,
+                                      validator: (value) {
+                                        if (value != _passwordController.text) {
+                                          return 'غير مطابقة';
+                                        }
+                                        return null;
+                                      },
+                                      onSaved: (value) {
+                                        _authData['password'] = value;
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 30,
+                                  ),
+                                  FadeAnimation(
+                                    1.9,
+                                    InkWell(
+                                      onTap: () {
+                                        if (!_submitLoading) {
+                                          _submit();
+                                        }
+                                      }, // handle your onTap here
+                                      child: Container(
+                                        height: 45,
+                                        margin: const EdgeInsets.fromLTRB(
+                                            30, 0, 30, 30),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(50),
+//                          color: Color.fromRGBO(49, 39, 79, 1),
+                                          color: Colors.green[700],
+                                        ),
+                                        child: Center(
+                                          child: _submitLoading == false
+                                              ? Text(
+                                                  "تسجيل حساب",
+                                                  style: TextStyle(
+                                                      color: Colors.white,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 17),
+                                                )
+                                              : CircularProgressIndicator(
+                                                  backgroundColor: Colors.white,
+                                                ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                            onPressed: () => Navigator.pushReplacementNamed(
-                                context, '/Login'),
                           ),
                         ),
-                      )),
-                ],
-              ),
-            )
+                        SizedBox(
+                          height: 10,
+                        ),
+                        FadeAnimation(
+                            2,
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
+                              child: Center(
+                                child: FlatButton(
+                                  child: const Text(
+                                    "أمتلك حساب",
+                                    style: TextStyle(
+                                      color: Color.fromRGBO(49, 39, 79, .6),
+                                    ),
+                                  ),
+                                  onPressed: () =>
+                                      Navigator.pushReplacementNamed(
+                                          context, '/Login'),
+                                ),
+                              ),
+                            )),
+                      ],
+                    ),
+                  )
 
 ///////////////////////////////////////////
                 ],
               ),
             ),
-
 
             //////////////////////////00000000000000000000000000000000
           ],

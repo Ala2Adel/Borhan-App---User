@@ -537,9 +537,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                       ),
                                       hintStyle: TextStyle(color: Colors.grey)),
                                   keyboardType: TextInputType.number,
-                                   inputFormatters: <TextInputFormatter>[
-        WhitelistingTextInputFormatter.digitsOnly
-    ],
+                                  inputFormatters: <TextInputFormatter>[
+                                    WhitelistingTextInputFormatter.digitsOnly
+                                  ],
                                   onChanged: (value) {
                                     _authData['amount'] = value;
                                   },
@@ -666,7 +666,7 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                           margin: EdgeInsets.symmetric(horizontal: 60),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: Color.fromRGBO(49, 39, 79, 1),
+                            color: Colors.green,
                           ),
                           child: Center(
                             child: _submitLoading == false
@@ -674,7 +674,9 @@ class _CampaignDenotationScreenState extends State<CampaignDenotationScreen> {
                                     "تبرع الأن",
                                     style: TextStyle(color: Colors.white),
                                   )
-                                : CircularProgressIndicator(),
+                                : CircularProgressIndicator(
+                                    backgroundColor: Colors.white,
+                                  ),
                           ),
                         ),
                       ),

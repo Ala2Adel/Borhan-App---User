@@ -267,7 +267,8 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
   }
 
   Future<void> getOrganizations() async {
-    const url = 'https://borhanadmin.firebaseio.com/CharitableOrganizations.json';
+    const url =
+        'https://borhanadmin.firebaseio.com/CharitableOrganizations.json';
     try {
       final response = await http.get(url);
       final extractedData = json.decode(response.body) as Map<String, dynamic>;
@@ -450,9 +451,10 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
                                         keyboardType: TextInputType.phone,
-                                         inputFormatters: <TextInputFormatter>[
-        WhitelistingTextInputFormatter.digitsOnly
-    ],
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly
+                                        ],
                                         onChanged: (val) {
                                           _authData['mobile'] = val;
                                         },
@@ -741,9 +743,10 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                             hintStyle:
                                                 TextStyle(color: Colors.grey)),
                                         keyboardType: TextInputType.number,
-                                         inputFormatters: <TextInputFormatter>[
-        WhitelistingTextInputFormatter.digitsOnly
-    ],
+                                        inputFormatters: <TextInputFormatter>[
+                                          WhitelistingTextInputFormatter
+                                              .digitsOnly
+                                        ],
                                         onChanged: (value) {
                                           _authData['amount'] = value;
                                         },
@@ -910,7 +913,9 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                                           "تبرع الأن",
                                           style: TextStyle(color: Colors.white),
                                         )
-                                      : CircularProgressIndicator(),
+                                      : CircularProgressIndicator(
+                                          backgroundColor: Colors.white,
+                                        ),
                                 ),
                               ),
                             ),
@@ -928,8 +933,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
                           child: FlatButton(
                             child: Text(
                               "السابق",
-                              style: TextStyle(
-                                  color: Color.fromRGBO(49, 39, 79, .6)),
+                              style: TextStyle(color: Colors.green),
                             ),
                             onPressed: () {
                               setState(() {
