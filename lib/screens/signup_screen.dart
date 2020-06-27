@@ -17,6 +17,12 @@ class SignupScreen extends StatefulWidget {
 
 class _SignupScreenState extends State<SignupScreen> {
   var _submitLoading = false;
+ final _emailFocusNode = FocusNode();
+ final _pwdFocusNode = FocusNode();
+ final _repeatPwdFocusNode = FocusNode();
+
+
+
   Map<String, String> _authData = {
     'name': '',
     'email': '',
@@ -62,6 +68,15 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
     );
   }
+
+@override 
+void dispose(){
+  _pwdFocusNode.dispose();
+  _emailFocusNode.dispose();
+  _repeatPwdFocusNode.dispose();
+super.dispose();
+}
+
 
   Future<void> _submit() async {
     if (!_formKey.currentState.validate()) {
@@ -233,6 +248,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey[200]))),
                                     child: TextFormField(
+                                      textInputAction: TextInputAction.next,
+                                      onFieldSubmitted:(_){ FocusScope.of(context).requestFocus(_emailFocusNode);},
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: "اسم المستخدم",
@@ -254,6 +271,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey[200]))),
                                     child: TextFormField(
+                                      focusNode: _emailFocusNode,
+                                      textInputAction: TextInputAction.next,
+                                      onFieldSubmitted: (_){
+
+                                      FocusScope.of(context).requestFocus(_pwdFocusNode);},
                                       decoration: InputDecoration(
                                         border: InputBorder.none,
                                         hintText: "البريد الإلكتروني",
@@ -286,6 +308,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey[200]))),
                                     child: TextFormField(
+                                      textInputAction: TextInputAction.next,
+                                      focusNode: _pwdFocusNode,
+                                      onFieldSubmitted: (_){
+                                        FocusScope.of(context).requestFocus(_repeatPwdFocusNode);},
+                                      
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: "كلمة المرور",
@@ -315,6 +342,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                             bottom: BorderSide(
                                                 color: Colors.grey[200]))),
                                     child: TextFormField(
+                                      focusNode: _repeatPwdFocusNode,
                                       decoration: InputDecoration(
                                           border: InputBorder.none,
                                           hintText: "تأكيد كلمة المرور",

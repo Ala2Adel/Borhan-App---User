@@ -44,12 +44,20 @@ class _StorylineState extends State<Storyline> {
                   style: textTheme.subtitle1.copyWith(fontSize: 21.0),
                 ),
                 SizedBox(height: 5.0),
-                Text(
-                  widget.storyline.address,
-                  style: textTheme.bodyText2.copyWith(
-                    color: Colors.black45,
-                    fontSize: 18.0,
-                  ),
+                Row(
+                  children: <Widget>[
+                    Icon(Icons.location_on),
+                    SizedBox(
+                      width: 8,
+                    ),
+                    Text(
+                      widget.storyline.address,
+                      style: textTheme.bodyText2.copyWith(
+                        color: Colors.black45,
+                        fontSize: 18.0,
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
                   'البريد الإلكتروني',
@@ -60,8 +68,7 @@ class _StorylineState extends State<Storyline> {
                   onLongPress: () => {
                     Clipboard.setData(
                         new ClipboardData(text: widget.storyline.email)),
-                    
-                     Scaffold.of(context).showSnackBar(SnackBar(
+                    Scaffold.of(context).showSnackBar(SnackBar(
                       content: Text(
                           'تم نسخ البريد الإلكتروني الى الحافظة \n تستطيع لصقه في المكان المناسب لك'),
                       duration: Duration(milliseconds: 1800),
@@ -72,12 +79,22 @@ class _StorylineState extends State<Storyline> {
                   onTap: () {
                     launch("mailto:${widget.storyline.email}");
                   },
-                  child: Text(
-                    widget.storyline.email,
-                    style: textTheme.bodyText2.copyWith(
-                      color: Colors.black45,
-                      fontSize: 18.0,
-                    ),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.alternate_email),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(widget.storyline.email,
+                          style: textTheme.bodyText2.copyWith(
+                            color: Colors.black45,
+                            fontSize: 18.0,
+                          )),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Icon(Icons.content_copy)
+                    ],
                   ),
                 ),
                 Text(
@@ -104,12 +121,24 @@ class _StorylineState extends State<Storyline> {
                   onTap: () {
                     launch("tel:${widget.storyline.mobileNo}");
                   },
-                  child: Text(
-                    widget.storyline.mobileNo,
-                    style: textTheme.bodyText2.copyWith(
-                      color: Colors.black45,
-                      fontSize: 18.0,
-                    ),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(Icons.smartphone),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        widget.storyline.mobileNo,
+                        style: textTheme.bodyText2.copyWith(
+                          color: Colors.black45,
+                          fontSize: 18.0,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Icon(Icons.content_copy)
+                    ],
                   ),
                 ),
                 Text(
@@ -117,22 +146,29 @@ class _StorylineState extends State<Storyline> {
                   style: textTheme.subtitle1.copyWith(fontSize: 21.0),
                 ),
                 SizedBox(height: 5.0),
-                Center(
-                  child: FittedBox(
-                    fit: BoxFit.scaleDown,
-                    child: InkWell(
-                      onTap: () => launch(widget.storyline.webPage),
-                      child: Text(
-                        widget.storyline.webPage,
-                        textDirection: TextDirection.ltr,
-                        style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 20,
-                            fontStyle: FontStyle.italic,
-                            color: Colors.blue),
+                Row(
+                  children: <Widget>[
+                    
+                      Icon(Icons.open_in_browser),SizedBox(width:8),
+                    Expanded(
+                      
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        child: InkWell(
+                          onTap: () => launch(widget.storyline.webPage),
+                          child: Text(
+                            widget.storyline.webPage,
+                            textDirection: TextDirection.ltr,
+                            style: TextStyle(
+                                decoration: TextDecoration.underline,
+                                fontSize: 20,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.blue),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ),
               ],
             ),

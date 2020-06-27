@@ -24,6 +24,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
+  final _pwdFocusNode = FocusNode();
+
   var _submitLoading = false;
   Map<String, String> _authData = {
     'email': '',
@@ -33,6 +36,14 @@ class _LoginScreenState extends State<LoginScreen> {
   AuthMode _authMode = AuthMode.Login;
   final GlobalKey<FormState> _formKey = GlobalKey();
   final _passwordController = TextEditingController();
+  
+  
+  @override
+  void dispose() {
+    _pwdFocusNode.dispose();
+    super.dispose();
+  }
+  
   @override
   void initState() {
     super.initState();
@@ -305,6 +316,12 @@ class _LoginScreenState extends State<LoginScreen> {
                                             ),
                                           ),
                                           child: TextFormField(
+                                            textInputAction: TextInputAction.next,
+                                            onFieldSubmitted: (_){
+                                              FocusScope.of(context).requestFocus( _pwdFocusNode);
+                                            },
+
+                                          
                                             decoration: InputDecoration(
                                               border: InputBorder.none,
                                               hintText: "البريد الإلكتروني",
@@ -330,7 +347,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     value == null) {
                                                   return 'ادخل البريد الإلكتروني من فضلك';
                                                 } else {
-                                                  return 'البريد الإلكتروني غيرصالح';
+                                                  return 'البريد الإلكتروني غير صالح';
                                                 }
                                               }
                                               return null;
@@ -350,6 +367,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               ),
                                             ),
                                             child: TextFormField(
+                                              focusNode: _pwdFocusNode,
                                               decoration: InputDecoration(
                                                   border: InputBorder.none,
                                                   hintText: "كلمة المرور",

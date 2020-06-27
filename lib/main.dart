@@ -85,9 +85,11 @@ class MyApp extends StatelessWidget {
                   ),
                   button: TextStyle(
                     fontFamily: ArabicFonts.Cairo,
+                    color: Color.fromRGBO(187, 186, 198, 1),
                     package: 'google_fonts_arabic',
                   ),
                   bodyText1: TextStyle(
+
                     fontFamily: ArabicFonts.Cairo,
                     package: 'google_fonts_arabic',
                   ),
