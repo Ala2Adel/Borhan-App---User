@@ -190,7 +190,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     Border.all(color: Colors.white, width: 5)),
                             child: _isLoadImg
                                 ? CircleAvatar(
-                                    backgroundImage: AssetImage(_image.path),
+                                    backgroundImage:FileImage(_image)
                                     // radius: 40.0,
                                   )
                                 : userLoad.userImage == null
