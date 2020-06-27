@@ -363,7 +363,7 @@ class _OrgOverviewScreenState extends State<OrgOverviewScreen> {
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: <Widget>[
                             RaisedButton(
-                              color: Colors.green[400],
+                              color:Color.fromRGBO(1, 123, 126, 1),
                               shape: RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(24.0),
                               ),

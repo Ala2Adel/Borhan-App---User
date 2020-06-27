@@ -327,7 +327,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               hintText: "البريد الإلكتروني",
                                               prefixIcon: Icon(
                                                 Icons.email,
-                                                color: Colors.green[700],
+                                                color: Color.fromRGBO(1, 123, 126, 1),
                                               ),
                                               hintStyle:
                                                   TextStyle(color: Colors.grey),
@@ -373,7 +373,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   hintText: "كلمة المرور",
                                                   prefixIcon: Icon(
                                                     Icons.lock,
-                                                    color: Colors.green[700],
+                                                    color: Color.fromRGBO(1, 123, 126, 1),
                                                   ),
                                                   hintStyle: TextStyle(
                                                       color: Colors.grey)),
@@ -416,7 +416,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 borderRadius:
                                                     BorderRadius.circular(50),
 //                            color: Color.fromRGBO(49, 39, 79, 1),
-                                                color: Colors.green[700],
+                                                color: Color.fromRGBO(1, 123, 126, 1),
                                               ),
                                               child: Center(
                                                 child: _submitLoading == false
@@ -447,7 +447,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           Text(
                                             'أو',
                                             style: TextStyle(
-                                                color: Colors.green,
+                                                color: Color.fromRGBO(1, 123, 126, 1),
                                                 fontSize: 18.0,
                                                 fontWeight: FontWeight.bold),
                                           ),
@@ -462,7 +462,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                     new BorderRadius.circular(
                                                         30.0),
                                                 side: BorderSide(
-                                                    color: Colors.green,
+                                                    color: Color.fromRGBO(1, 123, 126, 1),
                                                     width: 2),
                                               ),
 //                              color: Color.fromRGBO(49, 39, 79, 1),
@@ -475,13 +475,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 children: <Widget>[
                                                   Icon(
                                                     FontAwesomeIcons.google,
-                                                    color: Colors.green,
+                                                    color: Color.fromRGBO(1, 123, 126, 1),
                                                   ),
                                                   SizedBox(width: 10.0),
                                                   Text(
                                                     'تسجيل الدخول بحساب جوجل',
                                                     style: TextStyle(
-                                                        color: Colors.green,
+                                                        color: Color.fromRGBO(1, 123, 126, 1),
                                                         fontSize: 14.0,
                                                         fontWeight:
                                                             FontWeight.bold),
@@ -508,7 +508,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     '${_authMode == AuthMode.Login ? 'هل نسيت كلمة المرور؟' : 'الرجوع إلي تسجيل الدخول'} ',
                                     style: TextStyle(
 //                              color: Color.fromRGBO(196, 135, 198, 1),
-                                      color: Colors.green[700],
+                                      color: Color.fromRGBO(1, 123, 126, 1),
                                     ),
                                   ),
                                   onPressed: _switchAuthMode,
@@ -528,7 +528,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     child: const Text(
                                       "حساب جديد",
                                       style: TextStyle(
-                                        color: Colors.green,
+                                        color: Color.fromRGBO(1, 123, 126, 1),
 //                                  color: Color.fromRGBO(49, 39, 79, .6)
                                       ),
                                     ),
