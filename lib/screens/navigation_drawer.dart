@@ -197,7 +197,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                             , 
                       )
                     : userLoad.userImage != null?CircleAvatar(
-                        backgroundImage: AssetImage(userLoad.userImage),
+                        backgroundImage: NetworkImage(userLoad.userImage),
                         // radius: 40.0,
                       ):CircleAvatar(
                         backgroundColor: Colors.black,
