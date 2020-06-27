@@ -5,11 +5,11 @@ import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
 import 'package:Borhan_User/providers/usersProvider.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
@@ -34,6 +34,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
   var _isLoadImg = false;
   var _edited = false;
   var editedClicked = false;
+  var _submitLoading = false;
   File _image;
   String userName;
 
@@ -52,6 +53,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
       // do something
     }
     return user;
+  }
+
+  Future<String> uploadImage(File image) async {
+    StorageReference storageReference =
+        FirebaseStorage.instance.ref().child(image.path.split('/').last);
+    StorageUploadTask uploadTask = storageReference.putFile(image);
+    await uploadTask.onComplete;
+
+    String _downloadUrl = await storageReference.getDownloadURL();
+
+    return _downloadUrl;
   }
 
   void _showErrorDialog(String message) {
@@ -151,13 +163,13 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
         Padding(
           padding: const EdgeInsets.only(bottom: 0.0),
           child: Container(
-            height: 220,
+            height: 240,
             child: Stack(
               children: [
                 ClipPath(
                   clipper: ArcClipper(),
                   child: Container(
-                    height: 140,
+                    height: 160,
                     width: screenWidth,
                     color: Colors.green,
                   ),
@@ -189,18 +201,18 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                       )
                                     : CircleAvatar(
                                         backgroundImage:
-                                            AssetImage(userLoad.userImage),
+                                            NetworkImage(userLoad.userImage),
                                         // radius: 40.0,
                                       ),
                           ),
                         ),
                       ),
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(80, 160, 0, 0),
+                  padding: const EdgeInsets.fromLTRB(80, 170, 0, 0),
                   child: Center(
                     child: Container(
-                      width: 50,
-                      height: 50,
+                      width: 40,
+                      height: 40,
                       //  color: Colors.lime,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(70),
@@ -406,13 +418,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: <Widget>[
-                                  Text(
-                                    ' حفظ',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 14.0,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                                  _submitLoading == false
+                                      ? Text(
+                                          ' حفظ',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 14.0,
+                                              fontWeight: FontWeight.bold),
+                                        )
+                                      : CircularProgressIndicator(
+                                          backgroundColor: Colors.white,
+                                        ),
                                 ],
                               ),
                               onPressed: () async {
@@ -421,6 +437,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 //   print("formKey.currentState IS Invalid");
                                 //   return;
                                 // }
+                                setState(() {
+                                  _submitLoading = true;
+                                });
                                 String imageUrl;
                                 if (userName == null) {
                                   userName = userLoad.userName;
@@ -428,7 +447,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 if (_image == null) {
                                   imageUrl = userLoad.userImage;
                                 } else {
-                                  imageUrl = _image.path;
+                                  imageUrl = await uploadImage(_image);
                                 }
                                 try {
                                   await Provider.of<UsersPtovider>(context,
@@ -446,6 +465,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                     margin: EdgeInsets.all(8),
                                     borderRadius: 8,
                                   )..show(context);
+                                  setState(() {
+                                    _submitLoading = false;
+                                  });
                                 } catch (error) {
                                   print(error);
                                   const errorMessage = ' حدث خطا ما';
