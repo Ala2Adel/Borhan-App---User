@@ -28,7 +28,7 @@ dependencies:
   
   app_settings: ^4.0.0
   webview_flutter: ^0.3.22+1
-  fluttertoast: ^4.0.1
+  # fluttertoast: ^4.0.1
 
   intl_translation:
     # Add the dependency for the Firebase Core Flutter SDK
