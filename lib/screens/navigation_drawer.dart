@@ -199,7 +199,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     : userLoad.userImage != null?CircleAvatar(
                         backgroundImage: AssetImage(userLoad.userImage),
                         // radius: 40.0,
-                      ):Text(userLoad.userName.substring(0, 1)),
+                      ):CircleAvatar(
+                        backgroundColor: Colors.black,
+                        child:Text(userLoad.userName.substring(0, 1),
+                        ),
+                        ),
           ),
           new ListTile(
             title: const Text(

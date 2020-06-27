@@ -1,8 +1,6 @@
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:Borhan_User/models/activity.dart';
-import 'package:Borhan_User/models/organization.dart';
 import 'package:Borhan_User/models/user_nav.dart';
 import 'package:Borhan_User/providers/auth.dart';
 import 'package:Borhan_User/providers/shard_pref.dart';
@@ -11,22 +9,21 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 
 import 'package:google_fonts_arabic/fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'login_screen.dart';
 import 'org_widgets/arc_banner_image.dart';
 
 class UserProfileScreen extends StatefulWidget {
-  Organization storyline = new Organization(
-      orgName: "wwww",
-      description: "tttt",
-      address: "Ramadan Elnaggar66",
-      email: "ramadan96naggar@gmail.com99",
-      mobileNo: "01272173025");
+  // Organization storyline = new Organization(
+  //     orgName: "wwww",
+  //     description: "tttt",
+  //     address: "Ramadan Elnaggar66",
+  //     email: "ramadan96naggar@gmail.com99",
+  //     mobileNo: "01272173025");
   @override
   _UserProfileScreenState createState() => _UserProfileScreenState();
 }
@@ -419,11 +416,11 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 ],
                               ),
                               onPressed: () async {
-                                if (!_formKey.currentState.validate()) {
-                                  // Invalid!
-                                  print("formKey.currentState IS Invalid");
-                                  return;
-                                }
+                                // if (!_formKey.currentState.validate()) {
+                                //   // Invalid!
+                                //   print("formKey.currentState IS Invalid");
+                                //   return;
+                                // }
                                 String imageUrl;
                                 if (userName == null) {
                                   userName = userLoad.userName;
