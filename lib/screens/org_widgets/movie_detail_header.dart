@@ -90,15 +90,13 @@ class MovieDetailHeader extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10.0),
             child: ArcBannerImage(currentOrg.logo),
         ),
-          Positioned(
-          child: Row(
+          Row(
             crossAxisAlignment: CrossAxisAlignment.end,
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
                Expanded(child: movieInformation),
             ],
           ),
-        ),
       ],
      );
 
