@@ -28,6 +28,12 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
   String selectedType;
   Future formatDates;
 
+  final GlobalKey<FormState> _formKey = GlobalKey();
+  final globalKey = GlobalKey<ScaffoldState>();
+  var _isLoadImg = false;
+  File _image;
+  String _downloadUrl;
+
   var selectedOraginzaton;
   Activity selectedActivity;
   var _loading = false;
@@ -174,11 +180,7 @@ class _FastDonationScreenState extends State<FastDonationScreen> {
     });
   }
 
-  final GlobalKey<FormState> _formKey = GlobalKey();
-  final globalKey = GlobalKey<ScaffoldState>();
-  var _isLoadImg = false;
-  File _image;
-  String _downloadUrl;
+
 
   Future getImage() async {
     File img;

@@ -26,8 +26,8 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
       context: context,
       builder: (ctx) => (Platform.isAndroid)
           ? BackdropFilter(
-               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: AlertDialog(
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: AlertDialog(
                 title: const Text('تسجيل خروج'),
                 content: Text(message),
                 actions: <Widget>[
@@ -38,8 +38,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                     },
                   ),
                   FlatButton(
-                    child: const Text('نعم',style:  TextStyle(
-                                color: Colors.red, fontWeight: FontWeight.bold),),
+                    child: const Text(
+                      'نعم',
+                      style: TextStyle(
+                          color: Colors.red, fontWeight: FontWeight.bold),
+                    ),
                     onPressed: () {
                       SharedPref sharedPref = SharedPref();
                       sharedPref.remove("user");
@@ -49,13 +52,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                   ),
                 ],
               ),
-          )
+            )
           : BackdropFilter(
-             filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10
-             )
-             ,
-                      child: CupertinoAlertDialog(
-                        
+              filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+              child: CupertinoAlertDialog(
                 title: const Text('تسجيل خروج'),
                 content: Text(message),
                 actions: <Widget>[
@@ -65,8 +65,11 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                         Navigator.of(ctx).pop();
                       }),
                   CupertinoDialogAction(
-                      child: const Text('نعم',style:  TextStyle(
-                                color: Colors.red, fontWeight: FontWeight.bold),),
+                      child: const Text(
+                        'نعم',
+                        style: TextStyle(
+                            color: Colors.red, fontWeight: FontWeight.bold),
+                      ),
                       onPressed: () {
                         SharedPref sharedPref = SharedPref();
                         sharedPref.remove("user");
@@ -74,7 +77,7 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                       })
                 ],
               ),
-          ),
+            ),
     ).then((value) => Navigator.of(context).pop());
   }
 
@@ -152,10 +155,10 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image:   AssetImage('assets/images/backg1.png', 
-                ),
-                fit: BoxFit.fill
-              ),
+                  image: AssetImage(
+                    'assets/images/backg1.png',
+                  ),
+                  fit: BoxFit.fill),
             ),
             accountName: userLoad == null
                 ? Text(
@@ -179,42 +182,71 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                     ),
                   )
-                : Text(userLoad.email,
-                    style:
-                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-                        ),
-            currentAccountPicture: CircleAvatar(
-              backgroundColor: Colors.black,
-              child: userLoad == null
-                  ? Icon(
-                      Icons.perm_identity,
-                      size: 40,
-                    )
-                  : Text(userLoad.userName.substring(0, 1)),
-            ),
+                : Text(
+                    userLoad.email,
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+            currentAccountPicture:
+                userLoad == null 
+                    ? CircleAvatar(
+                        backgroundColor: Colors.black,
+                        child: Icon(
+                                Icons.perm_identity,
+                                size: 40,
+                              )
+                            , 
+                      )
+                    : userLoad.userImage != null?CircleAvatar(
+                        backgroundImage: AssetImage(userLoad.userImage),
+                        // radius: 40.0,
+                      ):Text(userLoad.userName.substring(0, 1)),
           ),
           new ListTile(
             title: const Text(
               "الرئيسية",
               style: TextStyle(fontSize: 16),
             ),
-
-            leading: new Icon(Icons.home,
-                 size: 30,
-                color: Colors.brown,),
+            leading: new Icon(
+              Icons.home,
+              size: 30,
+              color: Colors.brown,
+            ),
             onTap: () => Navigator.pushReplacementNamed(context, '/Home'),
           ),
           new ListTile(
             title: const Text(
               "المفضلة",
-              style: TextStyle( fontSize: 16),
+              style: TextStyle(fontSize: 16),
             ),
-            leading: new Icon(Icons.favorite,
-                 size: 30,
-                color: Colors.red,),
+            leading: new Icon(
+              Icons.favorite,
+              size: 30,
+              color: Colors.red,
+            ),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.pushNamed(context, '/Favourite');
+            },
+          ),
+          new ListTile(
+            title: const Text(
+              "ملفى الشخصى",
+              style: TextStyle(fontSize: 16),
+            ),
+            leading: new Icon(
+              Icons.person,
+              size: 30,
+              color: Colors.orange,
+            ),
+            onTap: () async {
+              UserNav userLoad = await loadSharedPrefs();
+               Navigator.pop(context);
+              if (userLoad == null) {
+                _showErrorDialogLogin("الرجاء التسجيل قبل الدخول");
+              } else {
+                // Navigator.of(context).pop();
+                Navigator.pushNamed(context, '/UserProfile');
+              }
             },
           ),
           // new ListTile(
@@ -231,14 +263,16 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: const Text(
               "تبرعاتي",
-              style: TextStyle(fontSize: 16,
-              // fontWeight: FontWeight.bold
+              style: TextStyle(
+                fontSize: 16,
+                // fontWeight: FontWeight.bold
               ),
             ),
-            leading: new Icon( FontAwesomeIcons.handsHelping,
-               size: 30,
-                color: Colors.green,
-              ),
+            leading: new Icon(
+              FontAwesomeIcons.handsHelping,
+              size: 30,
+              color: Colors.green,
+            ),
             onTap: () async {
               UserNav userLoad = await loadSharedPrefs();
               Navigator.pop(context);
@@ -255,11 +289,13 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: const Text(
               "التبرعات الخارجية",
-              style: TextStyle( fontSize: 16),
+              style: TextStyle(fontSize: 16),
             ),
-            leading: new Icon(Icons.account_balance_wallet,
-             size: 30,
-            color: Colors.blue,),
+            leading: new Icon(
+              Icons.account_balance_wallet,
+              size: 30,
+              color: Colors.blue,
+            ),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.pushNamed(context, '/ExternalDonation');
@@ -269,12 +305,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
             new ListTile(
               title: const Text(
                 "تسجيل خروج",
-                style: TextStyle( fontSize: 16),
+                style: TextStyle(fontSize: 16),
               ),
-              leading:
-                  new Icon(Icons.exit_to_app,
-                   size: 30,
-                  ), // FontAwesomeIcons.signOutAlt
+              leading: new Icon(
+                Icons.exit_to_app,
+                size: 30,
+              ), // FontAwesomeIcons.signOutAlt
               onTap: () {
                 _showErrorDialog("هل تريد تسجيل الخروج");
               },
@@ -283,11 +319,12 @@ class _NavigationDrawerState extends State<NavigationDrawer> {
           new ListTile(
             title: const Text(
               "الدعم و المساعدة",
-              style: TextStyle( fontSize: 16),
+              style: TextStyle(fontSize: 16),
             ),
-            leading: new Icon(Icons.help,
-                size: 30,
-                ),
+            leading: new Icon(
+              Icons.help,
+              size: 30,
+            ),
             onTap: () {
               Navigator.of(context).pop();
               Navigator.push(context,

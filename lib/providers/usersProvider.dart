@@ -30,7 +30,9 @@ class UsersPtovider with ChangeNotifier {
         id: userId,
         email: responseData['userEmail'],
         userName: responseData['userName'],
+        userImage: responseData['userimage']
       );
+      print(_userData2);
     
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']['message']);
@@ -63,7 +65,7 @@ class UsersPtovider with ChangeNotifier {
           {
             "userName": userName,
             'userEmail': email,
-            'userPassword': password,
+            // 'userPassword': password,
           },
         ),
       );
@@ -85,7 +87,41 @@ class UsersPtovider with ChangeNotifier {
       throw error;
     }
   }
+ Future<void> apdateUser(
+      String userId, String userName, String email, String image) async {
+    
+    final url = 'https://borhanuser-f92a3.firebaseio.com/Users/$userId.json';
+    try {
+      final response = await http.patch(
+        url,
+        body: json.encode(
+          {
+            "userName": userName,
+            'userEmail': email,
+            "userimage":image,
+            // 'userPassword': password,
+          },
+        ),
+      );
+      final responseData = json.decode(response.body);
+      if (responseData['error'] != null) {
+        throw HttpException(responseData['error']['message']);
+      }
+     
+        _userData2 = UserNav(
+          id: userId,
+          email: email,
+          userName: userName,
+          userImage: image
+        );
 
+        SharedPref sharedPref = SharedPref();
+        sharedPref.save("user", _userData2);
+    
+    } catch (error) {
+      throw error;
+    }
+  }
   Future<void> makeDonationRequest2(
       {String userName,
       String orgId,

@@ -95,6 +95,8 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - assets/images/profile1.png
+    - assets/images/profile2.png
     - assets/offers/
     - assets/images/backg1.png
     - assets/images/donation2.png
