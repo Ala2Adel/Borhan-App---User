@@ -18,7 +18,6 @@ Flutter Mobile Application to make it easy for users to donate to multiple chari
 
 # Screenshots:
 ![image](https://i.imgur.com/JDFjS16.png) 
-![image](https://i.imgur.com/zO16dpp.png) 
 ![image](https://i.imgur.com/FJ2Vgec.png) 
 ![image](https://i.imgur.com/BTct8qS.png) 
 ![image](https://i.imgur.com/cxiMfTc.png) 
